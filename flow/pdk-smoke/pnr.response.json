@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "engine_logs": [
+    {
+      "invocation_id": "3b9817d73c4f494681b9c1d44b86a70e",
+      "script_name": "pnr_smoke_counter_floorplan.tcl",
+      "script_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/pnr_smoke_counter_floorplan.tcl",
+        "scope": "repo"
+      },
+      "script_sha256": "c24abf3947912e3107365d69fb056df06284ef49517a4d6951f41cd01b0d3e22",
+      "metrics_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter_floorplan_metrics.json",
+        "scope": "repo"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3b9817d73c4f494681b9c1d44b86a70e",
+        "scope": "repo"
+      },
+      "stdout_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3b9817d73c4f494681b9c1d44b86a70e/stdout.log",
+        "scope": "repo"
+      },
+      "stderr_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3b9817d73c4f494681b9c1d44b86a70e/stderr.log",
+        "scope": "repo"
+      },
+      "metadata_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3b9817d73c4f494681b9c1d44b86a70e/invocation.json",
+        "scope": "repo"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "1d2cdd9ae2ca42b4bcf9d68ecf4e1152",
+      "script_name": "pnr_smoke_counter_place.tcl",
+      "script_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/pnr_smoke_counter_place.tcl",
+        "scope": "repo"
+      },
+      "script_sha256": "602db5cd455b1f6b72807819e25eccb0402c7fc21547fd8bfe8f5abb1bc5154b",
+      "metrics_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter_place_metrics.json",
+        "scope": "repo"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1d2cdd9ae2ca42b4bcf9d68ecf4e1152",
+        "scope": "repo"
+      },
+      "stdout_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1d2cdd9ae2ca42b4bcf9d68ecf4e1152/stdout.log",
+        "scope": "repo"
+      },
+      "stderr_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1d2cdd9ae2ca42b4bcf9d68ecf4e1152/stderr.log",
+        "scope": "repo"
+      },
+      "metadata_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1d2cdd9ae2ca42b4bcf9d68ecf4e1152/invocation.json",
+        "scope": "repo"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "eb5c0693ba3a49629270e51e1b7a522c",
+      "script_name": "pnr_smoke_counter_cts.tcl",
+      "script_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/pnr_smoke_counter_cts.tcl",
+        "scope": "repo"
+      },
+      "script_sha256": "eec05e5d5a2c2118822cc29628dd9957bf4051b65219dfaa51eedd05ae00a626",
+      "metrics_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter_cts_metrics.json",
+        "scope": "repo"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/eb5c0693ba3a49629270e51e1b7a522c",
+        "scope": "repo"
+      },
+      "stdout_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/eb5c0693ba3a49629270e51e1b7a522c/stdout.log",
+        "scope": "repo"
+      },
+      "stderr_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/eb5c0693ba3a49629270e51e1b7a522c/stderr.log",
+        "scope": "repo"
+      },
+      "metadata_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/eb5c0693ba3a49629270e51e1b7a522c/invocation.json",
+        "scope": "repo"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "3231148ef17744659e3f894f33ea4cd7",
+      "script_name": "pnr_smoke_counter_route.tcl",
+      "script_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/pnr_smoke_counter_route.tcl",
+        "scope": "repo"
+      },
+      "script_sha256": "88086ebb68aee539a97721ef3737945e59053fe5c1544350ed67d973444674a6",
+      "metrics_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter_route_metrics.json",
+        "scope": "repo"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3231148ef17744659e3f894f33ea4cd7",
+        "scope": "repo"
+      },
+      "stdout_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3231148ef17744659e3f894f33ea4cd7/stdout.log",
+        "scope": "repo"
+      },
+      "stderr_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3231148ef17744659e3f894f33ea4cd7/stderr.log",
+        "scope": "repo"
+      },
+      "metadata_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/3231148ef17744659e3f894f33ea4cd7/invocation.json",
+        "scope": "repo"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "1ea4fff8a44242398fe5b6eeba70fd7d",
+      "script_name": "pnr_smoke_counter_route_corners.tcl",
+      "script_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/pnr_smoke_counter_route_corners.tcl",
+        "scope": "repo"
+      },
+      "script_sha256": "947d080696914c492feaf18f96d7fdfb76c299233178107c9de7fea05406a1ea",
+      "metrics_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter_route_corners_metrics.json",
+        "scope": "repo"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1ea4fff8a44242398fe5b6eeba70fd7d",
+        "scope": "repo"
+      },
+      "stdout_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1ea4fff8a44242398fe5b6eeba70fd7d/stdout.log",
+        "scope": "repo"
+      },
+      "stderr_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1ea4fff8a44242398fe5b6eeba70fd7d/stderr.log",
+        "scope": "repo"
+      },
+      "metadata_path": {
+        "path": "flow/pdk-smoke/.klt/place-and-route/openroad-logs/1ea4fff8a44242398fe5b6eeba70fd7d/invocation.json",
+        "scope": "repo"
+      },
+      "retention_errors": []
+    }
+  ],
+  "hdl_toplevel": "smoke_counter",
+  "status": "ok",
+  "stage_reached": "route",
+  "seed": 1,
+  "interconnect_corner": "nom",
+  "die_area_um2": 1675.26,
+  "core_area_um2": 1284.98,
+  "utilization_pct": 13.8267,
+  "wirelength_um": 350,
+  "worst_slack_ns": 9.15873,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 1188.68,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "nominal_hold_slack_ns": 0.51133,
+  "antenna_violation_count": 0,
+  "route_drc_violation_count": 0,
+  "estimated_power_mw": 0.0403,
+  "clock_skew_ns": 0.00176,
+  "worst_setup_slack_ns": 9.14887,
+  "worst_hold_slack_ns": 0.51567,
+  "corners": [
+    {
+      "name": "tt_025C_1v80",
+      "setup_slack_ns": 9.14887,
+      "hold_slack_ns": 0.51567,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0
+    }
+  ],
+  "max_transition_violation_count": 0,
+  "max_capacitance_violation_count": 0,
+  "timing_status": "constrained",
+  "stages": [
+    {
+      "name": "floorplan",
+      "die_area_um2": 1675.26,
+      "core_area_um2": 1284.98,
+      "utilization_pct": 12.074,
+      "worst_slack_ns": 9.19801,
+      "total_negative_slack_ns": 0,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "place",
+      "die_area_um2": 1675.26,
+      "core_area_um2": 1284.98,
+      "utilization_pct": 12.074,
+      "worst_slack_ns": 9.18619,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 227.765,
+      "fmax_mhz": 1228.79,
+      "estimated_power_mw": 0.0191,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.48,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "cts",
+      "die_area_um2": 1675.26,
+      "core_area_um2": 1284.98,
+      "utilization_pct": 13.8267,
+      "worst_slack_ns": 9.1704,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 267.305,
+      "fmax_mhz": 1205.4,
+      "estimated_power_mw": 0.0386,
+      "clock_skew_ns": 0.00029,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.49411,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "route",
+      "die_area_um2": 1675.26,
+      "core_area_um2": 1284.98,
+      "utilization_pct": 13.8267,
+      "worst_slack_ns": 9.15873,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 350,
+      "fmax_mhz": 1188.68,
+      "estimated_power_mw": 0.0403,
+      "clock_skew_ns": 0.00176,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.51133,
+      "antenna_violation_count": 0,
+      "route_drc_violation_count": 0,
+      "worst_setup_slack_ns": 9.14887,
+      "worst_hold_slack_ns": 0.51567,
+      "corners": [
+        {
+          "name": "tt_025C_1v80",
+          "setup_slack_ns": 9.14887,
+          "hold_slack_ns": 0.51567,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0
+        }
+      ],
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "timing_status": "constrained"
+    }
+  ],
+  "macros": [],
+  "def_path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter.def",
+  "unrouted_def_path": null,
+  "gds_path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter.gds",
+  "layer_map": {
+    "path": ".pdk-test/sky130A/libs.tech/klayout/tech/sky130A.map",
+    "resolution": "exact"
+  },
+  "def_net_names": {
+    "single_pin_markers": 0,
+    "unresolved_single_pin_nets": []
+  },
+  "min_area_repair": {
+    "status": "clean",
+    "reason": null,
+    "patches": 0,
+    "repaired": 0,
+    "remaining": 0,
+    "rules": [],
+    "unrepaired": []
+  },
+  "verilog_path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter.v",
+  "spef_sta": null,
+  "power": {
+    "preset": "sky130hd",
+    "pdn": true,
+    "global_connect": true,
+    "power_net": "VDD",
+    "ground_net": "VSS",
+    "tapcell_master": "sky130_fd_sc_hd__tapvpwrvgnd_1",
+    "endcap_master": null,
+    "filler_masters": [
+      "sky130_fd_sc_hd__fill_1",
+      "sky130_fd_sc_hd__fill_2",
+      "sky130_fd_sc_hd__fill_4",
+      "sky130_fd_sc_hd__fill_8"
+    ],
+    "straps": [
+      {
+        "layer": "met1",
+        "spacing_um": null
+      },
+      {
+        "layer": "met4",
+        "spacing_um": null
+      },
+      {
+        "layer": "met5",
+        "spacing_um": null
+      }
+    ],
+    "connects": [
+      {
+        "layers": [
+          "met1",
+          "met4"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      },
+      {
+        "layers": [
+          "met4",
+          "met5"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      }
+    ],
+    "row_rail": {
+      "emitted": false,
+      "layer": null,
+      "power_net": null,
+      "ground_net": null,
+      "filler_masters": []
+    },
+    "placed": {
+      "evidence": "def",
+      "def_path": "flow/pdk-smoke/.klt/place-and-route/smoke_counter.def",
+      "unavailable_reason": null,
+      "status": "complete",
+      "missing": [],
+      "components": 181,
+      "tapcells": 15,
+      "endcaps": 0,
+      "fillers": 150,
+      "special_nets": [
+        {
+          "name": "VDD",
+          "use": "POWER",
+          "followpin_segments": 7,
+          "stripe_segments": 24,
+          "other_segments": 14,
+          "stripe_layers": [
+            "met5",
+            "met4",
+            "met3",
+            "met2",
+            "met1"
+          ],
+          "vias": 22
+        },
+        {
+          "name": "VSS",
+          "use": "GROUND",
+          "followpin_segments": 7,
+          "stripe_segments": 24,
+          "other_segments": 14,
+          "stripe_layers": [
+            "met5",
+            "met4",
+            "met3",
+            "met2",
+            "met1"
+          ],
+          "vias": 22
+        }
+      ]
+    }
+  },
+  "warnings": [],
+  "provenance": {
+    "klt_version": "0.6.0+gdac2b5daceb6",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+    },
+    "deck": {
+      "name": "sky130_fd_sc_hd__tt_025C_1v80",
+      "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:59af76d1631e6684b0d0bcde6ee2b5cfbfde5ddf1e6ef39510756cd231ca04ef",
+      "role": "netlist"
+    }
+  }
+}
