@@ -46,7 +46,7 @@ output is 200 MHz target / 400 MHz stretch, also short of 500 MHz.
    in `CLAUDE.md`) with the table, and the issue notes `sky130-adpll` as the
    alternative whose stretch (400 MHz) also falls short. Filing the
    requirement is the action this issue's acceptance criteria call for; the
-   issue number is recorded in `spec/target-spec.md` once filed.
+   issue is `2AMLogic/sky130-pll#333`.
 4. **No edge is added to `repos.yml` and no `reuse.lock.json` import is
    written**: adding a `consumes` edge is operator-governed (REUSE.md).
 
