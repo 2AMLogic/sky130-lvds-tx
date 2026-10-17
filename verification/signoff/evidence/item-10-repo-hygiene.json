@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 10,
+  "summary": "T1 item 10 (Repo hygiene): 5/5 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-10-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 5,
+    "passed_count": 5,
+    "checks": [
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": ".github/workflows/signoff.yml",
+        "passed": true,
+        "content_hash": "sha256:ebc0f4b859791df4f205fbb721b1371d517df4598fe243d5058736f63f85e424"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "LICENSE",
+        "passed": true,
+        "content_hash": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "README.md",
+        "passed": true,
+        "content_hash": "sha256:e48983c2cfe1dd1a6bef2ede2b4ab43d6d49dbbd1764c4ef30e8e874f7a5be07"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "spec/README.md",
+        "passed": true,
+        "content_hash": "sha256:58beab6b46d8d42b88777c1e5fd664ddd69b58b499ff273d7b428d9ac3e761bb"
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "readme-spec-pointer",
+        "argv": [
+          "sh",
+          "verification/signoff/check-hygiene.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.7.1.dev1755+gdce956c3c399",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "verification/signoff/item-10-inventory.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
+    }
+  }
+}

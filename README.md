@@ -48,7 +48,7 @@ pad-ring problem a two-PDK one.
   out of scope.
 - **Not claimed**: compliance with any interface standard. See `CLAUDE.md`.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification (DRAFT — engineering to ratify, see issue #2)
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
