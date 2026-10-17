@@ -188,8 +188,9 @@ against `2AMLogic/sky130-pll` at `76a4b68556f83ea0710e9fa16abf44e28f89d3bc`
 | C8 | Output load | **not yet specified**: five lane serializers plus five DDR multiplexers; set at clock-tree design | row 15 draft; its buffer scope in its own DR-008 (not read) | not specified | Open |
 
 **Fit verdict: no sibling meets the 1 Gb/s clock requirement today.** C1, C3
-and C4 are gaps. The requirement was filed on `2AMLogic/sky130-pll` (see the
-issue reference below); no PLL is designed here. Until a sibling meets C1–C8,
+and C4 are gaps. The requirement was filed as
+[`2AMLogic/sky130-pll#333`](https://github.com/2AMLogic/sky130-pll/issues/333);
+no PLL is designed here. Until a sibling meets C1–C8,
 this block is verified with an ideal clock source and every evidence record
 says so.
 
@@ -215,8 +216,8 @@ side.
   and silicon (P1, P2); the stock-cell fallback is named in `DR-001`.
 - Receiver and package capacitance (1.0 pF per side) is an assumption in
   E5, E9 and `DR-006`.
-- `sky130-pll` requirement: `2AMLogic/sky130-pll` issue recorded in
-  `spec/README.md` once filed.
+- `sky130-pll` requirement filed as `2AMLogic/sky130-pll#333`; its answer
+  (in scope or not) is awaited.
 - Replace the vendor-literature numbers (E3, E4, E7) with the licensed
   standard's text at ratification.
 - 125 °C standard-cell timing is not published by the Liberty set.
