@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "imports": [],
+  "in_tree": [
+    {
+      "block": "verification-runner",
+      "sibling": "2AMLogic/gf180-tmds-tx",
+      "status": "kept",
+      "decision": "spec/decisions/0001-verification-runner-kept-separate.md"
+    }
+  ]
+}
