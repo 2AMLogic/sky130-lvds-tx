@@ -15,7 +15,7 @@ open_pdks revision or one of the three libraries is absent. Negative control:
 `SETUP_ENV_EXPECTED_OPEN_PDKS_REV=000… ./scripts/setup-env.sh` exits 1.
 
 The script is vendored from `2AMLogic/sky130-modexp@18f4d8f`; see
-`reuse.lock.json` and `spec/decision-records/0001-vendored-setup-env-edits.md`.
+`reuse.lock.json` and `spec/decisions/0002-vendored-setup-env-edits.md`.
 `iverilog` and `openroad` are host tools: the script reports them if missing
 and does not install them.
 
