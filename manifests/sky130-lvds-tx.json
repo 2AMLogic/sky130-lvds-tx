@@ -1,6 +1,6 @@
 {
   "block": "sky130-lvds-tx",
-  "kind": "mixed-signal",
+  "kind": "digital",
   "evidence": {
     "10": {
       "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
