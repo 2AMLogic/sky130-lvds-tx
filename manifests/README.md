@@ -13,7 +13,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
-    The manifest pins the inventory's sha256.
+    The manifest's `content_hash` for item 10 is the sha256 of the inventory
+    file (`item-10-inventory.json`), not of the envelope.
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
