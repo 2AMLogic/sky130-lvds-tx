@@ -1,0 +1,19 @@
+* PDK smoke: minimum-size CMOS inverter per 1.8 V and 5 V-rated MOS family.
+* Proves the models and corner libraries load. It is not the driver.
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here).
+*
+* 1.8 V core family, L=0.15u W=0.42u (PDK minimum); supply 1.8 V.
+* 5 V-rated (g5v0d10v5) family, L=0.50u W=0.42u (PDK minimum); supply 3.3 V.
+
+Vdd18 vdd18 0 DC 1.8
+Vdd33 vdd33 0 DC 3.3
+Vin18 in18 0 PULSE(0 1.8 1n 100p 100p 4n 10n)
+Vin33 in33 0 PULSE(0 3.3 1n 100p 100p 4n 10n)
+
+XMN18 out18 in18 0 0 sky130_fd_pr__nfet_01v8 w=0.42 l=0.15
+XMP18 out18 in18 vdd18 vdd18 sky130_fd_pr__pfet_01v8 w=0.42 l=0.15
+CL18 out18 0 2f
+
+XMN33 out33 in33 0 0 sky130_fd_pr__nfet_g5v0d10v5 w=0.42 l=0.5
+XMP33 out33 in33 vdd33 vdd33 sky130_fd_pr__pfet_g5v0d10v5 w=0.42 l=0.5
+CL33 out33 0 2f
