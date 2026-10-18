@@ -31,13 +31,31 @@ Paths below are relative to `libs.ref/sky130_fd_io/`. The upstream
 | `bare_pad` | LEF 65.4 × 75.4 µm, `CLASS BLOCK` | pad metal only | none |
 | `vddio_hvc_clamped_pad`, `vssio_hvc_clamped_pad`, `vccd_lvc_clamped*_pad`, … | LEF 75 × 197.965 µm | supply cells | rail clamps (`hvclampv2`, `lvclamp`) in the ring |
 
-**Published capacitance and ESD data.** The only pad capacitance the PDK
-publishes is Liberty, and only for the GPIO: `PAD` pin capacitance 1.117 pF
-(tt, 25 °C, 1.8/3.3 V), 1.163 pF (ss, 100 °C, 3.0 V), 1.048 pF (ff, −40 °C,
-5.5 V), unit `pf`
-(`lib/sky130_ef_io__gpiov2_pad_*.lib`). **No `.lib`, CDL or SPICE exists
-for any `analog_*` cell** (`cdl/sky130_ef_io.cdl` has no analog-pad subcircuit),
-so the capacitance of the analog pads is **not published**. It cannot be
+**Published capacitance and ESD data.** The PDK publishes pad capacitance in
+Liberty for two things:
+
+- The GPIO: `PAD` pin capacitance 1.117 pF (tt, 25 °C, 1.8/3.3 V), 1.163 pF
+  (ss, 100 °C, 3.0 V), 1.048 pF (ff, −40 °C, 5.5 V), unit `pf`
+  (`lib/sky130_ef_io__gpiov2_pad_*.lib`).
+- The foundry analog-pad primitive `sky130_fd_io__top_analog_pad`
+  (`lib/sky130_fd_io__top_analog_pad_<corner>.lib`, 34 files). In the 20 files
+  that carry a pin capacitance, `pad` and `pad_core` are both **1.061130 pF**,
+  identical at every one of those corners (tt 25 °C and 100 °C, ss and ff
+  files among them). The other 14 files (the multi-supply `ff_ss_*`/`ss_ff_*`
+  corners and two `ss_*_5v50_1v65` ones) declare the pins with no capacitance
+  attribute, so they publish nothing. The cell is 75 × 198 µm (`area 14850`),
+  the same footprint as the `ef_io__analog_*` slot. Its `.mag` instantiates
+  `top_analog_pad_pddrvr_strong`/`pudrvr_strong` drivers, which differ from the
+  `esd_*diode_11v0_*` structure the `ef_io__analog_*` wrappers draw.
+
+**What is and is not established about the relation.** Same footprint and pad
+pin names suggest `top_analog_pad` is the core pad primitive, but this record
+did **not** establish that its Liberty figure describes the ESD-bearing
+`ef_io__analog_*` wrapper cells, and the drawn internals differ. So 1.061 pF is
+a **reference**, comparable in order to the GPIO figure, not a verified
+capacitance of any cell this repo would place. The `sky130_ef_io__analog_*`
+wrappers have **no `.lib`, CDL or SPICE subcircuit** (`cdl/sky130_ef_io.cdl` has
+none), so for those cells capacitance is **not published**. It cannot be
 estimated reliably from the layout either: the diode marker layers in
 `esd_*diode_11v0_array.mag` are 0.07 µm slivers, not junction area. **No HBM or
 CDM rating is published in any installed file.** The diode models exist
@@ -90,8 +108,9 @@ of the PR that carries it (see `spec/README.md`).
 
 - **Stock `analog_esd_pad` as the baseline.** Foundry-supplied ring-compatible
   diodes and no new ESD to sign off. Rejected as baseline because (a) its
-  VDDIO diodes defeat unpowered behaviour, (b) its capacitance is unpublished,
-  so it would be adopted on faith, and (c) it leaves nothing for this repo to
+  VDDIO diodes defeat unpowered behaviour, (b) its capacitance is not published for the wrapper itself (only the
+  `top_analog_pad` primitive's ~1.06 pF is, and its match is unverified), so it
+  would be adopted on faith, and (c) it leaves nothing for this repo to
   learn about the core-to-pad seam, which `CLAUDE.md` names as the risk. Kept
   as the fallback and as the A/B reference for the first extraction.
 - **`analog_minesd_pad`.** Smaller diodes, lower capacitance, same VDDIO diode.
@@ -109,6 +128,11 @@ of the PR that carries it (see `spec/README.md`).
 
 ## Consequences
 
+- The decision does **not** depend on capacitance being unpublished. The
+  deciding argument is the VDDIO back-power diode (P4). The published
+  ~1.06 pF `top_analog_pad` figure leaves the P1 allocation (pad + ESD
+  ≤ 1.2 pF) workable but with only ~0.14 pF of margin, which is a reason to
+  extract early, not a reason to change the decision.
 - Spec rows P1 (capacitance budget), P2 (ESD target), P3 (pitch) and P4
   (unpowered) are written against this decision.
 - A new custom cell to draw, DRC/LVS in `klt`, and extract; the ESD clamp
@@ -125,4 +149,5 @@ of the PR that carries it (see `spec/README.md`).
 ## Status notes
 
 Proposed. Ratifies with the PR carrying `spec/` (human merge approval).
-Capacitance and ESD claims stay "not published / owed" until extracted.
+Capacitance and ESD claims for the drawn cell stay "owed" until extracted;
+the `top_analog_pad` ~1.06 pF is a reference only.
