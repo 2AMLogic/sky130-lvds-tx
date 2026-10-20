@@ -25,16 +25,16 @@ and 3.3 V up to 5.5 V against a 1.6–1.95 V core (`lib/sky130_ef_io__gpiov2_pad
 The 3.3 V standard-cell library `sky130_fd_sc_hvl` is installed.
 
 **Headroom arithmetic (first order, no simulation).** Let the pad high level
-be V_OS + V_OD/2. At nominal 1.2 V + 175 mV it is 1.375 V; at the window
-extreme 1.375 V + 227 mV it is 1.60 V. The PMOS source plus switch must fit
-between the top rail and that level.
+be V_OS + V_OD/2. At the regulation target 1.25 V (the window centre, §3)
++ 175 mV it is 1.425 V; at the window extreme 1.375 V + 227 mV it is 1.60 V.
+The PMOS source plus switch must fit between the top rail and that level.
 
-| Top rail | Rail min | Headroom to nominal pad-high 1.375 V | to window-extreme 1.60 V |
+| Top rail | Rail min | Headroom to nominal pad-high 1.425 V | to window-extreme 1.60 V |
 |---|---|---|---|
-| 1.8 V core, ±10 % | 1.62 V | 0.245 V for source V_dsat **and** switch drop at 3.5 mA | 0.02 V |
-| 3.3 V VDDIO, ±10 % | 2.97 V | 1.595 V | 1.37 V |
+| 1.8 V core, ±10 % | 1.62 V | 0.195 V for source V_dsat **and** switch drop at 3.5 mA | 0.02 V |
+| 3.3 V VDDIO, ±10 % | 2.97 V | 1.545 V | 1.37 V |
 
-0.245 V cannot hold a saturated 3.5 mA PMOS source plus a switch at the slow
+0.195 V cannot hold a saturated 3.5 mA PMOS source plus a switch at the slow
 corner without a very large device, and the window-extreme case has no
 headroom at all, so a 1.8 V-only H-bridge cannot cover the V_OS window. The
 bottom side is not the constraint: the lowest pad level
@@ -67,8 +67,10 @@ more than a whole 1 ns bit time, so it is unusable in the data path.
    VDDIO (see spec row E8, where that case is explicitly not targeted).
 3. **Common-mode regulation.** CMFB senses the pad common mode and trims the
    bottom sink against the fixed top source; the V_OS target is
-   **1.2 V ± 75 mV across PVT**, leaving 50 mV to each edge of the window for
-   mismatch and ripple. Verification includes CMFB loop gain and phase margin
+   **1.25 V ± 75 mV across PVT** (1.175–1.325 V), the centre of the
+   1.125–1.375 V window, leaving 50 mV to each edge for mismatch and ripple.
+   (1.2 V, the figure vendor literature quotes as typical, is not the
+   target: 1.2 V ± 75 mV would touch the window's lower edge with no margin.) Verification includes CMFB loop gain and phase margin
    (≥ 45°, the criterion `sky130-pll` row 7 uses), and V_OS must hold with the
    pad common-mode loaded by the receiver tolerance.
 4. **PVT.** Process `tt, ff, ss, sf, fs` (the five standard corners the

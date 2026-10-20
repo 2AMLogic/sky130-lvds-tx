@@ -111,7 +111,7 @@ All outputs measured into a 100 Ω differential load across the pair.
 | ID | Parameter | Target | Fallback | Stretch | Verification | PVT | Type |
 |---|---|---|---|---|---|---|---|
 | E1 | Differential output voltage V_OD | 247–454 mV; design nominal 350 mV (3.5 mA × 100 Ω); follows TIA/EIA-644 | same | same | simulated DC/transient at the pad | G75 + MC | stat. |
-| E2 | Output common mode V_OS | 1.125–1.375 V; design nominal 1.2 V ± 75 mV (`DR-002` §3); follows TIA/EIA-644 | same | same | simulated DC/transient at the pad | G75 + MC | stat. |
+| E2 | Output common mode V_OS | 1.125–1.375 V; regulation target 1.25 V (the window centre) ± 75 mV across PVT, i.e. 1.175–1.325 V, 50 mV inside each edge (`DR-002` §3; 1.2 V is the typical figure vendor literature quotes, not the target); follows TIA/EIA-644 | same | same | simulated DC/transient at the pad | G75 + MC | stat. |
 | E3 | Change in V_OD between complementary states ΔV_OD | ≤ 50 mV (public vendor literature value) | same | same | simulated, both states, same condition | G75 + MC | stat. |
 | E4 | Change in V_OS: steady-state between complementary states ΔV_OS, and dynamic peak-to-peak V_OS(PP) | ΔV_OS ≤ 50 mV; V_OS(PP) ≤ 150 mV (public vendor literature values: SN65LVDS31 §7.5 ΔV_OC(SS) ±50 mV, V_OC(PP) 150 mV max) | same | same | simulated: DC in both states for ΔV_OS; transient with PRBS-7 for V_OS(PP) | G75 + MC | stat. |
 | E5 | Rise/fall time, 20–80 %, at the pad into 100 Ω ‖ 1.0 pF per side | 100–400 ps (upper bound = 0.4 UI; lower bound proposed to limit coupling, not from a standard) | 100 ps–1.0 ns (0.4 UI) | 100–267 ps (0.4 UI) | analysis (`DR-006`) then simulated transient | G75 | det. |
@@ -128,12 +128,16 @@ and with the CMFB of D2 at every G75 condition and Monte Carlo draw.
 | ID | Parameter | Target | Fallback | Stretch | Verification | PVT | Type |
 |---|---|---|---|---|---|---|---|
 | D1 | Topology | current-steering H-bridge: top source, two switch pairs, bottom sink (`DR-002`) | same, no pre-emphasis | plus a separate low-swing slice (`DR-005`) | design review; schematic vs LVS | n/a | det. |
-| D2 | Common-mode feedback | holds V_OS at 1.2 V ± 75 mV; loop phase margin ≥ 45° | V_OS ±125 mV (full window), phase margin ≥ 45° | — | simulated loop gain (AC) and transient; offset under MC | G75 + MC | stat. |
+| D2 | Common-mode feedback | holds V_OS at 1.25 V ± 75 mV (1.175–1.325 V); loop phase margin ≥ 45° | V_OS ±125 mV (full window), phase margin ≥ 45° | — | simulated loop gain (AC) and transient; offset under MC | G75 + MC | stat. |
 | D3 | Pre-emphasis range | 0 to 2 dB, ≥ 4 settings; the E1 window holds at every setting | 0 dB (disabled) | 0 to 4 dB | simulated transient per setting; accuracy under MC | G75 + MC | stat. |
 | D4 | Device flavours and supply per rail | switches/predriver: `nfet_01v8`/`pfet_01v8` on VCCD 1.8 V ± 10 %; current source/sink: `nfet_g5v0d10v5`/`pfet_g5v0d10v5` on VDDIO 3.3 V ± 10 %; no level shifter in the data path | same | same | netlist review; per-device voltage-stress check in every simulation | G75 | det. |
 
 D3's upper bound is limited by the E1 window itself: 454/247 mV is 5.3 dB
-before any tolerance, so 2 dB leaves room for the ±75 mV V_OS and mismatch.
+before any tolerance, but the boost is measured from the design nominal, not
+from the window floor: 350 mV + 2 dB = 441 mV, which is 13 mV (3 %) under the
+454 mV ceiling before tail-current tolerance or mismatch. So at the 2 dB
+setting either the nominal V_OD is run below 350 mV, or the Monte Carlo of
+D3 shows the boosted level inside E1; V_OS does not enter this margin.
 
 ## Low-swing stretch mode (D-PHY-class)
 
