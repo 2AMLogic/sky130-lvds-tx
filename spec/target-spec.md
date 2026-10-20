@@ -1,9 +1,11 @@
 # sky130-lvds-tx target specification
 
 - **Status**: **PROPOSED — not ratified.** Agents do not ratify their own
-  spec. This document and its decision records `DR-001`…`DR-007` land marked
+  spec. This document and its decision records `DR-001`…`DR-008` land marked
   *proposed*; the status flips to *ratified* only on human merge approval of
-  the pull request that carries them, recorded in the table below.
+  the pull request that carries them, recorded in the table below. `DR-008`
+  carries the operator's ruling of 2026-10-20 on the one open call the
+  independent review raised (P4); the merge approval ratifies the rest.
 - **Date**: 2026-10-17 (drafted from issue #2)
 - **Written by**: builder agent (issue #2)
 - **Block class**: mixed-signal LVDS-class transmitter: synthesized serializer
@@ -90,6 +92,7 @@ Every other row is **deterministic** over G75 and needs no Monte Carlo.
 | `DR-005` | low-swing mode is a separate driver slice, not designed now; 0.3 pF allocated |
 | `DR-006` | 1 Gb/s kept as target with a first-order edge and timing budget; 1.5 Gb/s needs a split |
 | `DR-007` | 500 MHz clock specified as an interface; gap to `sky130-pll` recorded and filed on it |
+| `DR-008` | **operator ruling 2026-10-20**: P4 (no back-power while unpowered) kept as a joint pad-and-driver requirement, met by fail-safe floating-well biasing of the pad-facing PMOS switches with gate tracking; rows P4, P4a, P4b |
 
 ---
 
@@ -134,7 +137,7 @@ absolute width requirement is 400 ps against the fallback's 1500 ps.
 | D1 | Topology | current-steering H-bridge: top source, two switch pairs, bottom sink (`DR-002`) | same, no pre-emphasis | plus a separate low-swing slice (`DR-005`) | design review; schematic vs LVS | n/a | det. |
 | D2 | Common-mode feedback | holds V_OS at 1.25 V ± 75 mV (1.175–1.325 V); loop phase margin ≥ 45° | V_OS ±125 mV (full window), phase margin ≥ 45° | — | simulated loop gain (AC) and transient; offset under MC | G75 + MC | stat. |
 | D3 | Pre-emphasis range | 0 to 2 dB, ≥ 4 settings; the E1 window holds at every setting | 0 dB (disabled) | 0 to 4 dB | simulated transient per setting; accuracy under MC | G75 + MC | stat. |
-| D4 | Device flavours and supply per rail | switches/predriver: `nfet_01v8`/`pfet_01v8` on VCCD 1.8 V ± 10 %; current source/sink: `nfet_g5v0d10v5`/`pfet_g5v0d10v5` on VDDIO 3.3 V ± 10 %; no level shifter in the data path | same | same | netlist review; per-device voltage-stress check in every simulation | G75 | det. |
+| D4 | Device flavours and supply per rail | switches/predriver: `nfet_01v8`/`pfet_01v8` on VCCD 1.8 V ± 10 %; current source/sink: `nfet_g5v0d10v5`/`pfet_g5v0d10v5` on VDDIO 3.3 V ± 10 %; no level shifter in the data path; the top switches sit in a floating n-well tied to max(VCCD, V_pad) by `pfet_g5v0d10v5` well-switch and gate-tracking devices (`DR-008`) | same | same | netlist review; per-device voltage-stress check in every simulation | G75 | det. |
 
 D3's upper bound is limited by the E1 window itself: 454/247 mV is 5.3 dB
 before any tolerance, but the boost is measured from the design nominal, not
@@ -170,7 +173,9 @@ Pad cell basis, options and the evidence read are in `DR-001`.
 | P1 | Pad capacitance per pad (pad + ESD + driver drains; excludes receiver and package) | ≤ 2.0 pF, allocated pad + ESD ≤ 1.2 pF, LVDS driver drains ≤ 0.5 pF, low-swing slice ≤ 0.3 pF (`DR-005`). **Published figures (references only)**: `sky130_fd_io__top_analog_pad` `pad`/`pad_core` 1.061 pF (Liberty, 20 of 34 corner files; whether it describes the ESD-bearing `ef_io__analog_*` wrappers is unverified, `DR-001`) and the GPIO `PAD` pin 1.05–1.16 pF; the `ef_io__analog_*` wrappers publish none. The pad + ESD ≤ 1.2 pF allocation leaves ~0.14 pF over the 1.06 pF reference | ≤ 3.0 pF | ≤ 1.5 pF | post-layout parasitic extraction of the drawn cell, at the pad's 1.0–1.6 V bias; tool owed | process corners, extraction corners | det. |
 | P2 | ESD target | HBM ≥ 2 kV, CDM ≥ 500 V as **targets, not results** (carried from `gf180-tmds-tx` DR-0011 at `9a55961`); the PDK publishes no rating | HBM ≥ 1 kV, CDM ≥ 250 V | — | **not provable by simulation**: structural review (a protected path on every pin), DRC with the ESD layers, extraction and LVS; qualification is silicon only | n/a | det. |
 | P3 | Pad pitch | 75 µm slot (PDK `analog_*` pads are 75 × 200 µm in `lef/sky130_ef_io.lef`), tiling with stock ring cells | 80 µm (the GPIO slot) | — | LEF/GDS bounding box; DRC | n/a | det. |
-| P4 | Behaviour when unpowered | pad current ≤ ±20 µA for 0 ≤ V_pad ≤ 2.4 V with VCCD = VDDIO = 0 V at 125 °C (a proposed figure sized to public LVDS power-off leakage: SN65LVDS31 §7.5 I_O(OFF) ±1 to ±4 µA at V_O = 2.4 V; no back-power path through the ESD network, which the stock VDDIO diodes would create). **Joint requirement on pad and driver**: the ESD network is necessary but not sufficient, because the driver's pad-facing PMOS drains are p+ junctions in n-wells at 0 V and conduct from V_pad ≈ 0.6 V just as the stock diode would (`DR-001` deciding observation, `DR-002` consequences); meeting this row also needs fail-safe well biasing of those devices, which `DR-002` does not yet specify | back-power through the ESD diodes or the driver's well junctions allowed as a documented limitation (if the stock `analog_esd_pad` fallback of `DR-001` is used, or the driver is not made fail-safe) | — | simulated DC at 0 V rails with the driver attached, not the pad cell alone; extraction | G75 temps, process corners | det. |
+| P4 | Behaviour when unpowered: pad current | ≤ ±20 µA per pad for 0 ≤ V_pad ≤ 2.4 V with VCCD = VDDIO = 0 V (a proposed figure sized to public LVDS power-off leakage: SN65LVDS31 §7.5 I_O(OFF) ±1 to ±4 µA at V_O = 2.4 V; whether TIA/EIA-644 sets its own power-off limit is not verified). **Joint requirement on pad and driver, by operator ruling (`DR-008`, 2026-10-20)**: ESD network to VSSIO only (`DR-001`) **and** fail-safe floating-well biasing with gate tracking of the pad-facing PMOS switches (`DR-008`), because those drains would otherwise conduct into a grounded n-well from V_pad ≈ 0.6 V just as the stock VDDIO diode would | back-power through the ESD diodes or the driver's well junctions allowed as a documented limitation (only if the stock `analog_esd_pad` fallback of `DR-001` is taken; that is a new decision record) | — | simulated DC with **driver and pad cell attached**: both pads of a pair swept together 0–2.4 V, and in the partner's differential pattern (one pad 0.9–1.6 V, the other its complement about 1.25 V); then post-layout; silicon in `measurements/` | −40 and 125 °C; all five process corners (rails at 0 V, so no supply axis) | det. |
+| P4a | Behaviour when unpowered: junctions | every p+/n-well and n-well/p-substrate junction of the pad-facing devices (top switches, well-switch and gate-tracking devices, ESD diode) reverse-biased or ≤ 0.3 V forward over the P4 sweep, reported per device | — | — | simulated DC, per-junction report from the P4 sweep | as P4 | det. |
+| P4b | Behaviour when unpowered: well and gate tracking | the floating n-well within 0.3 V of max(VCCD, V_pad) over the sweep; every top-switch gate within 0.3 V of its well when VCCD = 0 V; every thin-oxide terminal pair ≤ 1.98 V in the unpowered state; a 1 ms ramp of VCCD and VDDIO from 0 V to nominal and back with the pad held at 1.25 V shows no pad-current excursion beyond ±1 mA | — | — | simulated DC sweep plus one ramp transient, driver and pad attached | as P4 | det. |
 
 ## Power
 
@@ -232,6 +237,20 @@ side.
 
 - Capacitance and ESD adequacy of the custom pad cell are owed to extraction
   and silicon (P1, P2); the stock-cell fallback is named in `DR-001`.
+- P4 is settled by operator ruling (`DR-008`, 2026-10-20): kept, joint on pad
+  and driver, fail-safe well biasing. The floating well's capacitance and the
+  auxiliary devices' leakage are owed to the T1 evidence (P4–P4b).
+- **Reviewer recommendations, not rulings** (independent review of PR #9,
+  2026-10-20; recorded so a later decision starts from them): ESD clamp class
+  at the thin-oxide pad (`esd_nfet_g5v0d10v5` vs `esd_nfet_01v8`) to be
+  decided by a trigger-vs-breakdown simulation before the cell is drawn, and
+  named as a P2 sub-row; V_OS target 1.25 V (now in E2/D2) kept; the 3.3 V
+  source/sink partition of `DR-002` kept, with its ~11.6 mW tail cost stated
+  in W1; 1 Gb/s kept as the target with the "above the 655 Mb/s recommended
+  maximum" sentence in force, and the 1.5 Gb/s stretch treated as outside the
+  TIA/EIA-644 transition-time window if the 260 ps floor is confirmed; the
+  first T1 evidence taken with an ideal clock and labelled so, as `DR-007`
+  requires.
 - Receiver and package capacitance (1.0 pF per side) is an assumption in
   E5, E9 and `DR-006`.
 - `sky130-pll` requirement filed as `2AMLogic/sky130-pll#333`; its answer
