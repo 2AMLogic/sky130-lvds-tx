@@ -8,7 +8,6 @@ Roadmap generated from GitHub label state by the Guide role. Only the region bet
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
 - **#8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
-- **#9**: docs(spec): propose LVDS transmitter target spec and decision records
 
 ## Very Important
 
@@ -32,7 +31,6 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#2**: Draft and ratify the target spec
 - **#5**: Signoff scaffolding: block manifest, committed klt signoff record, and CI (T1 item 10)
 
 ## PRs Awaiting Review
@@ -46,13 +44,11 @@ _None._
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
 - **#8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
-- **#9**: docs(spec): propose LVDS transmitter target spec and decision records
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
-- **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Signoff scaffolding: block manifest, committed klt signoff record, and CI (T1 item 10) *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 
@@ -63,4 +59,19 @@ _None._
 ## Epics
 
 _None._
+
+## Backlog Balance
+
+| Bucket | Count |
+|------|-------|
+| Operator merge-risk holds | 1 |
+| Very important | 0 |
+| Important | 0 |
+| Ready (`loom:issue`) | 0 |
+| In Progress (`loom:building`) | 1 |
+| PRs awaiting review | 0 |
+| Approved PRs awaiting merge | 1 |
+| Curated | 2 |
+| Architect / Hermit proposals | 0 |
+| Active epics | 0 |
 <!-- guide:plan-body:end -->
