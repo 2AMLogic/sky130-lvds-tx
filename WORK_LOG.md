@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-20
+
+- **PR #9**: docs(spec): propose LVDS transmitter target spec and decision records
+- **Issue #2** (closed): Draft and ratify the target spec
+
 ### 2026-10-17
 
 - **PR #10**: feat: pin sky130 environment and commit analog and digital PDK smoke runs
