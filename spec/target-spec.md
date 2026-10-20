@@ -33,7 +33,17 @@ value is set for that column, not that one is implied.
   the TIA/EIA-644 windows as quoted in public vendor application literature and
   in this repo's README draft; the standard's text was **not** read for this
   spec (it is licensed), and the numbers are to be checked against a licensed
-  copy at ratification. The low-swing mode is described only as "D-PHY-class":
+  copy at ratification. The literature read: TI SLLA038B *Interface Circuits
+  for TIA/EIA-644 (LVDS)* (247–454 mV into 100 Ω, 1.2 V typical offset,
+  1.923 Gb/s theoretical maximum); TI SNLA165 / AN-971 *An Overview of LVDS
+  Technology* (655 Mb/s recommended maximum, 1.923 Gb/s theoretical maximum
+  "based on a loss-less media"); and the SN65LVDS31 datasheet SLLS261N §7.5, a
+  part sold as meeting TIA/EIA-644, for ΔV_OD, ΔV_OC(SS), V_OC(PP) and the two
+  short-circuit limits (E3, E4, E7). **The 1 Gb/s target and the 1.5 Gb/s
+  stretch are above the standard's 655 Mb/s recommended maximum and below its
+  1.923 Gb/s theoretical maximum**: the windows are followed at a rate the
+  standard does not recommend, which is one more reason no compliance claim is
+  made. The low-swing mode is described only as "D-PHY-class":
   the MIPI specifications are licensed, nothing from them was read or copied,
   and its numbers are this repo's own. **This block makes no compliance or
   conformance claim against either standard**; rows state numbers and name the
@@ -103,10 +113,10 @@ All outputs measured into a 100 Ω differential load across the pair.
 | E1 | Differential output voltage V_OD | 247–454 mV; design nominal 350 mV (3.5 mA × 100 Ω); follows TIA/EIA-644 | same | same | simulated DC/transient at the pad | G75 + MC | stat. |
 | E2 | Output common mode V_OS | 1.125–1.375 V; design nominal 1.2 V ± 75 mV (`DR-002` §3); follows TIA/EIA-644 | same | same | simulated DC/transient at the pad | G75 + MC | stat. |
 | E3 | Change in V_OD between complementary states ΔV_OD | ≤ 50 mV (public vendor literature value) | same | same | simulated, both states, same condition | G75 + MC | stat. |
-| E4 | Change in V_OS between states ΔV_OS | ≤ 150 mV peak-to-peak (public vendor literature value) | same | same | simulated transient, both states | G75 + MC | stat. |
+| E4 | Change in V_OS: steady-state between complementary states ΔV_OS, and dynamic peak-to-peak V_OS(PP) | ΔV_OS ≤ 50 mV; V_OS(PP) ≤ 150 mV (public vendor literature values: SN65LVDS31 §7.5 ΔV_OC(SS) ±50 mV, V_OC(PP) 150 mV max) | same | same | simulated: DC in both states for ΔV_OS; transient with PRBS-7 for V_OS(PP) | G75 + MC | stat. |
 | E5 | Rise/fall time, 20–80 %, at the pad into 100 Ω ‖ 1.0 pF per side | 100–400 ps (upper bound = 0.4 UI; lower bound proposed to limit coupling, not from a standard) | 100 ps–1.0 ns (0.4 UI) | 100–267 ps (0.4 UI) | analysis (`DR-006`) then simulated transient | G75 | det. |
 | E6 | Small-signal differential output impedance, at the V_OS window | ≥ 2 kΩ (load error ≤ 5 %) | ≥ 1 kΩ | — | simulated AC | G75 | det. |
-| E7 | Output shorted to ground, or the two outputs shorted together | \|I\| ≤ 24 mA (public vendor literature value for the TIA/EIA-644 short-circuit limit), no device over its rating | same | same | simulated DC, both shorts | G75 | det. |
+| E7 | Output short-circuit current | either output shorted to ground: \|I\| ≤ 24 mA; the two outputs shorted together (V_OD = 0): \|I\| ≤ 12 mA (public vendor literature values: SN65LVDS31 §7.5 I_OS, −24 mA max at V_O = 0 and ±12 mA max at V_OD = 0); no device over its rating | same | same | simulated DC, both shorts | G75 | det. |
 | E8 | Output shorted to VDDIO, or over-voltage above 1.98 V on a thin-oxide switch node | **not targeted: documented limitation** (thin-oxide switches, `DR-002`) | — | — | analysis; stated limitation | n/a | det. |
 | E9 | Simulated differential eye at the pad (PRBS-7), into 100 Ω ‖ 1.0 pF per side | width at 0 V differential ≥ 0.75 UI; height at the sampling point ≥ 150 mV | width ≥ 0.6 UI; height ≥ 120 mV | width ≥ 0.6 UI; height ≥ 120 mV | **simulated** eye diagram, labelled so; no silicon claim | G75 | det. |
 
@@ -219,5 +229,10 @@ side.
 - `sky130-pll` requirement filed as `2AMLogic/sky130-pll#333`; its answer
   (in scope or not) is awaited.
 - Replace the vendor-literature numbers (E3, E4, E7) with the licensed
-  standard's text at ratification.
+  standard's text at ratification. Check in the same reading whether the
+  standard sets a **minimum transition time**: its 1.923 Gb/s theoretical
+  maximum equals 1/(2 × 260 ps), which suggests a 260 ps floor (not verified
+  from the standard's text). If it does, E5's 100 ps lower bound sits below
+  it, and the 1.5 Gb/s stretch's 0.4 UI = 267 ps upper bound all but meets
+  it, so the stretch would have no transition-time window inside the standard.
 - 125 °C standard-cell timing is not published by the Liberty set.
