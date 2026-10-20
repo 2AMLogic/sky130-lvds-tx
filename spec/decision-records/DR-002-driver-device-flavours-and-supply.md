@@ -107,6 +107,19 @@ This record is **proposed** and ratifies only with the PR that carries it.
 - Thin-oxide switches see the pad: over-voltage on the pad (short to VDDIO,
   hot-plug above 1.98 V) can stress them; the spec states it as a limitation
   (E8) rather than claiming tolerance.
+- Power-off and disabled states are design requirements, not afterthoughts.
+  (i) With VCCD = VDDIO = 0 V the pad-facing PMOS drains (top switches, and
+  through them the current source) are p+ junctions in n-wells sitting at
+  0 V; they conduct from V_pad ≈ 0.6 V exactly as the stock pad's VDDIO
+  diode would, so spec row P4 is met only with fail-safe well biasing of
+  those devices (or an isolating element), which this record leaves to the
+  driver design and `DR-001` names as a joint requirement. (ii) In any
+  powered state in which both switches of a steering pair are off (reset,
+  disable, a break-before-make gap), the VDDIO current source pulls the
+  shared thin-oxide switch source node toward VDDIO (up to 3.63 V); the
+  predriver must guarantee that one switch of each pair is always on, or the
+  node must be clamped, and every simulation's per-device stress check (D4)
+  covers those states (spec E8).
 - Static power is dominated by the tail current from 3.3 V (see power row).
 - Total pad capacitance includes the switch drains (P1 allocates 0.5 pF).
 

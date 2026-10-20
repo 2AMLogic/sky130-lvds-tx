@@ -81,18 +81,30 @@ gf180mcu does not, so the question is open here in a way it was not there.
 chip driving the pad to ~1.2 V, the VDDIO diode conducts from about
 V_pad > 0.6 V: a back-power path. Whether that matters is a spec row
 (`target-spec.md` P4); it is the one electrical requirement the stock ESD
-structure cannot meet by construction.
+structure cannot meet by construction. Removing that diode is **necessary
+for P4 but not sufficient**: the driver's pad-facing PMOS drains (`DR-002`:
+the top switches and, through them, the current source) are p+ junctions in
+n-wells tied to a rail that is also at 0 V, and they conduct from the same
+≈ 0.6 V. P4 therefore binds `DR-002` as well (fail-safe well biasing of the
+pad-facing PMOS devices, or an isolating element), and the spec records it as
+a joint requirement on pad and driver, not on the pad cell alone.
 
 ## Decision
 
 **Draw a custom pad cell**, built on the PDK's own frame rather than from a
 blank: take `sky130_ef_io__analog_noesd_pad` (75 × 200 µm slot, supply/AMUX
 bus continuity, met1–met5 pad stack, `P_CORE` on met3) and add a custom ESD
-network on the core side of `P_CORE`: a diode (and, if the clamp sizing needs
-it, an ESD NMOS from `sky130_fd_pr__esd_nfet_g5v0d10v5`) **to VSSIO only**, with
-the positive-pulse path through the ring's clamped VDDIO/VSSIO supply cells
-instead of through a pad-to-VDDIO diode. Pad pitch stays at the PDK's 75 µm
-slot so the cell tiles with stock ring cells.
+network on the core side of `P_CORE`, **to VSSIO only**: a pad-to-VSSIO diode
+(`sky130_fd_pr__diode_pw2nd_11v0` class) for negative strikes, and a
+grounded-gate snapback NMOS from `sky130_fd_pr__esd_nfet_g5v0d10v5` for
+positive strikes. The snapback device is not optional: with no pad-to-VDDIO
+element there is no path from the pad to the ring's VDDIO/VSSIO rail clamp,
+so the local clamp to VSSIO is the only positive-polarity path. Its trigger
+voltage must sit below the breakdown of the thin-oxide switch drains that
+`DR-002` places at the pad; that is a device-class and sizing question for
+the drawn cell (an `esd_nfet_01v8` clamp is the alternative if the 5 V-class
+device triggers too high). Pad pitch stays at the PDK's 75 µm slot so the
+cell tiles with stock ring cells.
 
 **Fallback (named, not hidden):** if the custom ESD network cannot be signed
 off through `klt` (DRC, extraction, LVS) or its extracted capacitance exceeds
@@ -135,6 +147,11 @@ of the PR that carries it (see `spec/README.md`).
   extract early, not a reason to change the decision.
 - Spec rows P1 (capacitance budget), P2 (ESD target), P3 (pitch) and P4
   (unpowered) are written against this decision.
+- P4 is not met by this cell alone (see the deciding observation). If
+  `DR-002`'s driver does not adopt fail-safe well biasing, P4 moves to its
+  fallback column whatever pad is drawn, and this decision then rests on the
+  seam-learning and capacitance-margin arguments only; that would be the
+  moment to re-weigh the stock `analog_esd_pad` as the baseline.
 - A new custom cell to draw, DRC/LVS in `klt`, and extract; the ESD clamp
   sizing and its HBM/CDM adequacy are **not provable by simulation** and stay
   an unverified target until silicon (`measurements/`).
