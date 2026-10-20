@@ -112,8 +112,13 @@ This record is **proposed** and ratifies only with the PR that carries it.
   through them the current source) are p+ junctions in n-wells sitting at
   0 V; they conduct from V_pad ≈ 0.6 V exactly as the stock pad's VDDIO
   diode would, so spec row P4 is met only with fail-safe well biasing of
-  those devices (or an isolating element), which this record leaves to the
-  driver design and `DR-001` names as a joint requirement. (ii) In any
+  those devices (or an isolating element). **Amendment, operator ruling
+  2026-10-20 (`DR-008`)**: P4 is kept, and the mechanism is specified there:
+  the top switches sit in a floating n-well tied to max(VCCD, V_pad) by
+  `pfet_g5v0d10v5` well-switch devices, with `pfet_g5v0d10v5` gate-tracking
+  devices that hold the switch gates at the well when VCCD = 0 V. Those
+  devices join the flavour list of item 2 and spec row D4; rows P4–P4b verify
+  the behaviour. (ii) In any
   powered state in which both switches of a steering pair are off (reset,
   disable, a break-before-make gap), the VDDIO current source pulls the
   shared thin-oxide switch source node toward VDDIO (up to 3.63 V); the

@@ -147,11 +147,14 @@ of the PR that carries it (see `spec/README.md`).
   extract early, not a reason to change the decision.
 - Spec rows P1 (capacitance budget), P2 (ESD target), P3 (pitch) and P4
   (unpowered) are written against this decision.
-- P4 is not met by this cell alone (see the deciding observation). If
-  `DR-002`'s driver does not adopt fail-safe well biasing, P4 moves to its
-  fallback column whatever pad is drawn, and this decision then rests on the
-  seam-learning and capacitance-margin arguments only; that would be the
-  moment to re-weigh the stock `analog_esd_pad` as the baseline.
+- P4 is not met by this cell alone (see the deciding observation).
+  **Amendment, operator ruling 2026-10-20 (`DR-008`)**: P4 is kept as a joint
+  pad-and-driver requirement and `DR-002`'s driver adopts fail-safe well
+  biasing, so this decision keeps its deciding argument as one half of that
+  requirement. Had P4 been dropped instead, the decision would have rested on
+  the seam-learning and capacitance-margin arguments only, and the stock
+  `analog_esd_pad` would have deserved re-weighing as the baseline; that
+  reasoning is kept here so a later reversal is a decision, not a rediscovery.
 - A new custom cell to draw, DRC/LVS in `klt`, and extract; the ESD clamp
   sizing and its HBM/CDM adequacy are **not provable by simulation** and stay
   an unverified target until silicon (`measurements/`).
