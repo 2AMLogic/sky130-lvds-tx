@@ -16,6 +16,12 @@ only on human merge approval, recorded in the header of `target-spec.md`
 | [`decision-records/DR-006-rate-lane-count-and-slow-corner-budget.md`](decision-records/DR-006-rate-lane-count-and-slow-corner-budget.md) | rate and lane targets; first-order slow-corner edge and timing budget |
 | [`decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md`](decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md) | bit-clock requirement, the gap to `sky130-pll`, and the filed requirement |
 
+Two earlier records live in [`decisions/`](decisions/) (`0001`, the
+verification runner kept separate from `gf180-tmds-tx`; `0002`, the vendored
+`setup-env.sh` edits). They predate this series, concern the environment
+rather than the target spec, and keep their numbering; new records go in
+`decision-records/`.
+
 Sibling references are by commit: `2AMLogic/gf180-tmds-tx`
 `9a55961ab5e4608d42ffefb70308adcb4b42213e`; `2AMLogic/sky130-pll`
 `76a4b68556f83ea0710e9fa16abf44e28f89d3bc`; `2AMLogic/sky130-adpll`

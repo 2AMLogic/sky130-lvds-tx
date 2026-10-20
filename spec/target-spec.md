@@ -123,6 +123,10 @@ All outputs measured into a 100 Ω differential load across the pair.
 E1 and E2 jointly: the window must hold with the pre-emphasis settings of D3
 and with the CMFB of D2 at every G75 condition and Monte Carlo draw.
 
+E9's stretch column is the 1.5 Gb/s eye (UI 667 ps): the same 0.6 UI and
+120 mV figures as the fallback, applied at the shorter unit interval, so the
+absolute width requirement is 400 ps against the fallback's 1500 ps.
+
 ## Driver
 
 | ID | Parameter | Target | Fallback | Stretch | Verification | PVT | Type |
