@@ -2,6 +2,12 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-21
+
+- **PR #15**: Bump Repo Skills 0.24.3 -> 0.24.7
+- **PR #14**: build: wire pnpm lint/test/check scripts to RTL lint and smoke bench
+- **Issue #13** (closed): Wire package.json check:ci/check:all/test/lint to the real verification checks (currently vacuous exit-0 stubs)
+
 ### 2026-10-20
 
 - **PR #9**: docs(spec): propose LVDS transmitter target spec and decision records
