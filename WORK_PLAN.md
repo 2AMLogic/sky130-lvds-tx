@@ -8,6 +8,7 @@ Roadmap generated from GitHub label state by the Guide role. Only the region bet
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
 - **#8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
+- **#14**: build: wire pnpm lint/test/check scripts to RTL lint and smoke bench
 
 ## Very Important
 
@@ -32,6 +33,7 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#5**: Signoff scaffolding: block manifest, committed klt signoff record, and CI (T1 item 10)
+- **#13**: Wire package.json check:ci/check:all/test/lint to the real verification checks (currently vacuous exit-0 stubs)
 
 ## PRs Awaiting Review
 
@@ -44,6 +46,8 @@ _None._
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
 - **#8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
+- **#14**: build: wire pnpm lint/test/check scripts to RTL lint and smoke bench
+- **#15**: Bump Repo Skills 0.24.3 -> 0.24.7
 
 ## Proposed
 
@@ -64,13 +68,13 @@ _None._
 
 | Bucket | Count |
 |------|-------|
-| Operator merge-risk holds | 1 |
+| Operator merge-risk holds | 2 |
 | Very important | 0 |
 | Important | 0 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 1 |
+| Approved PRs awaiting merge | 3 |
 | Curated | 2 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
