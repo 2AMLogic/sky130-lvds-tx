@@ -1,0 +1,49 @@
+{
+  "status": "pass",
+  "corner_count": 3,
+  "passed": 3,
+  "corners": [
+    {
+      "corner_id": "tt/novdd/27C",
+      "status": "pass",
+      "measurements": {
+        "tphl_18": 3.35386e-11,
+        "tplh_18": 5.6857e-11,
+        "vlow_18": 3.63487e-08,
+        "vhigh_18": 1.8,
+        "tphl_33": 4.89972e-11,
+        "tplh_33": 8.95733e-11,
+        "vlow_33": 9.87076e-08,
+        "vhigh_33": 3.3
+      }
+    },
+    {
+      "corner_id": "ff/novdd/27C",
+      "status": "pass",
+      "measurements": {
+        "tphl_18": 2.50605e-11,
+        "tplh_18": 4.58645e-11,
+        "vlow_18": 1.67304e-06,
+        "vhigh_18": 1.8,
+        "tphl_33": 3.92001e-11,
+        "tplh_33": 7.33262e-11,
+        "vlow_33": 6.76812e-08,
+        "vhigh_33": 3.3
+      }
+    },
+    {
+      "corner_id": "ss/novdd/27C",
+      "status": "pass",
+      "measurements": {
+        "tphl_18": 4.40905e-11,
+        "tplh_18": 7.7035e-11,
+        "vlow_18": 4.87219e-08,
+        "vhigh_18": 1.8,
+        "tphl_33": 6.18734e-11,
+        "tplh_33": 1.18029e-10,
+        "vlow_33": 1.05525e-07,
+        "vhigh_33": 3.3
+      }
+    }
+  ]
+}
