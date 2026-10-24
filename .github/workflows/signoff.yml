@@ -1,0 +1,65 @@
+name: klt signoff
+
+# The T1 tier state is graded, not hand-read: re-render the tier-verdict
+# report from the committed block manifest (manifests/sky130-lvds-tx.json)
+# and byte-compare it against the committed verdict of record
+# (manifests/sky130-lvds-tx.signoff.json). Whoever changes cited evidence,
+# the manifest or the vendored checklist must regenerate the record in the
+# same PR. See manifests/README.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Pinned by commit, not release: `klt signoff --attest` (klayout-tools#2844)
+  # is not in any PyPI release yet (latest is 0.7.0). Move to the first
+  # release that contains it, and regenerate the records, when one exists.
+  KLT_COMMIT: "dce956c3c39995643ff2a5c31b53c474b3c2aada"
+
+jobs:
+  signoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install pinned klt
+        run: pip install "git+https://github.com/2AMLogic/klayout-tools@${KLT_COMMIT}"
+
+      - name: Re-attest item 10 and check the committed envelope
+        run: |
+          klt signoff --attest 10 \
+              --inventory verification/signoff/item-10-inventory.json \
+              --check verification/signoff/evidence/item-10-repo-hygiene.json
+
+      - name: Re-run klt signoff and compare against the committed record
+        run: |
+          set -uo pipefail
+          rc=0
+          klt signoff --manifest manifests/sky130-lvds-tx.json \
+                      --tiers-doc manifests/design-evidence-tiers.md \
+                      --format json > "$RUNNER_TEMP/fresh-signoff.json" || rc=$?
+          # 0 = every T1 item met; 3 = grader ran clean, some item unmet.
+          # Anything else is a hard error.
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 3 ]; then
+            echo "::error::klt signoff exited $rc (expected 0 or 3)"
+            exit 1
+          fi
+          if ! cmp -s "$RUNNER_TEMP/fresh-signoff.json" manifests/sky130-lvds-tx.signoff.json; then
+            echo "::error::Fresh klt signoff output differs from manifests/sky130-lvds-tx.signoff.json - the committed verdict is stale."
+            echo "Regenerate it in this PR (see manifests/README.md)."
+            diff <(python3 -m json.tool "$RUNNER_TEMP/fresh-signoff.json") \
+                 <(python3 -m json.tool manifests/sky130-lvds-tx.signoff.json) || true
+            exit 1
+          fi
+          echo "Committed signoff record is fresh."

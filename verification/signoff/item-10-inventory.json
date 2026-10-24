@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 10,
+  "description": "Repo hygiene for sky130-lvds-tx: README, license, spec pointer, and the signoff CI workflow exist, and no package.json script prints a pass without running a check.",
+  "hygiene": [
+    "README.md",
+    "LICENSE",
+    "spec/README.md",
+    ".github/workflows/signoff.yml"
+  ],
+  "checks": [
+    {
+      "name": "readme-spec-pointer",
+      "argv": ["sh", "verification/signoff/check-hygiene.sh"]
+    }
+  ]
+}

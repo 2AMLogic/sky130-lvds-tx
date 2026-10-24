@@ -1,0 +1,10 @@
+{
+  "block": "sky130-lvds-tx",
+  "kind": "mixed-signal",
+  "evidence": {
+    "10": {
+      "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
+      "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
+    }
+  }
+}

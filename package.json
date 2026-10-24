@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "worktree:return": "./.loom/scripts/worktree-return.sh",
+    "check:signoff": "sh verification/signoff/check-hygiene.sh && klt signoff --manifest manifests/sky130-lvds-tx.json --tiers-doc manifests/design-evidence-tiers.md --check manifests/sky130-lvds-tx.signoff.json",
     "check:ci": "pnpm lint && pnpm test",
     "check:all": "pnpm lint && pnpm test",
     "test": "python3 verification/smoke/runner.py",
