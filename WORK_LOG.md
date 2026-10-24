@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-24
+
+- **PR #8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
+- **Issue #5** (closed): Signoff scaffolding: block manifest, committed klt signoff record, and CI (T1 item 10)
+
 ### 2026-10-21
 
 - **PR #15**: Bump Repo Skills 0.24.3 -> 0.24.7
