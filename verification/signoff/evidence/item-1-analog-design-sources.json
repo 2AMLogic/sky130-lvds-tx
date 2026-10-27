@@ -165,7 +165,8 @@
         ],
         "cwd": ".",
         "exit_status": 0,
-        "passed": true
+        "passed": true,
+        "local_only": true
       },
       {
         "check": "command",
@@ -187,7 +188,8 @@
         ],
         "cwd": ".",
         "exit_status": 0,
-        "passed": true
+        "passed": true,
+        "local_only": true
       },
       {
         "check": "command",
@@ -209,7 +211,8 @@
         ],
         "cwd": ".",
         "exit_status": 0,
-        "passed": true
+        "passed": true,
+        "local_only": true
       },
       {
         "check": "command",
@@ -231,7 +234,8 @@
         ],
         "cwd": ".",
         "exit_status": 0,
-        "passed": true
+        "passed": true,
+        "local_only": true
       },
       {
         "check": "command",
@@ -253,12 +257,13 @@
         ],
         "cwd": ".",
         "exit_status": 0,
-        "passed": true
+        "passed": true,
+        "local_only": true
       }
     ]
   },
   "provenance": {
-    "klt_version": "0.7.1.dev1755+gdce956c3c399",
+    "klt_version": "0.8.1.dev55+g879d39bad82b",
     "klayout_version": null,
     "pdk": null,
     "deck": null,

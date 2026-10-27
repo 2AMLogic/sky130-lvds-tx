@@ -18,9 +18,11 @@ permissions:
 
 env:
   # Pinned by commit, not release: `klt signoff --attest` (klayout-tools#2844)
-  # is not in any PyPI release yet (latest is 0.7.0). Move to the first
-  # release that contains it, and regenerate the records, when one exists.
-  KLT_COMMIT: "dce956c3c39995643ff2a5c31b53c474b3c2aada"
+  # and the `local_only` attestation check flag (skipped under `--attest
+  # --check`, committed outcome carried through) are not in a PyPI release
+  # that this repo can use yet. Move to the first release that contains both,
+  # and regenerate the records, when one exists.
+  KLT_COMMIT: "879d39bad82b67abbcc02e482a2c05f17140d18e"
 
 jobs:
   signoff:
