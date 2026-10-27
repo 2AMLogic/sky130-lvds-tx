@@ -21,6 +21,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-digital-inventory.json`](../verification/signoff/item-1-digital-inventory.json)
     (serializer RTL, synthesis request, committed gate-level netlist).
+  - **Item 2, digital (`2.digital`)** cites
+    [`verification/signoff/evidence/item-2-layout-digital.json`](../verification/signoff/evidence/item-2-layout-digital.json),
+    a hand-written `generic` envelope bound to the routed GDS
+    `flow/serializer/serializer_routed.gds` (`klt signoff --attest` has no item 2
+    producer, 2AMLogic/klayout-tools#4188). Its `regeneration` claim is backed by
+    `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
+    [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from

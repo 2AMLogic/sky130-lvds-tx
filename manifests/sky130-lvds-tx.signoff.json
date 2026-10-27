@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 4,
+  "t1_met_count": 5,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:a26b90262320d0fbd32b3f549a02b6300832706041797a559d8bf6bdb62efdc7",
   "build": {
@@ -119,10 +119,34 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "committed routed GDS/OASIS from place-and-route, reproducibly generated from the gate-level netlist (P&R script/flow committed, not a one-off hand edit). For the same full-custom sub-case, this item is satisfied instead by the Analog column's artifact: committed GDS/OASIS, reproducibly generated or with documented provenance \u2014 hand-drawn layout, not P&R output.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "verification/signoff/evidence/item-2-layout-digital.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 2,
+          "path": {
+            "path": "flow/serializer/serializer_routed.gds",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+          "input_verified": true,
+          "summary": "T1 item 2 (Layout, digital): routed GDS from klt place-and-route of flow/serializer/serializer_synth.v; byte-identical on re-run at seed 1",
+          "source": "flow/serializer/serializer_routed.gds",
+          "regeneration": {
+            "generator": "sh verification/signoff/check-serializer-pnr.sh (klt place-and-route flow/serializer/pnr.request.json)",
+            "regenerated_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+            "executed_by_klt": false
+          }
+        }
+      }
     },
     {
       "tier": "T1",

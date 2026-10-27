@@ -1,0 +1,37 @@
+{
+  "schema": "klt.place_and_route.request/1",
+  "engine": "openroad",
+  "netlist": "serializer_synth.v",
+  "hdl_toplevel": "serializer",
+  "pdk": {
+    "cell_library": "sky130_fd_sc_hd",
+    "corner": "tt_025C_1v80",
+    "sweep_corners": [
+      "tt_025C_1v80"
+    ]
+  },
+  "floorplan": {
+    "method": "utilization",
+    "utilization_pct": 35,
+    "aspect_ratio": 1.0,
+    "core_margin_um": 2.0,
+    "site": "unithd"
+  },
+  "io": {
+    "layer_h": "met3",
+    "layer_v": "met2"
+  },
+  "power": {
+    "power_net": "VCCD",
+    "ground_net": "VSS",
+    "preset": "sky130hd"
+  },
+  "constraints": {
+    "clock_port": "clk",
+    "clock_period_ns": 2.0
+  },
+  "seed": 1,
+  "target_stage": "route",
+  "portable_paths": true,
+  "post_route_spef": true
+}
