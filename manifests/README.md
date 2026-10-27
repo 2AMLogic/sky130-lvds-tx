@@ -36,6 +36,17 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `verification/signoff/check-driver-pad-gds.sh` (`local_only`); see
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
     sha256 of the GDS, not of the envelope. Placement-only and unrouted.
+  - **Item 3, digital (`3.digital`)** cites
+    [`verification/signoff/evidence/item-3-drc-digital.json`](../verification/signoff/evidence/item-3-drc-digital.json),
+    the `klt drc --deck sky130` report on `flow/serializer/serializer_routed.gds`
+    (`status: clean`, 0 violations). The manifest's `content_hash` is the sha256 of the GDS.
+    Coverage disclosure (verbatim from the report's `coverage` block) is in
+    [`verification/README.md`](../verification/README.md#item-3-drc).
+  - **Item 3, analog (`3.analog`)** cites
+    [`verification/signoff/evidence/item-3-drc-analog.json`](../verification/signoff/evidence/item-3-drc-analog.json),
+    the `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` report on
+    `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
+    row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence.
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from
@@ -92,6 +103,6 @@ full-record comparison.
 
 ## Current verdict
 
-Not T1: 6 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
-both partitions). All others are
+Not T1: 7 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
+both partitions; item 3, digital only: the analog DRC report is not clean). All others are
 `unmet` / `no_evidence`.
