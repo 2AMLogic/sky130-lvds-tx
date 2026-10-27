@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-27
+
+- **PR #29**: feat: add 8:1 serializer RTL, cocotb bench, netlist and item 1 digital attestation
+- **Issue #21** (closed): T1 item 1 (design sources, digital): serializer RTL (8:1→2:1 reduction, ÷4 word counter) and its synthesized netlist
+
 ### 2026-10-24
 
 - **PR #8**: ci: add T1 signoff manifest, item 10 attestation and freshness workflow
