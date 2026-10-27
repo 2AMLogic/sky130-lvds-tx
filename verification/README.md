@@ -102,7 +102,18 @@ reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
 | Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` | `unchecked` (not applicable to `subckt-call`) | The layout is placement-only and unrouted (`layout/README.md`): 309 devices and 500 nets extracted against 11 and 29 in the reference, 0 matched. Needs the routing deferred in #22. |
-| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `mismatch` | Signal compare matches (174 nets, 118 pins). One finding, `power.inconsistent_pin_net`: `VNB` reaches `VSS` (246 instances), `VCCD` (1) and `word_clk` (1). Not diagnosed here. |
+| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `mismatch` | Signal compare matches (174 nets, 118 pins). One finding, `power.inconsistent_pin_net`: `VNB` reaches `VSS` (246 instances), `VCCD` (1) and `word_clk` (1). Diagnosed as a tool artifact, not a PDN or routing defect: see below. |
+
+**Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
+`verification/signoff/evidence/item-4-lvs-digital-diagnosis.md`. A transistor-level
+`klt extract` of the same GDS (no `--abstract-cells`) puts all 359 NMOS bodies on
+`VGND|VSS` and all 360 PMOS bodies on `VCCD|VPB|VPWR`, and the routed DEF ties `VNB`
+to `VSS` in `SPECIALNETS`. The two outliers come from how abstract extraction
+probes the LEF `pwell` pin at its bounding-box centre, where parent routing
+(`word_clk` met1 over `a21oi_1_0`, the `VCCD` met5 strap over `a22o_1_1`) is picked up.
+Tracked upstream as 2AMLogic/klayout-tools#4363. The report therefore stays
+`power_connectivity: mismatch`; the finding is not waived and `options.power_connectivity`
+stays `true`. Re-run once #4363 lands.
 
 Warnings only, digital: `topology` x3 (empty `nfet`/`pfet`/`pnp` classes, not real),
 `topology.power_only_pruned`, `topology.reference_port_alias_joined` x3
