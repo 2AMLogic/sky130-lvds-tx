@@ -4,7 +4,14 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-27
 
+- **PR #36**: docs: sync manifests README verdict count and CI freshness list with signoff record
+- **PR #35**: feat: generate pad-cell GDS with a grounded-gate ESD clamp (stage 1 of T1 item 2 analog)
+- **PR #33**: feat: route serializer netlist with a VCCD power grid for T1 item 2
+- **PR #28**: feat(design): analog schematics and derived netlists for T1 item 1
 - **PR #29**: feat: add 8:1 serializer RTL, cocotb bench, netlist and item 1 digital attestation
+- **Issue #34** (closed): manifests/README.md 'Current verdict' still says 4 of 22 items met after item 2 (digital) landed
+- **Issue #23** (closed): T1 item 2 (layout, digital): place-and-route the serializer to a committed routed GDS with a PDN
+- **Issue #20** (closed): T1 item 1 (design sources, analog): schematics and derived netlists for the DDR mux, predriver, current-steering driver and pad cell
 - **Issue #21** (closed): T1 item 1 (design sources, digital): serializer RTL (8:1→2:1 reduction, ÷4 word counter) and its synthesized netlist
 
 ### 2026-10-24
