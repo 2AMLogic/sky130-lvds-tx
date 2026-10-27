@@ -23,7 +23,7 @@ and does not install them.
 
 | Constant | Value |
 |---|---|
-| `KLT_REV` | `dac2b5daceb69a2068d9d2ee190d7afe37b29af7` |
+| `KLT_VERSION` | `0.8.0` |
 | `CIEL_VERSION` | `2.6.1` |
 | `CIEL_SKY130_VERSION` | `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` |
 | `CIEL_LIBRARIES` | `sky130_fd_pr sky130_fd_io sky130_fd_sc_hd` |
@@ -32,9 +32,9 @@ and does not install them.
 
 ## Notes
 
-- The venv's `klt` is `0.6.0+gdac2b5d`. klt's docs say `KLT_SIM_BACKEND` is read from
-  0.7.0 on, so this client does not honour the host's batch default (not
-  exercised here). The PDK smoke sim was run with the host `klt`
+- The venv's `klt` is `0.8.0` (PyPI). `KLT_SIM_BACKEND` is read from 0.7.0 on, so
+  this client honours the host's batch default; no sim was run against the
+  venv's `klt` for this bump. The PDK smoke sim was run with the host `klt`
   (`sim/pdk-smoke/RECORD.md`).
 - A batch worker's image carries its own sky130A (`open_pdks c6d73a35…`,
   not this pin). A `klt sim` request that must run on the pinned models sets
