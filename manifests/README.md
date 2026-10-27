@@ -76,11 +76,14 @@ requires re-attesting, then re-rendering the record, in the same PR.
 
 ## Freshness is CI-enforced
 
-`.github/workflows/signoff.yml` re-attests items 10 and 1 (analog) with `--check` and
-re-renders the report, failing on any byte difference from the committed
-record.
+`.github/workflows/signoff.yml` re-attests item 1 (digital), item 10 and item 1
+(analog) with `--check` and re-renders the report, failing on any byte difference
+from the committed record. Item 2 (digital) is not re-attested, since `klt signoff
+--attest` has no item 2 producer (klayout-tools#4188); it is hash-bound only by that
+full-record comparison.
 
 ## Current verdict
 
-Not T1: 4 of 22 items met (item 10 once per partition; item 1, both partitions). All others are
+Not T1: 5 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
+digital). All others are
 `unmet` / `no_evidence`.
