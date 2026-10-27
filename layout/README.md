@@ -12,14 +12,30 @@ sh verification/signoff/check-driver-pad-gds.sh   # fresh == committed, slot fit
 The output is byte-identical across runs (no timestamps; `klt gen` is
 deterministic). A missing stock I/O GDS fails loudly.
 
-## What is drawn (issue #22, stage 1 of 3)
+## What is drawn (issue #22, stage 2 of 3)
 
 - `sky130_lvds_tx_pad_cell`: the PDK's `sky130_ef_io__analog_noesd_pad` frame
   (75 x 200 um, read from the pinned PDK, DR-001) plus the pad-to-VSSIO
   grounded-gate ESD NMOS (`klt gen esd_device`: 5 fingers x 17.2 um, L 0.55,
   the 86 um total of `pad_cell.sch`'s `XMESD`).
-- `sky130_lvds_tx_driver_pad`: two pad cells at the 75 um pitch (PADP, PADN),
+- `sky130_lvds_tx_pad_pair`: two pad cells at the 75 um pitch (PADP, PADN),
   150 x 200 um.
+- `sky130_lvds_tx_driver`: the `design/driver/driver.spice` devices, placement
+  only (`klt gen mos_array`, thick-oxide ones with `voltage_flavor=hvi`;
+  `klt gen res_array` flavor `high` for `XRS1/2`), shelf-packed with no routing.
+  Sub-cells: `drv_slice_s11` (main, SCALE=11) and `drv_slice_s1` (x3: `xsl_e0`,
+  `xsl_e1a`, `xsl_e1b`), `drv_sel` (x3), plus the bias/CMFB devices
+  (`XMNB1/2 XMPB XMT XM1/2 XML1/2 XCC`, `XRS1/2`). Each device cell is named
+  `<parent>_<device>`; unit gates carry `<device>.U<i>_G` labels (and S/D) from
+  the generator ports, so `m` = the number of `_G` labels.
+- `sky130_lvds_tx_driver_pad`: the pair plus the driver beside it.
+
+Driver area: 148.2 x 91.5 um (about 13,560 um^2) against one 75 x 200 um slot
+(15,000 um^2) or the two-slot pair (30,000 um^2). It is wider than one slot, so
+it does not drop into a single pad slot as drawn; the pad frame's bus rails are
+not subtracted and nothing is routed, so the real fit is open. It sits outside
+the pad cells, which keep their 75 x 200 um footprint. P1/P3 are PROPOSED and
+unchanged; this is a report, not a spec edit.
 
 ## Not drawn yet (deferred)
 
@@ -28,7 +44,8 @@ deterministic). A missing stock I/O GDS fails loudly.
 | Routing of the clamp to `P_CORE` / VSSIO, pin labels | no routed connection exists; needs a via stack and DRC feedback (#24) |
 | `D1` (`diode_pw2nd_11v0`) | `klt gen` has no diode generator |
 | `XMESD` as `nfet_g5v0d10v5` | `esd_device` draws no thick-oxide / ESD marker on sky130, so the clamp is geometry only |
-| `ddr_mux`, `predriver`, `driver` (D1/D4 flavours, CMFB) | stages 2 and 3; about 100 devices, including thick-oxide ones, not placeable with the current generators |
+| Intra-cell and clamp-to-pad routing of the `driver` | placement only in stage 2; needs DRC/LVS feedback (#24, #25) |
+| `ddr_mux`, `predriver` | stage 3 |
 
 Because cells are deferred, T1 item 2 (analog) is **not** claimed and the
 manifest does not cite this GDS. DRC and LVS are #24 and #25.
