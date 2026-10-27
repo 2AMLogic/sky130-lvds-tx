@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "yosys",
+  "engine_version": "0.67+post",
+  "hdl_toplevel": "serializer",
+  "parameters": {},
+  "run_id": "run-806c4ca2481d40f2a7d4c5ab30f92139",
+  "status": "ok",
+  "instance_count": 60,
+  "area_um2": 625.6,
+  "sequential_area_um2": 360.3456,
+  "instance_counts_by_type": {
+    "sky130_fd_sc_hd__a211oi_1": 8,
+    "sky130_fd_sc_hd__a21oi_1": 1,
+    "sky130_fd_sc_hd__a22o_1": 6,
+    "sky130_fd_sc_hd__and2_1": 2,
+    "sky130_fd_sc_hd__and3b_1": 1,
+    "sky130_fd_sc_hd__clkbuf_1": 5,
+    "sky130_fd_sc_hd__dfxtp_1": 18,
+    "sky130_fd_sc_hd__inv_1": 8,
+    "sky130_fd_sc_hd__nand2b_1": 1,
+    "sky130_fd_sc_hd__nor2_1": 1,
+    "sky130_fd_sc_hd__nor3b_1": 8,
+    "sky130_fd_sc_hd__o21a_1": 1
+  },
+  "leakage_power_nw": 409.03787399999993,
+  "leakage_by_type_nw": {
+    "sky130_fd_sc_hd__a211oi_1": 1.349336,
+    "sky130_fd_sc_hd__a21oi_1": 2.055125,
+    "sky130_fd_sc_hd__a22o_1": 4.722023,
+    "sky130_fd_sc_hd__and2_1": 4.091478,
+    "sky130_fd_sc_hd__and3b_1": 9.526333,
+    "sky130_fd_sc_hd__clkbuf_1": 4.393557,
+    "sky130_fd_sc_hd__dfxtp_1": 14.65205,
+    "sky130_fd_sc_hd__inv_1": 4.02642,
+    "sky130_fd_sc_hd__nand2b_1": 3.926389,
+    "sky130_fd_sc_hd__nor2_1": 2.116916,
+    "sky130_fd_sc_hd__nor3b_1": 2.889297,
+    "sky130_fd_sc_hd__o21a_1": 3.072908
+  },
+  "timing": {
+    "source": "abc_stime",
+    "wire_load": null,
+    "critical_path_ps": 1446.69,
+    "delay_target_ps": 2000
+  },
+  "clock_targets": {
+    "clocks": [],
+    "delay_target_ps": 2000,
+    "delay_target_basis": "clock_period_ns",
+    "per_clock_enforced": false
+  },
+  "sta": null,
+  "sta_unavailable_reason": "the optional klt_statime_native extension is not installed (it is not shipped with the published klayout-tools package), so no gate-level static timing analysis was attempted -- from a repo checkout, run `uv sync --group statime` (or `maturin develop --release` inside native/statime/) and re-run to populate `sta`; from an installed package, `klt sta` with a `verilog` request gives a netlist-level timing estimate (needs OpenSTA)",
+  "structural": {
+    "latches": 0,
+    "expected_latches": 0,
+    "unexpected_latches": 0,
+    "comb_loops": 0,
+    "multi_driven": 0,
+    "has_critical": false
+  },
+  "cell_exclusions": {
+    "mode": "additive",
+    "requested": [],
+    "library_defaults": [
+      "sky130_fd_sc_hd__lpflow_*",
+      "sky130_fd_sc_hd__probe*"
+    ],
+    "effective": [
+      "sky130_fd_sc_hd__lpflow_*",
+      "sky130_fd_sc_hd__probe*"
+    ],
+    "validated": null,
+    "engine_supports_dont_use": true
+  },
+  "warnings": {
+    "total": 0,
+    "by_category": {},
+    "representatives": []
+  },
+  "memory_mapping": {
+    "status": "none_detected",
+    "reason": null,
+    "modules": [],
+    "script_path": {
+      "path": "flow/serializer/.klt/synthesize/run-806c4ca2481d40f2a7d4c5ab30f92139/serializer_memory_evidence.ys",
+      "scope": "repo"
+    }
+  },
+  "blackbox_modules": [],
+  "netlist_path": {
+    "path": "flow/serializer/.klt/synthesize/run-806c4ca2481d40f2a7d4c5ab30f92139/serializer_synth.v",
+    "scope": "repo"
+  },
+  "netlist_sha256": "ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74",
+  "script_path": {
+    "path": "flow/serializer/.klt/synthesize/run-806c4ca2481d40f2a7d4c5ab30f92139/synth_serializer.ys",
+    "scope": "repo"
+  },
+  "run_script_path": {
+    "path": "flow/serializer/.klt/synthesize/run-806c4ca2481d40f2a7d4c5ab30f92139/synth_serializer.run.ys",
+    "scope": "repo"
+  },
+  "provenance": {
+    "klt_version": "0.8.1.dev55+g879d39bad82b",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.ciel",
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sky130_fd_sc_hd__ss_100C_1v60",
+      "content_hash": "sha256:9b24f0db3967ac67b4cae1f74bb480fd47922d18d0ed577e3c121739b412c361",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:195197ddf608528c600a07ac0047007491fb45bae51db97fba9119ff3945d847",
+      "role": "source"
+    },
+    "parameters": {}
+  },
+  "equivalence": null,
+  "restructuring": null,
+  "arithmetic": null,
+  "baseline": null
+}

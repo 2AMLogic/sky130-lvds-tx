@@ -36,6 +36,14 @@ jobs:
       - name: Install pinned klt
         run: pip install "git+https://github.com/2AMLogic/klayout-tools@${KLT_COMMIT}"
 
+      - name: Re-attest item 1 (digital) and check the committed envelope
+        # The netlist freshness check is local_only (needs yosys + the PDK),
+        # so this verifies file hashes and skips the re-synthesis.
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-digital-inventory.json \
+              --check verification/signoff/evidence/item-1-design-sources-digital.json
+
       - name: Re-attest item 10 and check the committed envelope
         run: |
           klt signoff --attest 10 \
