@@ -26,13 +26,12 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#24**: T1 item 3 (DRC clean): klt drc on the driver/pad and serializer layouts with coverage disclosed
+_None._
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#25**: T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity
 - **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions
 
 ## PRs Awaiting Review
@@ -45,15 +44,15 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#43**: docs: record probe klt lvs reports for analog and digital partitions
+_None._
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#25**: T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity *(curated)*
 - **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions *(curated)*
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -71,10 +70,10 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 2 |
-| Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 2 |
+| Ready (`loom:issue`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 1 |
+| Approved PRs awaiting merge | 0 |
 | Curated | 3 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
