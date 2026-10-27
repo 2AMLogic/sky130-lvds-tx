@@ -28,6 +28,14 @@ record**, produced by the regeneration command below. Never hand-edit it.
     producer, 2AMLogic/klayout-tools#4188). Its `regeneration` claim is backed by
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
+  - **Item 2, analog (`2.analog`)** cites
+    [`verification/signoff/evidence/item-2-layout-analog.json`](../verification/signoff/evidence/item-2-layout-analog.json),
+    a hand-written `generic` envelope bound to
+    `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
+    producer; same route as `2.digital`). Its `regeneration` claim is backed by
+    `verification/signoff/check-driver-pad-gds.sh` (`local_only`); see
+    [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
+    sha256 of the GDS, not of the envelope. Placement-only and unrouted.
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from
@@ -78,12 +86,12 @@ requires re-attesting, then re-rendering the record, in the same PR.
 
 `.github/workflows/signoff.yml` re-attests item 1 (digital), item 10 and item 1
 (analog) with `--check` and re-renders the report, failing on any byte difference
-from the committed record. Item 2 (digital) is not re-attested, since `klt signoff
---attest` has no item 2 producer (klayout-tools#4188); it is hash-bound only by that
+from the committed record. Item 2 (digital and analog) is not re-attested, since `klt signoff
+--attest` has no item 2 producer (klayout-tools#4188); they are hash-bound only by that
 full-record comparison.
 
 ## Current verdict
 
-Not T1: 5 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
-digital). All others are
+Not T1: 6 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
+both partitions). All others are
 `unmet` / `no_evidence`.

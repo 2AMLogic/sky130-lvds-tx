@@ -7,8 +7,9 @@ Run from the repository root with the pinned PDK on the environment:
 Environment: PDK_ROOT (default ~/.ciel), PDK (default sky130A), KLT (default
 `klt`), GEN_OUT (default layout/sky130_lvds_tx_driver_pad.gds).
 
-Stages 1 and 2 (see layout/README.md): the pad-cell frame, the grounded-gate
-ESD clamp, and the placement-only `driver` cell (design/driver/driver.spice).
+Stages 1-3 (see layout/README.md): the pad-cell frame, the grounded-gate
+ESD clamp, and the placement-only `driver`, `ddr_mux` and `predriver` cells
+(design/<block>/<block>.spice; ddr_mux and predriver are read from the netlists).
 The stock sky130_ef_io__analog_noesd_pad is read from the PDK
 (DR-001), never redrawn. Output is byte-reproducible: fixed cell names, no
 timestamps, and every generated cell comes from `klt gen`, which is itself
@@ -16,6 +17,7 @@ deterministic.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -84,12 +86,37 @@ BIAS = [
 # XRS1/2: res_high_po_1p41, L 15 (width 1.41 is the model's name).
 SLICE_SCALES = {"xsl_main": 11, "xsl_e0": 1, "xsl_e1a": 1, "xsl_e1b": 1}
 SEL_INSTANCES = ["xsel_en", "xsel_e0", "xsel_e1"]
+# Stage 3 blocks, device lists parsed from the committed netlists.
+NETLISTS = {"ddr_mux": "design/ddr_mux/ddr_mux.spice",
+            "predriver": "design/predriver/predriver.spice"}
 SHELF_GAP_UM = 2.0
 SHELF_WIDTH_UM = 150.0
 
 def die(msg):
     sys.stderr.write("gen_driver_pad: %s\n" % msg)
     sys.exit(1)
+
+def parse_netlist(path):
+    """Return [(name, kind, thick_oxide, W, L, nf, m)] for the X-card MOS devices."""
+    if not os.path.isfile(path):
+        die("netlist not found: %s (run from the repository root)" % path)
+    lines = []
+    for raw in open(path).read().splitlines():
+        if raw.startswith("+") and lines:
+            lines[-1] += " " + raw[1:]
+        elif raw.startswith("X"):
+            lines.append(raw)
+    devs = []
+    for ln in lines:
+        tok = ln.split()
+        model = next(t for t in tok if t.startswith("sky130_fd_pr__"))
+        par = dict(t.split("=", 1) for t in tok if "=" in t)
+        mm = re.match(r"sky130_fd_pr__([np])fet_(01v8|g5v0d10v5)$", model)
+        if not mm:
+            die("%s: unsupported device model %s on %s" % (path, model, tok[0]))
+        devs.append((tok[0], mm.group(1), mm.group(2) == "g5v0d10v5", float(par["W"]),
+                     float(par["L"]), int(par["nf"]), int(par.get("m", "1"))))
+    return devs
 
 def load_frame(dst):
     if not os.path.isfile(IO_GDS):
@@ -197,6 +224,13 @@ def build_driver(ly):
     shelf_place(ly, cell, parts)
     return cell
 
+def build_block(ly, block):
+    """Placement-only cell for a netlist block: one mos_array cell per device."""
+    cell = ly.create_cell("sky130_lvds_tx_" + block)
+    devs = [gen_mos(ly, block, d[:6], d[6]) for d in parse_netlist(NETLISTS[block])]
+    shelf_place(ly, cell, devs)
+    return cell
+
 def main():
     ly = pya.Layout()
     ly.dbu = 0.001
@@ -219,6 +253,13 @@ def main():
     top = ly.create_cell("sky130_lvds_tx_driver_pad")
     top.insert(pya.CellInstArray(pair.cell_index(), pya.Trans(0, 0)))
     top.insert(pya.CellInstArray(drv.cell_index(), pya.Trans(2 * pitch + int(SHELF_GAP_UM * 5 / ly.dbu), 0)))
+
+    # Stage 3: ddr_mux and predriver, placed the same way, beside the driver.
+    x = 2 * pitch + int(SHELF_GAP_UM * 5 / ly.dbu) + drv.bbox().width() + int(SHELF_GAP_UM * 5 / ly.dbu)
+    for block in ("ddr_mux", "predriver"):
+        cell = build_block(ly, block)
+        top.insert(pya.CellInstArray(cell.cell_index(), pya.Trans(x - cell.bbox().left, -cell.bbox().bottom)))
+        x += cell.bbox().width() + int(SHELF_GAP_UM * 5 / ly.dbu)
 
     opts = pya.SaveLayoutOptions()
     opts.format = "GDS2"
