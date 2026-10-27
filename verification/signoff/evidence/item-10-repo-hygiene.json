@@ -17,7 +17,7 @@
         "role": "hygiene",
         "path": ".github/workflows/signoff.yml",
         "passed": true,
-        "content_hash": "sha256:7f13ecab5695a7702f5070246e5e73181445b89c48e8620ac26b96e40a246bf4"
+        "content_hash": "sha256:7894ef6c36535aebc60211c74da193213fa5f7e22705e97a32af90b0555a81d0"
       },
       {
         "check": "present",
@@ -55,7 +55,7 @@
     ]
   },
   "provenance": {
-    "klt_version": "0.8.1.dev55+g879d39bad82b",
+    "klt_version": "0.8.0",
     "klayout_version": null,
     "pdk": null,
     "deck": null,

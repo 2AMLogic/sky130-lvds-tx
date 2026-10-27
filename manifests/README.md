@@ -68,17 +68,15 @@ record**, produced by the regeneration command below. Never hand-edit it.
 
 ## klt pin
 
-`klt signoff --attest` (klayout-tools#2844) is not in any PyPI release; the
-latest, 0.7.0, rejects the flag. The pin is therefore a **commit**:
-`2AMLogic/klayout-tools@879d39bad82b67abbcc02e482a2c05f17140d18e`
-(`0.8.1.dev55+g879d39bad82b`). Move to the first release containing
-`--attest`, and regenerate every record, when one exists. The pin lives in
-`.github/workflows/signoff.yml` (`KLT_COMMIT`).
+`klt signoff --attest` (klayout-tools#2844) and the `local_only` check flag are
+in the PyPI release `klayout-tools==0.8.0`, which is the pin. The pin lives in
+`.github/workflows/signoff.yml` (`KLT_VERSION`). A git build reports a dev
+version and does not satisfy `==0.8.0` (klayout-tools#2823).
 
 ## Regenerate
 
 ```console
-KLT="uvx --from git+https://github.com/2AMLogic/klayout-tools@879d39bad82b67abbcc02e482a2c05f17140d18e klt"
+KLT="uvx --from klayout-tools==0.8.0 klt"
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
              -o verification/signoff/evidence/item-10-repo-hygiene.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest

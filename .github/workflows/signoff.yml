@@ -17,12 +17,10 @@ permissions:
   contents: read
 
 env:
-  # Pinned by commit, not release: `klt signoff --attest` (klayout-tools#2844)
-  # and the `local_only` attestation check flag (skipped under `--attest
-  # --check`, committed outcome carried through) are not in a PyPI release
-  # that this repo can use yet. Move to the first release that contains both,
-  # and regenerate the records, when one exists.
-  KLT_COMMIT: "879d39bad82b67abbcc02e482a2c05f17140d18e"
+  # Pinned to the PyPI release, not a commit: `klt signoff --attest`
+  # (klayout-tools#2844) and the `local_only` attestation check flag are both
+  # in 0.8.0. A git build reports a dev version and would not satisfy `==`.
+  KLT_VERSION: "0.8.0"
 
 jobs:
   signoff:
@@ -36,7 +34,9 @@ jobs:
           python-version: "3.10"
 
       - name: Install pinned klt
-        run: pip install "git+https://github.com/2AMLogic/klayout-tools@${KLT_COMMIT}"
+        run: |
+          pip install "klayout-tools==${KLT_VERSION}"
+          klt --version
 
       - name: Re-attest item 1 (digital) and check the committed envelope
         # The netlist freshness check is local_only (needs yosys + the PDK),
