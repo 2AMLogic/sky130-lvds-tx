@@ -42,6 +42,17 @@ jobs:
               --inventory verification/signoff/item-10-inventory.json \
               --check verification/signoff/evidence/item-10-repo-hygiene.json
 
+      # The netlist freshness checks are `local_only` (they need xschem and the
+      # pinned PDK, which this runner lacks) and are skipped here, visibly; every
+      # source and netlist is still re-hashed, so an edited schematic or netlist
+      # without a re-attestation fails. Run the same command locally, with xschem,
+      # to re-verify the netlists themselves (design/README.md).
+      - name: Re-attest item 1 (analog) and check the committed envelope
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-analog-inventory.json \
+              --check verification/signoff/evidence/item-1-analog-design-sources.json
+
       - name: Re-run klt signoff and compare against the committed record
         run: |
           set -uo pipefail

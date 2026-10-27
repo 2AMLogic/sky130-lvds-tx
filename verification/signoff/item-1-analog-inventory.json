@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 1,
+  "description": "Design sources, analog partition: xschem schematics and symbols for the DDR retiming mux, predriver, current-steering driver and pad cell, plus the SPICE netlists derived from them by klt netlist. Each netlist carries a klt netlist --check freshness check (local_only: it needs xschem and the pinned sky130A PDK, which the CI runner lacks).",
+  "sources": [
+    "design/ddr_mux/ddr_mux.sch",
+    "design/ddr_mux/ddr_mux.sym",
+    "design/driver/driver.sch",
+    "design/driver/driver.sym",
+    "design/driver/drv_sel.sch",
+    "design/driver/drv_sel.sym",
+    "design/driver/drv_slice.sch",
+    "design/driver/drv_slice.sym",
+    "design/lvds_tx_analog.sch",
+    "design/pad_cell/pad_cell.sch",
+    "design/pad_cell/pad_cell.sym",
+    "design/predriver/predriver.sch",
+    "design/predriver/predriver.sym",
+    "design/xschemrc"
+  ],
+  "derived": [
+    {
+      "path": "design/ddr_mux/ddr_mux.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/ddr_mux/ddr_mux.sch",
+          "-o",
+          "design/ddr_mux/ddr_mux.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/predriver/predriver.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/predriver/predriver.sch",
+          "-o",
+          "design/predriver/predriver.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/driver/driver.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/driver/driver.sch",
+          "-o",
+          "design/driver/driver.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/pad_cell/pad_cell.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/pad_cell/pad_cell.sch",
+          "-o",
+          "design/pad_cell/pad_cell.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/lvds_tx_analog.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/lvds_tx_analog.sch",
+          "-o",
+          "design/lvds_tx_analog.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "local_only": true
+      }
+    }
+  ]
+}
