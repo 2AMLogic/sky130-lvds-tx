@@ -1,0 +1,8 @@
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/pad_cell/pad_cell.sch
+.subckt pad_cell PAD VSSIO
+*.iopin PAD
+*.iopin VSSIO
+XD1 VSSIO PAD sky130_fd_pr__diode_pw2nd_11v0 area=4e14 perim=8e7
+XMESD PAD VSSIO VSSIO VSSIO sky130_fd_pr__esd_nfet_g5v0d10v5 L=0.55 W=21.5 nf=1 ad=6.235 as=6.235
++ pd=43.58 ps=43.58 nrd=0.0135 nrs=0.0135 sa=0 sb=0 sd=0 mult=4 m=4
+.ends

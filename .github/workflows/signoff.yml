@@ -18,8 +18,10 @@ permissions:
 
 env:
   # Pinned by commit, not release: `klt signoff --attest` (klayout-tools#2844)
-  # is not in any PyPI release yet (latest is 0.7.0). Move to the first
-  # release that contains it, and regenerate the records, when one exists.
+  # and the `local_only` attestation check flag (skipped under `--attest
+  # --check`, committed outcome carried through) are not in a PyPI release
+  # that this repo can use yet. Move to the first release that contains both,
+  # and regenerate the records, when one exists.
   KLT_COMMIT: "879d39bad82b67abbcc02e482a2c05f17140d18e"
 
 jobs:
@@ -49,6 +51,17 @@ jobs:
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
               --check verification/signoff/evidence/item-10-repo-hygiene.json
+
+      # The netlist freshness checks are `local_only` (they need xschem and the
+      # pinned PDK, which this runner lacks) and are skipped here, visibly; every
+      # source and netlist is still re-hashed, so an edited schematic or netlist
+      # without a re-attestation fails. Run the same command locally, with xschem,
+      # to re-verify the netlists themselves (design/README.md).
+      - name: Re-attest item 1 (analog) and check the committed envelope
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-analog-inventory.json \
+              --check verification/signoff/evidence/item-1-analog-design-sources.json
 
       - name: Re-run klt signoff and compare against the committed record
         run: |
