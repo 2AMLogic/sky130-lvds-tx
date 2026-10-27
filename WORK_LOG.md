@@ -4,6 +4,9 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-27
 
+- **PR #46**: docs: classify stock pad frame met4/met5 DRC findings and re-cite item 3 analog
+- **PR #45**: feat: record klt drc reports per partition and cite them for T1 item 3
+- **Issue #44** (closed): Analog pad frame reports 486 met4/met5 DRC violations under klt drc sky130 deck
 - **PR #41**: feat: place ddr_mux and predriver in the layout generator and attest item 2 analog
 - **PR #38**: feat: place driver, drv_sel and drv_slice devices in the layout generator
 - **PR #36**: docs: sync manifests README verdict count and CI freshness list with signoff record
