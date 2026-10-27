@@ -29,13 +29,14 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
   - **Item 2, analog (`2.analog`)** cites
-    [`verification/signoff/evidence/item-2-layout-analog.json`](../verification/signoff/evidence/item-2-layout-analog.json),
+    [`verification/signoff/evidence/item-2-layout-analog-r2.json`](../verification/signoff/evidence/item-2-layout-analog-r2.json)
+    (append-only; the earlier `item-2-layout-analog.json` is kept as history, bound to the unrouted GDS),
     a hand-written `generic` envelope bound to
     `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
     producer; same route as `2.digital`). Its `regeneration` claim is backed by
     `verification/signoff/check-driver-pad-gds.sh` (`local_only`); see
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
-    sha256 of the GDS, not of the envelope. Placement-only and unrouted.
+    sha256 of the GDS, not of the envelope. The driver is routed (#48); `ddr_mux` and `predriver` are placement-only.
   - **Item 3, digital (`3.digital`)** cites
     [`verification/signoff/evidence/item-3-drc-digital.json`](../verification/signoff/evidence/item-3-drc-digital.json),
     the `klt drc --deck sky130` report on `flow/serializer/serializer_routed.gds`

@@ -98,10 +98,11 @@ Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
 **Neither partition meets item 4**, so the manifest still grades it `unmet`.
+The `r2` analog reports are append-only additions; the first report is kept.
 
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
-| Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` | `unchecked` (not applicable to `subckt-call`) | The layout is placement-only and unrouted (`layout/README.md`): 309 devices and 500 nets extracted against 11 and 29 in the reference, 0 matched. Needs the routing deferred in #22. |
+| Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). |
 | Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `mismatch` | Signal compare matches (174 nets, 118 pins). One finding, `power.inconsistent_pin_net`: `VNB` reaches `VSS` (246 instances), `VCCD` (1) and `word_clk` (1). Diagnosed as a tool artifact, not a PDN or routing defect: see below. |
 
 **Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
@@ -121,10 +122,11 @@ Warnings only, digital: `topology` x3 (empty `nfet`/`pfet`/`pnp` classes, not re
 Analog: `device.body_unverified` (122 NMOS, 185 PMOS: no named tap nets),
 `device.geometry_not_compared` and `device.placeholder_value` (`res_high_po`).
 
-Not established: whether the deck recognises the `g5v0d10v5` and pad/ESD
-devices. The analog compare fails on topology before that matters, and the
-driver's thick-oxide devices are drawn as `hvi`-flavoured `mos_array` cells, not
-`nfet_g5v0d10v5`. Re-check once the driver is routed.
+The deck does distinguish `g5v0d10v5` from `01v8` (`compare_mos_flavour`: a
+swapped reference card gives `device.class`). Pad/ESD devices (the clamp, `D1`,
+the pad frame) are outside the driver top and remain not established. The
+analog request is a probe: its `r2` report is `mismatch` only because of the
+converter gap above, and the manifest still grades item 4 `unmet`.
 
 Digital needs `layout.abstract_cells` (`sky130_fd_sc_hd__*`) plus the library LEF;
 without it the routed GDS extracts 719 flat transistors against a 0-device
