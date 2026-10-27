@@ -12,7 +12,7 @@ sh verification/signoff/check-driver-pad-gds.sh   # fresh == committed, slot fit
 The output is byte-identical across runs (no timestamps; `klt gen` is
 deterministic). A missing stock I/O GDS fails loudly.
 
-## What is drawn (issue #22, stage 2 of 3)
+## What is drawn (issue #22, stage 3 of 3)
 
 - `sky130_lvds_tx_pad_cell`: the PDK's `sky130_ef_io__analog_noesd_pad` frame
   (75 x 200 um, read from the pinned PDK, DR-001) plus the pad-to-VSSIO
@@ -28,7 +28,13 @@ deterministic). A missing stock I/O GDS fails loudly.
   (`XMNB1/2 XMPB XMT XM1/2 XML1/2 XCC`, `XRS1/2`). Each device cell is named
   `<parent>_<device>`; unit gates carry `<device>.U<i>_G` labels (and S/D) from
   the generator ports, so `m` = the number of `_G` labels.
-- `sky130_lvds_tx_driver_pad`: the pair plus the driver beside it.
+- `sky130_lvds_tx_ddr_mux` (18 devices) and `sky130_lvds_tx_predriver` (50
+  devices): placement only, one `klt gen mos_array` cell per device, named
+  `ddr_mux_<device>` / `predriver_<device>`. The device lists are parsed from
+  `design/ddr_mux/ddr_mux.spice` and `design/predriver/predriver.spice` (all
+  1.8 V flavour), so the generator cannot drift from the netlists.
+- `sky130_lvds_tx_driver_pad`: the pair, then the driver, `ddr_mux` and
+  `predriver` beside it (540.9 x 200 um in all, unrouted).
 
 Driver area: 148.2 x 91.5 um (about 13,560 um^2) against one 75 x 200 um slot
 (15,000 um^2) or the two-slot pair (30,000 um^2). It is wider than one slot, so
@@ -36,6 +42,13 @@ it does not drop into a single pad slot as drawn; the pad frame's bus rails are
 not subtracted and nothing is routed, so the real fit is open. It sits outside
 the pad cells, which keep their 75 x 200 um footprint. P1/P3 are PROPOSED and
 unchanged; this is a report, not a spec edit.
+
+Stage 3 area: `ddr_mux` 63.9 x 4.8 um (about 304 um^2) and `predriver` 148.7 x
+18.8 um (about 2,793 um^2). The three analog blocks together are about 16,655
+um^2 against one 75 x 200 um slot (15,000 um^2), an overflow of roughly 1,655
+um^2 (11%) as shelf-packed, and well inside the two-slot pair (30,000 um^2).
+Shelf packing is not a floorplan and no bus rails are subtracted, so this is a
+report of the placed device area, not a fit verdict. P1/P3 are unchanged.
 
 ## Not drawn yet (deferred)
 
@@ -45,7 +58,10 @@ unchanged; this is a report, not a spec edit.
 | `D1` (`diode_pw2nd_11v0`) | `klt gen` has no diode generator |
 | `XMESD` as `nfet_g5v0d10v5` | `esd_device` draws no thick-oxide / ESD marker on sky130, so the clamp is geometry only |
 | Intra-cell and clamp-to-pad routing of the `driver` | placement only in stage 2; needs DRC/LVS feedback (#24, #25) |
-| `ddr_mux`, `predriver` | stage 3 |
+| Intra-cell and inter-cell routing of `ddr_mux` and `predriver` | placement only in stage 3; needs DRC/LVS feedback (#24, #25) |
 
-Because cells are deferred, T1 item 2 (analog) is **not** claimed and the
-manifest does not cite this GDS. DRC and LVS are #24 and #25.
+T1 item 2 (analog) is claimed as **provenance only**: the committed GDS is
+reproducibly generated (`verification/signoff/check-driver-pad-gds.sh`), and
+the envelope cited as `2.analog` in `manifests/sky130-lvds-tx.json` says the
+layout is placement-only and unrouted, with the deferred rows above. No DRC or
+LVS is claimed; those are #24 and #25.

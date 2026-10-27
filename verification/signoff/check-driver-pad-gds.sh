@@ -3,7 +3,8 @@
 # (issue #22): regenerate with layout/gen_driver_pad.py, require the result to
 # be byte-identical to the committed GDS, and require each pad cell to fit the
 # 75 x 200 um slot (P3) and the pair to be two slots wide, and require every
-# driver.spice device (stage 2) to be present with the right m / SCALE.
+# driver.spice device (stage 2) and every ddr_mux.spice / predriver.spice device
+# (stage 3) to be present with the right m / SCALE.
 #
 # Needs klayout, `klt` and the pinned sky130A PDK (PDK_ROOT); local_only.
 # Run from the repository root.
@@ -92,6 +93,39 @@ if bad:
 b = box(drv)
 print("driver %.1f x %.1f um (%.0f um^2) vs one 75 x 200 slot (15000 um^2)" % (b.width(), b.height(), b.width() * b.height()))
 print("driver devices match design/driver/driver.spice (m / SCALE)")
+
+# Stage 3: ddr_mux and predriver. Device lists come from the netlists (X cards,
+# m= multiplier); each device is one leaf cell "<block>_<device>".
+def netlist_devices(path):
+    lines = []
+    for raw in open(path).read().splitlines():
+        if raw.startswith("+") and lines:
+            lines[-1] += " " + raw[1:]
+        elif raw.startswith("X"):
+            lines.append(raw)
+    out = []
+    for ln in lines:
+        tok = ln.split()
+        par = dict(t.split("=", 1) for t in tok if "=" in t)
+        out.append((tok[0], int(par.get("m", "1"))))
+    return out
+for blk, expect in (("ddr_mux", 18), ("predriver", 50)):
+    devs = netlist_devices("design/%s/%s.spice" % (blk, blk))
+    if len(devs) != expect:
+        sys.exit("%s.spice has %d devices, check expects %d: update the check" % (blk, len(devs), expect))
+    bad = []
+    for name, m in devs:
+        leaf = [c for c in ly.each_cell() if c.name == "%s_%s" % (blk, name)]
+        got = mult(leaf[0]) if leaf else 0
+        if got != m:
+            bad.append("%s: %d != %d" % (name, got, m))
+    if bad:
+        sys.exit("%s device mismatch vs design/%s/%s.spice: %s" % (blk, blk, blk, "; ".join(bad)))
+    b = box("sky130_lvds_tx_" + blk)
+    print("%s %.1f x %.1f um (%.0f um^2); %d devices match design/%s/%s.spice" % (blk, b.width(), b.height(), b.width() * b.height(), len(devs), blk, blk))
+t = box("sky130_lvds_tx_driver_pad")
+tot = sum(box(n).width() * box(n).height() for n in ("sky130_lvds_tx_driver", "sky130_lvds_tx_ddr_mux", "sky130_lvds_tx_predriver"))
+print("analog blocks total %.0f um^2 vs one slot 15000, pair 30000; top cell %.1f x %.1f um" % (tot, t.width(), t.height()))
 PY
 GDS="$committed" klayout -b -r "$probe"
-echo "$committed matches a fresh run, fits the slot, and carries the driver devices"
+echo "$committed matches a fresh run, fits the slot, and carries the driver, ddr_mux and predriver devices"
