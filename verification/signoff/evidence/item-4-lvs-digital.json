@@ -1,0 +1,1602 @@
+{
+  "schema_version": 2,
+  "engine": "klayout",
+  "layout": {
+    "path": "flow/serializer/serializer_routed.gds",
+    "scope": "repo"
+  },
+  "abstract_cells": [
+    "sky130_fd_sc_hd__*"
+  ],
+  "abstract_cell_lef": [
+    "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+  ],
+  "abstracted_cells": [
+    {
+      "cell": "sky130_fd_sc_hd__a211oi_1",
+      "instance_count": 8,
+      "pin_count": 9,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__a21oi_1",
+      "instance_count": 1,
+      "pin_count": 8,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__a22o_1",
+      "instance_count": 6,
+      "pin_count": 9,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__and2_1",
+      "instance_count": 2,
+      "pin_count": 7,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__and3b_1",
+      "instance_count": 1,
+      "pin_count": 8,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__buf_4",
+      "instance_count": 3,
+      "pin_count": 6,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__clkbuf_1",
+      "instance_count": 1,
+      "pin_count": 6,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__clkinv_1",
+      "instance_count": 1,
+      "pin_count": 6,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__dfxtp_1",
+      "instance_count": 18,
+      "pin_count": 7,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__fill_1",
+      "instance_count": 41,
+      "pin_count": 4,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__fill_2",
+      "instance_count": 43,
+      "pin_count": 4,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__fill_4",
+      "instance_count": 32,
+      "pin_count": 4,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__fill_8",
+      "instance_count": 72,
+      "pin_count": 4,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__inv_1",
+      "instance_count": 8,
+      "pin_count": 6,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__nand2b_1",
+      "instance_count": 1,
+      "pin_count": 7,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__nor2_1",
+      "instance_count": 1,
+      "pin_count": 7,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__nor3b_1",
+      "instance_count": 8,
+      "pin_count": 8,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__o21a_1",
+      "instance_count": 1,
+      "pin_count": 8,
+      "resolution_source": "in_cell_labels",
+      "lef_path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+    },
+    {
+      "cell": "sky130_fd_sc_hd__tapvpwrvgnd_1",
+      "instance_count": 25,
+      "pin_count": 2,
+      "resolution_source": "in_cell_labels",
+      "lef_path": null
+    }
+  ],
+  "reference": "../../../flow/serializer/serializer_routed.v",
+  "top": "serializer",
+  "reference_top": "SERIALIZER",
+  "parameter_tolerance": null,
+  "options": {
+    "combine_devices": false,
+    "combine_devices_per_circuit": null,
+    "combine_devices_max_attempts": 5,
+    "flatten_layout": false,
+    "flatten_reference": false,
+    "netgen_setup": null,
+    "parameter_tolerance": null,
+    "compare_parameters": null,
+    "power_connectivity": true,
+    "anchor_top_level_pins": null,
+    "strict_top_level_pin_count": false,
+    "compare_mos_flavour": false,
+    "supply_nets": [
+      "GND",
+      "VCC",
+      "VDD",
+      "VGND",
+      "VPWR",
+      "VSS"
+    ],
+    "finfet_bulk": null
+  },
+  "hints_applied": null,
+  "constant_nets_applied": null,
+  "status": "match",
+  "power_connectivity": {
+    "status": "mismatch",
+    "reason": null,
+    "power_pins": [
+      "VGND",
+      "VNB",
+      "VPB",
+      "VPWR"
+    ],
+    "power_pins_derivation": {
+      "rule": "declared-by-every-instantiated-master",
+      "masters": [
+        "SKY130_FD_SC_HD__A211OI_1",
+        "SKY130_FD_SC_HD__A21OI_1",
+        "SKY130_FD_SC_HD__A22O_1",
+        "SKY130_FD_SC_HD__AND2_1",
+        "SKY130_FD_SC_HD__AND3B_1",
+        "SKY130_FD_SC_HD__BUF_4",
+        "SKY130_FD_SC_HD__CLKBUF_1",
+        "SKY130_FD_SC_HD__CLKINV_1",
+        "SKY130_FD_SC_HD__DFXTP_1",
+        "SKY130_FD_SC_HD__INV_1",
+        "SKY130_FD_SC_HD__NAND2B_1",
+        "SKY130_FD_SC_HD__NOR2_1",
+        "SKY130_FD_SC_HD__NOR3B_1",
+        "SKY130_FD_SC_HD__O21A_1"
+      ],
+      "master_count": 14,
+      "corroborated": true,
+      "reason": null
+    },
+    "instance_count": 273,
+    "expected_nets": null,
+    "unchecked_expected_pins": [],
+    "findings": [
+      {
+        "rule": "power.inconsistent_pin_net",
+        "severity": "error",
+        "pin": "VNB",
+        "expected_net": null,
+        "description": "standard-cell power/ground pin 'VNB' reaches 3 distinct nets across 248 instance(s) -- 'VCCD' (1 instance(s), e.g. sky130_fd_sc_hd__a22o_1_1); 'VSS' (246 instance(s), e.g. sky130_fd_sc_hd__a211oi_1_0); 'word_clk' (1 instance(s), e.g. sky130_fd_sc_hd__a21oi_1_0). A single-power-domain block must wire every instance's same-named supply pin to the same net; declare options.power_connectivity.expected_nets to state which one is correct, or set options.power_connectivity: false if this design is genuinely multi-domain. If this design has no power distribution network routed at all -- every instance's supply pin landing on its own net is the same signature as no PDN having been added -- the more likely fix is request.power in klt place-and-route rather than either option above. Caveat for this ground pin: substrate continuity through the cells' own taps is not modelled in abstract-cell extraction, so separate Metal1 ground rails that a transistor-level extraction joins through the substrate are reported here as distinct nets -- this finding may be an artifact. To classify it, re-run klt extract without --abstract-cells and compare the pin's net count",
+        "instance_count": 248,
+        "nets": [
+          {
+            "net": "VCCD",
+            "instance_count": 1,
+            "instances": [
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a22o_1_1",
+                "cell": "sky130_fd_sc_hd__a22o_1"
+              }
+            ],
+            "instances_truncated": false
+          },
+          {
+            "net": "VSS",
+            "instance_count": 246,
+            "instances": [
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_0",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_1",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_2",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_3",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_4",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_5",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_6",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a211oi_1_7",
+                "cell": "sky130_fd_sc_hd__a211oi_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a22o_1_0",
+                "cell": "sky130_fd_sc_hd__a22o_1"
+              },
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a22o_1_2",
+                "cell": "sky130_fd_sc_hd__a22o_1"
+              }
+            ],
+            "instances_truncated": true
+          },
+          {
+            "net": "word_clk",
+            "instance_count": 1,
+            "instances": [
+              {
+                "circuit": "serializer",
+                "instance": "sky130_fd_sc_hd__a21oi_1_0",
+                "cell": "sky130_fd_sc_hd__a21oi_1"
+              }
+            ],
+            "instances_truncated": false
+          }
+        ]
+      }
+    ],
+    "finding_count": 1
+  },
+  "body_verification": {
+    "status": "verified",
+    "reason": null,
+    "device_classes": [],
+    "device_count": 0,
+    "findings": [],
+    "finding_count": 0
+  },
+  "device_parameter_coverage": [],
+  "mismatch_count": 8,
+  "error_count": 0,
+  "category_counts": {
+    "topology": 3,
+    "topology.power_only_pruned": 1,
+    "topology.reference_port_alias_joined": 3,
+    "topology.top_level_pins_anchored": 1
+  },
+  "category_error_counts": {},
+  "counts": {
+    "nets": {
+      "layout": 73,
+      "reference": 69,
+      "matched": 174
+    },
+    "devices": {
+      "layout": 0,
+      "reference": 0,
+      "matched": 0
+    },
+    "pins": {
+      "layout": 16,
+      "reference": 13,
+      "matched": 118
+    }
+  },
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "pnp",
+    "sky130_fd_pr__model__cap_mim",
+    "sky130_fd_pr__model__cap_mim_m4",
+    "resistor",
+    "diode_pw2nd_05v5",
+    "diode_pw2nd_05v5_lvt",
+    "diode_pw2nd_05v5_nvt",
+    "diode_pw2nd_11v0",
+    "diode_pd2nw_05v5",
+    "diode_pd2nw_05v5_lvt",
+    "diode_pd2nw_05v5_hvt",
+    "diode_pd2nw_11v0"
+  ],
+  "environment": {
+    "engine": "klayout",
+    "engine_version": "0.30.12",
+    "netgen_binary": null,
+    "layout_sha256": "6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+    "reference_sha256": "92910f5010efb7a660a0fae5576f6650ebb8960941d6f278df57cc6c4c6dc711",
+    "extracted_netlist": null
+  },
+  "provenance": {
+    "klt_version": "0.8.1.dev205+g08eb0f0a07a5",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sky130",
+      "content_hash": "sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+      "role": "layout"
+    },
+    "klayout_version_mismatch": false,
+    "pin_order_sources": [
+      {
+        "library": "sky130_fd_sc_hd",
+        "path": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice",
+        "cells": 437
+      }
+    ]
+  },
+  "mismatches": [
+    {
+      "category": "topology",
+      "severity": "warning",
+      "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'nfet'",
+      "side": "layout",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "nfet"
+      },
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "warning",
+      "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'pfet'",
+      "side": "layout",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "pfet"
+      },
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "warning",
+      "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'pnp'",
+      "side": "layout",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "pnp"
+      },
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.power_only_pruned",
+      "severity": "warning",
+      "description": "removed layout-side circuit(s) whose every declared pin is a power/ground pin of the reference library (a pin the library declares but the gate-level-Verilog reference never carries), and every instance of them, before comparing -- 5 circuit(s): sky130_fd_sc_hd__fill_1, sky130_fd_sc_hd__fill_2, sky130_fd_sc_hd__fill_4, sky130_fd_sc_hd__fill_8, sky130_fd_sc_hd__tapvpwrvgnd_1 (see docs/cli/lvs.md, \"topology.power_only_pruned\")",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'serializer' declared port(s) word_clk via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'cnt[1]' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "cnt[1]",
+        "aliased_ports": [
+          "word_clk"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "serializer"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'serializer' declared port(s) dout[0] via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'sr[0]' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "sr[0]",
+        "aliased_ports": [
+          "dout[0]"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "serializer"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'serializer' declared port(s) dout[1] via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'sr[1]' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "sr[1]",
+        "aliased_ports": [
+          "dout[1]"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "serializer"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.top_level_pins_anchored",
+      "severity": "warning",
+      "description": "13 top-level pin name(s) declared on both sides were anchored by name before comparing (options.anchor_top_level_pins): each one's layout net is asserted to match the reference net of the same-named pin, which the comparer's own topology-only net pairing does not otherwise require. Without it, two boundary nets with identical topology (e.g. two bits of a black-box macro's bus) are interchangeable and a swap between them compares clean -- see docs/cli/lvs.md, \"Top-level pin anchoring\"",
+      "side": "both",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "pins": [
+          "CLK",
+          "DIN[0]",
+          "DIN[1]",
+          "DIN[2]",
+          "DIN[3]",
+          "DIN[4]",
+          "DIN[5]",
+          "DIN[6]",
+          "DIN[7]",
+          "DOUT[0]",
+          "DOUT[1]",
+          "RST",
+          "WORD_CLK"
+        ],
+        "pin_count": 13,
+        "pins_truncated": false
+      },
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    }
+  ],
+  "net_correspondence": [
+    {
+      "layout": "VCCD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VGND",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VNB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPB",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VPWR",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "Y",
+      "reference": null,
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "vsubs",
+      "reference": null,
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A",
+      "reference": "A",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A_N",
+      "reference": "A_N",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A_N",
+      "reference": "A_N",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B2",
+      "reference": "B2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C1",
+      "reference": "C1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$73",
+      "reference": "CAP[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$183",
+      "reference": "CAP[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$97",
+      "reference": "CAP[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$159",
+      "reference": "CAP[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$12",
+      "reference": "CAP[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$51",
+      "reference": "CAP[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$31",
+      "reference": "CAP[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$22",
+      "reference": "CAP[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLK",
+      "reference": "CLK",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "clk",
+      "reference": "CLK",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$127",
+      "reference": "CLKNET_0_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$13",
+      "reference": "CLKNET_1_0__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$3",
+      "reference": "CLKNET_1_1__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$138",
+      "reference": "CNT[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "word_clk",
+      "reference": "CNT[1]",
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "C_N",
+      "reference": "C_N",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "D",
+      "reference": "D",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[0]",
+      "reference": "DIN[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[1]",
+      "reference": "DIN[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[2]",
+      "reference": "DIN[2]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[3]",
+      "reference": "DIN[3]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[4]",
+      "reference": "DIN[4]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[5]",
+      "reference": "DIN[5]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[6]",
+      "reference": "DIN[6]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "din[7]",
+      "reference": "DIN[7]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Q",
+      "reference": "Q",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "rst",
+      "reference": "RST",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "dout[0]",
+      "reference": "SR[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "dout[1]",
+      "reference": "SR[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$123",
+      "reference": "SR[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$177",
+      "reference": "SR[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$95",
+      "reference": "SR[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$115",
+      "reference": "SR[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$47",
+      "reference": "SR[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$62",
+      "reference": "SR[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "X",
+      "reference": "X",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Y",
+      "reference": "Y",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$67",
+      "reference": "_000_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$87",
+      "reference": "_001_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$162",
+      "reference": "_002_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$117",
+      "reference": "_003_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$184",
+      "reference": "_004_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$41",
+      "reference": "_005_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$81",
+      "reference": "_006_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$16",
+      "reference": "_007_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$37",
+      "reference": "_008_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$109",
+      "reference": "_009_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$191",
+      "reference": "_010_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$6",
+      "reference": "_011_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$147",
+      "reference": "_012_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$33",
+      "reference": "_013_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$96",
+      "reference": "_014_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$165",
+      "reference": "_015_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$100",
+      "reference": "_016_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$214",
+      "reference": "_017_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$149",
+      "reference": "_018_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$34",
+      "reference": "_019_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$139",
+      "reference": "_023_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$54",
+      "reference": "_024_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$86",
+      "reference": "_025_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$23",
+      "reference": "_026_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$39",
+      "reference": "_028_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$40",
+      "reference": "_029_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$35",
+      "reference": "_030_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$53",
+      "reference": "_031_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$64",
+      "reference": "_032_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$142",
+      "reference": "_033_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$105",
+      "reference": "_034_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$132",
+      "reference": "_035_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$164",
+      "reference": "_036_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$166",
+      "reference": "_037_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$50",
+      "reference": "_038_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$136",
+      "reference": "_039_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$222",
+      "reference": "_040_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$186",
+      "reference": "_041_",
+      "pin": false,
+      "heuristic": false
+    }
+  ]
+}
