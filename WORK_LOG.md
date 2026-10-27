@@ -4,6 +4,10 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-27
 
+- **PR #51**: feat: route the analog driver from its netlist so LVS compares topology
+- **PR #50**: docs: diagnose VNB power finding as abstract-extraction tool gap
+- **Issue #48** (closed): T1 item 4 prerequisite (analog): route the driver/pad layout so LVS compares topology
+- **PR #43**: docs: record probe klt lvs reports for analog and digital partitions
 - **PR #46**: docs: classify stock pad frame met4/met5 DRC findings and re-cite item 3 analog
 - **PR #45**: feat: record klt drc reports per partition and cite them for T1 item 3
 - **Issue #44** (closed): Analog pad frame reports 486 met4/met5 DRC violations under klt drc sky130 deck
