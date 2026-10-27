@@ -42,6 +42,14 @@ jobs:
               --inventory verification/signoff/item-10-inventory.json \
               --check verification/signoff/evidence/item-10-repo-hygiene.json
 
+      # Item 9 has no `--check` step here: the pinned klt predates
+      # `local_only` (it ignores the key), so `--check` would re-run the
+      # cold start, which needs the sky130A PDK and the batch fleet. The
+      # committed item 9 envelope is still graded by the step below (cited
+      # inventory hash, provenance) and byte-compared. Re-attest it locally
+      # (manifests/README.md). Add a `--check` step when the pin moves to a
+      # klt with `local_only` (klayout-tools#3743).
+
       - name: Re-run klt signoff and compare against the committed record
         run: |
           set -uo pipefail

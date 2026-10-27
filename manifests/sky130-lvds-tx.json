@@ -2,6 +2,10 @@
   "block": "sky130-lvds-tx",
   "kind": "mixed-signal",
   "evidence": {
+    "9": {
+      "file": "verification/signoff/evidence/item-9-testbenches.json",
+      "content_hash": "sha256:90ee41c4b94df40f79d447859deb75c8c1d70bb99f24b63004923ff87edfb6be"
+    },
     "10": {
       "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"

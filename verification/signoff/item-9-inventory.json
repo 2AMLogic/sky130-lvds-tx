@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 9,
+  "description": "Testbenches shipped for sky130-lvds-tx, both partitions: the committed PDK-smoke benches (analog ngspice via klt sim, digital cocotb/Icarus with a negative control, synthesis and P&R requests), one cold-start command, and the pinned PDK and tool versions.",
+  "testbenches": [
+    "sim/pdk-smoke/inverters.spice",
+    "sim/pdk-smoke/request.json",
+    "verification/smoke/smoke.v",
+    "verification/smoke/test_smoke.py",
+    "verification/smoke/runner.py",
+    "verification/smoke/negative_control/smoke_broken.v",
+    "flow/pdk-smoke/synth.request.json",
+    "flow/pdk-smoke/pnr.request.json"
+  ],
+  "cold_start": {
+    "argv": ["sh", "verification/signoff/cold-start.sh"],
+    "local_only": true
+  },
+  "pins": {
+    "pdk": {
+      "name": "sky130A",
+      "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+    },
+    "tools": {
+      "klt": "dce956c3c39995643ff2a5c31b53c474b3c2aada",
+      "ngspice": "46",
+      "cocotb": "2.0.1",
+      "iverilog": "13.0",
+      "yosys": "0.68.0.0.post1208",
+      "openroad": "26Q3-1510-g6cb3f2b704"
+    }
+  }
+}

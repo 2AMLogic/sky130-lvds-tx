@@ -15,6 +15,17 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
+  - **Item 9 (testbenches shipped)** is the second cited item. It cites
+    [`verification/signoff/evidence/item-9-testbenches.json`](../verification/signoff/evidence/item-9-testbenches.json),
+    produced by `klt signoff --attest 9` from
+    [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
+    Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
+    one inventory lists the analog and digital benches together. The
+    `content_hash` is the sha256 of the inventory file. Its `cold_start` is
+    [`verification/signoff/cold-start.sh`](../verification/signoff/cold-start.sh)
+    (digital smoke with negative control, then the analog smoke through
+    `klt sim`, which goes to the batch fleet on a dispatch worker). The pinned
+    klt has no `local_only`, so CI cannot re-run it; see the workflow comment.
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
@@ -38,6 +49,8 @@ latest, 0.7.0, rejects the flag. The pin is therefore a **commit**:
 
 ```console
 KLT="uvx --from git+https://github.com/2AMLogic/klayout-tools@dce956c3c39995643ff2a5c31b53c474b3c2aada klt"
+$KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
+             -o verification/signoff/evidence/item-9-testbenches.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
              -o verification/signoff/evidence/item-10-repo-hygiene.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
@@ -59,5 +72,5 @@ record.
 
 ## Current verdict
 
-Not T1: 2 of 22 items met (item 10, once per partition). All others are
+Not T1: 4 of 22 items met (items 9 and 10, once per partition each). All others are
 `unmet` / `no_evidence`.
