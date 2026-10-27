@@ -9,7 +9,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
 - **`sky130-lvds-tx.json`** — block manifest: `kind: mixed-signal`, plus
   per-item evidence citations. `partition_boundary` is deliberately not
   declared yet: it comes from the ratified spec (#2).
-  - **Item 10 (repo hygiene)** is the only cited item. It cites
+  - **Item 1 (design sources), digital partition** (`1.digital`) cites
+    [`verification/signoff/evidence/item-1-design-sources-digital.json`](../verification/signoff/evidence/item-1-design-sources-digital.json),
+    produced by `klt signoff --attest 1` from
+    [`verification/signoff/item-1-digital-inventory.json`](../verification/signoff/item-1-digital-inventory.json)
+    (serializer RTL, synthesis request, committed gate-level netlist). The
+    analog partition of item 1 is uncited.
+  - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
@@ -29,18 +35,20 @@ record**, produced by the regeneration command below. Never hand-edit it.
 
 `klt signoff --attest` (klayout-tools#2844) is not in any PyPI release; the
 latest, 0.7.0, rejects the flag. The pin is therefore a **commit**:
-`2AMLogic/klayout-tools@dce956c3c39995643ff2a5c31b53c474b3c2aada`
-(`0.7.1.dev1755+gdce956c3c399`). Move to the first release containing
+`2AMLogic/klayout-tools@879d39bad82b67abbcc02e482a2c05f17140d18e`
+(`0.8.1.dev55+g879d39bad82b`). Move to the first release containing
 `--attest`, and regenerate every record, when one exists. The pin lives in
 `.github/workflows/signoff.yml` (`KLT_COMMIT`).
 
 ## Regenerate
 
 ```console
-KLT="uvx --from git+https://github.com/2AMLogic/klayout-tools@dce956c3c39995643ff2a5c31b53c474b3c2aada klt"
+KLT="uvx --from git+https://github.com/2AMLogic/klayout-tools@879d39bad82b67abbcc02e482a2c05f17140d18e klt"
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
              -o verification/signoff/evidence/item-10-repo-hygiene.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
+$KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
+             -o verification/signoff/evidence/item-1-design-sources-digital.json
 $KLT signoff --manifest manifests/sky130-lvds-tx.json \
              --tiers-doc manifests/design-evidence-tiers.md \
              --format json > manifests/sky130-lvds-tx.signoff.json
@@ -59,5 +67,5 @@ record.
 
 ## Current verdict
 
-Not T1: 2 of 22 items met (item 10, once per partition). All others are
+Not T1: 3 of 22 items met (item 10 once per partition, item 1 digital). All others are
 `unmet` / `no_evidence`.

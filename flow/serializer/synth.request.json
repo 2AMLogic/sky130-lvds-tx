@@ -1,0 +1,8 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "sources": ["../../rtl/serializer.v"],
+  "hdl_toplevel": "serializer",
+  "pdk": { "cell_library": "sky130_fd_sc_hd", "corner": "ss_100C_1v60" },
+  "constraints": { "clock_period_ns": 2.0 }
+}
