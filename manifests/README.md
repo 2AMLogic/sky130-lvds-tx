@@ -43,10 +43,12 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Coverage disclosure (verbatim from the report's `coverage` block) is in
     [`verification/README.md`](../verification/README.md#item-3-drc).
   - **Item 3, analog (`3.analog`)** cites
-    [`verification/signoff/evidence/item-3-drc-analog.json`](../verification/signoff/evidence/item-3-drc-analog.json),
+    [`verification/signoff/evidence/item-3-drc-analog-r2.json`](../verification/signoff/evidence/item-3-drc-analog-r2.json)
+    (re-run with the CI-pinned klt; the earlier `item-3-drc-analog.json` is kept as history),
     the `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` report on
     `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
-    row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence.
+    row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
+    unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene.json`](../verification/signoff/evidence/item-10-repo-hygiene.json),
     produced by `klt signoff --attest 10` from

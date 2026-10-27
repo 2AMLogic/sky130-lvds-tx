@@ -65,3 +65,37 @@ reproducibly generated (`verification/signoff/check-driver-pad-gds.sh`), and
 the envelope cited as `2.analog` in `manifests/sky130-lvds-tx.json` says the
 layout is placement-only and unrouted, with the deferred rows above. No DRC or
 LVS is claimed; those are #24 and #25.
+
+## DRC of the stock pad frame (issue #44)
+
+`klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` reports 486 `met4`/`met5`
+violations (`verification/signoff/evidence/item-3-drc-analog-r2.json`; the earlier
+`item-3-drc-analog.json` is kept, append-only). Every one has `source_cell` in the stock
+frame, and **none is drawn here**: the same counts reproduce on the unmodified PDK cells
+with none of this repo's geometry present (`sh verification/signoff/check-pad-frame-drc.sh`,
+`local_only`, asserts the numbers below). Nothing was waived and neither the deck nor the
+spec was changed; the layout is unchanged, so the analog row stays `unmet`.
+
+Per stock `sky130_ef_io__analog_noesd_pad` (257; the pair is two of them), rule by rule.
+"Native" is the foundry's own `sky130A_mr.drc` (`klt drc --engine klayout`) on the same
+cell: it flags 241 (the 5 met4/met5 rules below plus 6 `m1.3ab` on met1, out of this
+issue's scope).
+
+| Curated rule | Count | Native rule, count | Classification |
+|---|---|---|---|
+| `met4.space.1` | 108 | `m4.2`, 108 | Real by the rule as written, in foundry geometry. Not placement. |
+| `met4.enclosing.via3.1` | 80 | `m4.3`, 80 | Same. |
+| `met4.width.1` | 20 | `m4.1`, 20 | Same (slivers, e.g. 25 nm x 678 nm). |
+| `met4.area.1` | 1 | `m4.4`, 1 | Same. |
+| `met4.holes_area.1` | 20 | none (`sky130A_mr.drc` has no met4 hole-area rule) | Not established: only the curated deck checks it; the holes are 110 x 80 and 320 x 80 nm. Neither "real" nor "false positive" is claimed. |
+| `met5.width.1` | 26 | `m5.1`, 26 | Edge artefact of the stock cell, real as placed: all 26 touch the cell's left or right edge (stripes 0.97-1.27 um wide, rule 1.6 um). In a row of 5 abutted cells they appear only at the two row ends (14 + 14 markers), so interior edges close. Our pair has two free ends. |
+| `met5.area.1` | 2 | none flagged | Same edge stripes (0.97 x 3.25 um = 3.1 um^2, rule 4.0 um^2); the native `m5.4` does not flag them and why is not traced. |
+
+The met4 findings scale with cell count (5 abutted cells: 400 `via3` enclosure, 540 spacing,
+100 width, 100 holes, 5 area), are interior to `sky130_ef_io__simple_pad_and_busses`, and
+no area-ID marker in the stream covers them, so nothing in the geometry marks them exempt.
+So they are not false positives of the curated deck: the foundry deck agrees on 4 of the 5
+met4 groups. Whether the foundry waives these in its I/O library is not documented in the
+PDK files read here and is **not established**; that is a ruling for the operator, since
+the only route to a `met` analog row is a waiver of foundry-supplied geometry, which this
+repo does not add on its own.

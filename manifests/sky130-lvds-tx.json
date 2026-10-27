@@ -27,7 +27,7 @@
       "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
     },
     "3.analog": {
-      "file": "verification/signoff/evidence/item-3-drc-analog.json",
+      "file": "verification/signoff/evidence/item-3-drc-analog-r2.json",
       "content_hash": "sha256:4cbd2819b96f3045631995eddfd02b1bd2d0d6f06760ed9d5d46c2116c7e488e"
     },
     "3.digital": {
