@@ -19,7 +19,7 @@ _None._
 
 `loom:important`; taken before unlabelled work.
 
-- **#22**: T1 item 2 (layout, analog): driver and pad-cell layout in the 75 µm analog pad slot
+- **#24**: T1 item 3 (DRC clean): klt drc on the driver/pad and serializer layouts with coverage disclosed
 
 ## Ready
 
@@ -50,7 +50,6 @@ _None._
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#22**: T1 item 2 (layout, analog): driver and pad-cell layout in the 75 µm analog pad slot *(curated)*
 - **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions *(curated)*
 
 ## Proposed (Architect / Hermit)
@@ -72,7 +71,7 @@ _None._
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Curated | 2 |
 | Architect / Hermit proposals | 1 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
