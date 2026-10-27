@@ -17,6 +17,10 @@
     "10": {
       "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
+    },
+    "2.digital": {
+      "file": "verification/signoff/evidence/item-2-layout-digital.json",
+      "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
     }
   }
 }

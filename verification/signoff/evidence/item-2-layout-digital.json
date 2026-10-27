@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 2,
+  "summary": "T1 item 2 (Layout, digital): routed GDS from klt place-and-route of flow/serializer/serializer_synth.v; byte-identical on re-run at seed 1",
+  "source": "flow/serializer/serializer_routed.gds",
+  "provenance": {
+    "klt_version": "0.8.1.dev58+g78f36d8f316c",
+    "klayout_version": "0.30.12",
+    "pdk": "sky130A",
+    "deck": null,
+    "input": {
+      "path": { "path": "flow/serializer/serializer_routed.gds", "scope": "repo" },
+      "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
+    },
+    "regeneration": {
+      "generator": "sh verification/signoff/check-serializer-pnr.sh (klt place-and-route flow/serializer/pnr.request.json)",
+      "regenerated_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
+    }
+  }
+}
