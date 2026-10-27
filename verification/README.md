@@ -53,10 +53,10 @@ Deck `sky130` (content hash `sha256:072b456a6c867ff7244bfc287908a960c265628b3c26
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
-        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog.json
+        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r2.json
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --format json \
         flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital.json
-    klt drc --check verification/signoff/evidence/item-3-drc-analog.json  --pdk-root "$PDK_ROOT"
+    klt drc --check verification/signoff/evidence/item-3-drc-analog-r2.json --pdk-root "$PDK_ROOT"
     klt drc --check verification/signoff/evidence/item-3-drc-digital.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
@@ -72,9 +72,14 @@ it needs the PDK and is not run in CI.
 `met4.width.1` 40, `met4.area.1` 2, `met5.width.1` 26, `met5.area.1` 2), and every one has
 `source_cell` `sky130_ef_io__simple_pad_and_busses` or `sky130_ef_io__analog_noesd_pad`, i.e.
 the stock pad frame instantiated by `layout/gen_driver_pad.py`, not geometry drawn here. The
-analog layout is placement-only and unrouted (`layout/README.md`). Whether those are real
-violations of the curated deck's transcription or deck false positives on the foundry frame is
-not established here; it is returned to the layout work, not settled by editing the deck.
+analog layout is placement-only and unrouted (`layout/README.md`). Issue #44 traced them: they reproduce
+on the unmodified PDK cells, the foundry's own deck flags the same met4/met5 width, spacing,
+enclosure and area rules, and the met5 ones are cell-edge stripes that close when cells abut.
+The classification, and what stays unestablished (`met4.holes_area.1`, `met5.area.1`, and whether
+the foundry waives the I/O library), is in
+[`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44). The earlier report
+`item-3-drc-analog.json` is kept (append-only); the manifest now cites `item-3-drc-analog-r2.json`,
+the same GDS and deck re-run with the CI-pinned klt (`0.8.1.dev55+g879d39bad82b`), same 486.
 
 **Coverage, quoted verbatim from each report's `coverage` block** (quote the committed report,
 not this copy, if they differ):
