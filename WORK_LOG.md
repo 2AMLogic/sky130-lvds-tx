@@ -4,6 +4,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-27
 
+- **PR #38**: feat: place driver, drv_sel and drv_slice devices in the layout generator
 - **PR #36**: docs: sync manifests README verdict count and CI freshness list with signoff record
 - **PR #35**: feat: generate pad-cell GDS with a grounded-gate ESD clamp (stage 1 of T1 item 2 analog)
 - **PR #33**: feat: route serializer netlist with a VCCD power grid for T1 item 2
