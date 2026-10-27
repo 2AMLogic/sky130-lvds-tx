@@ -22,6 +22,12 @@
       "sibling": "2AMLogic/gf180-tmds-tx",
       "status": "kept",
       "decision": "spec/decisions/0001-verification-runner-kept-separate.md"
+    },
+    {
+      "block": "serializer",
+      "sibling": "2AMLogic/gf180-tmds-tx",
+      "status": "kept",
+      "decision": "spec/decision-records/DR-004-serializer-reuse-from-gf180-tmds-tx.md"
     }
   ]
 }
