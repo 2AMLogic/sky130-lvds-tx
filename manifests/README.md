@@ -44,8 +44,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Coverage disclosure (verbatim from the report's `coverage` block) is in
     [`verification/README.md`](../verification/README.md#item-3-drc).
   - **Item 3, analog (`3.analog`)** cites
-    [`verification/signoff/evidence/item-3-drc-analog-r2.json`](../verification/signoff/evidence/item-3-drc-analog-r2.json)
-    (re-run with the CI-pinned klt; the earlier `item-3-drc-analog.json` is kept as history),
+    [`verification/signoff/evidence/item-3-drc-analog-r3.json`](../verification/signoff/evidence/item-3-drc-analog-r3.json)
+    (re-run with the CI-pinned klt on the routed GDS; the earlier `item-3-drc-analog.json` and `-r2.json` are kept as history),
     the `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` report on
     `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the

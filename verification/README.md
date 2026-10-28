@@ -49,14 +49,14 @@ Reuse decision for the sibling's runner: `spec/decisions/0001-verification-runne
 T1 checklist item 3, one `klt drc` report per partition, committed under
 `verification/signoff/evidence/` and cited from `manifests/sky130-lvds-tx.json`.
 Deck `sky130` (content hash `sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267`,
-`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.1.dev181+g70d73835514c`.
+`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.0` for the analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`) and `0.8.1.dev181+g70d73835514c` for the digital one.
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
-        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r2.json
+        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r3.json
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --format json \
         flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital.json
-    klt drc --check verification/signoff/evidence/item-3-drc-analog-r2.json --pdk-root "$PDK_ROOT"
+    klt drc --check verification/signoff/evidence/item-3-drc-analog-r3.json --pdk-root "$PDK_ROOT"
     klt drc --check verification/signoff/evidence/item-3-drc-digital.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
@@ -72,14 +72,18 @@ it needs the PDK and is not run in CI.
 `met4.width.1` 40, `met4.area.1` 2, `met5.width.1` 26, `met5.area.1` 2), and every one has
 `source_cell` `sky130_ef_io__simple_pad_and_busses` or `sky130_ef_io__analog_noesd_pad`, i.e.
 the stock pad frame instantiated by `layout/gen_driver_pad.py`, not geometry drawn here. The
-analog layout is placement-only and unrouted (`layout/README.md`). Issue #44 traced them: they reproduce
+analog layout is the routed driver beside the stock pad pair (`layout/README.md`); the routing
+(met1-met3, #48) adds no violation. Issue #44 traced them: they reproduce
 on the unmodified PDK cells, the foundry's own deck flags the same met4/met5 width, spacing,
 enclosure and area rules, and the met5 ones are cell-edge stripes that close when cells abut.
 The classification, and what stays unestablished (`met4.holes_area.1`, `met5.area.1`, and whether
 the foundry waives the I/O library), is in
 [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44). The earlier report
-`item-3-drc-analog.json` is kept (append-only); the manifest now cites `item-3-drc-analog-r2.json`,
-the same GDS and deck re-run with the CI-pinned klt (`0.8.1.dev55+g879d39bad82b`), same 486.
+`item-3-drc-analog.json` and `item-3-drc-analog-r2.json` are kept (append-only); the manifest now cites
+`item-3-drc-analog-r3.json`, the same deck re-run with the CI-pinned klt (`0.8.0`) on the routed GDS
+(`sha256:17a471bc…3c71`, the committed file; `r2` was bound to the earlier placement-only stream,
+`sha256:4cbd2819…e488`, so it was stale). Same 486, same per-rule counts, and by `source_cell` 458 in
+`sky130_ef_io__simple_pad_and_busses` and 28 in `sky130_ef_io__analog_noesd_pad`; none in a cell drawn here.
 
 **Coverage, quoted verbatim from each report's `coverage` block** (quote the committed report,
 not this copy, if they differ):
