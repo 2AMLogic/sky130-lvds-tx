@@ -96,7 +96,7 @@ Checked on the routed layout (`klt lvs` / `klt drc`, `sky130` deck):
   the pad frame are not in this compare (the top is the driver cell), so their
   recognition is still not established.
 - **DRC** (`klt drc --deck sky130 --top sky130_lvds_tx_driver_pad`): 486
-  violations, the same per-rule counts as `item-3-drc-analog-r2.json`, all in the
+  violations, the same per-rule counts as `item-3-drc-analog-r3.json`, all in the
   stock pad frame. The routed driver adds none. The hvi mark is extended over each
   thick-oxide PMOS guard-ring well (`nwell.enclosed.hvi.1` fired 43 times without it).
 
@@ -120,12 +120,12 @@ untouched here (#25). Neither DRC nor LVS is claimed clean.
 ## DRC of the stock pad frame (issue #44)
 
 `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` reports 486 `met4`/`met5`
-violations (`verification/signoff/evidence/item-3-drc-analog-r2.json`; the earlier
-`item-3-drc-analog.json` is kept, append-only). Every one has `source_cell` in the stock
+violations (`verification/signoff/evidence/item-3-drc-analog-r3.json`, bound to the routed
+GDS; the earlier `item-3-drc-analog.json` and `-r2.json` are kept, append-only). Every one has `source_cell` in the stock
 frame, and **none is drawn here**: the same counts reproduce on the unmodified PDK cells
 with none of this repo's geometry present (`sh verification/signoff/check-pad-frame-drc.sh`,
 `local_only`, asserts the numbers below). Nothing was waived and neither the deck nor the
-spec was changed; the layout is unchanged, so the analog row stays `unmet`.
+spec was changed; the analog row stays `unmet`.
 
 Per stock `sky130_ef_io__analog_noesd_pad` (257; the pair is two of them), rule by rule.
 "Native" is the foundry's own `sky130A_mr.drc` (`klt drc --engine klayout`) on the same
