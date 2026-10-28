@@ -2,8 +2,14 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-28
+
+- **Issue #24** (closed): T1 item 3 (DRC clean): klt drc on the driver/pad and serializer layouts with coverage disclosed
+
 ### 2026-10-27
 
+- **PR #55**: build: pin klayout-tools to the 0.8.0 PyPI release
+- **Issue #54** (closed): Bump klayout-tools pin dac2b5daceb6 → 0.8.0
 - **PR #51**: feat: route the analog driver from its netlist so LVS compares topology
 - **PR #50**: docs: diagnose VNB power finding as abstract-extraction tool gap
 - **Issue #48** (closed): T1 item 4 prerequisite (analog): route the driver/pad layout so LVS compares topology
