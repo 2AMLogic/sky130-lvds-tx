@@ -13,20 +13,19 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-- **#24**: T1 item 3 (DRC clean): klt drc on the driver/pad and serializer layouts with coverage disclosed
 - **#25**: T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
 
 ## In Progress
 
@@ -68,9 +67,9 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
-| Important | 2 |
-| Ready (`loom:issue`) | 0 |
+| Very important | 1 |
+| Important | 1 |
+| Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
