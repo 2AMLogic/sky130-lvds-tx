@@ -31,6 +31,15 @@ with a 2.0 ns clock target.
 - The re-synthesis freshness check is `local_only`: CI re-verifies the
   inventoried files' hashes but does not re-run Yosys.
 
+## Retired stand-in smoke flow
+
+`flow/pdk-smoke/` (a 4-bit stand-in counter run through `klt synthesize` and
+`klt place-and-route` to prove the pinned Yosys → OpenROAD path) was retired
+once the serializer exercised the same path. Its recorded result is not
+deleted from history: it was added in commit `62424be` and remains readable
+there (`git show 62424be:flow/pdk-smoke/RECORD.md`). Retirement ruled on in
+issue #39.
+
 ## Reproduce
 
 ```console
