@@ -1,0 +1,6 @@
+{
+  "layout": {"file": "../../../layout/sky130_lvds_tx_driver_pad.gds", "top": "sky130_lvds_tx_driver", "deck": "sky130"},
+  "reference": {"netlist": "../../../design/driver/driver.spice", "top": "driver", "form": "subckt-call", "deck": "sky130"},
+  "engine": "klayout",
+  "options": {"flatten_layout": true, "flatten_reference": true, "combine_devices": true, "compare_mos_flavour": true}
+}

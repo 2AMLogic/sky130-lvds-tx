@@ -25,3 +25,5 @@ jobs:
         run: verification/lint_rtl.sh
       - name: Smoke bench (good leg + negative control)
         run: python3 verification/smoke/runner.py
+      - name: Serializer bench (good leg + negative control)
+        run: python3 verification/serializer/runner.py

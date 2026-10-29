@@ -1,0 +1,22 @@
+v {xschem version=3.4.4 file_version=1.2
+}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -40 -30 40 -30 {}
+L 4 40 -30 40 30 {}
+L 4 40 30 -40 30 {}
+L 4 -40 30 -40 -30 {}
+L 4 40 -10 60 -10 {}
+B 5 57.5 -12.5 62.5 -7.5 {name=PAD dir=inout}
+T {PAD} 36 -14 0 1 0.15 0.15 {}
+L 4 40 10 60 10 {}
+B 5 57.5 7.5 62.5 12.5 {name=VSSIO dir=inout}
+T {VSSIO} 36 6 0 1 0.15 0.15 {}
+T {@symname} 0 -50 0 0 0.25 0.25 {}
+T {@name} 0 38 0 0 0.2 0.2 {}

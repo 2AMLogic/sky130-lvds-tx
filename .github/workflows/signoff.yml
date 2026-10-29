@@ -17,10 +17,10 @@ permissions:
   contents: read
 
 env:
-  # Pinned by commit, not release: `klt signoff --attest` (klayout-tools#2844)
-  # is not in any PyPI release yet (latest is 0.7.0). Move to the first
-  # release that contains it, and regenerate the records, when one exists.
-  KLT_COMMIT: "dce956c3c39995643ff2a5c31b53c474b3c2aada"
+  # Pinned to the PyPI release, not a commit: `klt signoff --attest`
+  # (klayout-tools#2844) and the `local_only` attestation check flag are both
+  # in 0.8.0. A git build reports a dev version and would not satisfy `==`.
+  KLT_VERSION: "0.8.0"
 
 jobs:
   signoff:
@@ -34,7 +34,17 @@ jobs:
           python-version: "3.10"
 
       - name: Install pinned klt
-        run: pip install "git+https://github.com/2AMLogic/klayout-tools@${KLT_COMMIT}"
+        run: |
+          pip install "klayout-tools==${KLT_VERSION}"
+          klt --version
+
+      - name: Re-attest item 1 (digital) and check the committed envelope
+        # The netlist freshness check is local_only (needs yosys + the PDK),
+        # so this verifies file hashes and skips the re-synthesis.
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-digital-inventory.json \
+              --check verification/signoff/evidence/item-1-design-sources-digital.json
 
       - name: Re-attest item 10 and check the committed envelope
         run: |
@@ -42,13 +52,25 @@ jobs:
               --inventory verification/signoff/item-10-inventory.json \
               --check verification/signoff/evidence/item-10-repo-hygiene.json
 
-      # Item 9 has no `--check` step here: the pinned klt predates
-      # `local_only` (it ignores the key), so `--check` would re-run the
-      # cold start, which needs the sky130A PDK and the batch fleet. The
-      # committed item 9 envelope is still graded by the step below (cited
-      # inventory hash, provenance) and byte-compared. Re-attest it locally
-      # (manifests/README.md). Add a `--check` step when the pin moves to a
-      # klt with `local_only` (klayout-tools#3743).
+      # The netlist freshness checks are `local_only` (they need xschem and the
+      # pinned PDK, which this runner lacks) and are skipped here, visibly; every
+      # source and netlist is still re-hashed, so an edited schematic or netlist
+      # without a re-attestation fails. Run the same command locally, with xschem,
+      # to re-verify the netlists themselves (design/README.md).
+      - name: Re-attest item 1 (analog) and check the committed envelope
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-analog-inventory.json \
+              --check verification/signoff/evidence/item-1-analog-design-sources.json
+
+      # The item 9 cold start is `local_only` (it needs the sky130A PDK, iverilog
+      # and the batch fleet), so it is skipped here, visibly; the inventoried
+      # testbenches are still re-hashed. Re-attest locally (manifests/README.md).
+      - name: Re-attest item 9 and check the committed envelope
+        run: |
+          klt signoff --attest 9 \
+              --inventory verification/signoff/item-9-inventory.json \
+              --check verification/signoff/evidence/item-9-testbenches.json
 
       - name: Re-run klt signoff and compare against the committed record
         run: |

@@ -10,7 +10,7 @@
           "upstream": "scripts/setup-env.sh",
           "local": "scripts/setup-env.sh",
           "sha256": "30876d97bb62bb6c93c5fc84054cdf45c53ceb5ffb945e9d4a660997bfcb4c04",
-          "local_sha256": "ffcc67e10ac6b0835459a24c48437361a041f0240e828649018ed1d884d0877f",
+          "local_sha256": "56bd11955301a3209d18de40aa7ba37602e57548a502729bb11abf2e8ab3fd78",
           "diverged": "spec/decisions/0002-vendored-setup-env-edits.md"
         }
       ]
@@ -22,6 +22,12 @@
       "sibling": "2AMLogic/gf180-tmds-tx",
       "status": "kept",
       "decision": "spec/decisions/0001-verification-runner-kept-separate.md"
+    },
+    {
+      "block": "serializer",
+      "sibling": "2AMLogic/gf180-tmds-tx",
+      "status": "kept",
+      "decision": "spec/decision-records/DR-004-serializer-reuse-from-gf180-tmds-tx.md"
     }
   ]
 }

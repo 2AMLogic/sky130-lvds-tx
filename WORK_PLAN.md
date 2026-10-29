@@ -13,25 +13,25 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-_None._
+- **#25**: T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions
 
 ## PRs Awaiting Review
 
@@ -50,10 +50,13 @@ _None._
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions *(curated)*
+- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer *(curated)*
 
 ## Proposed (Architect / Hermit)
 
-_None._
+- **#30**: Retire placeholder smoke bench and point pnpm test at the serializer bench *(hermit)*
+- **#39**: Remove flow/pdk-smoke: superseded stand-in counter flow *(hermit)*
 
 ## Epics
 
@@ -64,13 +67,13 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
-| Important | 0 |
-| Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
+| Very important | 1 |
+| Important | 1 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 1 |
-| Architect / Hermit proposals | 0 |
+| Curated | 3 |
+| Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

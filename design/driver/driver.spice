@@ -1,0 +1,125 @@
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/driver/driver.sch
+.subckt driver GPA GPB GNA GNB XPA XPB XNA XNB EN EM0 EM1 IREF VCMREF OUTP OUTN VCCD VDDIO VSSIO
+*.ipin GPA
+*.ipin GPB
+*.ipin GNA
+*.ipin GNB
+*.ipin XPA
+*.ipin XPB
+*.ipin XNA
+*.ipin XNB
+*.ipin EN
+*.ipin EM0
+*.ipin EM1
+*.ipin IREF
+*.ipin VCMREF
+*.iopin OUTP
+*.iopin OUTN
+*.iopin VCCD
+*.iopin VDDIO
+*.iopin VSSIO
+XMNB1 IREF IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58
++ ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XMNB2 BIASP IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58
++ ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XMPB BIASP BIASP VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58
++ ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 mult=1 m=1
+XMT TAIL IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58
++ nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XM1 N1 VCMS TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=10 nf=1 ad=2.9 as=2.9 pd=20.58 ps=20.58
++ nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 mult=1 m=1
+XM2 VCMFB VCMREF TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=10 nf=1 ad=2.9 as=2.9 pd=20.58
++ ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 mult=1 m=1
+XML1 N1 N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58
++ nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XML2 VCMFB N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58
++ nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XCC VSSIO VCMFB VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=2 W=20 nf=1 ad=5.8 as=5.8 pd=40.58
++ ps=40.58 nrd=0.0145 nrs=0.0145 sa=0 sb=0 sd=0 mult=1 m=1
+XRS1 VCMS OUTP VSSIO sky130_fd_pr__res_high_po_1p41 L=15 mult=1 m=1
+XRS2 VCMS OUTN VSSIO sky130_fd_pr__res_high_po_1p41 L=15 mult=1 m=1
+xsel_en EN BIASP VCMFB PGM NGM VCCD VDDIO VSSIO drv_sel
+xsel_e0 EM0 BIASP VCMFB PGE0 NGE0 VCCD VDDIO VSSIO drv_sel
+xsel_e1 EM1 BIASP VCMFB PGE1 NGE1 VCCD VDDIO VSSIO drv_sel
+xsl_main GPA GPB GNA GNB PGM NGM OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=11
+xsl_e0 XPA XPB XNA XNB PGE0 NGE0 OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=1
+xsl_e1a XPA XPB XNA XNB PGE1 NGE1 OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=1
+xsl_e1b XPA XPB XNA XNB PGE1 NGE1 OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=1
+.ends
+
+* expanding   symbol:  drv_sel.sym # of pins=8
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/driver/drv_sel.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/driver/drv_sel.sch
+.subckt drv_sel SEL BIASP VCMFB PG NG VCCD VDDIO VSSIO
+*.ipin SEL
+*.iopin BIASP
+*.iopin VCMFB
+*.opin PG
+*.opin NG
+*.iopin VCCD
+*.iopin VDDIO
+*.iopin VSSIO
+XMP_sb SELB SEL VCCD VCCD sky130_fd_pr__pfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58
++ nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMN_sb SELB SEL VSSIO VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMLN1 ENHB SEL VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58
++ ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMLN2 ENH SELB VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58
++ ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMLP1 ENHB ENH VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMLP2 ENH ENHB VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMPU PG ENH VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58
++ nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMPP PG ENHB BIASP VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1.16 pd=4.58 ps=9.16
++ nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+XMND NG ENHB VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58
++ nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1 m=1
+XMNP NG ENH VCMFB VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1.16 pd=4.58 ps=9.16
++ nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  drv_slice.sym # of pins=11
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/driver/drv_slice.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-20/design/driver/drv_slice.sch
+.subckt drv_slice GPA GPB GNA GNB PG NG OUTP OUTN VCCD VDDIO VSSIO  SCALE=1
+*.ipin GPA
+*.ipin GPB
+*.ipin GNA
+*.ipin GNB
+*.ipin PG
+*.ipin NG
+*.iopin OUTP
+*.iopin OUTN
+*.iopin VCCD
+*.iopin VDDIO
+*.iopin VSSIO
+XMPS TOP PG VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12.8 nf=2 ad=1.856 as=3.712 pd=13.38 ps=26.76
++ nrd=0.0227 nrs=0.0227 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMSPA OUTP GPA TOP WELL sky130_fd_pr__pfet_01v8 L=0.15 W=3.6 nf=4 ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806
++ nrs=0.0806 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMSPB OUTN GPB TOP WELL sky130_fd_pr__pfet_01v8 L=0.15 W=3.6 nf=4 ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806
++ nrs=0.0806 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMSNA OUTP GNA BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=2.7 nf=3 ad=0.522 as=0.522 pd=4.76 ps=4.76
++ nrd=0.1074 nrs=0.1074 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMSNB OUTN GNB BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=2.7 nf=3 ad=0.522 as=0.522 pd=4.76 ps=4.76
++ nrd=0.1074 nrs=0.1074 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMNS BOT NG VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=6 nf=1 ad=1.74 as=1.74 pd=12.58 ps=12.58 nrd=0.0483
++ nrs=0.0483 sa=0 sb=0 sd=0 mult={SCALE} m={SCALE}
+XMWVA WELL OUTP VCCD WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMWVB WELL OUTN VCCD WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMWPA WELL VCCD OUTP WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMWPB WELL VCCD OUTN WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMGTA GPA VCCD WELL WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+XMGTB GPB VCCD WELL WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58
++ ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+

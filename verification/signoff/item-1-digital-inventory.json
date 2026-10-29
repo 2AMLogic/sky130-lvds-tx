@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 1,
+  "description": "T1 item 1, Digital partition of sky130-lvds-tx: the serializer RTL, the synthesis request that derives the gate-level netlist from it, and the committed netlist, whose freshness is a re-synthesis compared byte-for-byte. Covers the standard-cell partition only (up to the 8:1 to 2:1 reduction, spec S2); the analog partition's sources are cited separately.",
+  "sources": [
+    "rtl/serializer.v",
+    "flow/serializer/synth.request.json"
+  ],
+  "derived": [
+    {
+      "path": "flow/serializer/serializer_synth.v",
+      "generator": "klt synthesize",
+      "check": {
+        "argv": ["sh", "verification/signoff/check-serializer-netlist.sh"],
+        "local_only": true
+      }
+    }
+  ]
+}

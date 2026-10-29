@@ -10,8 +10,8 @@
     "verification/smoke/test_smoke.py",
     "verification/smoke/runner.py",
     "verification/smoke/negative_control/smoke_broken.v",
-    "flow/pdk-smoke/synth.request.json",
-    "flow/pdk-smoke/pnr.request.json"
+    "flow/serializer/synth.request.json",
+    "flow/serializer/pnr.request.json"
   ],
   "cold_start": {
     "argv": ["sh", "verification/signoff/cold-start.sh"],
@@ -23,7 +23,7 @@
       "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
     },
     "tools": {
-      "klt": "dce956c3c39995643ff2a5c31b53c474b3c2aada",
+      "klt": "0.8.0",
       "ngspice": "46",
       "cocotb": "2.0.1",
       "iverilog": "13.0",
