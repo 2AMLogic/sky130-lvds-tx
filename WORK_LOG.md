@@ -2,8 +2,17 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-29
+
+- **PR #32**: feat(signoff): attest T1 item 9 with a cold-start wrapper and pinned inventory
+- **Issue #27** (closed): T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions
+
 ### 2026-10-28
 
+- **PR #59**: chore: re-run analog DRC on the routed GDS and cite it as 3.analog (r3)
+- **Issue #58** (closed): T1 item 3 (DRC clean, analog): re-run klt drc on the routed driver/pad GDS — the cited report is bound to the pre-#48 stream
+- **PR #57**: chore: retire superseded flow/pdk-smoke stand-in counter flow
+- **Issue #39** (closed): Remove flow/pdk-smoke: superseded stand-in counter flow
 - **Issue #24** (closed): T1 item 3 (DRC clean): klt drc on the driver/pad and serializer layouts with coverage disclosed
 
 ### 2026-10-27
