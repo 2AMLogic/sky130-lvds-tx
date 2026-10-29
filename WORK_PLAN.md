@@ -31,7 +31,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions
+- **#30**: Retire placeholder smoke bench and point pnpm test at the serializer bench
 
 ## PRs Awaiting Review
 
@@ -43,20 +43,18 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#61**: build: run serializer bench from pnpm test and drop duplicate check:all
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#27**: T1 item 9 (testbenches shipped): item 9 inventories and attestations for both partitions *(curated)*
 - **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer *(curated)*
 
 ## Proposed (Architect / Hermit)
 
-- **#30**: Retire placeholder smoke bench and point pnpm test at the serializer bench *(hermit)*
-- **#39**: Remove flow/pdk-smoke: superseded stand-in counter flow *(hermit)*
+_None._
 
 ## Epics
 
@@ -72,8 +70,8 @@ _None._
 | Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 0 |
-| Curated | 3 |
-| Architect / Hermit proposals | 2 |
+| Approved PRs awaiting merge | 1 |
+| Curated | 2 |
+| Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
