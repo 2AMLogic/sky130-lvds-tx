@@ -63,6 +63,15 @@ jobs:
               --inventory verification/signoff/item-1-analog-inventory.json \
               --check verification/signoff/evidence/item-1-analog-design-sources.json
 
+      # The item 9 cold start is `local_only` (it needs the sky130A PDK, iverilog
+      # and the batch fleet), so it is skipped here, visibly; the inventoried
+      # testbenches are still re-hashed. Re-attest locally (manifests/README.md).
+      - name: Re-attest item 9 and check the committed envelope
+        run: |
+          klt signoff --attest 9 \
+              --inventory verification/signoff/item-9-inventory.json \
+              --check verification/signoff/evidence/item-9-testbenches.json
+
       - name: Re-run klt signoff and compare against the committed record
         run: |
           set -uo pipefail

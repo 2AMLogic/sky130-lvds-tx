@@ -19,6 +19,17 @@ The script is vendored from `2AMLogic/sky130-modexp@18f4d8f`; see
 `iverilog` and `openroad` are host tools: the script reports them if missing
 and does not install them.
 
+## Cold-start check
+
+Item 9's third-party cold start (digital smoke with negative control, then the
+analog smoke through `klt sim`; needs `uv`, `iverilog` and the PDK above):
+
+```
+sh verification/signoff/cold-start.sh
+```
+
+Inventory: `verification/signoff/item-9-inventory.json`.
+
 ## Pinned versions
 
 | Constant | Value |

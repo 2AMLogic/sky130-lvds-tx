@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 9,
+  "summary": "T1 item 9 (Testbenches shipped): 11/11 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-9-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 11,
+    "passed_count": 11,
+    "checks": [
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/serializer/pnr.request.json",
+        "passed": true,
+        "content_hash": "sha256:d0b7f6019a0b2cbcc88eb190e57e5d870bc2671a7885bf007ab5ab5f5466fc5b"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/serializer/synth.request.json",
+        "passed": true,
+        "content_hash": "sha256:7de2ca208733d480cbe9fcd75d7029bf8590704356269a28c27aba563798371d"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/pdk-smoke/inverters.spice",
+        "passed": true,
+        "content_hash": "sha256:f60f32b82db5eff3e4e391dc4024d9b3dc2a20fee58f004f3c82bb4b72d9408a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/pdk-smoke/request.json",
+        "passed": true,
+        "content_hash": "sha256:a3b156e3ab87f1be4b8fae9684fdfb29f0f0df47286af5af070a3c5dea9078dd"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/negative_control/smoke_broken.v",
+        "passed": true,
+        "content_hash": "sha256:88508a40a8835ec322d3a392809462c2b722aa7832f2096cbff7ac91b6fdf4d7"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/runner.py",
+        "passed": true,
+        "content_hash": "sha256:b8ce2d44e51d29c5285d628f03ccf563f9b6d05dbe3897944767ecf56f65a90d"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/smoke.v",
+        "passed": true,
+        "content_hash": "sha256:093139e8e79109f5dc2bb36669d0d94e426a84f1c0b18fb30ba4691b835119f6"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/test_smoke.py",
+        "passed": true,
+        "content_hash": "sha256:2dd386c196cb1d0575a6807eda0ad48431211a98fc0d6358e1be856b6a4676c9"
+      },
+      {
+        "check": "command",
+        "role": "cold_start",
+        "argv": [
+          "sh",
+          "verification/signoff/cold-start.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "pin",
+        "role": "pdk",
+        "passed": true,
+        "value": {
+          "name": "sky130A",
+          "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+        }
+      },
+      {
+        "check": "pin",
+        "role": "tools",
+        "passed": true,
+        "value": {
+          "cocotb": "2.0.1",
+          "iverilog": "13.0",
+          "klt": "0.8.0",
+          "ngspice": "46",
+          "openroad": "26Q3-1510-g6cb3f2b704",
+          "yosys": "0.68.0.0.post1208"
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "verification/signoff/item-9-inventory.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72"
+    }
+  }
+}

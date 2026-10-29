@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 7,
+  "t1_met_count": 9,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:a26b90262320d0fbd32b3f549a02b6300832706041797a559d8bf6bdb62efdc7",
   "build": {
@@ -456,10 +456,35 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "verification/signoff/evidence/item-9-testbenches.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "verification/signoff/item-9-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+          "input_verified": true,
+          "summary": "T1 item 9 (Testbenches shipped): 11/11 attestation checks passed (klt signoff --attest)",
+          "source": "verification/signoff/item-9-inventory.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 11,
+            "passed_count": 11
+          }
+        }
+      }
     },
     {
       "tier": "T1",
@@ -469,10 +494,35 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "verification/signoff/evidence/item-9-testbenches.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "verification/signoff/item-9-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+          "input_verified": true,
+          "summary": "T1 item 9 (Testbenches shipped): 11/11 attestation checks passed (klt signoff --attest)",
+          "source": "verification/signoff/item-9-inventory.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 11,
+            "passed_count": 11
+          }
+        }
+      }
     },
     {
       "tier": "T1",

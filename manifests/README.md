@@ -56,6 +56,17 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
+  - **Item 9 (testbenches shipped)** is the second cited item. It cites
+    [`verification/signoff/evidence/item-9-testbenches.json`](../verification/signoff/evidence/item-9-testbenches.json),
+    produced by `klt signoff --attest 9` from
+    [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
+    Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
+    one inventory lists the analog and digital benches together. The
+    `content_hash` is the sha256 of the inventory file. Its `cold_start` is
+    [`verification/signoff/cold-start.sh`](../verification/signoff/cold-start.sh)
+    (digital smoke with negative control, then the analog smoke through
+    `klt sim`, which goes to the batch fleet on a dispatch worker).
+    The cold start is `local_only`, so CI re-hashes the inventory but does not re-run it.
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
@@ -77,6 +88,8 @@ version and does not satisfy `==0.8.0` (klayout-tools#2823).
 
 ```console
 KLT="uvx --from klayout-tools==0.8.0 klt"
+$KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
+             -o verification/signoff/evidence/item-9-testbenches.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
              -o verification/signoff/evidence/item-10-repo-hygiene.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
@@ -96,14 +109,14 @@ requires re-attesting, then re-rendering the record, in the same PR.
 
 ## Freshness is CI-enforced
 
-`.github/workflows/signoff.yml` re-attests item 1 (digital), item 10 and item 1
-(analog) with `--check` and re-renders the report, failing on any byte difference
+`.github/workflows/signoff.yml` re-attests item 1 (digital), item 10, item 1
+(analog) and item 9 with `--check` and re-renders the report, failing on any byte difference
 from the committed record. Item 2 (digital and analog) is not re-attested, since `klt signoff
 --attest` has no item 2 producer (klayout-tools#4188); they are hash-bound only by that
 full-record comparison.
 
 ## Current verdict
 
-Not T1: 7 of 22 items met (item 10 once per partition; item 1, both partitions; item 2,
-both partitions; item 3, digital only: the analog DRC report is not clean). All others are
+Not T1: 9 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
+both partitions; item 2, both partitions; item 3, digital only: the analog DRC report is not clean). All others are
 `unmet` / `no_evidence`.
