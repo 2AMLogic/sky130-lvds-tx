@@ -460,7 +460,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r2.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r3.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -498,7 +498,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r2.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r3.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -536,7 +536,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r2.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r3.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -574,7 +574,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r2.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r3.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",

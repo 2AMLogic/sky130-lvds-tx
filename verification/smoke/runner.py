@@ -1,32 +1,28 @@
 #!/usr/bin/env python3
-"""Cold-start runner for the smoke bench; template for later benches.
+"""Shared cocotb/Icarus bench host: `run_bench()`.
 
-Runs `test_smoke.py` under Icarus Verilog via cocotb's Python runner:
+Runs a cocotb test module under Icarus Verilog in two legs:
 
-  - good leg: `smoke.v` must pass every test.
-  - negative control: the *same, unmodified* test module against
-    `negative_control/smoke_broken.v` must FAIL; a bench that has never
-    failed is not known to be able to.
+  - good leg: the real DUT must pass every test.
+  - negative control: the *same, unmodified* test module against a
+    deliberately broken DUT must FAIL; a bench that has never failed is not
+    known to be able to.
 
 Writes a JSON result file (per-test pass/fail for both legs, seed, tool
-versions, commit) and exits 0 only if both legs behave as expected.
+versions, commit) and returns 0 only if both legs behave as expected.
 
-    pip install -r requirements.txt
-    python3 verification/smoke/runner.py [--out results/smoke.json]
-
-Later benches reuse `run_bench()` rather than copying this file.
+This file has no entry point of its own. Benches under `verification/`
+(e.g. `verification/serializer/runner.py`) load it and call `run_bench()`
+rather than copying it.
 """
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import platform
 import random
-import shutil
 import subprocess
-import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -131,33 +127,3 @@ def run_bench(*, bench_dir: Path, good: Path, broken: Path, toplevel: str,
 def _cocotb_version() -> str:
     import cocotb
     return cocotb.__version__
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--good-only", action="store_true")
-    parser.add_argument("--broken-only", action="store_true")
-    parser.add_argument("--out", type=Path, default=HERE / "results" / "smoke.json",
-                        help="result JSON path (default: %(default)s, gitignored)")
-    args = parser.parse_args()
-    if args.good_only and args.broken_only:
-        parser.error("--good-only and --broken-only are mutually exclusive")
-    if shutil.which("iverilog") is None:
-        print("error: iverilog not found on PATH (apt install iverilog)", file=sys.stderr)
-        return 2
-    try:
-        import cocotb  # noqa: F401
-    except ImportError:
-        print("error: cocotb not installed (pip install -r requirements.txt)",
-              file=sys.stderr)
-        return 2
-    return run_bench(
-        bench_dir=HERE, good=HERE / "smoke.v",
-        broken=HERE / "negative_control" / "smoke_broken.v",
-        toplevel="smoke", test_module="test_smoke", out=args.out,
-        good_only=args.good_only, broken_only=args.broken_only,
-    )
-
-
-if __name__ == "__main__":
-    sys.exit(main())
