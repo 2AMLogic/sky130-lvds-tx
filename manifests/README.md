@@ -51,13 +51,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r2.json`](../verification/signoff/evidence/item-10-repo-hygiene-r2.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r2.json`](../verification/signoff/evidence/item-9-testbenches-r2.json),
+    [`verification/signoff/evidence/item-9-testbenches-r3.json`](../verification/signoff/evidence/item-9-testbenches-r3.json),
     produced by `klt signoff --attest 9` from
     [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
@@ -89,9 +89,9 @@ version and does not satisfy `==0.8.0` (klayout-tools#2823).
 ```console
 KLT="uvx --from klayout-tools==0.8.0 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
-             -o verification/signoff/evidence/item-9-testbenches-r2.json   # runs the cold start (sim leg: batch fleet)
+             -o verification/signoff/evidence/item-9-testbenches-r3.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r2.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r3.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources.json
