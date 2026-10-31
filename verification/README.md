@@ -6,10 +6,8 @@ Cold-start digital verification harness: cocotb + Icarus Verilog, PDK-free.
 
     verification/
       lint_rtl.sh                 Verilator lint of rtl/*.v
-      smoke/                      placeholder bench proving the harness itself; its
-        smoke.v  test_smoke.py    runner.py hosts run_bench() (pinned by item-9 evidence
-        runner.py requirements.txt  and verification/signoff/cold-start.sh)
-        negative_control/smoke_broken.v
+      smoke/                      shared harness: runner.py hosts run_bench(), requirements.txt
+        runner.py requirements.txt  pins cocotb (the placeholder DUT was retired, spec/decisions/0003)
       serializer/                 serializer bench (`pnpm test`), with negative control
 
 Later benches follow `verification/<bench>/{runner.py,requirements.txt,test_<bench>.py,negative_control/}`
@@ -18,8 +16,7 @@ and call `run_bench()` from `smoke/runner.py` rather than copying it.
 ## Cold start
 
     pip install -r verification/smoke/requirements.txt
-    python3 verification/smoke/runner.py     # harness smoke bench; works from any directory
-    python3 verification/serializer/runner.py   # serializer bench (what `pnpm test` runs)
+    python3 verification/serializer/runner.py   # serializer bench (what `pnpm test` runs); works from any directory
     verification/lint_rtl.sh
 
 Prerequisites: `iverilog`, `verilator` (apt). Exit status is 0 only if the good
@@ -41,8 +38,8 @@ module must fail against it. The runner exits non-zero if it passes.
 
 ## Result file
 
-`results/smoke.json` (gitignored; `--out` to change): per-test pass/fail for
-both legs, cocotb seed (`COCOTB_RANDOM_SEED` overrides), python/cocotb/iverilog
+`results/serializer.json` (gitignored; `--out` to change): per-test pass/fail for
+both legs of the bench, cocotb seed (`COCOTB_RANDOM_SEED` overrides), python/cocotb/iverilog
 versions, `git rev-parse HEAD`, and `overall`.
 
 Reuse decision for the sibling's runner: `spec/decisions/0001-verification-runner-kept-separate.md`.

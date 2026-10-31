@@ -460,11 +460,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r2.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+        "content_hash": "sha256:74e5db39b6b6557ee1c4585cf35af7c978cc28d03274a2456063cee25397b547",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -473,7 +473,7 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+          "content_hash": "sha256:74e5db39b6b6557ee1c4585cf35af7c978cc28d03274a2456063cee25397b547",
           "input_verified": true,
           "summary": "T1 item 9 (Testbenches shipped): 11/11 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
@@ -498,11 +498,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r2.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+        "content_hash": "sha256:74e5db39b6b6557ee1c4585cf35af7c978cc28d03274a2456063cee25397b547",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -511,7 +511,7 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:09a07565ea968b6bc257809a8c8f3a6af085e86d85f06293bcb6648c4172af72",
+          "content_hash": "sha256:74e5db39b6b6557ee1c4585cf35af7c978cc28d03274a2456063cee25397b547",
           "input_verified": true,
           "summary": "T1 item 9 (Testbenches shipped): 11/11 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
@@ -536,7 +536,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r2.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -574,7 +574,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r2.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",

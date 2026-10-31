@@ -50,7 +50,7 @@ jobs:
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r2.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
@@ -70,7 +70,7 @@ jobs:
         run: |
           klt signoff --attest 9 \
               --inventory verification/signoff/item-9-inventory.json \
-              --check verification/signoff/evidence/item-9-testbenches.json
+              --check verification/signoff/evidence/item-9-testbenches-r2.json
 
       - name: Re-run klt signoff and compare against the committed record
         run: |
