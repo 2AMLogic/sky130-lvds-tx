@@ -31,7 +31,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#30**: Retire placeholder smoke bench and point pnpm test at the serializer bench
+_None._
 
 ## PRs Awaiting Review
 
@@ -43,7 +43,7 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#61**: build: run serializer bench from pnpm test and drop duplicate check:all
+_None._
 
 ## Proposed
 
@@ -68,9 +68,9 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 1 |
+| Approved PRs awaiting merge | 0 |
 | Curated | 2 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |

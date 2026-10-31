@@ -2,6 +2,10 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-10-31
+
+- **PR #61**: build: run serializer bench from pnpm test and drop duplicate check:all
+
 ### 2026-10-29
 
 - **PR #32**: feat(signoff): attest T1 item 9 with a cold-start wrapper and pinned inventory
