@@ -51,13 +51,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r2.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r3.json`](../verification/signoff/evidence/item-9-testbenches-r2.json),
+    [`verification/signoff/evidence/item-9-testbenches-r3.json`](../verification/signoff/evidence/item-9-testbenches-r3.json),
     produced by `klt signoff --attest 9` from
     [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
