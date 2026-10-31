@@ -21,7 +21,7 @@ and does not install them.
 
 ## Cold-start check
 
-Item 9's third-party cold start (digital smoke with negative control, then the
+Item 9's third-party cold start (digital serializer bench with negative control, then the
 analog smoke through `klt sim`; needs `uv`, `iverilog` and the PDK above):
 
 ```

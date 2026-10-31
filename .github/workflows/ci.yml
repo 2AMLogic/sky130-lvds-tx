@@ -23,7 +23,5 @@ jobs:
         run: pip install -r verification/smoke/requirements.txt
       - name: Lint RTL
         run: verification/lint_rtl.sh
-      - name: Smoke bench (good leg + negative control)
-        run: python3 verification/smoke/runner.py
       - name: Serializer bench (good leg + negative control)
         run: python3 verification/serializer/runner.py

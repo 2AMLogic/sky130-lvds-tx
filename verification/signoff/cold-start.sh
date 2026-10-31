@@ -6,8 +6,8 @@
 #   source .venv/bin/activate && sh verification/signoff/cold-start.sh
 #
 # Needs uv, iverilog and the pinned sky130A PDK (docs/environment.md); the
-# bench's cocotb comes from verification/smoke/requirements.txt via uv.
-# Digital leg: cocotb/Icarus smoke bench, good leg plus negative control.
+# bench's cocotb comes from verification/serializer/requirements.txt via uv.
+# Digital leg: cocotb/Icarus serializer bench, good leg plus negative control.
 # Analog leg: the PDK smoke request through `klt sim` (3 process corners;
 # with KLT_SIM_BACKEND=batch this goes to the batch fleet, never a local
 # ngspice loop). Scratch output lives in a temp dir; committed results are
@@ -17,6 +17,6 @@ set -eu
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
-uv run --no-project --with-requirements verification/smoke/requirements.txt \
-    python verification/smoke/runner.py --out "$scratch/smoke.json"
+uv run --no-project --with-requirements verification/serializer/requirements.txt \
+    python verification/serializer/runner.py --out "$scratch/serializer.json"
 klt sim sim/pdk-smoke/request.json -o "$scratch/sim" --report-out "$scratch/sim-report.json"
