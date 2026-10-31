@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-31
 
+- **PR #64**: chore(verification): retire smoke placeholder bench, cold start runs serializer bench
+- **Issue #30** (closed): Retire placeholder smoke bench and point pnpm test at the serializer bench
 - **PR #61**: build: run serializer bench from pnpm test and drop duplicate check:all
 
 ### 2026-10-29
