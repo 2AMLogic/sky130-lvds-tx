@@ -109,3 +109,6 @@ results.xml
 .claude/skills/repo/.install-local.json
 # verification result JSON (verification/*/results/)
 verification/*/results/
+
+# Repo Skills Codex-side machine-local install metadata (never committed)
+.agents/skills/repo/.install-local.json
