@@ -5,10 +5,12 @@ Cold-start digital verification harness: cocotb + Icarus Verilog, PDK-free.
 ## Layout
 
     verification/
-      lint_rtl.sh                 Verilator lint of rtl/*.v (vacuous while rtl/ is empty)
-      smoke/                      placeholder bench proving the harness itself
-        smoke.v  test_smoke.py  runner.py  requirements.txt
+      lint_rtl.sh                 Verilator lint of rtl/*.v
+      smoke/                      placeholder bench proving the harness itself; its
+        smoke.v  test_smoke.py    runner.py hosts run_bench() (pinned by item-9 evidence
+        runner.py requirements.txt  and verification/signoff/cold-start.sh)
         negative_control/smoke_broken.v
+      serializer/                 serializer bench (`pnpm test`), with negative control
 
 Later benches follow `verification/<bench>/{runner.py,requirements.txt,test_<bench>.py,negative_control/}`
 and call `run_bench()` from `smoke/runner.py` rather than copying it.
@@ -16,7 +18,8 @@ and call `run_bench()` from `smoke/runner.py` rather than copying it.
 ## Cold start
 
     pip install -r verification/smoke/requirements.txt
-    python3 verification/smoke/runner.py     # works from any directory
+    python3 verification/smoke/runner.py     # harness smoke bench; works from any directory
+    python3 verification/serializer/runner.py   # serializer bench (what `pnpm test` runs)
     verification/lint_rtl.sh
 
 Prerequisites: `iverilog`, `verilator` (apt). Exit status is 0 only if the good
