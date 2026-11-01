@@ -2,6 +2,10 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-01
+
+- **PR #69**: Bump Repo Skills 0.24.7 -> 0.25.1
+
 ### 2026-10-31
 
 - **PR #67**: chore(verification): drop dead main() from shared run_bench() host
