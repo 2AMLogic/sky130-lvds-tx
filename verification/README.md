@@ -96,18 +96,18 @@ not this copy, if they differ):
 - Skipped rules are `inapplicable` / `no_applicable_geometry` in the report, and `unmodeled_rules` lists DRM rules the curated deck does not transcribe at all.
 - Analog `voltage_domain_warnings`: the `hvi` (75/20) thick-oxide marker is modelled only for device recognition and `nwell.enclosed.hvi.1`; geometry drawn inside it is checked at general-case thresholds, not the medium-voltage ones (`difftap.14` etc.). Pad/ESD and 5 V device layers are therefore **not** fully covered by this deck.
 
-## T1 item 4: LVS (`klt lvs`), recorded `mismatch`
+## T1 item 4: LVS (`klt lvs`): digital `match`, analog `mismatch`
 
 Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
-**Neither partition meets item 4**, so the manifest still grades it `unmet`.
+**The analog partition does not meet item 4**, so the manifest still grades it `unmet`.
 The `r2` analog reports are append-only additions; the first report is kept.
 
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
 | Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). |
-| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `mismatch` | Signal compare matches (174 nets, 118 pins). One finding, `power.inconsistent_pin_net`: `VNB` reaches `VSS` (246 instances), `VCCD` (1) and `word_clk` (1). Diagnosed as a tool artifact, not a PDN or routing defect: see below. |
+| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r2.json` (klt with the #4363 fix): signal compare matches, `power_connectivity.status: "match"`, no findings, `reference.form: "gate-level-verilog"`, report `--check` clean. The `VNB`/`VPB` well-layer LEF pins (248 instances) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) is kept as append-only evidence. |
 
 **Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
 `verification/signoff/evidence/item-4-lvs-digital-diagnosis.md`. A transistor-level
@@ -118,7 +118,7 @@ probes the LEF `pwell` pin at its bounding-box centre, where parent routing
 (`word_clk` met1 over `a21oi_1_0`, the `VCCD` met5 strap over `a22o_1_1`) is picked up.
 Tracked upstream as 2AMLogic/klayout-tools#4363. The report therefore stays
 `power_connectivity: mismatch`; the finding is not waived and `options.power_connectivity`
-stays `true`. Re-run once #4363 lands.
+stays `true`. #4363 has since landed (klayout-tools PR #4366, `6f28dd6`; no PyPI release includes it yet, 0.8.0 predates it), and the re-run is `item-4-lvs-digital-r2.json`, `match`. `VNB`/`VPB` are now reported under `excluded_pins` rather than checked, so the PDN tie of `VNB` rests on the DEF `SPECIALNETS` and transistor-level extraction evidence in the diagnosis record.
 
 Warnings only, digital: `topology` x3 (empty `nfet`/`pfet`/`pnp` classes, not real),
 `topology.power_only_pruned`, `topology.reference_port_alias_joined` x3
@@ -137,7 +137,11 @@ without it the routed GDS extracts 719 flat transistors against a 0-device
 reference. Re-run with:
 
     export PDK_ROOT=~/.ciel PDK=sky130A
-    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json
-    klt lvs --check verification/signoff/evidence/item-4-lvs-digital.json   # drift check
+    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json > verification/signoff/evidence/item-4-lvs-digital-r2.json
+    klt lvs --check verification/signoff/evidence/item-4-lvs-digital-r2.json   # drift check
+
+The digital `r2` report was produced with
+`uvx --from git+https://github.com/2AMLogic/klayout-tools@6f28dd6d74de81845995045c87689961092df924 klt`
+(0.8.1.dev350), since the fix is not yet in a release.
 
 The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
