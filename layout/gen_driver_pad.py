@@ -53,34 +53,14 @@ SUB_TAGS = {"drv_sel": "drv_sel", "drv_slice": "drv_slice_s%(SCALE)d"}
 # Stage 3 blocks, device lists parsed from the committed netlists.
 NETLISTS = {"ddr_mux": "design/ddr_mux/ddr_mux.spice",
             "predriver": "design/predriver/predriver.spice"}
-SHELF_GAP_UM = 2.0
 SHELF_WIDTH_UM = 150.0
+BLOCK_START_GAP_UM = 20.0  # pair to first block: room for the spines and extensions
+BLOCK_GAP_UM = 20.0        # between blocks: room for the gateway pads
 
 def die(msg):
     sys.stderr.write("gen_driver_pad: %s\n" % msg)
     sys.exit(1)
 
-def parse_netlist(path):
-    """Return [(name, kind, thick_oxide, W, L, nf, m)] for the X-card MOS devices."""
-    if not os.path.isfile(path):
-        die("netlist not found: %s (run from the repository root)" % path)
-    lines = []
-    for raw in open(path).read().splitlines():
-        if raw.startswith("+") and lines:
-            lines[-1] += " " + raw[1:]
-        elif raw.startswith("X"):
-            lines.append(raw)
-    devs = []
-    for ln in lines:
-        tok = ln.split()
-        model = next(t for t in tok if t.startswith("sky130_fd_pr__"))
-        par = dict(t.split("=", 1) for t in tok if "=" in t)
-        mm = re.match(r"sky130_fd_pr__([np])fet_(01v8|g5v0d10v5)$", model)
-        if not mm:
-            die("%s: unsupported device model %s on %s" % (path, model, tok[0]))
-        devs.append((tok[0], mm.group(1), mm.group(2) == "g5v0d10v5", float(par["W"]),
-                     float(par["L"]), int(par["nf"]), int(par.get("m", "1"))))
-    return devs
 
 def load_frame(dst):
     if not os.path.isfile(IO_GDS):
@@ -133,27 +113,7 @@ def label_ports(ly, cell, dev, ports):
         cell.shapes(idx).insert(pya.Text("%s.%s" % (dev, p["name"]),
                                          int(p["x_um"] / ly.dbu), int(p["y_um"] / ly.dbu)))
 
-def gen_mos(ly, tag, dev, mult):
-    name, kind, thick, w, l, nf = dev
-    params = {"w_um": w, "l_um": l, "fingers": nf, "rows": 1, "cols": mult, "dummy": 0,
-              "topology": "array", "flavor": "nfet" if kind == "n" else "pfet",
-              "voltage_flavor": "hvi" if thick else ""}
-    cell, ports = klt_gen(ly, "mos_array", params, "%s_%s" % (tag, name))
-    label_ports(ly, cell, name, ports)
-    return cell
 
-def shelf_place(ly, parent, cells):
-    """Place cells left to right in rows (shelf packing); order is fixed."""
-    gap = int(SHELF_GAP_UM / ly.dbu)
-    limit = int(SHELF_WIDTH_UM / ly.dbu)
-    x = y = rowh = 0
-    for c in cells:
-        bb = c.bbox()
-        if x and x + bb.width() > limit:
-            x, y, rowh = 0, y + rowh + gap, 0
-        parent.insert(pya.CellInstArray(c.cell_index(), pya.Trans(x - bb.left, y - bb.bottom)))
-        x += bb.width() + gap
-        rowh = max(rowh, bb.height())
 
 # ---- driver: flatten the netlist, draw one leaf per device, route the nets ----
 # Routing plan (layout/README.md, "Routing"): each leaf carries its own stubs and
@@ -206,8 +166,9 @@ def evaluate(expr, env):
         return env[expr[1:-1]]
     return float(expr)
 
-def flatten_devices(subs, top):
+def flatten_devices(subs, top, path=None, tag="drv"):
     """Flat leaf devices of subckt `top`: dicts with a stable cell name and flat nets."""
+    path = path or DRIVER_NETLIST
     out = []
     def walk(name, netmap, env, prefix, tag):
         for card, nets, model, par in subs[name]["cards"]:
@@ -222,7 +183,7 @@ def flatten_devices(subs, top):
                 continue
             mm = re.match(r"sky130_fd_pr__(?:([np])fet_(01v8|g5v0d10v5)|(res_high_po_1p41))$", model)
             if not mm:
-                die("%s: unsupported device model %s on %s" % (DRIVER_NETLIST, model, card))
+                die("%s: unsupported device model %s on %s" % (path, model, card))
             dev = {"path": prefix + card, "cell": "%s_%s" % (tag, card), "nets": flat}
             if mm.group(3):
                 dev.update(kind="res", length=evaluate(par["L"], env), m=1)
@@ -233,7 +194,7 @@ def flatten_devices(subs, top):
                            w=evaluate(par["W"], env) / nf)  # W on the card is the total width
             out.append(dev)
     top_sub = subs[top]
-    walk(top, {p: p for p in top_sub["ports"]}, dict(top_sub["params"]), "", tag="drv")
+    walk(top, {p: p for p in top_sub["ports"]}, dict(top_sub["params"]), "", tag=tag)
     return out, top_sub["ports"]
 
 def snap_up(v, step):
@@ -446,13 +407,22 @@ def draw_route(ly, cell, router):
                 box(ly, cell, L_MET4, min(xa, xb) - WIRE4_UM / 2, min(ya, yb) - WIRE4_UM / 2,
                     max(xa, xb) + WIRE4_UM / 2, max(ya, yb) + WIRE4_UM / 2)
 
-def build_driver(ly):
-    """The `driver` subcircuit, placed leaf by leaf and routed to its nets."""
-    subs = parse_hier(DRIVER_NETLIST)
-    if DRIVER_TOP not in subs:
-        die("%s has no subckt %s" % (DRIVER_NETLIST, DRIVER_TOP))
-    devs, top_ports = flatten_devices(subs, DRIVER_TOP)
-    cell = ly.create_cell("sky130_lvds_tx_driver")
+GATE_PAD_UM = 1.2        # met4 landing pad under a via4 (0.8 um cut + 0.19 enclosure)
+GATE_SETBACK = 5         # gateway sits this many tracks left of the leftmost rail
+
+def build_routed(ly, name, path, top, tag, gates, route_nets=None):
+    """A block flattened from `path`, placed leaf by leaf and routed.
+
+    `route_nets` limits routing to those nets (None = all). `gates` maps a supply
+    net to the global y (um) of its gateway: a met4 landing pad left of the block
+    that the top level strands to the met5 supply straps. The block sits at y = 0.
+    Returns (cell, {net: (x_local_um, y_um)}).
+    """
+    subs = parse_hier(path)
+    if top not in subs:
+        die("%s has no subckt %s" % (path, top))
+    devs, top_ports = flatten_devices(subs, top, path, tag)
+    cell = ly.create_cell(name)
     placed = place_leaves(ly, cell, devs)
 
     # rails per net: nodes where a via3 fits (grid coordinates absolute)
@@ -467,23 +437,42 @@ def build_driver(ly):
     allx = [r[0] for rs in nets.values() for r in rs] + [r[1] for rs in nets.values() for r in rs]
     ally = [r[2] for rs in nets.values() for r in rs]
     margin = 8
-    router = Router((node(min(allx)) - margin, node(min(ally)) - margin, node(max(allx)) + margin, node(max(ally)) + margin))
+    gi = node(min(allx)) - GATE_SETBACK
+    gate_nodes = {n: (1, gi, int(round(y / PITCH_UM))) for n, y in gates.items()}
+    for n in gate_nodes:
+        if n not in nets:
+            die("%s: gateway net %s has no device terminal" % (name, n))
+    gj = [g[2] for g in gate_nodes.values()]
+    router = Router((min(node(min(allx)) - margin, gi - 3), min([node(min(ally)) - margin] + [j - 3 for j in gj]),
+                     node(max(allx)) + margin, max([node(max(ally)) + margin] + [j + 3 for j in gj])))
     ids = {n: k for k, n in enumerate(sorted(nets))}
     for n, rs in nets.items():
         for x0, x1, y in rs:
             router.mark_rail(ids[n], x0, x1, y)
+    for n, (_, i, j) in gate_nodes.items():  # keep other nets clear of the met4 landing pad
+        for di in range(-2, 3):
+            for dj in range(-2, 3):
+                router.owner[(1, i + di, j + dj)] = ids[n]
     # short nets first, the wide power nets last
     order = sorted(nets, key=lambda n: (len(nets[n]), n))
     failed = []
     for n in order:
+        if route_nets is not None and n not in route_nets:
+            continue
         rail_nodes = [Router.rail_nodes(*r) for r in nets[n]]
         if any(not r for r in rail_nodes):
             die("net %s: a rail has no via3 site" % n)
+        if n in gate_nodes:
+            rail_nodes.insert(0, [gate_nodes[n]])
         if len(rail_nodes) > 1 and not router.route(ids[n], rail_nodes):
             failed.append(n)
     if failed:
-        die("unrouted nets: %s" % ", ".join(failed))
+        die("%s: unrouted nets: %s" % (name, ", ".join(failed)))
     draw_route(ly, cell, router)
+    out = {}
+    for n, (_, i, j) in gate_nodes.items():
+        square(ly, cell, L_MET4, i * PITCH_UM, j * PITCH_UM, GATE_PAD_UM)
+        out[n] = (i * PITCH_UM, j * PITCH_UM)
     # top-level pin labels: on the first rail of each port net
     lbl = ly.layer(*L_MET3_LBL)
     for p in top_ports:
@@ -492,20 +481,76 @@ def build_driver(ly):
         x0, x1, y = nets[p][0]
         i = Router.rail_nodes(x0, x1, y)[0][1]
         cell.shapes(lbl).insert(pya.Text(p, int(round(i * PITCH_UM / ly.dbu)), int(round(y / ly.dbu))))
-    return cell
+    return cell, out
 
-def build_block(ly, block):
-    """Placement-only cell for a netlist block: one mos_array cell per device."""
-    cell = ly.create_cell("sky130_lvds_tx_" + block)
-    devs = [gen_mos(ly, block, d[:6], d[6]) for d in parse_netlist(NETLISTS[block])]
-    shelf_place(ly, cell, devs)
-    return cell
+# ---- supply distribution: stock pad-frame rails -> straps -> block gateways ----
+# The stock analog pad cell carries each supply only as edge stubs on met4/met5
+# (x 0-1.27 and 73.73-75 um), with no via4 between the two layers. Per rail band
+# this stage adds: met5 straps across the pair; met4+met5 extensions beyond both
+# free edges with via4 (the 1.27 um stubs are too narrow for a legal via4) and
+# via4 at the pair joint; met5 spines joining a supply's two bands (VDDIO on the
+# left, VSSIO on the right); and met5 runs east to each block's gateway.
+# met5 only crosses the pad interior (the ESD clamp's met4 sits in the VSSIO band).
+STRAP_HALF_UM = 2.225    # half height of a strap window inside the stub band
+EXT_UM = 3.6             # met4/met5 extension beyond a free pair edge
+SPINE_W_UM = 1.6
+L_MET5, L_VIA4 = (72, 20), (71, 44)
+
+def frame_bands(frame, ly):
+    """{net: [y_um]} of the stock stub labels (met5, left edge) for the three supplies."""
+    out = {}
+    it = frame.begin_shapes_rec(ly.layer(72, 5))
+    while not it.at_end():
+        sh = it.shape()
+        if sh.is_text() and sh.text_string in ("VCCD", "VDDIO", "VSSIO") and sh.text_trans.disp.x * ly.dbu < 1.0:
+            out.setdefault(sh.text_string, []).append(sh.text_trans.disp.y * ly.dbu)
+        it.next()
+    for n in ("VCCD", "VDDIO", "VSSIO"):
+        if n not in out:
+            die("stock frame has no %s label on met5" % n)
+        out[n].sort()
+    return out
+
+def build_supplies(ly, top, bands, gateways, pair_w):
+    """Draw the supply straps in `top`; gateways = {net: [(x_um, y_um)]} (global)."""
+    h = STRAP_HALF_UM
+    xr = pair_w
+    spine_l = (-EXT_UM - 1.8 - SPINE_W_UM, -EXT_UM - 1.8)           # VDDIO
+    spine_r = (xr + EXT_UM + 1.8, xr + EXT_UM + 1.8 + SPINE_W_UM)   # VSSIO
+    def via4s(x, yc):
+        for dy in (-1.0, 1.0):
+            square(ly, top, L_VIA4, x, yc + dy, 0.8)
+    for net, ys in bands.items():
+        east = max([g[0] for g in gateways.get(net, [])] + [xr + EXT_UM]) + 1.2
+        for yc in ys:
+            yc = round(yc / 0.005) * 0.005   # stock label y can be off the 5 nm manufacturing grid
+            lo, hi = yc - h, yc + h
+            x_left = spine_l[0] if net == "VDDIO" else -EXT_UM
+            x_right = spine_r[1] if net == "VSSIO" else east
+            if net == "VSSIO":
+                x_right = max(x_right, east)
+            if net == "VDDIO" and yc > 50:
+                x_right = xr + EXT_UM            # upper VDDIO band stops at its extension
+            box(ly, top, L_MET5, x_left, lo, x_right, hi)
+            box(ly, top, L_MET4, -EXT_UM, lo, 0.6, hi)
+            box(ly, top, L_MET4, xr - 0.6, lo, xr + EXT_UM, hi)
+            via4s(-EXT_UM / 2, yc)
+            via4s(xr + EXT_UM / 2, yc)
+            via4s(xr / 2, yc)
+            for gx, gy in gateways.get(net, []):
+                if abs(gy - yc) < h:
+                    square(ly, top, L_VIA4, gx, gy, 0.8)
+        if net == "VDDIO":
+            box(ly, top, L_MET5, spine_l[0], round(ys[0] / 0.005) * 0.005 - h, spine_l[1], round(ys[-1] / 0.005) * 0.005 + h)
+        if net == "VSSIO":
+            box(ly, top, L_MET5, spine_r[0], round(ys[0] / 0.005) * 0.005 - h, spine_r[1], round(ys[-1] / 0.005) * 0.005 + h)
 
 def main():
     ly = pya.Layout()
     ly.dbu = 0.001
     frame = load_frame(ly)
     esd = gen_esd(ly)
+    bands = frame_bands(frame, ly)
 
     pad = ly.create_cell("sky130_lvds_tx_pad_cell")
     pad.insert(pya.CellInstArray(frame.cell_index(), pya.Trans()))
@@ -517,19 +562,31 @@ def main():
     pair.insert(pya.CellInstArray(pad.cell_index(), pya.Trans(0, 0)))         # PADP
     pair.insert(pya.CellInstArray(pad.cell_index(), pya.Trans(pitch, 0)))     # PADN
 
-    # Placement-only driver (stage 2). It sits beside the pad pair, outside the
-    # 75 x 200 um slot: its area is reported by the check script, not hidden.
-    drv = build_driver(ly)
     top = ly.create_cell("sky130_lvds_tx_driver_pad")
     top.insert(pya.CellInstArray(pair.cell_index(), pya.Trans(0, 0)))
-    top.insert(pya.CellInstArray(drv.cell_index(), pya.Trans(2 * pitch + int(SHELF_GAP_UM * 5 / ly.dbu), 0)))
 
-    # Stage 3: ddr_mux and predriver, placed the same way, beside the driver.
-    x = 2 * pitch + int(SHELF_GAP_UM * 5 / ly.dbu) + drv.bbox().width() + int(SHELF_GAP_UM * 5 / ly.dbu)
-    for block in ("ddr_mux", "predriver"):
-        cell = build_block(ly, block)
-        top.insert(pya.CellInstArray(cell.cell_index(), pya.Trans(x - cell.bbox().left, -cell.bbox().bottom)))
-        x += cell.bbox().width() + int(SHELF_GAP_UM * 5 / ly.dbu)
+    # The three blocks sit beside the pair, outside the 75 x 200 um slot: their
+    # area is reported by the check script, not hidden. Each supply gateway lands
+    # on the met5 strap of its band (global y), so the y of a gateway is the band
+    # centre snapped to the routing grid.
+    def gate_y(net):
+        yc = bands[net][0]
+        return round(yc / PITCH_UM) * PITCH_UM
+    blocks = [
+        ("sky130_lvds_tx_driver", DRIVER_NETLIST, DRIVER_TOP, "drv", ("VCCD", "VDDIO", "VSSIO"), None),
+        ("sky130_lvds_tx_ddr_mux", NETLISTS["ddr_mux"], "ddr_mux", "ddr_mux", ("VCCD", "VSSIO"), {"VCCD", "VSSIO"}),
+        ("sky130_lvds_tx_predriver", NETLISTS["predriver"], "predriver", "predriver", ("VCCD", "VSSIO"), {"VCCD", "VSSIO"}),
+    ]
+    x = 2 * pitch * ly.dbu + BLOCK_START_GAP_UM
+    gateways = {}
+    for name, path, topname, tag, supplies, route in blocks:
+        cell, gate = build_routed(ly, name, path, topname, tag, {n: gate_y(n) for n in supplies}, route)
+        dx = snap_up(x - cell.dbbox().left, PITCH_UM)
+        top.insert(pya.CellInstArray(cell.cell_index(), pya.Trans(int(round(dx / ly.dbu)), 0)))
+        for n, (gx, gy) in gate.items():
+            gateways.setdefault(n, []).append((dx + gx, gy))
+        x = dx + cell.dbbox().right + BLOCK_GAP_UM
+    build_supplies(ly, top, bands, gateways, 2 * PAD_PITCH_UM)
 
     opts = pya.SaveLayoutOptions()
     opts.format = "GDS2"

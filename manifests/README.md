@@ -29,8 +29,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
   - **Item 2, analog (`2.analog`)** cites
-    [`verification/signoff/evidence/item-2-layout-analog-r2.json`](../verification/signoff/evidence/item-2-layout-analog-r2.json)
-    (append-only; the earlier `item-2-layout-analog.json` is kept as history, bound to the unrouted GDS),
+    [`verification/signoff/evidence/item-2-layout-analog-r3.json`](../verification/signoff/evidence/item-2-layout-analog-r3.json)
+    (append-only; the earlier `item-2-layout-analog.json` and `-r2.json` are kept as history, bound to earlier GDS revisions),
     a hand-written `generic` envelope bound to
     `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
     producer; same route as `2.digital`). Its `regeneration` claim is backed by
