@@ -13,19 +13,19 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
+_None._
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-- **#25**: T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity
+- **#26**: T1 item 11 (power delivery, structural): klt erc supply specs for VCCD/VDDIO/VSSIO across both partitions
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
+- **#26**: T1 item 11 (power delivery, structural): klt erc supply specs for VCCD/VDDIO/VSSIO across both partitions
 
 ## In Progress
 
@@ -50,7 +50,6 @@ _None._
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#49**: T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -65,13 +64,13 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 1 |
+| Very important | 0 |
 | Important | 1 |
 | Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 2 |
+| Curated | 1 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

@@ -2,6 +2,16 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-02
+
+- **Issue #74** (closed): Route VCCD/VDDIO/VSSIO across pad frame, driver and predriver in driver_pad layout
+- **PR #75**: feat: strap supplies across pad frame, driver, ddr_mux and predriver
+- **PR #73**: feat: add klt erc supply specs and item 11 evidence (digital met, analog unmet)
+- **Issue #25** (closed): T1 item 4 (LVS clean): LVS of the analog cells against their schematics and of the serializer with power_connectivity
+- **PR #72**: feat: cite klt lvs reports for T1 item 4 on both partitions
+- **Issue #49** (closed): T1 item 4 prerequisite (digital): diagnose and fix the VNB power.inconsistent_pin_net finding in the routed serializer
+- **PR #71**: docs: record digital LVS r2 report with power_connectivity match
+
 ### 2026-11-01
 
 - **PR #69**: Bump Repo Skills 0.24.7 -> 0.25.1
