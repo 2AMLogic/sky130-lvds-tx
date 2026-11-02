@@ -19,28 +19,28 @@
       "content_hash": "sha256:74e5db39b6b6557ee1c4585cf35af7c978cc28d03274a2456063cee25397b547"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r3.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r4.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
-      "file": "verification/signoff/evidence/item-2-layout-analog-r3.json",
-      "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
+      "file": "verification/signoff/evidence/item-2-layout-analog-r4.json",
+      "content_hash": "sha256:f36239cf4a3aaa06296d78e9aa285f32d14c53005817f85e361134eebca17958"
     },
     "2.digital": {
       "file": "verification/signoff/evidence/item-2-layout-digital.json",
       "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
     },
     "3.analog": {
-      "file": "verification/signoff/evidence/item-3-drc-analog-r3.json",
-      "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+      "file": "verification/signoff/evidence/item-3-drc-analog-r4.json",
+      "content_hash": "sha256:f36239cf4a3aaa06296d78e9aa285f32d14c53005817f85e361134eebca17958"
     },
     "3.digital": {
       "file": "verification/signoff/evidence/item-3-drc-digital.json",
       "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
     },
     "4.analog": {
-      "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
-      "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+      "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+      "content_hash": "sha256:f36239cf4a3aaa06296d78e9aa285f32d14c53005817f85e361134eebca17958"
     },
     "4.digital": {
       "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
@@ -48,12 +48,12 @@
     },
     "11.analog": [
       {
-        "file": "verification/signoff/evidence/item-11-erc-analog.json",
-        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+        "file": "verification/signoff/evidence/item-11-erc-analog-r2.json",
+        "content_hash": "sha256:f36239cf4a3aaa06296d78e9aa285f32d14c53005817f85e361134eebca17958"
       },
       {
-        "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
-        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+        "content_hash": "sha256:f36239cf4a3aaa06296d78e9aa285f32d14c53005817f85e361134eebca17958"
       }
     ],
     "11.digital": [

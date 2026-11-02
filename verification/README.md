@@ -53,10 +53,10 @@ Deck `sky130` (content hash `sha256:072b456a6c867ff7244bfc287908a960c265628b3c26
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
-        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r3.json
+        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r4.json
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --format json \
         flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital.json
-    klt drc --check verification/signoff/evidence/item-3-drc-analog-r3.json --pdk-root "$PDK_ROOT"
+    klt drc --check verification/signoff/evidence/item-3-drc-analog-r4.json --pdk-root "$PDK_ROOT"
     klt drc --check verification/signoff/evidence/item-3-drc-digital.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
@@ -80,8 +80,8 @@ The classification, and what stays unestablished (`met4.holes_area.1`, `met5.are
 the foundry waives the I/O library), is in
 [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44). The earlier report
 `item-3-drc-analog.json` and `item-3-drc-analog-r2.json` are kept (append-only); the manifest now cites
-`item-3-drc-analog-r3.json`, the same deck re-run with the CI-pinned klt (`0.8.0`) on the routed GDS
-(`sha256:17a471bc…3c71`, the committed file; `r2` was bound to the earlier placement-only stream,
+`item-3-drc-analog-r4.json`, the same deck re-run with the CI-pinned klt (`0.8.0`) on the routed GDS
+(`sha256:f36239cf…7958`, the committed file, after #74 and #77; `-r3` is kept, and `r2` `r2` was bound to the earlier placement-only stream,
 `sha256:4cbd2819…e488`, so it was stale). Same 486, same per-rule counts, and by `source_cell` 458 in
 `sky130_ef_io__simple_pad_and_busses` and 28 in `sky130_ef_io__analog_noesd_pad`; none in a cell drawn here.
 
@@ -102,7 +102,7 @@ Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
 The manifest cites `item-4-lvs-digital-r2.json` (`4.digital`) and
-`item-4-lvs-analog-r2-scale-expanded.json` (`4.analog`); both grade `met`.
+`item-4-lvs-analog-r3-scale-expanded.json` (`4.analog`, the GDS after #77; `-r2-scale-expanded` is kept as history); both grade `met`. `klt lvs --check` on the scale-expanded reports reports `reference_sha256` as drifted because it resolves the reference relative to the working directory, not the request; the hash in the report equals `sha256sum` of `driver-scale-expanded.spice`.
 **The analog citation compares against a derived netlist, not `design/driver/driver.spice`:**
 `verification/signoff/lvs/expand-scale.py` substitutes the `SCALE=11` value into `m={SCALE}`
 because the converter does not evaluate it (klayout-tools#4406). The unmodified-netlist report
@@ -163,13 +163,23 @@ Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`k
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted
   `well_boxes` strips, so it is named in `checked_by_well_assertion`; 7.3 % of drawn tap area falls outside the boxes).
   Negative control: moving that tie's `tap_boxes` away gives `erc.missing_tie` per strip. LVS `power_connectivity` is `match`; P&R `pdn: true`.
-- **Analog: unmet, not waived.** The top `sky130_lvds_tx_driver_pad` reports `erc.unconnected_net` on all three supplies
-  (`VCCD` 7, `VDDIO` 13, `VSSIO` 13 islands): the stock pad-frame rails are not joined to the driver rails and `ddr_mux` /
-  `predriver` are placement-only (`layout/README.md`). The driver cell alone (`--top sky130_lvds_tx_driver`) is one island per supply.
-  No `ties[]` are declared: one `net` per entry cannot express the 1.8 V PMOS wells, the VDDIO wells and the DR-008 floating well in one
-  shared n-well layer without class selection (`well_requires*`), which needs the well geometry of the routed pad cell. The spec therefore
-  grades `supply_spec_incomplete`. Needs: routed supply connection between pad frame, driver and predriver, and per-class well ties.
-- The 78 `erc.floating_gate` findings in the analog report belong to the unrouted blocks and are not this item's subject.
+- **Analog: unmet, not waived** (`item-11-erc-analog-r2.json`, `klayout-tools==0.8.0`, bound to the GDS after #74 and #77; the
+  first record `item-11-erc-analog.json` predates #74 and is kept as history: 81 findings, `ties_disclosure: null`, bound to an
+  older stream). Measured on the current GDS: `erc_status: violations`, 12 findings.
+  - Supplies: `VCCD`, `VDDIO`, `VSSIO` are one island each (#74); `erc.unconnected_net` is clear.
+  - **Well ties: met.** The DR-008 pad-facing well net of each slice is labelled `xsl_*/WELL` (`layout/gen_driver_pad.py`,
+    `LABEL_NETS`). Four `ties[]` entries (`well_xsl_main`, `well_xsl_e0`, `well_xsl_e1a`, `well_xsl_e1b`), each selecting that
+    slice's eight wells with `well_requires_boxes`, report no `erc.missing_tie`. They are named in `checked_by_well_assertion`
+    because the class is selected by boxes; the tap (`65/44`, `tap_is_dedicated`) is drawn geometry.
+  - **Substrate tie: not met, not waived.** The `substrate_vssio` entry (`well_complement_of: ["64/20"]`, net `VSSIO`) reports
+    `erc.missing_tie` on the upper body (y 50 to 180 um) of each pad cell (2 findings). That body is a p-well inside the stock
+    frame's deep n-well and already has a drawn p-tap ring (`65/44` with `94/20`); the ring's only metal path reaches an
+    unlabelled met4 rail at y 37 to 40 um, inside the ESD clamp's footprint (so probably the clamp's guard ring; not traced to the clamp's devices), and has no via4 to any supply strap.
+    Tying it to `VSSIO` is the clamp-to-`VSSIO` seam that `layout/README.md` lists as not drawn (#24), so no tap was added
+    here. See `spec/decision-records/DR-009-pad-body-substrate-tie-deferred.md`.
+  - The 10 `erc.floating_gate` findings are unrouted signal gates (the first record had 78, measured before #48 and #74).
+  - Negative control: with the `VSSIO` net replaced by `VSSA` the same ring is still reported (it is not on a labelled net either).
+  - `klt erc --check item-11-erc-analog-r2.json` matches. DRC on the top cell is unchanged at 484 (`item-3-drc-analog-r4.json`).
 
 ### Item 11 spec coverage: layers in the stream without a declaration
 

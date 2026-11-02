@@ -407,6 +407,7 @@ def draw_route(ly, cell, router):
                 box(ly, cell, L_MET4, min(xa, xb) - WIRE4_UM / 2, min(ya, yb) - WIRE4_UM / 2,
                     max(xa, xb) + WIRE4_UM / 2, max(ya, yb) + WIRE4_UM / 2)
 
+LABEL_NETS = ("WELL",)   # routed internal nets (by last path component) that also get a met3 label
 GATE_PAD_UM = 1.2        # met4 landing pad under a via4 (0.8 um cut + 0.19 enclosure)
 GATE_SETBACK = 5         # gateway sits this many tracks left of the leftmost rail
 
@@ -481,6 +482,14 @@ def build_routed(ly, name, path, top, tag, gates, route_nets=None):
         x0, x1, y = nets[p][0]
         i = Router.rail_nodes(x0, x1, y)[0][1]
         cell.shapes(lbl).insert(pya.Text(p, int(round(i * PITCH_UM / ly.dbu)), int(round(y / ly.dbu))))
+    # internal nets that a ties[] declaration must name (T1 item 11): the DR-008
+    # pad-facing PMOS well is a routed net but not a port, so label it here
+    for n in sorted(nets):
+        if n.split("/")[-1] in LABEL_NETS and n not in top_ports:
+            x0, x1, y = nets[n][0]
+            i = Router.rail_nodes(x0, x1, y)[0][1]
+            # the flat hierarchical name stays unique per slice, so labels never short two wells
+            cell.shapes(lbl).insert(pya.Text(n, int(round(i * PITCH_UM / ly.dbu)), int(round(y / ly.dbu))))
     return cell, out
 
 # ---- supply distribution: stock pad-frame rails -> straps -> block gateways ----
