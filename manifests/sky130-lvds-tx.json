@@ -45,6 +45,30 @@
     "4.digital": {
       "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
       "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
-    }
+    },
+    "11.analog": [
+      {
+        "file": "verification/signoff/evidence/item-11-erc-analog.json",
+        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+      },
+      {
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+      }
+    ],
+    "11.digital": [
+      {
+        "file": "verification/signoff/evidence/item-11-erc-digital.json",
+        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
+      },
+      {
+        "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
+        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
+      },
+      {
+        "file": "flow/serializer/pnr.response.json",
+        "content_hash": "sha256:ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74"
+      }
+    ]
   }
 }
