@@ -153,6 +153,7 @@ The digital `r2` report was produced with
 (0.8.1.dev350), since the fix is not yet in a release.
 
 The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
+
 ## T1 item 11: power delivery (`klt erc` supply spec)
 
 Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`klayout-tools==0.8.0`,
@@ -170,3 +171,35 @@ Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`k
   grades `supply_spec_incomplete`. Needs: routed supply connection between pad frame, driver and predriver, and per-class well ties.
 - The 78 `erc.floating_gate` findings in the analog report belong to the unrouted blocks and are not this item's subject.
 
+### Item 11 spec coverage: layers in the stream without a declaration
+
+`erc_coverage.layers_in_stream_without_declaration` is non-empty in both reports, so it is stated here (the item 11 text in
+`manifests/design-evidence-tiers.md` requires it). Both reports have `provenance.deck: null`: no curated routing-stack deck was
+used. The stackup is the hand-written one in each spec (`poly`, `li1`, `met1`-`met5`, `licon1`..`via4`), not a narrowed deck.
+Layer names are from `sky130A.lyp` in the pinned PDK.
+
+- **Digital (17):** `64/5` nwell.label, `64/16` nwell.pin, `64/59` pwell.label, `67/16` li1.pin, `68/16` met1.pin, `69/16` met2.pin,
+  `72/16` met5.pin, `122/16` pwell.pin, `83/44` text.drawing, `235/4` prBoundary.boundary, `236/0` boundary, `81/4` areaid.standardc,
+  `78/44` hvtp.drawing, `93/44` nsdm.drawing, `94/20` psdm.drawing, `95/20` npc.drawing, `65/20` diff.drawing.
+- **Analog (13):** `64/18` dnwell.drawing, `64/20` nwell.drawing, `65/20` diff.drawing, `65/44` tap.drawing, `66/13` poly.res,
+  `70/16` met3.pin, `71/16` met4.pin, `72/16` met5.pin, `75/20` hvi.drawing, `86/20` rpm.drawing, `93/44` nsdm.drawing,
+  `94/20` psdm.drawing, `95/20` npc.drawing.
+
+Why these are not supply-carrying, in the digital partition (the one graded met):
+
+- `*.pin`, `*.label`, `text.drawing`: annotation shapes drawn over metal that is already in the stackup. They add no conductor.
+  The rail names are read from the declared `label_layer`s (`67/5`, `68/5`, `69/5`, `72/5`).
+- `prBoundary`, `boundary`, `areaid.standardc`: outline and marker layers.
+- `hvtp`, `nsdm`, `psdm`, `npc`: implant and nitride-poly-contact masks. They set device type, not connectivity.
+- `diff.drawing` (`65/20`) is the one real conductor on the list. It is not walked as a connectivity layer. Supply reaches
+  it through `licon` contacts to `li1`, and the check evaluates islands at `li1` and above, where the rails are routed. A
+  rail connection that exists only through diffusion would not be seen. I did not look for one, and the standard-cell rows
+  take VCCD and VSS on `li1`/`met1`. The `tap.drawing` shapes (`65/44`) are declared as `tap_layer` in both digital ties.
+
+No digital layer in the list carries routing, so the digital stackup needs no addition. This is a reading of layer purposes,
+not a measurement: I did not check per layer whether it overlaps rail geometry.
+
+For the analog partition (graded unmet), `64/20`, `65/44` and `64/18` are undeclared because the spec declares no `ties[]`,
+so the well and tap layers are not modelled. That is part of why it is unmet. The remaining analog layers are
+pin, resistor-marker, implant and `hvi` layers with the same purposes as above. `diff.drawing` is treated the same way as in
+the digital partition.
