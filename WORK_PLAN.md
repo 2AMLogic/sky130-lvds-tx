@@ -50,6 +50,7 @@ PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#77**: layout: label the DR-008 floating WELL net and tie the pad-pair substrate to VSSIO so item 11 analog ERC can declare both *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -70,7 +71,7 @@ _None._
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 1 |
-| Curated | 1 |
+| Curated | 2 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
