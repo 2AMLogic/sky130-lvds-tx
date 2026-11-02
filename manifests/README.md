@@ -50,6 +50,12 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
+  - **Item 4 (LVS)** is cited per partition with `klt lvs` reports (`engine: klayout`, `status: match`); the manifest's `content_hash` is the sha256 of the layout GDS.
+    `4.digital` cites [`item-4-lvs-digital-r2.json`](../verification/signoff/evidence/item-4-lvs-digital-r2.json)
+    (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified).
+    `4.analog` cites [`item-4-lvs-analog-r2-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json),
+    which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`; the unmodified-netlist report `item-4-lvs-analog-r2.json` is `mismatch` and kept as history. Pad/ESD devices are outside the driver top.
+    Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
     produced by `klt signoff --attest 10` from

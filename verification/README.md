@@ -96,13 +96,19 @@ not this copy, if they differ):
 - Skipped rules are `inapplicable` / `no_applicable_geometry` in the report, and `unmodeled_rules` lists DRM rules the curated deck does not transcribe at all.
 - Analog `voltage_domain_warnings`: the `hvi` (75/20) thick-oxide marker is modelled only for device recognition and `nwell.enclosed.hvi.1`; geometry drawn inside it is checked at general-case thresholds, not the medium-voltage ones (`difftap.14` etc.). Pad/ESD and 5 V device layers are therefore **not** fully covered by this deck.
 
-## T1 item 4: LVS (`klt lvs`): digital `match`, analog `mismatch`
+## T1 item 4: LVS (`klt lvs`): digital `match`, analog `match` (scale-expanded reference)
 
 Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
-**The analog partition does not meet item 4**, so the manifest still grades it `unmet`.
-The `r2` analog reports are append-only additions; the first report is kept.
+The manifest cites `item-4-lvs-digital-r2.json` (`4.digital`) and
+`item-4-lvs-analog-r2-scale-expanded.json` (`4.analog`); both grade `met`.
+**The analog citation compares against a derived netlist, not `design/driver/driver.spice`:**
+`verification/signoff/lvs/expand-scale.py` substitutes the `SCALE=11` value into `m={SCALE}`
+because the converter does not evaluate it (klayout-tools#4406). The unmodified-netlist report
+`item-4-lvs-analog-r2.json` stays `mismatch` (8 unmatched devices, all the `SCALE` slice) and is
+kept as append-only evidence. The pad/ESD devices are outside the driver top and are not covered
+by this LVS. Reports are append-only; earlier ones are kept.
 
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
