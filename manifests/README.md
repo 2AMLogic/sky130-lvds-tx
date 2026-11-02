@@ -29,8 +29,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
   - **Item 2, analog (`2.analog`)** cites
-    [`verification/signoff/evidence/item-2-layout-analog-r3.json`](../verification/signoff/evidence/item-2-layout-analog-r3.json)
-    (append-only; the earlier `item-2-layout-analog.json` and `-r2.json` are kept as history, bound to earlier GDS revisions),
+    [`verification/signoff/evidence/item-2-layout-analog-r4.json`](../verification/signoff/evidence/item-2-layout-analog-r4.json)
+    (append-only; the earlier `item-2-layout-analog.json`, `-r2.json` and `-r3.json` are kept as history, bound to earlier GDS revisions),
     a hand-written `generic` envelope bound to
     `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
     producer; same route as `2.digital`). Its `regeneration` claim is backed by
@@ -44,8 +44,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Coverage disclosure (verbatim from the report's `coverage` block) is in
     [`verification/README.md`](../verification/README.md#item-3-drc).
   - **Item 3, analog (`3.analog`)** cites
-    [`verification/signoff/evidence/item-3-drc-analog-r3.json`](../verification/signoff/evidence/item-3-drc-analog-r3.json)
-    (re-run with the CI-pinned klt on the routed GDS; the earlier `item-3-drc-analog.json` and `-r2.json` are kept as history),
+    [`verification/signoff/evidence/item-3-drc-analog-r4.json`](../verification/signoff/evidence/item-3-drc-analog-r4.json)
+    (re-run with the CI-pinned klt on the routed GDS; the earlier `item-3-drc-analog.json`, `-r2.json` and `-r3.json` are kept as history),
     the `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` report on
     `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
@@ -53,14 +53,14 @@ record**, produced by the regeneration command below. Never hand-edit it.
   - **Item 4 (LVS)** is cited per partition with `klt lvs` reports (`engine: klayout`, `status: match`); the manifest's `content_hash` is the sha256 of the layout GDS.
     `4.digital` cites [`item-4-lvs-digital-r2.json`](../verification/signoff/evidence/item-4-lvs-digital-r2.json)
     (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified).
-    `4.analog` cites [`item-4-lvs-analog-r2-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json),
+    `4.analog` cites [`item-4-lvs-analog-r3-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json),
     which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`; the unmodified-netlist report `item-4-lvs-analog-r2.json` is `mismatch` and kept as history. Pad/ESD devices are outside the driver top.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
     `11.digital` is **met**: [`item-11-erc-digital.json`](../verification/signoff/evidence/item-11-erc-digital.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r2.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
-    `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
+    `11.analog` cites [`item-11-erc-analog-r2.json`](../verification/signoff/evidence/item-11-erc-analog-r2.json) (the earlier `item-11-erc-analog.json` is kept as history) and is **unmet**: the `WELL` ties pass, the `VSSIO` substrate tie of the stock pad body does not (`DR-009`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r4.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
@@ -100,7 +100,7 @@ KLT="uvx --from klayout-tools==0.8.0 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r3.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r3.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r4.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources.json
@@ -128,5 +128,5 @@ full-record comparison.
 
 Not T1: 12 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
 both partitions; item 2, both partitions; item 3, digital only: the analog DRC report is not clean; item 4, both
-partitions; item 11, digital only: the analog supply spec is incomplete and its supplies are not single islands). All others are
+partitions; item 11, digital only: the analog record grades `supply_not_continuous`, the `VSSIO` substrate tie of the pad body is missing, `DR-009`). All others are
 `unmet` / `no_evidence`.
