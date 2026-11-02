@@ -1,0 +1,143 @@
+{
+  "_comment": "T1 item 11 supply spec, digital partition (routed serializer, flow/serializer/serializer_routed.gds). Core rail VCCD 1.8 V +-10 %, ground VSS; library pin names VPWR/VGND are the same nets and are declared via same_net_as.",
+  "stackup": [
+    {
+      "name": "poly",
+      "layer": "66/20",
+      "role": "gate"
+    },
+    {
+      "name": "li1",
+      "layer": "67/20",
+      "label_layer": "67/5"
+    },
+    {
+      "name": "met1",
+      "layer": "68/20",
+      "label_layer": "68/5"
+    },
+    {
+      "name": "met2",
+      "layer": "69/20",
+      "label_layer": "69/5"
+    },
+    {
+      "name": "met3",
+      "layer": "70/20"
+    },
+    {
+      "name": "met4",
+      "layer": "71/20"
+    },
+    {
+      "name": "met5",
+      "layer": "72/20",
+      "label_layer": "72/5"
+    }
+  ],
+  "vias": [
+    {
+      "name": "licon1",
+      "layer": "66/44",
+      "between": [
+        "poly",
+        "li1"
+      ]
+    },
+    {
+      "name": "mcon",
+      "layer": "67/44",
+      "between": [
+        "li1",
+        "met1"
+      ]
+    },
+    {
+      "name": "via",
+      "layer": "68/44",
+      "between": [
+        "met1",
+        "met2"
+      ]
+    },
+    {
+      "name": "via2",
+      "layer": "69/44",
+      "between": [
+        "met2",
+        "met3"
+      ]
+    },
+    {
+      "name": "via3",
+      "layer": "70/44",
+      "between": [
+        "met3",
+        "met4"
+      ]
+    },
+    {
+      "name": "via4",
+      "layer": "71/44",
+      "between": [
+        "met4",
+        "met5"
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VCCD",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS",
+      "kind": "supply"
+    }
+  ],
+  "ties": [
+    {
+      "name": "nwell_tap",
+      "well_layer": "64/20",
+      "tap_layer": "65/44",
+      "connect_to": "li1",
+      "net": "VCCD",
+      "tap_is_dedicated": true
+    },
+    {
+      "name": "p_substrate_tap",
+      "_comment": "native p-substrate under the standard-cell rows; four disjoint strips (well side is caller-asserted, falsified per strip)",
+      "well_layer": null,
+      "well_boxes": [
+        [
+          0,
+          0,
+          46.275,
+          11
+        ],
+        [
+          0,
+          12.5,
+          46.275,
+          23
+        ],
+        [
+          0,
+          24.5,
+          46.275,
+          34.5
+        ],
+        [
+          0,
+          36,
+          46.275,
+          46.275
+        ]
+      ],
+      "tap_layer": "65/44",
+      "tap_is_dedicated": true,
+      "connect_to": "li1",
+      "net": "VSS"
+    }
+  ]
+}

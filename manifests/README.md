@@ -56,6 +56,9 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `4.analog` cites [`item-4-lvs-analog-r2-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json),
     which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`; the unmodified-netlist report `item-4-lvs-analog-r2.json` is `mismatch` and kept as history. Pad/ESD devices are outside the driver top.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
+  - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
+    `11.digital` is **met**: [`item-11-erc-digital.json`](../verification/signoff/evidence/item-11-erc-digital.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r2.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
+    `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
     produced by `klt signoff --attest 10` from
@@ -123,6 +126,7 @@ full-record comparison.
 
 ## Current verdict
 
-Not T1: 9 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
-both partitions; item 2, both partitions; item 3, digital only: the analog DRC report is not clean). All others are
+Not T1: 12 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
+both partitions; item 2, both partitions; item 3, digital only: the analog DRC report is not clean; item 4, both
+partitions; item 11, digital only: the analog supply spec is incomplete and its supplies are not single islands). All others are
 `unmet` / `no_evidence`.

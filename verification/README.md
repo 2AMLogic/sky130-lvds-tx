@@ -153,3 +153,20 @@ The digital `r2` report was produced with
 (0.8.1.dev350), since the fix is not yet in a release.
 
 The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
+## T1 item 11: power delivery (`klt erc` supply spec)
+
+Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`klayout-tools==0.8.0`,
+`klt erc --check` passes on both): `verification/signoff/evidence/item-11-erc-{analog,digital}.json`.
+
+- **Digital: met.** Serializer `VCCD` and `VSS` each resolve to one island, zero findings, `erc_coverage.skipped` empty.
+  Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted
+  `well_boxes` strips, so it is named in `checked_by_well_assertion`; 7.3 % of drawn tap area falls outside the boxes).
+  Negative control: moving that tie's `tap_boxes` away gives `erc.missing_tie` per strip. LVS `power_connectivity` is `match`; P&R `pdn: true`.
+- **Analog: unmet, not waived.** The top `sky130_lvds_tx_driver_pad` reports `erc.unconnected_net` on all three supplies
+  (`VCCD` 7, `VDDIO` 13, `VSSIO` 13 islands): the stock pad-frame rails are not joined to the driver rails and `ddr_mux` /
+  `predriver` are placement-only (`layout/README.md`). The driver cell alone (`--top sky130_lvds_tx_driver`) is one island per supply.
+  No `ties[]` are declared: one `net` per entry cannot express the 1.8 V PMOS wells, the VDDIO wells and the DR-008 floating well in one
+  shared n-well layer without class selection (`well_requires*`), which needs the well geometry of the routed pad cell. The spec therefore
+  grades `supply_spec_incomplete`. Needs: routed supply connection between pad frame, driver and predriver, and per-class well ties.
+- The 78 `erc.floating_gate` findings in the analog report belong to the unrouted blocks and are not this item's subject.
+
