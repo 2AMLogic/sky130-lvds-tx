@@ -37,6 +37,14 @@
     "3.digital": {
       "file": "verification/signoff/evidence/item-3-drc-digital.json",
       "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
+    },
+    "4.analog": {
+      "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+      "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+    },
+    "4.digital": {
+      "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
+      "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff"
     }
   }
 }
