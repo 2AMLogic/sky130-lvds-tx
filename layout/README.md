@@ -32,12 +32,13 @@ deterministic). A missing stock I/O GDS fails loudly.
   `klt lvs` assume); the stage-2 placement used `W` per finger, which doubled every
   `nf = 2` device and quadrupled the `nf = 4` ones.
 - `sky130_lvds_tx_ddr_mux` (18 devices) and `sky130_lvds_tx_predriver` (50
-  devices): placement only, one `klt gen mos_array` cell per device, named
-  `ddr_mux_<device>` / `predriver_<device>`. The device lists are parsed from
-  `design/ddr_mux/ddr_mux.spice` and `design/predriver/predriver.spice` (all
-  1.8 V flavour), so the generator cannot drift from the netlists.
+  devices): one leaf per device (same `make_leaf` as the driver, with guard ring
+  and gate contact), named `ddr_mux_<device>` / `predriver_<device>`, flattened
+  from `design/ddr_mux/ddr_mux.spice` and `design/predriver/predriver.spice` (all
+  1.8 V flavour), so the generator cannot drift from the netlists. Only `VCCD`
+  and `VSSIO` are routed (issue #74); signal nets are stubs and rails only.
 - `sky130_lvds_tx_driver_pad`: the pair, then the driver, `ddr_mux` and
-  `predriver` beside it (541.5 x 200.9 um in all; only the driver is routed).
+  `predriver` beside it (662.2 x 200.9 um in all), plus the supply straps below.
 
 Driver area: 148.9 x 183.3 um (about 27,280 um^2) against one 75 x 200 um slot
 (15,000 um^2) or the two-slot pair (30,000 um^2). That is the routed figure: it
@@ -48,7 +49,11 @@ the two-slot pair only if the pair's bus rails are not subtracted, which they ar
 not here. It sits outside the pad cells, which keep their 75 x 200 um footprint.
 P1/P3 are PROPOSED and unchanged; this is a report, not a spec edit.
 
-Stage 3 area: `ddr_mux` 63.9 x 4.8 um (about 304 um^2) and `predriver` 148.7 x
+Areas in this and the next paragraph predate issue #74. Now: driver 152.8 x 183.3 um
+(gateway pads widen it), `ddr_mux` 140.2 x 28.7 um, `predriver` 151.2 x 62.9 um (guard
+rings, gate contacts, correct per-finger `W`), 41,547 um^2 together.
+
+Stage 3 area (placement only, before #74): `ddr_mux` 63.9 x 4.8 um (about 304 um^2) and `predriver` 148.7 x
 18.8 um (about 2,793 um^2). The three analog blocks together are about 16,655
 um^2 against one 75 x 200 um slot (15,000 um^2), an overflow of roughly 1,655
 um^2 (11%) as shelf-packed, and well inside the two-slot pair (30,000 um^2).
@@ -100,6 +105,30 @@ Checked on the routed layout (`klt lvs` / `klt drc`, `sky130` deck):
   stock pad frame. The routed driver adds none. The hvi mark is extended over each
   thick-oxide PMOS guard-ring well (`nwell.enclosed.hvi.1` fired 43 times without it).
 
+## Supply routing (issue #74)
+
+`VCCD`, `VDDIO` and `VSSIO` are each one island in `sky130_lvds_tx_driver_pad`
+(`klt erc` with `verification/signoff/erc/analog.supply-spec.json`: 1 / 1 / 1, was
+7 / 13 / 13; `erc.unconnected_net` clears). The stock pad cell carries a supply only
+as 1.27 um met4/met5 edge stubs with no via4 between them, so `build_supplies` adds:
+
+- a met5 strap across the pair in every rail band, met4+met5 extensions past both
+  free edges with via4 (the stubs are too narrow for a legal via4), and via4 at the
+  pair joint; met5 only crosses the pad interior (the ESD clamp's met4 is in the
+  `VSSIO` band);
+- met5 spines joining the two bands of `VDDIO` (left of the pair) and of `VSSIO`
+  (right of it);
+- a met5 run east to a gateway per block (met4 pad + via4 on the strap, via3 into
+  the block's own `VCCD`/`VDDIO`/`VSSIO` net, joined by the same maze router).
+  `ddr_mux` and `predriver` route only `VCCD` and `VSSIO`.
+
+Metal only: nothing touches an n-well, so the DR-008 pad-facing n-well stays
+floating. The straps are not sized for current. `klt drc` on the top cell: 484
+violations, all in the stock frame (was 486: two stock met5 edge slivers now merge
+into straps); the new geometry adds none. `check-driver-pad-gds.sh` and
+`check-pad-frame-drc.sh` pass. The remaining `erc.floating_gate` findings (10) are
+signal gates left unrouted. Neither DRC nor LVS is claimed clean.
+
 ## Not drawn yet (deferred)
 
 | Item | Why |
@@ -107,14 +136,14 @@ Checked on the routed layout (`klt lvs` / `klt drc`, `sky130` deck):
 | `OUTP` / `OUTN` to the pad cells, the clamp to `P_CORE` / VSSIO | the driver sits beside the pad pair and its pins are labels only; the pad seam needs a via stack and DRC feedback (#24) |
 | `D1` (`diode_pw2nd_11v0`) | `klt gen` has no diode generator |
 | `XMESD` as `nfet_g5v0d10v5` | `esd_device` draws no thick-oxide / ESD marker on sky130, so the clamp is geometry only |
-| Routing of `ddr_mux` and `predriver` | still placement only (stage 3); they also still use `W` per finger, so every `nf = 2` device is drawn twice as wide as the netlist |
+| Signal routing of `ddr_mux` and `predriver` | only their supplies are routed (issue #74); signal nets are unrouted stubs. They now use the card `W` / `nf` per finger like the driver, so the old double-width drawing is gone |
 | Current-sized supply and output wiring | the router uses one wire width |
 
 T1 item 2 (analog) is claimed as **provenance only**: the committed GDS is
 reproducibly generated (`verification/signoff/check-driver-pad-gds.sh`), and
 the envelope cited as `2.analog` in `manifests/sky130-lvds-tx.json` was written
-for the placement-only layout. This change regenerates the GDS, so that item-2
-evidence is stale against the committed file; the manifest and its evidence are
+for the placement-only layout. The supply-routing change (#74) regenerates the GDS, so that item-2
+and the item 4 LVS/item 3 DRC evidence are stale against the committed file; the manifest and its evidence are
 untouched here (#25). Neither DRC nor LVS is claimed clean.
 
 ## DRC of the stock pad frame (issue #44)
