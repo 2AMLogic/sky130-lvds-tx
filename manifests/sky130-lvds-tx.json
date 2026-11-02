@@ -49,7 +49,7 @@
     "11.analog": [
       {
         "file": "verification/signoff/evidence/item-11-erc-analog.json",
-        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
+        "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
       },
       {
         "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",

@@ -163,12 +163,21 @@ Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`k
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted
   `well_boxes` strips, so it is named in `checked_by_well_assertion`; 7.3 % of drawn tap area falls outside the boxes).
   Negative control: moving that tie's `tap_boxes` away gives `erc.missing_tie` per strip. LVS `power_connectivity` is `match`; P&R `pdn: true`.
-- **Analog: unmet, not waived.** The top `sky130_lvds_tx_driver_pad` reports `erc.unconnected_net` on all three supplies
-  (`VCCD` 7, `VDDIO` 13, `VSSIO` 13 islands): the stock pad-frame rails are not joined to the driver rails and `ddr_mux` /
-  `predriver` are placement-only (`layout/README.md`). The driver cell alone (`--top sky130_lvds_tx_driver`) is one island per supply.
-  No `ties[]` are declared: one `net` per entry cannot express the 1.8 V PMOS wells, the VDDIO wells and the DR-008 floating well in one
-  shared n-well layer without class selection (`well_requires*`), which needs the well geometry of the routed pad cell. The spec therefore
-  grades `supply_spec_incomplete`. Needs: routed supply connection between pad frame, driver and predriver, and per-class well ties.
+- **Analog: graded `met` by `klt signoff` (0.8.0), with two declared gaps below.** After #74 strapped the supplies, the top
+  `sky130_lvds_tx_driver_pad` has one island each for `VCCD`, `VDDIO` and `VSSIO` (no `erc.unconnected_net`, no
+  `erc.supply_short`), `erc_coverage.skipped` is empty. Ties: `nwell_vccd` (1.8 V PMOS bodies: predriver, `ddr_mux`,
+  `drv_sel_XMP_sb`) and `nwell_vddio` (thick-oxide PMOS bodies on VDDIO), each separated from the other by `well_requires_boxes`
+  built from the drawn well shapes of the leaf cells that own them (74 and 38 boxes; `hvi` cannot separate them, because the DR-008
+  floating wells are thick and thin both). Because they are boxes, both are named in `checked_by_well_assertion`. `p_substrate_blocks`
+  asserts the native substrate right of the pad pair (x >= 150 um). Negative control: re-pointing `nwell_vddio` at `VCCD` gives 19
+  `erc.missing_tie`. The class selection is boxes, not `well_requires_cells`, because the pinned 0.8.0 does not accept the latter.
+  - **Gap 1, DR-008 floating well not declared.** The pad-facing PMOS well net `WELL` carries no label in the GDS (only
+    port nets are labelled), so a tie to it cannot be matched and is omitted rather than declared against a name that is not in the
+    layout. Those wells (`XMSPA/B`, `XMWVA/B`, `XMWPA/B`, `XMGTA/B`) are in no tie, so their taps are not graded. The grader says
+    `met` anyway.
+  - **Gap 2, pad-pair substrate not tied.** Declaring the substrate over the whole die (`well_complement_of: 64/20`) gives two
+    `erc.missing_tie` (the two pad cells' upper body, y 50-180 um): only one p-tap lies outside the n-wells in that area and a local connectivity probe found no net on it. That
+    substrate is not claimed by `p_substrate_blocks`.
 - The 78 `erc.floating_gate` findings in the analog report belong to the unrouted blocks and are not this item's subject.
 
 ### Item 11 spec coverage: layers in the stream without a declaration
