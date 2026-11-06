@@ -50,7 +50,8 @@ response is otherwise verbatim. Tracked at 2AMLogic/klayout-tools#4231.
 
 - **Spec S3 is not claimed.** The slack above is at the `tt_025C_1v80`
   P&R corner, not the `ss_100C_1v60` reference corner with 10 % clock
-  uncertainty. Closing S3 needs STA at that corner (see `RECORD.md`).
+  uncertainty. Post-route STA at every Liberty corner with 10 % uncertainty is in `STA.md`:
+  S3 is not met (`ss_100C_1v60` WNS -0.569 ns; binding corner `ss_n40C_1v28`).
 - DRC (#24), LVS (#25) and the supply `klt erc` spec (#26) of this GDS are
   separate items; none is claimed here.
 - Not integrated with the analog pad slot or any top-level floorplan.
