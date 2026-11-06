@@ -9,7 +9,6 @@
     "verification/serializer/test_serializer.py",
     "verification/serializer/runner.py",
     "verification/serializer/negative_control/serializer_broken.v",
-    "verification/smoke/runner.py",
     "flow/serializer/synth.request.json",
     "flow/serializer/pnr.request.json"
   ],
