@@ -22,8 +22,9 @@ with a 2.0 ns clock target.
 - `timing` is ABC's `abc_stime` estimate (critical path 1446.69 ps against the
   2000 ps target). `sta` is `null`: the `klt_statime_native` extension is not
   installed on this host, so **no gate-level STA was run and spec S3 is not
-  claimed here**. S3 stays open until an STA step reports setup slack with 10 %
-  clock uncertainty.
+  claimed here**. Post-route STA with 10 % clock uncertainty is now recorded in
+  `STA.md`: S3 is **not met** (fails at every `ss_*` corner, `ss_100C_1v60` WNS
+  -0.569 ns).
 - Synthesized here with the host `klt`, which is newer than the `KLT_REV` that
   `scripts/setup-env.sh` pins (0.6.0); the item 1 envelope was attested with the
   `signoff.yml` pin. The netlist is expected to be the same under the pinned
