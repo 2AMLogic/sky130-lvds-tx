@@ -2,6 +2,13 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-06
+
+- **PR #85**: refactor(verification): fold run_bench into serializer runner and remove smoke dir
+- **Issue #84** (closed): Relocate verification/smoke runner into the serializer bench and drop the importlib shim
+- **PR #83**: docs: record post-route serializer STA at all hd corners (S3 not met)
+- **Issue #82** (closed): Serializer spec S3: post-route klt sta at every sky130_fd_sc_hd corner with 10 % uncertainty
+
 ### 2026-11-02
 
 - **PR #78**: feat: add analog ERC well/substrate ties and regenerate item 11 analog evidence
