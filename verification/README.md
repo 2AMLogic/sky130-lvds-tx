@@ -6,16 +6,16 @@ Cold-start digital verification harness: cocotb + Icarus Verilog, PDK-free.
 
     verification/
       lint_rtl.sh                 Verilator lint of rtl/*.v
-      smoke/                      shared harness: runner.py hosts run_bench(), requirements.txt
-        runner.py requirements.txt  pins cocotb (the placeholder DUT was retired, spec/decisions/0003)
-      serializer/                 serializer bench (`pnpm test`), with negative control
+      serializer/                 serializer bench (`pnpm test`): runner.py hosts run_bench(),
+                                  requirements.txt pins cocotb; has a negative control
 
 Later benches follow `verification/<bench>/{runner.py,requirements.txt,test_<bench>.py,negative_control/}`
-and call `run_bench()` from `smoke/runner.py` rather than copying it.
+and call `run_bench()` from `serializer/runner.py` rather than copying it
+(or first move it to a neutrally named shared module; see `spec/decisions/0004-relocate-smoke-runner.md`).
 
 ## Cold start
 
-    pip install -r verification/smoke/requirements.txt
+    pip install -r verification/serializer/requirements.txt
     python3 verification/serializer/runner.py   # serializer bench (what `pnpm test` runs); works from any directory
     verification/lint_rtl.sh
 

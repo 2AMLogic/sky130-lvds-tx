@@ -60,13 +60,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `11.digital` is **met**: [`item-11-erc-digital.json`](../verification/signoff/evidence/item-11-erc-digital.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r2.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r3.json`](../verification/signoff/evidence/item-10-repo-hygiene-r3.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r4.json`](../verification/signoff/evidence/item-10-repo-hygiene-r4.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r3.json`](../verification/signoff/evidence/item-9-testbenches-r3.json),
+    [`verification/signoff/evidence/item-9-testbenches-r4.json`](../verification/signoff/evidence/item-9-testbenches-r4.json),
     produced by `klt signoff --attest 9` from
     [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
@@ -98,9 +98,9 @@ version and does not satisfy `==0.8.0` (klayout-tools#2823).
 ```console
 KLT="uvx --from klayout-tools==0.8.0 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
-             -o verification/signoff/evidence/item-9-testbenches-r3.json   # runs the cold start (sim leg: batch fleet)
+             -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r3.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r4.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources.json
