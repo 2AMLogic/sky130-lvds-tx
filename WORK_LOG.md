@@ -2,8 +2,21 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-07
+
+- **PR #87**: Bump Repo Skills 0.25.1 -> 0.25.10
+
+### 2026-11-06
+
+- **PR #85**: refactor(verification): fold run_bench into serializer runner and remove smoke dir
+- **Issue #84** (closed): Relocate verification/smoke runner into the serializer bench and drop the importlib shim
+- **PR #83**: docs: record post-route serializer STA at all hd corners (S3 not met)
+- **Issue #82** (closed): Serializer spec S3: post-route klt sta at every sky130_fd_sc_hd corner with 10 % uncertainty
+
 ### 2026-11-02
 
+- **PR #78**: feat: add analog ERC well/substrate ties and regenerate item 11 analog evidence
+- **Issue #26** (closed): T1 item 11 (power delivery, structural): klt erc supply specs for VCCD/VDDIO/VSSIO across both partitions
 - **Issue #74** (closed): Route VCCD/VDDIO/VSSIO across pad frame, driver and predriver in driver_pad layout
 - **PR #75**: feat: strap supplies across pad frame, driver, ddr_mux and predriver
 - **PR #73**: feat: add klt erc supply specs and item 11 evidence (digital met, analog unmet)

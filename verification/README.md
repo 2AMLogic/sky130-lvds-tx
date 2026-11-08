@@ -6,16 +6,16 @@ Cold-start digital verification harness: cocotb + Icarus Verilog, PDK-free.
 
     verification/
       lint_rtl.sh                 Verilator lint of rtl/*.v
-      smoke/                      shared harness: runner.py hosts run_bench(), requirements.txt
-        runner.py requirements.txt  pins cocotb (the placeholder DUT was retired, spec/decisions/0003)
-      serializer/                 serializer bench (`pnpm test`), with negative control
+      serializer/                 serializer bench (`pnpm test`): runner.py hosts run_bench(),
+                                  requirements.txt pins cocotb; has a negative control
 
 Later benches follow `verification/<bench>/{runner.py,requirements.txt,test_<bench>.py,negative_control/}`
-and call `run_bench()` from `smoke/runner.py` rather than copying it.
+and call `run_bench()` from `serializer/runner.py` rather than copying it
+(or first move it to a neutrally named shared module; see `spec/decisions/0004-relocate-smoke-runner.md`).
 
 ## Cold start
 
-    pip install -r verification/smoke/requirements.txt
+    pip install -r verification/serializer/requirements.txt
     python3 verification/serializer/runner.py   # serializer bench (what `pnpm test` runs); works from any directory
     verification/lint_rtl.sh
 
@@ -163,23 +163,27 @@ Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`k
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted
   `well_boxes` strips, so it is named in `checked_by_well_assertion`; 7.3 % of drawn tap area falls outside the boxes).
   Negative control: moving that tie's `tap_boxes` away gives `erc.missing_tie` per strip. LVS `power_connectivity` is `match`; P&R `pdn: true`.
-- **Analog: unmet, not waived** (`item-11-erc-analog-r2.json`, `klayout-tools==0.8.0`, bound to the GDS after #74 and #77; the
-  first record `item-11-erc-analog.json` predates #74 and is kept as history: 81 findings, `ties_disclosure: null`, bound to an
-  older stream). Measured on the current GDS: `erc_status: violations`, 12 findings.
+- **Analog: unmet, not waived** (`item-11-erc-analog-r3.json`, `klayout-tools==0.8.0`, bound to the GDS after #74 and #77). Earlier
+  records are kept as history: `item-11-erc-analog.json` (bound to the pre-#77 GDS, 10 findings, graded `met` by `klt signoff` with
+  two declared gaps) and `item-11-erc-analog-r2.json` (this GDS, the DR-008 and substrate ties only, without the `nwell_*` ties).
+  Measured on the current GDS: `erc_status: violations`, 12 findings (`erc_coverage.skipped` is empty).
   - Supplies: `VCCD`, `VDDIO`, `VSSIO` are one island each (#74); `erc.unconnected_net` is clear.
-  - **Well ties: met.** The DR-008 pad-facing well net of each slice is labelled `xsl_*/WELL` (`layout/gen_driver_pad.py`,
-    `LABEL_NETS`). Four `ties[]` entries (`well_xsl_main`, `well_xsl_e0`, `well_xsl_e1a`, `well_xsl_e1b`), each selecting that
-    slice's eight wells with `well_requires_boxes`, report no `erc.missing_tie`. They are named in `checked_by_well_assertion`
-    because the class is selected by boxes; the tap (`65/44`, `tap_is_dedicated`) is drawn geometry.
-  - **Substrate tie: not met, not waived.** The `substrate_vssio` entry (`well_complement_of: ["64/20"]`, net `VSSIO`) reports
+  - **Well ties: met.** Eight `ties[]` entries are checked, and all are named in `checked_by_well_assertion` because each class is
+    selected by `well_requires_boxes` (or asserted by `well_boxes`); the tap (`65/44`, `tap_is_dedicated`) is drawn geometry.
+    `nwell_vccd` (1.8 V PMOS bodies: predriver, `ddr_mux`, `drv_sel_XMP_sb`; 74 boxes) and `nwell_vddio` (thick-oxide PMOS bodies on
+    VDDIO; 38 boxes) are built from the drawn well shapes of the leaf cells that own them, because `hvi` cannot separate them.
+    The DR-008 pad-facing well net of each slice is labelled `xsl_*/WELL` (`layout/gen_driver_pad.py`, `LABEL_NETS`); four entries
+    (`well_xsl_main`, `well_xsl_e0`, `well_xsl_e1a`, `well_xsl_e1b`) each select that slice's eight wells and report no
+    `erc.missing_tie`. This closes the earlier record's "Gap 1" (the unlabelled DR-008 floating well).
+  - **Substrate tie: not met, not waived.** `p_substrate_blocks` asserts the native substrate right of the pad pair (x >= 150 um)
+    and is clear. The `substrate_vssio` entry (`well_complement_of: ["64/20"]`, net `VSSIO`) covers the whole die and reports
     `erc.missing_tie` on the upper body (y 50 to 180 um) of each pad cell (2 findings). That body is a p-well inside the stock
     frame's deep n-well and already has a drawn p-tap ring (`65/44` with `94/20`); the ring's only metal path reaches an
     unlabelled met4 rail at y 37 to 40 um, inside the ESD clamp's footprint (so probably the clamp's guard ring; not traced to the clamp's devices), and has no via4 to any supply strap.
     Tying it to `VSSIO` is the clamp-to-`VSSIO` seam that `layout/README.md` lists as not drawn (#24), so no tap was added
-    here. See `spec/decision-records/DR-009-pad-body-substrate-tie-deferred.md`.
-  - The 10 `erc.floating_gate` findings are unrouted signal gates (the first record had 78, measured before #48 and #74).
-  - Negative control: with the `VSSIO` net replaced by `VSSA` the same ring is still reported (it is not on a labelled net either).
-  - `klt erc --check item-11-erc-analog-r2.json` matches. DRC on the top cell is unchanged at 484 (`item-3-drc-analog-r4.json`).
+    here. See `spec/decision-records/DR-009-pad-body-substrate-tie-deferred.md`. This is the earlier record's "Gap 2", now declared as a finding rather than left out of the spec.
+  - The 10 `erc.floating_gate` findings are unrouted signal gates and are not this item's subject.
+  - `klt erc --check item-11-erc-analog-r3.json` matches. DRC on the top cell is unchanged at 484 (`item-3-drc-analog-r4.json`).
 
 ### Item 11 spec coverage: layers in the stream without a declaration
 

@@ -20,7 +20,7 @@ jobs:
           iverilog -V | head -1
           verilator --version
       - name: Install cocotb
-        run: pip install -r verification/smoke/requirements.txt
+        run: pip install -r verification/serializer/requirements.txt
       - name: Lint RTL
         run: verification/lint_rtl.sh
       - name: Serializer bench (good leg + negative control)
