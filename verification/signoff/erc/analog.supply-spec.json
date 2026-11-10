@@ -1048,12 +1048,46 @@
       "name": "substrate_vssio",
       "well_layer": null,
       "well_complement_of": [
-        "64/20"
+        "64/20",
+        "64/18"
       ],
       "tap_layer": "65/44",
       "tap_is_dedicated": true,
       "connect_to": "li1",
+      "net": "VSSIO",
+      "_comment": "global p-substrate only: complement of the n-well AND the pad cells' deep n-well (64/18), whose enclosed p-tub is isolated from the substrate (DR-009)"
+    },
+    {
+      "name": "pad_ptub_vssio",
+      "_comment": "p-tub enclosed by the stock pad cell's deep n-well (64/18): isolated from the global substrate, so its own tie class. Net VSSIO is the DR-001 end-state intent, a bias choice and not substrate continuity (DR-009)",
+      "well_layer": "64/18",
+      "tap_layer": "65/44",
+      "tap_is_dedicated": true,
+      "connect_to": "li1",
       "net": "VSSIO"
+    },
+    {
+      "name": "pad_dnw_ring_vddio",
+      "_comment": "n-well ring around the pad cells' p-tub (64/20, 2.6 to 72.2 um): its bias net is provisional (VDDIO) pending DR-009's follow-up; the ring was previously unchecked",
+      "well_layer": "64/20",
+      "tap_layer": "65/44",
+      "tap_is_dedicated": true,
+      "connect_to": "li1",
+      "net": "VDDIO",
+      "well_requires_boxes": [
+        [
+          2.615,
+          100.0,
+          3.9,
+          101.0
+        ],
+        [
+          77.615,
+          100.0,
+          78.9,
+          101.0
+        ]
+      ]
     }
   ]
 }

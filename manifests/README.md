@@ -47,8 +47,8 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/evidence/item-3-drc-analog-r4.json`](../verification/signoff/evidence/item-3-drc-analog-r4.json)
     (re-run with the CI-pinned klt on the routed GDS; the earlier `item-3-drc-analog.json`, `-r2.json` and `-r3.json` are kept as history),
     the `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` report on
-    `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 486 violations**, so the
-    row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
+    `layout/sky130_lvds_tx_driver_pad.gds`: **`status: violations`, 484 violations**, so the
+    row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 484 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 4 (LVS)** is cited per partition with `klt lvs` reports (`engine: klayout`, `status: match`); the manifest's `content_hash` is the sha256 of the layout GDS.
     `4.digital` cites [`item-4-lvs-digital-r2.json`](../verification/signoff/evidence/item-4-lvs-digital-r2.json)
@@ -58,7 +58,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
     `11.digital` is **met**: [`item-11-erc-digital.json`](../verification/signoff/evidence/item-11-erc-digital.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r2.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
-    `11.analog` cites [`item-11-erc-analog-r3.json`](../verification/signoff/evidence/item-11-erc-analog-r3.json) (the earlier `item-11-erc-analog.json` is kept as history) and is **unmet**: the `WELL` ties pass, the `VSSIO` substrate tie of the stock pad body does not (`DR-009`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
+    `11.analog` cites [`item-11-erc-analog-r4.json`](../verification/signoff/evidence/item-11-erc-analog-r4.json) (the earlier `item-11-erc-analog.json` is kept as history) and is **unmet**: the `WELL` ties pass, the two pad-cell tub and deep n-well ring ties do not (`DR-009`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r5.json`](../verification/signoff/evidence/item-10-repo-hygiene-r5.json),
     produced by `klt signoff --attest 10` from
