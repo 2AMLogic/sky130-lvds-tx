@@ -1,0 +1,167 @@
+{
+  "netlist": "tb_ramp.spice",
+  "netlist_source": "schematic",
+  "models": {
+    "pdk": "sky130A",
+    "lib": "libs.tech/ngspice/sky130.lib.spice"
+  },
+  "corners": {
+    "process": [
+      "tt",
+      "sf",
+      "ff",
+      "ss",
+      "fs"
+    ],
+    "temperature_c": [
+      -40,
+      125
+    ]
+  },
+  "analysis": {
+    "kind": "tran",
+    "args": "2u 2.4m"
+  },
+  "measurements": [
+    {
+      "name": "ipadp_max",
+      "spice": ".meas tran ipadp_max MAX i(vamp)",
+      "unit": "A",
+      "limits": {
+        "max": 0.001
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "ipadp_min",
+      "spice": ".meas tran ipadp_min MIN i(vamp)",
+      "unit": "A",
+      "limits": {
+        "min": -0.001
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "ipadn_max",
+      "spice": ".meas tran ipadn_max MAX i(vamn)",
+      "unit": "A",
+      "limits": {
+        "max": 0.001
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "ipadn_min",
+      "spice": ".meas tran ipadn_min MIN i(vamn)",
+      "unit": "A",
+      "limits": {
+        "min": -0.001
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "ivccd_max",
+      "spice": ".meas tran ivccd_max MAX i(vvccd)",
+      "unit": "A"
+    },
+    {
+      "name": "ivccd_min",
+      "spice": ".meas tran ivccd_min MIN i(vvccd)",
+      "unit": "A"
+    },
+    {
+      "name": "ivddio_max",
+      "spice": ".meas tran ivddio_max MAX i(vvddio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivddio_min",
+      "spice": ".meas tran ivddio_min MIN i(vvddio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivssio_max",
+      "spice": ".meas tran ivssio_max MAX i(vvssio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivssio_min",
+      "spice": ".meas tran ivssio_min MIN i(vvssio)",
+      "unit": "A"
+    },
+    {
+      "name": "well_main_max",
+      "spice": ".meas tran well_main_max MAX v(xtb.xdrv.xsl_main.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_main_min",
+      "spice": ".meas tran well_main_min MIN v(xtb.xdrv.xsl_main.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e0_max",
+      "spice": ".meas tran well_e0_max MAX v(xtb.xdrv.xsl_e0.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e0_min",
+      "spice": ".meas tran well_e0_min MIN v(xtb.xdrv.xsl_e0.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1a_max",
+      "spice": ".meas tran well_e1a_max MAX v(xtb.xdrv.xsl_e1a.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1a_min",
+      "spice": ".meas tran well_e1a_min MIN v(xtb.xdrv.xsl_e1a.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1b_max",
+      "spice": ".meas tran well_e1b_max MAX v(xtb.xdrv.xsl_e1b.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1b_min",
+      "spice": ".meas tran well_e1b_min MIN v(xtb.xdrv.xsl_e1b.well)",
+      "unit": "V"
+    },
+    {
+      "name": "ipadp_t0",
+      "spice": ".meas tran ipadp_t0 FIND i(vamp) AT=0",
+      "unit": "A"
+    },
+    {
+      "name": "ipadn_t0",
+      "spice": ".meas tran ipadn_t0 FIND i(vamn) AT=0",
+      "unit": "A"
+    },
+    {
+      "name": "well_main_hold",
+      "spice": ".meas tran well_main_hold FIND v(xtb.xdrv.xsl_main.well) AT=1.1m",
+      "unit": "V"
+    },
+    {
+      "name": "ipadp_hold",
+      "spice": ".meas tran ipadp_hold FIND i(vamp) AT=1.1m",
+      "unit": "A"
+    }
+  ],
+  "options": {
+    "timeout_s": 120,
+    "stage_model_inputs": true,
+    "ngspice_init": [
+      "set wnflag=1"
+    ],
+    "fail_on_diagnostic": [
+      "nonconvergence"
+    ],
+    "node_voltage_bounds": {
+      "min": -3.63,
+      "max": 3.63
+    }
+  }
+}

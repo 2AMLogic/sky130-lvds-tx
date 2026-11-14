@@ -1,0 +1,25 @@
+* Unpowered-pad bench, P4b supply ramp: VCCD and VDDIO 0 V -> nominal -> 0 V.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here, and
+* no title line -- under .include every line is circuit content).
+*
+* Row P4b's last criterion: "a 1 ms ramp of VCCD and VDDIO from 0 V to
+* nominal and back with the pad held at 1.25 V shows no pad-current
+* excursion beyond +/-1 mA". Nominal is VCCD = 1.80 V and VDDIO = 3.30 V
+* (spec/target-spec.md line 60-62: VCCD is the 1.8 V core rail, VDDIO the
+* 3.3 V I/O rail).
+*
+* 1 ms up, a 0.2 ms hold at nominal so the powered state settles before the
+* ramp down, 1 ms down, then a 0.2 ms tail at 0 V. The hold and the tail are
+* this bench's choice; the row fixes only the 1 ms ramp rate.
+
+.include tb_unpowered.spice
+
+* --- rails: ramped, not held at 0 V -------------------------------------
+VVCCD  VCCD  0 PWL(0 0 1m 1.80 1.2m 1.80 2.2m 0 2.4m 0)
+VVDDIO VDDIO 0 PWL(0 0 1m 3.30 1.2m 3.30 2.2m 0 2.4m 0)
+VVSSIO VSSIO 0 DC 0
+
+* --- pad drive: both pads held at 1.25 V --------------------------------
+VPSRC PSRC 0 DC 1.25
+BNSRC NSRC 0 V = v(PSRC)

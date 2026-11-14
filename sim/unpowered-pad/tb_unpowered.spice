@@ -1,0 +1,242 @@
+* Unpowered-pad DC bench, shared core (spec rows P4, P4a, P4b; DR-008).
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here, and
+* no title line -- under .include every line is circuit content).
+*
+* This file is included by tb_sweep_a.spice, tb_sweep_b.spice and
+* tb_ramp.spice, which add the rail sources and the pad drive. It never
+* declares either itself, so the three benches cannot disagree about the DUT.
+*
+* The DUT is the committed top-level analog block, included rather than
+* copied. Including the top level -- not `driver` plus `pad_cell` separately
+* -- is what supplies the gate boundary condition rows P4a/P4b are about:
+* the P-side top-switch gates are driven by DR-008's gate-tracking devices
+* and the N-side gates by the predriver's off devices. A bench that invented
+* a value for GPA/GPB/XPA/XPB/GNA/GNB/XNA/XNB would either defeat the gate
+* tracking or fabricate a pass.
+
+.include ../../design/lvds_tx_analog.spice
+
+* ------------------------------------------------------------------------
+* Core-domain inputs
+* ------------------------------------------------------------------------
+* An unpowered core domain presents 0 V on every input, including the
+* enables and the two analog references. EN = 0 is the unpowered state of
+* the enable, not a choice of operating mode.
+VD0     D0     0 DC 0
+VD0B    D0B    0 DC 0
+VD1     D1     0 DC 0
+VD1B    D1B    0 DC 0
+VCLK    CLK    0 DC 0
+VEN     EN     0 DC 0
+VEM0    EM0    0 DC 0
+VEM1    EM1    0 DC 0
+VIREF   IREF   0 DC 0
+VVCMREF VCMREF 0 DC 0
+
+* ------------------------------------------------------------------------
+* The device under test
+* ------------------------------------------------------------------------
+xtb D0 D0B D1 D1B CLK EN EM0 EM1 IREF VCMREF PADP PADN VCCD VDDIO VSSIO
++ lvds_tx_analog
+
+* ------------------------------------------------------------------------
+* Per-pad ammeters
+* ------------------------------------------------------------------------
+* P4's +/-20 uA limit is per pad, and in the differential pattern the two
+* pad currents are not equal and opposite except by assumption. Each pad is
+* therefore fed through its own 0 V source: i(VAMP) / i(VAMN) is the current
+* flowing INTO that pad from the external driver (ngspice measures a source
+* current from its + node to its - node inside the source, and PSRC / NSRC
+* are the + nodes). The including file drives PSRC and NSRC.
+VAMP PSRC PADP 0
+VAMN NSRC PADN 0
+
+* ------------------------------------------------------------------------
+* Observer nodes
+* ------------------------------------------------------------------------
+* Everything below is a behavioural voltage source driving its own isolated
+* node. A B source is voltage-controlled, so it draws no current from the
+* node it reads: these are observers and do not load the circuit. They exist
+* so the reductions rows P4a/P4b ask for can be written once, here, next to
+* the device list they come from, instead of being repeated as unreadable
+* one-line `par()` expressions in every request file.
+*
+* Hierarchy: xtb = lvds_tx_analog, xtb.xdrv = driver, xtb.xpre = predriver,
+* xtb.xdrv.xsl_{main,e0,e1a,e1b} = the four drv_slice instances. WELL, TOP
+* and BOT are local nets inside drv_slice and NOT ports, so the four slices
+* have four independent floating wells.
+
+* --- row P4b: reference for the well-tracking criterion ------------------
+* P4b wants the floating well within 0.3 V of max(VCCD, V_pad). One well is
+* shared by both top switches of a slice, so the reference is the maximum
+* over VCCD and both pads of the pair.
+BVREFMAX VREFMAX 0 V = max(v(VCCD), max(v(PADP), v(PADN)))
+
+* --- row P4b: worst thin-oxide terminal pair, per slice ------------------
+* Four thin-oxide devices per drv_slice instance, with their terminals:
+*   XMSPA  pfet_01v8  g=<gate A>  s=TOP  d=OUTP(PADP)  b=WELL
+*   XMSPB  pfet_01v8  g=<gate B>  s=TOP  d=OUTN(PADN)  b=WELL
+*   XMSNA  nfet_01v8  g=<ngate A> s=BOT  d=OUTP(PADP)  b=VSSIO
+*   XMSNB  nfet_01v8  g=<ngate B> s=BOT  d=OUTN(PADN)  b=VSSIO
+* xsl_main takes GPA/GPB/GNA/GNB; xsl_e0, xsl_e1a and xsl_e1b all take
+* XPA/XPB/XNA/XNB.
+*
+* TOX_<slice>_OX is the worst GATE-REFERENCED pair (the oxide-stress
+* reading of "every thin-oxide terminal pair <= 1.98 V"): g-s, g-d and g-b
+* of all four devices. TOX_<slice>_DS is the worst drain-source pair, which
+* is a channel pair rather than oxide. The remaining pairs -- drain-bulk and
+* source-bulk -- are reverse-biased junctions and are reported as the row
+* P4a junction measurements instead, so both readings of the criterion the
+* record discusses are legible without double-counting.
+
+BTOXMAINOX TOX_MAIN_OX 0 V =
++ max(max(max(abs(v(xtb.GPA) - v(xtb.xdrv.xsl_main.top)),
++              abs(v(xtb.GPA) - v(PADP))),
++          max(abs(v(xtb.GPA) - v(xtb.xdrv.xsl_main.well)),
++              abs(v(xtb.GPB) - v(xtb.xdrv.xsl_main.top)))),
++      max(max(abs(v(xtb.GPB) - v(PADN)),
++              abs(v(xtb.GPB) - v(xtb.xdrv.xsl_main.well))),
++          max(max(abs(v(xtb.GNA) - v(xtb.xdrv.xsl_main.bot)),
++                  abs(v(xtb.GNA) - v(PADP))),
++              max(max(abs(v(xtb.GNA) - v(VSSIO)),
++                      abs(v(xtb.GNB) - v(xtb.xdrv.xsl_main.bot))),
++                  max(abs(v(xtb.GNB) - v(PADN)),
++                      abs(v(xtb.GNB) - v(VSSIO)))))))
+BTOXMAINDS TOX_MAIN_DS 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_main.top)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_main.top))),
++      max(abs(v(PADP) - v(xtb.xdrv.xsl_main.bot)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_main.bot))))
+
+BTOXE0OX TOX_E0_OX 0 V =
++ max(max(max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e0.top)),
++              abs(v(xtb.XPA) - v(PADP))),
++          max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e0.well)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e0.top)))),
++      max(max(abs(v(xtb.XPB) - v(PADN)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e0.well))),
++          max(max(abs(v(xtb.XNA) - v(xtb.xdrv.xsl_e0.bot)),
++                  abs(v(xtb.XNA) - v(PADP))),
++              max(max(abs(v(xtb.XNA) - v(VSSIO)),
++                      abs(v(xtb.XNB) - v(xtb.xdrv.xsl_e0.bot))),
++                  max(abs(v(xtb.XNB) - v(PADN)),
++                      abs(v(xtb.XNB) - v(VSSIO)))))))
+BTOXE0DS TOX_E0_DS 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e0.top)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e0.top))),
++      max(abs(v(PADP) - v(xtb.xdrv.xsl_e0.bot)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e0.bot))))
+
+BTOXE1AOX TOX_E1A_OX 0 V =
++ max(max(max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1a.top)),
++              abs(v(xtb.XPA) - v(PADP))),
++          max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1a.well)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1a.top)))),
++      max(max(abs(v(xtb.XPB) - v(PADN)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1a.well))),
++          max(max(abs(v(xtb.XNA) - v(xtb.xdrv.xsl_e1a.bot)),
++                  abs(v(xtb.XNA) - v(PADP))),
++              max(max(abs(v(xtb.XNA) - v(VSSIO)),
++                      abs(v(xtb.XNB) - v(xtb.xdrv.xsl_e1a.bot))),
++                  max(abs(v(xtb.XNB) - v(PADN)),
++                      abs(v(xtb.XNB) - v(VSSIO)))))))
+BTOXE1ADS TOX_E1A_DS 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e1a.top)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1a.top))),
++      max(abs(v(PADP) - v(xtb.xdrv.xsl_e1a.bot)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1a.bot))))
+
+BTOXE1BOX TOX_E1B_OX 0 V =
++ max(max(max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1b.top)),
++              abs(v(xtb.XPA) - v(PADP))),
++          max(abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1b.well)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1b.top)))),
++      max(max(abs(v(xtb.XPB) - v(PADN)),
++              abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1b.well))),
++          max(max(abs(v(xtb.XNA) - v(xtb.xdrv.xsl_e1b.bot)),
++                  abs(v(xtb.XNA) - v(PADP))),
++              max(max(abs(v(xtb.XNA) - v(VSSIO)),
++                      abs(v(xtb.XNB) - v(xtb.xdrv.xsl_e1b.bot))),
++                  max(abs(v(xtb.XNB) - v(PADN)),
++                      abs(v(xtb.XNB) - v(VSSIO)))))))
+BTOXE1BDS TOX_E1B_DS 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e1b.top)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1b.top))),
++      max(abs(v(PADP) - v(xtb.xdrv.xsl_e1b.bot)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1b.bot))))
+
+* --- row P4b: the predriver's own thin-oxide output stage ----------------
+* The eight switch-gate nets are the DRAINS of thin-oxide predriver
+* inverters whose sources and bulks sit on VCCD (pfet_01v8) and VSSIO
+* (nfet_01v8). When DR-008's gate-tracking device lifts a P-side gate, that
+* stage is the thin-oxide device the lifted node is applied to, so it is in
+* the pad-reachable set and belongs in this check. Gate node per net:
+*   GPA, GNA <- s2_ma      GPB, GNB <- s2_mb
+*   XPA, XNA <- s2_ea      XPB, XNB <- s2_eb
+* TOX_PRE_OX is the worst gate-referenced pair of that stage (g-d, and g-s
+* / g-b against both rails); TOX_PRE_DS is the worst drain-to-rail pair,
+* which is also the p+/n-well junction reported under P4a.
+BTOXPREOX TOX_PRE_OX 0 V =
++ max(max(max(abs(v(xtb.xpre.s2_ma) - v(xtb.GPA)),
++              abs(v(xtb.xpre.s2_ma) - v(xtb.GNA))),
++          max(abs(v(xtb.xpre.s2_mb) - v(xtb.GPB)),
++              abs(v(xtb.xpre.s2_mb) - v(xtb.GNB)))),
++      max(max(max(abs(v(xtb.xpre.s2_ea) - v(xtb.XPA)),
++                  abs(v(xtb.xpre.s2_ea) - v(xtb.XNA))),
++              max(abs(v(xtb.xpre.s2_eb) - v(xtb.XPB)),
++                  abs(v(xtb.xpre.s2_eb) - v(xtb.XNB)))),
++          max(max(abs(v(xtb.xpre.s2_ma) - v(VCCD)),
++                  abs(v(xtb.xpre.s2_mb) - v(VCCD))),
++              max(abs(v(xtb.xpre.s2_ea) - v(VCCD)),
++                  abs(v(xtb.xpre.s2_eb) - v(VCCD))))))
+BTOXPREDS TOX_PRE_DS 0 V =
++ max(max(max(abs(v(xtb.GPA) - v(VCCD)), abs(v(xtb.GPB) - v(VCCD))),
++          max(abs(v(xtb.XPA) - v(VCCD)), abs(v(xtb.XPB) - v(VCCD)))),
++      max(max(abs(v(xtb.GNA) - v(VSSIO)), abs(v(xtb.GNB) - v(VSSIO))),
++          max(abs(v(xtb.XNA) - v(VSSIO)), abs(v(xtb.XNB) - v(VSSIO)))))
+
+* --- row P4b: the second reading of "every thin-oxide terminal pair" ----
+* "Every thin-oxide terminal pair <= 1.98 V" taken literally also counts
+* the bulk-referenced pairs -- drain-bulk and source-bulk -- which are
+* reverse-biased junctions rather than oxide stress. Row P4a already grades
+* their forward bias (a signed quantity, and the one that matters for
+* conduction); these nodes give the same pairs as a MAGNITUDE, so the
+* record can state both readings of the P4b criterion as numbers instead of
+* settling the ambiguity by argument. Per slice: XMSPA/XMSPB drain-bulk and
+* source-bulk against WELL, and XMSNA/XMSNB source-bulk against VSSIO.
+BTOXMAINDB TOX_MAIN_DB 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_main.well)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_main.well))),
++      max(abs(v(xtb.xdrv.xsl_main.top) - v(xtb.xdrv.xsl_main.well)),
++          abs(v(xtb.xdrv.xsl_main.bot) - v(VSSIO))))
+BTOXE0DB TOX_E0_DB 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e0.well)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e0.well))),
++      max(abs(v(xtb.xdrv.xsl_e0.top) - v(xtb.xdrv.xsl_e0.well)),
++          abs(v(xtb.xdrv.xsl_e0.bot) - v(VSSIO))))
+BTOXE1ADB TOX_E1A_DB 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e1a.well)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1a.well))),
++      max(abs(v(xtb.xdrv.xsl_e1a.top) - v(xtb.xdrv.xsl_e1a.well)),
++          abs(v(xtb.xdrv.xsl_e1a.bot) - v(VSSIO))))
+BTOXE1BDB TOX_E1B_DB 0 V =
++ max(max(abs(v(PADP) - v(xtb.xdrv.xsl_e1b.well)),
++          abs(v(PADN) - v(xtb.xdrv.xsl_e1b.well))),
++      max(abs(v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.well)),
++          abs(v(xtb.xdrv.xsl_e1b.bot) - v(VSSIO))))
+
+* --- scope control for the "every thin-oxide terminal pair" reading ------
+* The claim the record makes is that the thin-oxide devices able to see a
+* nonzero terminal voltage in the unpowered state are exactly the
+* pad-reachable ones covered above. This node is the worst voltage on the
+* predriver's pre-output thin-oxide chain (its gate and intermediate nodes)
+* and on the three drv_sel bias outputs; if it stays at 0 V, nothing deeper
+* in the core is stressed and the scope claim is evidence, not assertion.
+BCOREMAX CORE_MAX 0 V =
++ max(max(max(abs(v(xtb.xpre.g_ma)), abs(v(xtb.xpre.g_mb))),
++          max(abs(v(xtb.xpre.s1_ma)), abs(v(xtb.xpre.s1_mb)))),
++      max(max(max(abs(v(xtb.xpre.s2_ma)), abs(v(xtb.xpre.s2_mb))),
++              max(abs(v(xtb.xpre.s2_ea)), abs(v(xtb.xpre.s2_eb)))),
++          max(max(abs(v(xtb.xdrv.pgm)), abs(v(xtb.xdrv.ngm))),
++              max(abs(v(xtb.xdrv.pge0)), abs(v(xtb.xdrv.pge1))))))
