@@ -39,9 +39,24 @@ which `--check` ignores.
 ```console
 export PDK_ROOT=$HOME/.ciel PDK=sky130A
 for c in ddr_mux/ddr_mux predriver/predriver driver/driver pad_cell/pad_cell lvds_tx_analog; do
-  klt netlist design/$c.sch -o design/$c.spice --rcfile design/xschemrc --block --backend local
+  uvx --from "klayout-tools==0.8.0" \
+    klt netlist design/$c.sch -o design/$c.spice --rcfile design/xschemrc --block --backend local
 done
 ```
+
+**Use the pinned `klt` (`0.8.0`, `docs/environment.md`), not whatever is on
+`$PATH`.** A newer `klt` writes a `** klt-netlist-inputs:` provenance header
+these files do not carry, and its `klt signoff --attest` writes an attestation
+envelope whose shape the pinned `0.8.0` used by `.github/workflows/signoff.yml`
+rejects (`provenance.input.paths` vs `provenance.input.path`, exit 3). `uvx`
+runs the pin without touching the host install.
+
+Note that **continuation-line wrapping comes from `xschem`, not `klt`**, so a
+host whose `xschem` differs from the one that last wrote these files reflows
+every wrapped device card — a large textual diff that `klt netlist --check`
+correctly reports as `match`, because it compares logically-joined cards. If
+you see that churn, it is your `xschem` version, not a netlist change; confirm
+with `--check` before assuming otherwise (`2AMLogic/klayout-tools#5715`).
 
 Freshness of one netlist: the same command with `--check` (exit 0 `match`,
 3 `drifted`). Then re-attest and re-render the record (`manifests/README.md`):
