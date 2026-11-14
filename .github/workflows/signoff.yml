@@ -17,10 +17,21 @@ permissions:
   contents: read
 
 env:
-  # Pinned to the PyPI release, not a commit: `klt signoff --attest`
-  # (klayout-tools#2844) and the `local_only` attestation check flag are both
-  # in 0.8.0. A git build reports a dev version and would not satisfy `==`.
-  KLT_VERSION: "0.8.0"
+  # Both pins are reinstallable PyPI releases; a git build reports a dev
+  # version and does not satisfy `==`. `klt signoff --attest` (klayout-tools
+  # #2844) and the `local_only` check flag are in 0.8.0+; the item 2 attest
+  # producer (--input <layout stream>) is new in 0.9.1 (klayout-tools#4188).
+  # 0.9.1 regenerates the committed driver-pad GDS byte-identically, where
+  # the old 0.8.0 pin renames 114 of its 237 cells (issue #104).
+  KLT_VERSION: "0.9.1"
+  # The klayout module is pinned because it, not klt, serialises layout
+  # bytes: a 0.30.x module re-encodes two TEXT MAG records in the stock
+  # pad-frame cell (issue #104). klt declares klayout>=0.30, so the module is
+  # installed first and klt goes on top with --no-deps (same recipe as
+  # scripts/setup-env.sh). Envelope bytes do not depend on the module version
+  # (verified in issue #104), so rendering the verdict record under this
+  # pinned pair matches what a local run produces.
+  KLAYOUT_VERSION: "0.28.17.post1"
 
 jobs:
   signoff:
@@ -33,10 +44,12 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install pinned klt
+      - name: Install pinned klt + klayout
         run: |
-          pip install "klayout-tools==${KLT_VERSION}"
+          pip install "klayout==${KLAYOUT_VERSION}" "jsonschema>=4.0"
+          pip install --no-deps "klayout-tools==${KLT_VERSION}"
           klt --version
+          python -c "import klayout; print('klayout', klayout.__version__)"
 
       - name: Re-attest item 1 (digital) and check the committed envelope
         # The netlist freshness check is local_only (needs yosys + the PDK),

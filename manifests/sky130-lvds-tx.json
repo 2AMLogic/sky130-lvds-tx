@@ -19,11 +19,11 @@
       "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r4.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r5.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
-      "file": "verification/signoff/evidence/item-2-layout-analog-r3.json",
+      "file": "verification/signoff/evidence/item-2-layout-analog-r4.json",
       "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
     },
     "2.digital": {

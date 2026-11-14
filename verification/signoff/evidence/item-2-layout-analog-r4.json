@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 2,
+  "summary": "T1 item 2 (Layout): 3/3 attestation checks passed (klt signoff --attest)",
+  "source": "layout/sky130_lvds_tx_driver_pad.gds",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 3,
+    "passed_count": 3,
+    "checks": [
+      {
+        "check": "stream_readable",
+        "role": "layout",
+        "passed": true,
+        "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
+      },
+      {
+        "check": "top_cell_non_empty",
+        "role": "layout",
+        "passed": true,
+        "top_cells": [
+          "sky130_lvds_tx_driver_pad"
+        ]
+      },
+      {
+        "check": "dbu_on_grid",
+        "role": "layout",
+        "passed": true,
+        "dbu": 0.001
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.1",
+    "klayout_version": "0.28.17-1",
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "layout/sky130_lvds_tx_driver_pad.gds",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
+    },
+    "regeneration": {
+      "generator": "sh verification/signoff/check-driver-pad-gds.sh (layout/gen_driver_pad.py under .venv: klt 0.9.1, klayout 0.28.17.post1, CPython 3.12.3)",
+      "regenerated_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
+    }
+  }
+}

@@ -24,16 +24,20 @@ record**, produced by the regeneration command below. Never hand-edit it.
   - **Item 2, digital (`2.digital`)** cites
     [`verification/signoff/evidence/item-2-layout-digital-r2.json`](../verification/signoff/evidence/item-2-layout-digital-r2.json),
     a hand-written `generic` envelope bound to the routed GDS
-    `flow/serializer/serializer_routed.gds` (`klt signoff --attest` has no item 2
-    producer, 2AMLogic/klayout-tools#4188). Its `regeneration` claim is backed by
+    `flow/serializer/serializer_routed.gds` (klt releases before 0.9.1 had no
+    item 2 producer; 2AMLogic/klayout-tools#4188 added one in 0.9.1 -- the
+    analog record below uses it, re-attesting the digital record is out of
+    scope there). Its `regeneration` claim is backed by
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
   - **Item 2, analog (`2.analog`)** cites
-    [`verification/signoff/evidence/item-2-layout-analog-r3.json`](../verification/signoff/evidence/item-2-layout-analog-r3.json)
-    (append-only; the earlier `item-2-layout-analog.json` and `-r2.json` are kept as history, bound to earlier GDS revisions),
-    a hand-written `generic` envelope bound to
-    `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
-    producer; same route as `2.digital`). Its `regeneration` claim is backed by
+    [`verification/signoff/evidence/item-2-layout-analog-r4.json`](../verification/signoff/evidence/item-2-layout-analog-r4.json)
+    (append-only; the earlier `item-2-layout-analog.json`, `-r2.json` and
+    `-r3.json` are kept as history, bound to earlier GDS revisions and tool pins),
+    produced by `klt signoff --attest 2 --input layout/sky130_lvds_tx_driver_pad.gds`
+    (the item 2 producer, klayout-tools#4188) under the pinned pair
+    (`klt 0.9.1` + `klayout 0.28.17.post1`, issue #104), bound to
+    `layout/sky130_lvds_tx_driver_pad.gds`. Its `regeneration` claim is backed by
     `verification/signoff/check-driver-pad-gds.sh` (`local_only`); see
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
     sha256 of the GDS, not of the envelope. The driver is routed (#48); `ddr_mux` and `predriver` are placement-only.
@@ -88,24 +92,36 @@ record**, produced by the regeneration command below. Never hand-edit it.
 
 ## klt pin
 
-`klt signoff --attest` (klayout-tools#2844) and the `local_only` check flag are
-in the PyPI release `klayout-tools==0.8.0`, which is the pin. The pin lives in
-`.github/workflows/signoff.yml` (`KLT_VERSION`). A git build reports a dev
-version and does not satisfy `==0.8.0` (klayout-tools#2823).
+`klt signoff --attest` (klayout-tools#2844), the `local_only` check flag and
+the item 2 attest producer (`--input <layout stream>`; klayout-tools#4188) are
+in the PyPI release `klayout-tools==0.9.1`, which is the pin. The pins live in
+`scripts/setup-env.sh` (`KLT_VERSION`, plus `KLAYOUT_VERSION` for the klayout
+module, which serialises the layout bytes) and `.github/workflows/signoff.yml`
+(both). A git build reports a dev version and does not satisfy `==0.9.1`
+(klayout-tools#2823). The previous pin `0.8.0` was wrong for item 2 analog:
+it predates the attested driver-pad GDS and its `klt gen` renames 114 of the
+GDS's 237 cells, so it could not regenerate the artifact at all (issue #104).
 
 ## Regenerate
 
 ```console
-KLT="uvx --from klayout-tools==0.8.0 klt"
+KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r4.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r5.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources.json
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
              -o verification/signoff/evidence/item-1-design-sources-digital.json
+# item 2 analog (producer from klayout-tools#4188; run it with the repo's pinned
+# .venv klt so the recorded versions are the pins -- the regeneration claim it
+# records is backed by the local_only gate below)
+$KLT signoff --attest 2 --input layout/sky130_lvds_tx_driver_pad.gds \
+             --generator "sh verification/signoff/check-driver-pad-gds.sh" \
+             --regenerated-hash sha256:... \
+             -o verification/signoff/evidence/item-2-layout-analog-rN.json
 $KLT signoff --manifest manifests/sky130-lvds-tx.json \
              --tiers-doc manifests/design-evidence-tiers.md \
              --format json > manifests/sky130-lvds-tx.signoff.json
@@ -120,9 +136,11 @@ requires re-attesting, then re-rendering the record, in the same PR.
 
 `.github/workflows/signoff.yml` re-attests item 1 (digital), item 10, item 1
 (analog) and item 9 with `--check` and re-renders the report, failing on any byte difference
-from the committed record. Item 2 (digital and analog) is not re-attested, since `klt signoff
---attest` has no item 2 producer (klayout-tools#4188); they are hash-bound only by that
-full-record comparison.
+from the committed record. Item 2 (digital and analog) is not re-attested: the
+analog regeneration claim is backed by the `local_only` PDK gate, and the
+digital one by the `local_only` PnP check; the producer itself exists since
+0.9.1 (klayout-tools#4188) and produced the analog r4 record. Both item 2
+envelopes are hash-bound by that full-record comparison.
 
 ## Current verdict
 
