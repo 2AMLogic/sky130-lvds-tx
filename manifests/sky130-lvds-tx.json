@@ -7,8 +7,8 @@
   },
   "evidence": {
     "1.analog": {
-      "file": "verification/signoff/evidence/item-1-analog-design-sources.json",
-      "content_hash": "sha256:7b0b4cb72004da74db302f27add2ebfb63a9d163baf13aa41ddc0dfd78538a3b"
+      "file": "verification/signoff/evidence/item-1-analog-design-sources-r2.json",
+      "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f"
     },
     "1.digital": {
       "file": "verification/signoff/evidence/item-1-design-sources-digital.json",
@@ -19,7 +19,7 @@
       "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r5.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r6.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
