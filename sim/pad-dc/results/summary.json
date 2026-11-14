@@ -1,0 +1,202 @@
+{
+  "status": "pass",
+  "corner_count": 15,
+  "passed": 15,
+  "corners": [
+    {
+      "corner_id": "tt/novdd/-40C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 0.0,
+        "cpad_1v00": 9.371017e-14,
+        "cpad_1v25": 9.115342e-14,
+        "cpad_1v60": 8.823005e-14,
+        "shunt_0v00": 1.218956e-34,
+        "shunt_2v40": 0.0,
+        "fwd_clamp_1v0": 0.03229408
+      }
+    },
+    {
+      "corner_id": "tt/novdd/27C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 1.307399e-12,
+        "cpad_1v00": 9.535763e-14,
+        "cpad_1v25": 9.263563e-14,
+        "cpad_1v60": 8.954273e-14,
+        "shunt_0v00": 3.398167e-40,
+        "shunt_2v40": 1.932676e-12,
+        "fwd_clamp_1v0": 0.04524049
+      }
+    },
+    {
+      "corner_id": "tt/novdd/125C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 1.318654e-09,
+        "cpad_1v00": 9.715083e-14,
+        "cpad_1v25": 9.418078e-14,
+        "cpad_1v60": 9.084246e-14,
+        "shunt_0v00": 4.100686e-27,
+        "shunt_2v40": 1.493049e-09,
+        "fwd_clamp_1v0": 0.06536599
+      }
+    },
+    {
+      "corner_id": "ff/novdd/-40C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 0.0,
+        "cpad_1v00": 8.205252e-14,
+        "cpad_1v25": 7.982307e-14,
+        "cpad_1v60": 7.727354e-14,
+        "shunt_0v00": 1.218956e-34,
+        "shunt_2v40": 0.0,
+        "fwd_clamp_1v0": 0.03280443
+      }
+    },
+    {
+      "corner_id": "ff/novdd/27C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 2.50111e-12,
+        "cpad_1v00": 8.348957e-14,
+        "cpad_1v25": 8.111563e-14,
+        "cpad_1v60": 7.841788e-14,
+        "shunt_0v00": 3.398167e-40,
+        "shunt_2v40": 3.410605e-12,
+        "fwd_clamp_1v0": 0.04571545
+      }
+    },
+    {
+      "corner_id": "ff/novdd/125C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 1.732928e-09,
+        "cpad_1v00": 8.505219e-14,
+        "cpad_1v25": 8.246134e-14,
+        "cpad_1v60": 7.954898e-14,
+        "shunt_0v00": 4.100686e-27,
+        "shunt_2v40": 2.058073e-09,
+        "fwd_clamp_1v0": 0.06578963
+      }
+    },
+    {
+      "corner_id": "ss/novdd/-40C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 0.0,
+        "cpad_1v00": 1.054664e-13,
+        "cpad_1v25": 1.025819e-13,
+        "cpad_1v60": 9.928432e-14,
+        "shunt_0v00": 1.218956e-34,
+        "shunt_2v40": 0.0,
+        "fwd_clamp_1v0": 0.0318031
+      }
+    },
+    {
+      "corner_id": "ss/novdd/27C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 7.958079e-13,
+        "cpad_1v00": 1.073242e-13,
+        "cpad_1v25": 1.042537e-13,
+        "cpad_1v60": 1.007653e-13,
+        "shunt_0v00": 3.398167e-40,
+        "shunt_2v40": 1.023182e-12,
+        "fwd_clamp_1v0": 0.04478368
+      }
+    },
+    {
+      "corner_id": "ss/novdd/125C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 1.090427e-09,
+        "cpad_1v00": 1.093475e-13,
+        "cpad_1v25": 1.059978e-13,
+        "cpad_1v60": 1.022331e-13,
+        "shunt_0v00": 4.100686e-27,
+        "shunt_2v40": 1.187914e-09,
+        "fwd_clamp_1v0": 0.06495729
+      }
+    },
+    {
+      "corner_id": "sf/novdd/-40C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 0.0,
+        "cpad_1v00": 7.708708e-14,
+        "cpad_1v25": 7.499775e-14,
+        "cpad_1v60": 7.260829e-14,
+        "shunt_0v00": 7.910232e-31,
+        "shunt_2v40": 0.0,
+        "fwd_clamp_1v0": 0.03291583
+      }
+    },
+    {
+      "corner_id": "sf/novdd/27C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 3.581135e-12,
+        "cpad_1v00": 7.84339e-14,
+        "cpad_1v25": 7.620898e-14,
+        "cpad_1v60": 7.368042e-14,
+        "shunt_0v00": 3.398167e-40,
+        "shunt_2v40": 4.888534e-12,
+        "fwd_clamp_1v0": 0.0458113
+      }
+    },
+    {
+      "corner_id": "sf/novdd/125C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 2.039997e-09,
+        "cpad_1v00": 7.989748e-14,
+        "cpad_1v25": 7.746899e-14,
+        "cpad_1v60": 7.473902e-14,
+        "shunt_0v00": 4.100686e-27,
+        "shunt_2v40": 2.481443e-09,
+        "fwd_clamp_1v0": 0.06586604
+      }
+    },
+    {
+      "corner_id": "fs/novdd/-40C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 0.0,
+        "cpad_1v00": 1.105306e-13,
+        "cpad_1v25": 1.075056e-13,
+        "cpad_1v60": 1.040474e-13,
+        "shunt_0v00": 9.809456e-32,
+        "shunt_2v40": 0.0,
+        "fwd_clamp_1v0": 0.03170546
+      }
+    },
+    {
+      "corner_id": "fs/novdd/27C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 5.684342e-13,
+        "cpad_1v00": 1.124786e-13,
+        "cpad_1v25": 1.092586e-13,
+        "cpad_1v60": 1.056005e-13,
+        "shunt_0v00": 3.398167e-40,
+        "shunt_2v40": 7.958079e-13,
+        "fwd_clamp_1v0": 0.04469975
+      }
+    },
+    {
+      "corner_id": "fs/novdd/125C/options:gmin=1e-15",
+      "status": "pass",
+      "measurements": {
+        "shunt_1v25": 1.013689e-09,
+        "cpad_1v00": 1.146006e-13,
+        "cpad_1v25": 1.11088e-13,
+        "cpad_1v60": 1.071404e-13,
+        "shunt_0v00": 4.100686e-27,
+        "shunt_2v40": 1.087642e-09,
+        "fwd_clamp_1v0": 0.06488942
+      }
+    }
+  ]
+}

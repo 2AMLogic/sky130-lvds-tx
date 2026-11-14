@@ -134,7 +134,7 @@ signal gates left unrouted. Neither DRC nor LVS is claimed clean.
 | Item | Why |
 |---|---|
 | `OUTP` / `OUTN` to the pad cells, the clamp to `P_CORE` / VSSIO | the driver sits beside the pad pair and its pins are labels only; the pad seam needs a via stack and DRC feedback (#24) |
-| `D1` (`diode_pw2nd_11v0`) | `klt gen` has no diode generator |
+| `D1` (`diode_pw2nd_11v0`) | the pad seam it attaches to is not drawn (the row above): `D1` sits between `P_CORE` and the `VSSIO` bus, so it cannot be placed before that seam is. **Not** for a missing tool: `klt gen` now has a `diode` generator (`kind=n_psub`, `voltage_class=11v0`, `width_um`/`length_um`; `klayout-tools#4300`, closed) and the sky130 LVS deck now derives a `DiodeDevice` on the `areaid.diode` (81/23) mark (`klayout-tools#3803`, closed). Target geometry when it is drawn: **8.0 × 8.0 µm** (`area=64` µm², `perim=32` µm), derived in `sim/pad-dc/RECORD.md` against `P1`/`P2` (issue #100) |
 | `XMESD` as `nfet_g5v0d10v5` | `esd_device` draws no thick-oxide / ESD marker on sky130, so the clamp is geometry only |
 | Signal routing of `ddr_mux` and `predriver` | only their supplies are routed (issue #74); signal nets are unrouted stubs. They now use the card `W` / `nf` per finger like the driver, so the old double-width drawing is gone |
 | Current-sized supply and output wiring | the router uses one wire width |
