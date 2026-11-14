@@ -1,0 +1,78 @@
+* Driver DC bench -- V_OD and V_OS in both static data states (spec rows E1-E4).
+*
+* Simulated, not measured. Grades the committed `driver` subcircuit's draft
+* sizing against the PROPOSED spec; it changes no device, bias or schematic.
+*
+* Two `driver` instances share the rails and the IREF/VCMREF stimulus so that
+* dV_OD (E3) and dV_OS (E4, DC half) are differences taken at the SAME PVT
+* condition, as the spec's wording requires -- no join across corner records.
+*
+*   instance 1 -- data state 1: side A gates low,  side B gates high
+*   instance 0 -- data state 0: side A gates high, side B gates low
+*
+* Pre-emphasis is disabled (EM0 = EM1 = 0 V) and the driver is enabled
+* (EN = VCCD); see `sim/driver-dc/RECORD.md` for the derivation of both.
+*
+* E1/E2 are specified at the pad. The measurement is taken at the driver
+* output instead, and the committed `pad_cell` is deliberately NOT instantiated
+* -- its ESD diode shunts 107 mA at 1.25 V DC, which would swamp a 3.5 mA
+* driver. See `sim/driver-dc/RECORD.md` for the evidence and the equivalence
+* argument that makes the driver output the pad node at DC.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here).
+
+.include ../../design/driver/driver.spice
+
+* ---------------------------------------------------------------------------
+* Rails. `corners.supply_v` in request.json is keyed by these two source
+* names, so the five G75 (VCCD, VDDIO) pairs move as a set.
+* ---------------------------------------------------------------------------
+VVCCD  vccd  0 DC 1.8
+VVDDIO vddio 0 DC 3.3
+
+* ---------------------------------------------------------------------------
+* Ideal external references (DR-007: every ideal source is labelled as one).
+*   vcmref -- the CMFB target, held at 1.25 V at every condition (E2's
+*             regulation target, the centre of the TIA/EIA-644 window).
+*   iref   -- one DC current forced into each instance's diode-connected
+*             XMNB1, chosen once at tt/27 C/1.80 V/3.30 V and then FROZEN
+*             across all 75 conditions, so a failing corner stays a recorded
+*             miss rather than a tuned-away one.
+*
+* vcmref is one shared source because it is a VOLTAGE: both instances see
+* 1.25 V. iref is one source PER INSTANCE at the same value, because a single
+* shared current source would divide its current between the two instances'
+* XMNB1 devices and bias each at half the intended value.
+* ---------------------------------------------------------------------------
+VVCMREF vcmref 0 DC 1.25
+IIREF1  0 iref1 DC 54.3u
+IIREF0  0 iref0 DC 54.3u
+
+* ---------------------------------------------------------------------------
+* Instance 1 -- data state 1 (side A low, side B high => v(outp1) > v(outn1)).
+*
+* Port order is the committed `driver` order and is NOT the predriver's:
+*   GPA GPB GNA GNB  XPA XPB XNA XNB  EN EM0 EM1  IREF VCMREF
+*   OUTP OUTN  VCCD VDDIO VSSIO
+*
+* GPA/GNA share one node and GPB/GNB share the other: the predriver's final
+* stage per side is a rail-to-rail CMOS inverter on VCCD/VSSIO driving both
+* gates of that side from the same node, so the static gate-drive levels are
+* exactly 0 V and VCCD and they track the swept rail with no extra source.
+*
+* XPA/XPB/XNA/XNB repeat the main slice's pattern, keeping the three disabled
+* pre-emphasis slices' switch nodes defined (E8: one switch of each pair is
+* always on).
+* ---------------------------------------------------------------------------
+xdrv1 0 vccd 0 vccd  0 vccd 0 vccd  vccd 0 0  iref1 vcmref
++ outp1 outn1  vccd vddio 0  driver
+
+RL1 outp1 outn1 100
+
+* ---------------------------------------------------------------------------
+* Instance 0 -- data state 0 (side A high, side B low => v(outn0) > v(outp0)).
+* ---------------------------------------------------------------------------
+xdrv0 vccd 0 vccd 0  vccd 0 vccd 0  vccd 0 0  iref0 vcmref
++ outp0 outn0  vccd vddio 0  driver
+
+RL0 outp0 outn0 100
