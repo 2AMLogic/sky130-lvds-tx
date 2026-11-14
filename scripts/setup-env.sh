@@ -4,7 +4,11 @@
 # environment.
 #
 #   1. Creates a local .venv (Python) and installs `klayout-tools` (`klt`)
-#      into it at the pinned git revision below.
+#      into it at the pinned git revision below -- with `--no-deps`, so the
+#      venv can also carry the pinned `klayout` module (see below), which
+#      klt's own dependency floor (`klayout>=0.30`) forbids.
+#      Also installs the pinned `klayout` module: it, not `klt`, serialises
+#      the generated layout bytes (issue #104).
 #   2. Installs the pinned Yosys build (YoWASP wheel) into that .venv and
 #      verifies its WebAssembly module's sha256 -- the mapper identity that
 #      `yosys -V` does NOT report (issue #143) -- then exposes it as
@@ -39,7 +43,19 @@ cd "${REPO_ROOT}" || exit 1
 # --- pinned versions -- keep in sync with docs/environment.md -------------
 # Every constant in this block must appear in that doc's "Pinned versions"
 # table. Keep assignments in plain NAME="value" form so a checker can parse them.
-KLT_VERSION="0.8.0"
+KLT_VERSION="0.9.1"
+# The klayout module is pinned alongside klt because it, not klt, serialises
+# the generated layout bytes: `gen_driver_pad.py` runs under this module and
+# a 0.30.x module re-encodes two TEXT `MAG` records in the stock pad-frame
+# cell, so the committed GDS would stop regenerating byte-identically
+# (issue #104). `klayout-tools==0.9.1` declares `klayout>=0.30`, which the
+# byte-reproducibility pin below violates on purpose -- so klt is installed
+# `--no-deps` on top of it (its only other runtime dependency,
+# `jsonschema>=4.0`, is installed explicitly). klt's envelope output does not
+# depend on the module version (verified under 0.28.17 and 0.30.13 in
+# issue #104), so only the byte-writing interpreter is held back.
+# Wheels: klayout 0.28.17.post1 ships CPython 3.10-3.12 only (no cp313).
+KLAYOUT_VERSION="0.28.17.post1"
 CIEL_VERSION="2.6.1"
 CIEL_PDK_FAMILY="sky130"
 # Libraries enabled alongside the primitives: the standard cells and the I/O
@@ -76,7 +92,7 @@ for arg in "$@"; do
       PDK_ROOT="${arg#--pdk-root=}"
       ;;
     -h|--help)
-      sed -n '2,38p' "${BASH_SOURCE[0]}"
+      sed -n '2,40p' "${BASH_SOURCE[0]}"
       exit 0
       ;;
     *)
@@ -89,12 +105,14 @@ done
 status=0
 
 echo "== 1/4 python venv =="
-# cocotb 2.0.1 (pinned by klt) refuses to build on Python > 3.13 with a
-# RuntimeError, not a graceful skip -- pick a compatible interpreter up
-# front so that failure surfaces here, as an actionable message, rather
-# than as a pip build-backend traceback in step 2.
+# Two interpreter constraints: cocotb 2.x (pinned by klt) refuses to build on
+# Python > 3.13, and the pinned klayout wheel (KLAYOUT_VERSION below) ships
+# CPython 3.10-3.12 wheels only -- on 3.13+ pip would fall back to building
+# klayout's C++ sdist, which is not a supported setup. Pick a compatible
+# interpreter up front so either failure surfaces here, as an actionable
+# message, rather than as a pip build-backend traceback in step 2.
 PYTHON_BIN=""
-for candidate in python3.13 python3.12 python3.11 python3.10 python3; do
+for candidate in python3.12 python3.11 python3.10 python3; do
   found="$(command -v "${candidate}" || true)"
   if [ -z "${found}" ]; then
     continue
@@ -102,21 +120,22 @@ for candidate in python3.13 python3.12 python3.11 python3.10 python3; do
   ver="$("${found}" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")' 2>/dev/null)"
   major="${ver%%.*}"
   minor="${ver##*.}"
-  if [ "${major}" = "3" ] && [ "${minor}" -le 13 ] 2>/dev/null; then
+  if [ "${major}" = "3" ] && [ "${minor}" -le 12 ] 2>/dev/null; then
     PYTHON_BIN="${found}"
     break
   fi
 done
 
 if [ -z "${PYTHON_BIN}" ]; then
-  echo "FATAL: no Python <= 3.13 interpreter found on \$PATH."
-  echo "  cocotb 2.0.1 (the version klt pins)"
-  echo "  refuses to build on Python 3.14+."
+  echo "FATAL: no Python <= 3.12 interpreter found on \$PATH."
+  echo "  cocotb 2.x (the version klt pins) refuses to build on Python"
+  echo "  3.14+, and the pinned klayout wheel (${KLAYOUT_VERSION}) ships"
+  echo "  CPython 3.10-3.12 wheels only -- 3.13 would need an sdist build."
   echo "  -> install a compatible interpreter, e.g.:"
-  echo "       brew install python@3.13   (macOS/Homebrew)"
-  echo "       uv python install 3.13     (if 'uv' is available)"
-  echo "       apt-get install python3.13 (Debian/Ubuntu with deadsnakes/backports)"
-  echo "     then re-run this script; it prefers python3.13 > 3.12 > 3.11 >"
+  echo "       brew install python@3.12   (macOS/Homebrew)"
+  echo "       uv python install 3.12     (if 'uv' is available)"
+  echo "       apt-get install python3.12 (Debian/Ubuntu with deadsnakes/backports)"
+  echo "     then re-run this script; it prefers python3.12 > 3.11 >"
   echo "     3.10 > plain python3 automatically once one exists on \$PATH."
   exit 1
 fi
@@ -153,7 +172,7 @@ if [ ! -x "${VENV_PY}" ]; then
 fi
 
 echo
-echo "== 2/4 klayout-tools (klt) ==${KLT_VERSION} =="
+echo "== 2/4 klayout-tools (klt ${KLT_VERSION}) + klayout (${KLAYOUT_VERSION}) =="
 if ! "${VENV_PY}" -m pip --version >/dev/null 2>&1; then
   echo "FATAL: pip is not available inside ${VENV_DIR}."
   echo "  -> remove ${VENV_DIR} and re-run this script (venv bootstrap likely"
@@ -166,20 +185,37 @@ if ! "${VENV_PIP}" install --quiet --upgrade pip; then
   echo "  version venv bundled."
 fi
 
+# The pinned klayout module goes in FIRST (klt's dependency floor
+# `klayout>=0.30` would conflict with it); klt then goes on top with
+# `--no-deps`, with its one other runtime dependency (`jsonschema>=4.0`)
+# installed explicitly. Why the older module wins: see the KLAYOUT_VERSION
+# comment in the pin block above.
 if ! "${VENV_PIP}" install --quiet \
-    "klayout-tools==${KLT_VERSION}" cocotb "ciel==${CIEL_VERSION}"; then
-  echo "FATAL: failed to install klayout-tools/cocotb/ciel into ${VENV_DIR}."
+    "klayout==${KLAYOUT_VERSION}" "jsonschema>=4.0" \
+    cocotb "ciel==${CIEL_VERSION}"; then
+  echo "FATAL: failed to install klayout/jsonschema/cocotb/ciel into ${VENV_DIR}."
   echo "  -> common causes: no network access to PyPI, or no C/C++"
   echo "     toolchain for a dependency's native build (install Xcode CLI"
   echo "     tools on macOS: 'xcode-select --install'; build-essential on"
   echo "     Debian/Ubuntu)."
   echo "  -> re-run with the venv's own pip for a full traceback:"
-  echo "       ${VENV_PIP} install \"klayout-tools==${KLT_VERSION}\" cocotb ciel==${CIEL_VERSION}"
+  echo "       ${VENV_PIP} install \"klayout==${KLAYOUT_VERSION}\" \"jsonschema>=4.0\" cocotb ciel==${CIEL_VERSION}"
+  exit 1
+fi
+
+if ! "${VENV_PIP}" install --quiet --no-deps \
+    "klayout-tools==${KLT_VERSION}"; then
+  echo "FATAL: failed to install klayout-tools==${KLT_VERSION} into ${VENV_DIR}."
+  echo "  -> common causes: no network access to PyPI."
+  echo "  -> re-run with the venv's own pip for a full traceback:"
+  echo "       ${VENV_PIP} install --no-deps \"klayout-tools==${KLT_VERSION}\""
   exit 1
 fi
 INSTALLED_KLT_VERSION="$("${VENV_PY}" -m klayout_tools.cli --version 2>/dev/null || true)"
 INSTALLED_KLT_VERSION="${INSTALLED_KLT_VERSION#klt }"
 echo "installed: klt ${INSTALLED_KLT_VERSION:-(version unknown)} (pinned klayout-tools==${KLT_VERSION})"
+INSTALLED_KLAYOUT_VERSION="$("${VENV_PY}" -c 'import klayout; print(klayout.__version__)' 2>/dev/null || true)"
+echo "installed: klayout ${INSTALLED_KLAYOUT_VERSION:-(version unknown)} (pinned klayout==${KLAYOUT_VERSION})"
 echo "activate with: source ${VENV_DIR}/bin/activate"
 
 echo
