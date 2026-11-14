@@ -41,7 +41,7 @@ already in place when this P&R request was edited.
 | Field | Value |
 |---|---|
 | Request / response | `pnr.request.json` / `pnr.response.json` |
-| Input netlist | `serializer_synth.v`, sha256 `ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74` (matches `provenance.input.content_hash`) |
+| Input netlist | `serializer_synth.v`, sha256 `a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd` (matches `provenance.input.content_hash`) |
 | PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` (`PDK_ROOT` resolved to the pinned revision; see `provenance.pdk` and `layer_map` in the response) |
 | `klt` | `0.9.2.dev1029+g76f47afa48f1` (host) |
 | OpenROAD | `26Q3-1510-g6cb3f2b704` |

@@ -64,7 +64,7 @@ fully timed, but output-port timing is not covered by this record.
 ## Verdict for S3: NOT MET — but met at every corner inside the spec's supply range
 
 Setup now passes with 10 % uncertainty at every `tt_*` and `ff_*` corner **and at the
-three `ss` corners inside the spec's core-supply window**; it still fails at the four
+three `ss` corners inside the spec's core-supply window**; it still fails at the five
 slowest `ss` libraries. The row says "every Liberty corner", so the verdict stays
 NOT MET until that wording is revisited — which is a ratification question (out of
 scope here, see `spec/target-spec.md`); the spec row itself is unchanged.
