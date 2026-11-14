@@ -4,54 +4,80 @@
 (OpenROAD) on `sky130_fd_sc_hd`, with a power grid on the 1.8 V core rail.
 T1 item 2 (Layout, digital); the `power` block below is what item 11 reads.
 
+## What changed for issue #98, and why
+
+The previous revision of this record routed at `tt_025C_1v80` with the nominal
+2.0 ns clock, and post-route STA failed setup at every `ss` corner (`STA.md`,
+S3 NOT MET). Two things changed here; both are **implementation choices, not
+spec changes**:
+
+1. **Repair is aimed at the slow corner.** klt's `place-and-route` runs
+   `repair_design`/`repair_timing` only against the single deck named by
+   `pdk.corner` — the sweep corners are reported afterwards and never feed
+   back into repair. `pdk.corner` moved `tt_025C_1v80` → `ss_n40C_1v60` (the
+   binding in-spec corner), and `pdk.sweep_corners` widened to
+   `ss_100C_1v60`, `ss_n40C_1v60`, `ss_n40C_1v76`, `tt_025C_1v80`,
+   `ff_n40C_1v95` so the response reports the corners that matter without a
+   separate STA round-trip.
+2. **The implementation clock is tightened to 1.6 ns.** klt has no
+   clock-uncertainty surface, so the 1.8 ns effective budget that `klt sta`
+   judges (2.0 ns − 10 %) cannot be given to repair directly; period
+   substitution is the only lever. 1.6 ns is *tighter* than that budget on
+   purpose: at 1.8 ns, repair converged against the placement-stage parasitic
+   estimate (which reads ~155 ns×10⁻³ optimistic relative to the routed SPEF)
+   and the routed result still missed by 23 ps at `ss_n40C_1v60`. At 1.6 ns,
+   repair upsizes past the estimate and the routed netlist clears the real
+   1.8 ns budget with +0.093 ns at the binding corner (`STA.md`). **This
+   substitution is for implementation only** — the STA record keeps the real
+   2.0 ns period with `clock_uncertainty_ns.setup_ns: 0.2` and no period
+   substitution, which is what makes it S3 evidence.
+
+No RTL or synthesis-request change was needed *for P&R*: the RTL restructure
+(registering the load/capture enables) is recorded in `RECORD.md` and was
+already in place when this P&R request was edited.
+
+## Run
+
 | Field | Value |
 |---|---|
 | Request / response | `pnr.request.json` / `pnr.response.json` |
 | Input netlist | `serializer_synth.v`, sha256 `ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74` (matches `provenance.input.content_hash`) |
-| PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` |
-| `klt` | `0.8.1.dev58+g78f36d8f316c` (host; the signoff record itself is rendered with the pinned `879d39ba`) |
+| PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` (`PDK_ROOT` resolved to the pinned revision; see `provenance.pdk` and `layer_map` in the response) |
+| `klt` | `0.9.2.dev1029+g76f47afa48f1` (host) |
 | OpenROAD | `26Q3-1510-g6cb3f2b704` |
-| P&R corner | `tt_025C_1v80` only (no corner sweep run); seed 1; clock 2.0 ns |
+| P&R corner | `ss_n40C_1v60`, sweep `ss_100C_1v60` / `ss_n40C_1v60` / `ss_n40C_1v76` / `tt_025C_1v80` / `ff_n40C_1v95`; seed 1; clock 1.6 ns |
 | Stage reached | `route`, status ok, `warnings: []` |
-
-## Committed artifacts
-
-| File | sha256 |
-|---|---|
-| `serializer_routed.gds` | `6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff` |
-| `serializer_routed.v` (as-built, post-CTS) | `92910f5010efb7a660a0fae5576f6650ebb8960941d6f278df57cc6c4c6dc711` |
-| `serializer_routed.def` | `0025f8604158ef685716893fb12110352830e2d18eeeb9f5c17fa96f6a0b2d07` |
-| `serializer_routed.spef` | `7ff0df6e4f6758effc542150ede0b317ed961e76b56af8df80f7fd08db55d2b7` |
-
-The paths inside `pnr.response.json` (`gds_path`, `def_path`, `verilog_path`,
-`spef_sta.spef_path`) name klt's scratch directory `flow/serializer/.klt/place-and-route/`,
-which is not committed; the files above are copies of those outputs. The
-response is otherwise verbatim. Tracked at 2AMLogic/klayout-tools#4231.
 
 ## Results
 
-- Die 2141.38 µm², core 1707.89 µm², **39.12 % utilization achieved** (35 %
-  requested); wirelength 1222 µm.
+- Die 2297.76 µm², core 1764.19 µm², **42.91 % utilization achieved** (35 %
+  requested); wirelength 1289 µm.
 - **Router-internal** counts (not the item 3 signoff DRC, and metal density is
   explicitly not evaluated, see `coverage` in the response): 0 route DRC
-  violations (detailed route converged 2 → 1 → 0), 0 antenna violations.
-- Timing at `tt_025C_1v80`, 2.0 ns clock: worst setup slack +0.854 ns, worst
-  hold slack +0.437 ns. After post-route SPEF back-annotation
-  (`post_route_spef`, 71/71 design nets annotated): worst setup slack
-  +0.818 ns, 0 setup and 0 hold violations.
+  violations, 0 antenna violations; `min_area_repair`: clean, 0 patches.
+- Timing at the P&R corner (`ss_n40C_1v60`, 1.6 ns implementation clock, no
+  uncertainty): worst setup slack −0.080 ns, worst hold slack +0.850 ns — the
+  negative setup slack is against the deliberately tighter implementation
+  target, not the spec budget (see above). After post-route SPEF
+  back-annotation (`post_route_spef`, 91/91 design nets annotated) at the same
+  1.6 ns: −0.107 ns setup, 0 hold violations. Judged at the real 2.0 ns /
+  0.2 ns-uncertainty budget in `STA.md`, the same netlist passes the three
+  in-spec `ss` corners.
 - Power block (`pnr.response.json` → `power`, quoted for item 11): `pdn: true`,
   `global_connect: true`, `power_net: VCCD`, `ground_net: VSS`,
   `tapcell_master: sky130_fd_sc_hd__tapvpwrvgnd_1` (25 tapcells, distance 14 µm),
-  straps on met1/met4/met5, `placed.status: "complete"` (273 components,
-  188 fillers). `VCCD` was accepted and global-connected as the rail name
+  straps on met1/met4/met5, `placed.status: "complete"` (300 components,
+  195 fillers). `VCCD` was accepted and global-connected as the rail name
   with no rename needed.
 
 ## What this does not show
 
-- **Spec S3 is not claimed.** The slack above is at the `tt_025C_1v80`
-  P&R corner, not the `ss_100C_1v60` reference corner with 10 % clock
-  uncertainty. Post-route STA at every Liberty corner with 10 % uncertainty is in `STA.md`:
-  S3 is not met (`ss_100C_1v60` WNS -0.569 ns; binding corner `ss_n40C_1v28`).
+- **Spec S3 is claimed by `STA.md`, not here.** The slack above is at the P&R
+  implementation corner and clock, neither of which is the S3 budget. Post-route
+  STA at every Liberty corner with 10 % uncertainty is in `STA.md`: setup now
+  passes at every corner inside the spec's supply range, and the S3 verdict
+  stays NOT MET only because the sub-1.62 V `ss` libraries still fail (ratification
+  question, out of scope).
 - DRC (#24), LVS (#25) and the supply `klt erc` spec (#26) of this GDS are
   separate items; none is claimed here.
 - Not integrated with the analog pad slot or any top-level floorplan.
@@ -66,7 +92,7 @@ flow/serializer/pnr.request.json` (and with `--rerun`) reports `match`.
 byte-compares a fresh GDS to the committed one; it is `local_only` (needs
 OpenROAD and the PDK), so CI re-verifies the committed file's hash but does not
 re-route. The item 2 envelope
-(`verification/signoff/evidence/item-2-layout-digital.json`) is hand-written:
+(`verification/signoff/evidence/item-2-layout-digital-r2.json`) is hand-written:
 `klt signoff --attest` has no producer for item 2 (2AMLogic/klayout-tools#4188).
 
 ```console

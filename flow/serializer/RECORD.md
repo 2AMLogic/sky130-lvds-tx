@@ -4,33 +4,71 @@
 `sky130_fd_sc_hd` at the `ss_100C_1v60` Liberty corner (S3's reference corner)
 with a 2.0 ns clock target.
 
+## What changed for issue #98, and why
+
+Setup failed at every `ss` corner in post-route STA (`STA.md`, previous
+revision). The critical path was the counter decode: `cnt[0]/Q` → one decode
+gate → the `sr` load/shift mux select → `sr[0]/D`, with every signal cell at
+minimum drive and `cnt[0]`/`cnt[1]` fanning out to 13/12 loads. Two changes,
+both cycle-exact (the cocotb bench and the negative control still pass —
+`verification/serializer/`):
+
+1. **RTL: the `sr`-load and `cap`-capture enables are held in flops.** They
+   were decoded combinationally from `cnt` (`last = (cnt == LAST)`) at the
+   point of use; they are now registered one cycle of *decision* earlier from
+   `cnt_next`, so each carries exactly the value the equivalent decode of
+   `cnt` would have in the same cycle. The `cnt` → decode → register-input
+   path disappears from the design: the enables reach the mux selects straight
+   off a flop. Reset values are the constant-folded decodes of `cnt == 0`.
+   This is a retiming of the enables, not of the datapath — bit order, the
+   word boundary and the `word_clk` phase contract of `DR-003`/`DR-004` are
+   unchanged.
+2. **Synthesis request: `dont_use` for the weak-drive complex gates** that
+   ABC kept mapping the high-fanout decode through (`mux2i`, `or2`, `and2`,
+   `a21o`, `a22o`, `o21a`, `and3b`, `or3`, `and3` — all `_1`-only in the
+   previous netlist). The mapper now builds the decode from `nand2`/`nand2b`/
+   `nor2`/`nor3b`/`a21oi`/`o21bai` + an output buffer, which P&R's
+   `repair_timing` can size up; drive-strength diversity is introduced
+   post-route instead (two enables land as `dfxtp_2`/`dfxtp_4`, the decode
+   `nor3b` as `_2` — see `serializer_routed.v`).
+
+The negative control
+(`verification/serializer/negative_control/serializer_broken.v`) is a
+near-verbatim copy of the restructured RTL with the same two-line mutation as
+before (`CW = $clog2(CYC + 1)`, `LAST_W = CYC` — counter wraps one cycle
+late), so the bench still bites on the new design.
+
+## Run
+
 | Field | Value |
 |---|---|
-| Request / response | `synth.request.json` / `synth.response.json` (run `run-806c4ca2481d40f2a7d4c5ab30f92139`) |
-| Netlist | `serializer_synth.v`, sha256 `ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74` |
+| Request / response | `synth.request.json` / `synth.response.json` (run `run-ad87af40232e4f859f4b922d29668e9f`) |
+| Netlist | `serializer_synth.v`, sha256 `a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd` |
 | PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` |
-| `klt` | `0.8.1.dev55+g879d39bad82b` (host) |
+| `klt` | `0.9.2.dev1029+g76f47afa48f1` (host) |
 | Yosys | `0.67+post` |
-| Result | 60 instances, 625.6 µm² (360.3 µm² sequential), 18 flops, 0 latches, 0 combinational loops |
+| Result | 76 instances, 675.6 µm² (400.4 µm² sequential), 20 flops, 0 latches, 0 combinational loops |
 
 ## What this does and does not show
 
-- The netlist is **reproducible**: two consecutive runs gave the same netlist
-  sha256. `synth.response.json` is not byte-reproducible (`run_id` differs per
-  run), so the freshness check (`verification/signoff/check-serializer-netlist.sh`)
-  compares the netlist, not the response.
-- `timing` is ABC's `abc_stime` estimate (critical path 1446.69 ps against the
+- The netlist is **reproducible**: `verification/signoff/check-serializer-netlist.sh`
+  re-synthesizes from `rtl/serializer.v` + `synth.request.json` and requires the
+  result byte-identical to the committed netlist. `synth.response.json` is not
+  byte-reproducible (`run_id` differs per run), so the netlist (not the response)
+  is the compared artifact. The check is `local_only`: CI re-verifies the
+  inventoried files' hashes but does not re-run Yosys.
+- `timing` is ABC's `abc_stime` estimate (critical path 1160.7 ps against the
   2000 ps target). `sta` is `null`: the `klt_statime_native` extension is not
   installed on this host, so **no gate-level STA was run and spec S3 is not
-  claimed here**. Post-route STA with 10 % clock uncertainty is now recorded in
-  `STA.md`: S3 is **not met** (fails at every `ss_*` corner, `ss_100C_1v60` WNS
-  -0.569 ns).
+  claimed here**. Post-route STA with 10 % clock uncertainty is recorded in
+  `STA.md`: setup passes at every corner inside the spec's supply range,
+  including S3's reference corner `ss_100C_1v60`; the S3 verdict stays NOT MET
+  only because the sub-1.62 V `ss` libraries still fail (ratification question,
+  out of scope).
 - Synthesized here with the host `klt`, which is newer than the `KLT_REV` that
   `scripts/setup-env.sh` pins (0.6.0); the item 1 envelope was attested with the
   `signoff.yml` pin. The netlist is expected to be the same under the pinned
   `klt`; that has not been checked.
-- The re-synthesis freshness check is `local_only`: CI re-verifies the
-  inventoried files' hashes but does not re-run Yosys.
 
 ## Retired stand-in smoke flow
 
