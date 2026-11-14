@@ -1,0 +1,23 @@
+* Unpowered-pad DC bench, Sweep A: both pads of the pair swept together.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here, and
+* no title line -- under .include every line is circuit content).
+*
+* Rows P4/P4a/P4b, first condition of the P4 verification column: "both pads
+* of a pair swept 0-2.4 V together", with VCCD = VDDIO = 0 V.
+*
+* The two pads sit at the same potential but are fed through separate 0 V
+* ammeters in tb_unpowered.spice, so each pad's current is reported on its
+* own against the per-pad +/-20 uA limit.
+
+.include tb_unpowered.spice
+
+* --- rails: the unpowered state -----------------------------------------
+VVCCD  VCCD  0 DC 0
+VVDDIO VDDIO 0 DC 0
+VVSSIO VSSIO 0 DC 0
+
+* --- pad drive ----------------------------------------------------------
+* VPSRC is the swept source; NSRC follows it, so both pads move together.
+VPSRC PSRC 0 DC 0
+BNSRC NSRC 0 V = v(PSRC)
