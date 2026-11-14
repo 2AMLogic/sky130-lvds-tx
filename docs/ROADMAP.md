@@ -50,19 +50,19 @@ Two results that the table does not show:
 
 ## Now
 
-1. **Driver DC bench for V_OD and V_OS (spec rows E1, E2).** No issue yet.
+1. **Driver DC bench for V_OD and V_OS (spec rows E1, E2).** Filed as #96.
    Adds files only under `sim/`, clear of the held PR #79. Done when
    `sim/driver-dc/` holds a `klt sim` request, a record and committed results giving V_OD and V_OS into 100 Ω for both data states at
    every G75 condition, each graded against the E1/E2 windows, labelled
    *simulated* and *against a proposed spec*. A failing condition is a result
    to record, not a reason to resize in the same PR.
-2. **Unpowered-pad DC bench (spec rows P4, P4a, P4b; `DR-008`).** No issue yet. Done when `sim/unpowered-pad/` holds the request, record and
+2. **Unpowered-pad DC bench (spec rows P4, P4a, P4b; `DR-008`).** Filed as #97. Done when `sim/unpowered-pad/` holds the request, record and
    results for the common-mode and differential-pattern pad sweeps with
    VCCD = VDDIO = 0 V at -40 and 125 °C across the five process corners,
    reporting pad current, per-junction bias and well/gate tracking against
    the row limits.
-3. **Close serializer setup timing at the 1.60 V and 1.76 V `ss` corners (S3).** No
-   issue yet. Done when `flow/serializer/STA.md` shows setup WNS >= 0
+3. **Close serializer setup timing at the 1.60 V and 1.76 V `ss` corners (S3).** Filed
+   as #98. Done when `flow/serializer/STA.md` shows setup WNS >= 0
    with 10 % uncertainty at `ss_100C_1v60`, `ss_n40C_1v60` and `ss_n40C_1v76`,
    all 16 corners are still reported, the cocotb bench passes with its negative
    control still failing, and the digital evidence (items 1 to 4 and 11) is re-bound to the new
