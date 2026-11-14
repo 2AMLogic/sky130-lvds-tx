@@ -1,0 +1,18 @@
+* Pad-cell DC shunt current and junction capacitance at the pad (issue #100).
+* The device under test is the committed pad_cell netlist itself, included by
+* reference, so this bench cannot drift from design/pad_cell/pad_cell.spice.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here), as
+* in sim/pdk-smoke/inverters.spice.
+*
+* VSSIO is tied to node 0. pad_cell has no VCCD/VDDIO pin, so this probe is
+* also the unpowered (P4) condition: rails at 0 V by construction.
+*
+* VPAD carries both the DC bias the steps alter and a 1 V AC magnitude, so the
+* same source yields the shunt current (op steps) and, from the quadrature
+* branch current at 1 MHz, the small-signal capacitance (ac steps).
+
+.include "../../design/pad_cell/pad_cell.spice"
+
+VPAD PAD 0 DC 1.25 AC 1
+XPAD PAD 0 pad_cell
