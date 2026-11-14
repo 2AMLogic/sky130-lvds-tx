@@ -11,11 +11,14 @@ record**, produced by the regeneration command below. Never hand-edit it.
   the PROPOSED spec (`spec/target-spec.md`), used for both partitions; it moves
   at ratification (#2).
   - **Item 1, analog (`1.analog`)** cites
-    [`verification/signoff/evidence/item-1-analog-design-sources.json`](../verification/signoff/evidence/item-1-analog-design-sources.json),
+    [`verification/signoff/evidence/item-1-analog-design-sources-r2.json`](../verification/signoff/evidence/item-1-analog-design-sources-r2.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-analog-inventory.json`](../verification/signoff/item-1-analog-inventory.json)
     (schematics, symbols, derived netlists; see [`design/README.md`](../design/README.md)).
-    The manifest's `content_hash` is the sha256 of the inventory.
+    The manifest's `content_hash` is the envelope's `provenance.input.content_hash`
+    (the input-set digest over the inventoried files; klt 0.9.1 expands an
+    `--inventory` into `provenance.input.paths` and pins the set digest, no longer
+    the inventory file's own sha256).
   - **Item 1, digital (`1.digital`)** cites
     [`verification/signoff/evidence/item-1-design-sources-digital.json`](../verification/signoff/evidence/item-1-design-sources-digital.json),
     produced by `klt signoff --attest 1` from
@@ -64,7 +67,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r4.json`](../verification/signoff/evidence/item-10-repo-hygiene-r4.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r6.json`](../verification/signoff/evidence/item-10-repo-hygiene-r6.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
@@ -109,10 +112,10 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r5.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r6.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-             -o verification/signoff/evidence/item-1-analog-design-sources.json
+             -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
              -o verification/signoff/evidence/item-1-design-sources-digital.json
 # item 2 analog (producer from klayout-tools#4188; run it with the repo's pinned
