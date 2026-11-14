@@ -22,6 +22,12 @@ away. Sizing closure is the follow-up that starts from this record.
 **51 of the 75 conditions pass every row. 24 miss at least one.**
 No condition errored and none was graded inconclusive.
 
+Those 24 any-miss conditions, by process: `ss` 8, `fs` 7, `sf` 5, `tt` 4,
+`ff` 0. This is the *any-miss* distribution — a condition counts here for
+missing any row, so it is not a per-row count. `fs` is second on this list
+almost entirely through E2 (7 of its 7 any-misses miss the V_OS window, 2 miss
+E1), which is why the per-row breakdowns below are the ones to size against.
+
 | Spec row | What it grades | Limits | Conditions passing |
 |---|---|---|---:|
 | E1 | V_OD, both data states | 247–454 mV | **60 / 75** |
@@ -145,7 +151,7 @@ The tail current source `XMPS` sits on VDDIO, so this reads as a **headroom**
 limit on the I/O rail rather than a core-rail or bias effect — at 2.97 V the
 source and the stacked switches cannot hold the current that 100 Ω needs for
 247 mV. The worst condition is `sf`/−40 °C/1.98 V/2.97 V at **117.1 mV**, less
-than half the lower limit. By process: `ss` 8, `fs` 7, `sf` 5, `tt` 4, `ff` 0 —
+than half the lower limit. By process: `ss` 6, `sf` 5, `tt` 2, `fs` 2, `ff` 0 —
 `ff` passes E1 everywhere.
 
 ### E2 — V_OS above 1.375 V at 13 conditions
