@@ -1,0 +1,208 @@
+{
+  "netlist": "pad_shunt.spice",
+  "models": {
+    "pdk": "sky130A",
+    "lib": "libs.tech/ngspice/sky130.lib.spice"
+  },
+  "corners": {
+    "process": [
+      "tt",
+      "ff",
+      "ss",
+      "sf",
+      "fs"
+    ],
+    "temperature_c": [
+      -40,
+      27,
+      125
+    ],
+    "options": {
+      "gmin": [
+        1e-15
+      ]
+    }
+  },
+  "analysis_steps": [
+    {
+      "name": "op_1v25",
+      "analysis": {
+        "kind": "op",
+        "args": ""
+      },
+      "alter": {
+        "VPAD": 1.25
+      },
+      "measurements": [
+        {
+          "name": "ishunt",
+          "expr": "abs(i(vpad))",
+          "unit": "A"
+        }
+      ]
+    },
+    {
+      "name": "ac_1v25",
+      "analysis": {
+        "kind": "ac",
+        "args": "lin 1 1meg 1meg"
+      },
+      "measurements": [
+        {
+          "name": "cpad",
+          "expr": "abs(imag(i(vpad)))/6.283185307179586e6",
+          "unit": "F"
+        }
+      ]
+    },
+    {
+      "name": "ac_1v00",
+      "analysis": {
+        "kind": "ac",
+        "args": "lin 1 1meg 1meg"
+      },
+      "alter": {
+        "VPAD": 1.0
+      },
+      "measurements": [
+        {
+          "name": "cpad",
+          "expr": "abs(imag(i(vpad)))/6.283185307179586e6",
+          "unit": "F"
+        }
+      ]
+    },
+    {
+      "name": "ac_1v60",
+      "analysis": {
+        "kind": "ac",
+        "args": "lin 1 1meg 1meg"
+      },
+      "alter": {
+        "VPAD": 1.6
+      },
+      "measurements": [
+        {
+          "name": "cpad",
+          "expr": "abs(imag(i(vpad)))/6.283185307179586e6",
+          "unit": "F"
+        }
+      ]
+    },
+    {
+      "name": "op_0v00",
+      "analysis": {
+        "kind": "op",
+        "args": ""
+      },
+      "alter": {
+        "VPAD": 0.0
+      },
+      "measurements": [
+        {
+          "name": "ishunt",
+          "expr": "abs(i(vpad))",
+          "unit": "A"
+        }
+      ]
+    },
+    {
+      "name": "op_2v40",
+      "analysis": {
+        "kind": "op",
+        "args": ""
+      },
+      "alter": {
+        "VPAD": 2.4
+      },
+      "measurements": [
+        {
+          "name": "ishunt",
+          "expr": "abs(i(vpad))",
+          "unit": "A"
+        }
+      ]
+    },
+    {
+      "name": "op_fwd",
+      "analysis": {
+        "kind": "op",
+        "args": ""
+      },
+      "alter": {
+        "VPAD": -1.0
+      },
+      "measurements": [
+        {
+          "name": "ishunt",
+          "expr": "abs(i(vpad))",
+          "unit": "A"
+        }
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "name": "shunt_1v25",
+      "expr": "op_1v25.ishunt",
+      "unit": "A",
+      "limits": {
+        "max": 1e-06
+      }
+    },
+    {
+      "name": "cpad_1v25",
+      "expr": "ac_1v25.cpad",
+      "unit": "F",
+      "limits": {
+        "max": 1.39e-13
+      }
+    },
+    {
+      "name": "cpad_1v00",
+      "expr": "ac_1v00.cpad",
+      "unit": "F",
+      "limits": {
+        "max": 1.39e-13
+      }
+    },
+    {
+      "name": "cpad_1v60",
+      "expr": "ac_1v60.cpad",
+      "unit": "F",
+      "limits": {
+        "max": 1.39e-13
+      }
+    },
+    {
+      "name": "shunt_0v00",
+      "expr": "op_0v00.ishunt",
+      "unit": "A",
+      "limits": {
+        "max": 2e-05
+      }
+    },
+    {
+      "name": "shunt_2v40",
+      "expr": "op_2v40.ishunt",
+      "unit": "A",
+      "limits": {
+        "max": 2e-05
+      }
+    },
+    {
+      "name": "fwd_clamp_1v0",
+      "expr": "op_fwd.ishunt",
+      "unit": "A",
+      "limits": {
+        "min": 0.001
+      }
+    }
+  ],
+  "options": {
+    "stage_model_inputs": true
+  },
+  "batch": {
+    "capacity_wait_s": 600
+  }
+}
