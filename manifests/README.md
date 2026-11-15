@@ -36,6 +36,15 @@ record**, produced by the regeneration command below. Never hand-edit it.
     scope there). Its `regeneration` claim is backed by
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
+    **At this head that regeneration claim is drifted**: the serializer
+    netlist was regenerated under the pinned `yowasp-yosys` (issue #115),
+    so re-running the generator now routes from the new netlist and no
+    longer produces the r2 envelope's `regenerated_hash`
+    (`sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce`,
+    from the pre-regeneration netlist) -- the committed routed GDS and this
+    envelope correspond to the previous netlist until the re-closure in
+    #119, which follows the pin decision in #120.
+    `flow/serializer/RECORD.md` carries the same disclosure.
   - **Item 2, analog (`2.analog`)** cites
     [`verification/signoff/evidence/item-2-layout-analog-r4.json`](../verification/signoff/evidence/item-2-layout-analog-r4.json)
     (append-only; the earlier `item-2-layout-analog.json`, `-r2.json` and
@@ -68,6 +77,16 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
     `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
+    Its `flow/serializer/pnr.response.json` citation binds the
+    pre-regeneration netlist: the response's
+    `provenance.input.content_hash` is
+    `sha256:a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd`,
+    while the committed `serializer_synth.v` hashes
+    `sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353`
+    since the pinned-yosys regeneration, so `klt place-and-route --check`
+    reports `drifted` on it at this head. #119 re-closes the digital
+    partition (regenerating the routed GDS and the envelopes that cite it)
+    behind the pin decision in #120.
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r8.json`](../verification/signoff/evidence/item-10-repo-hygiene-r8.json),
@@ -90,11 +109,15 @@ record**, produced by the regeneration command below. Never hand-edit it.
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
-  Vendored **byte-identical** from
+  Vendored from
   [`2AMLogic/klayout-tools@267ea83a`](https://github.com/2AMLogic/klayout-tools/blob/267ea83a0510bcb61d2956058095201c0f481ff7/docs/design-evidence-tiers.md)
   `docs/design-evidence-tiers.md` (MIT-licensed upstream; this repo's
-  Apache-2.0 `LICENSE` does not relicense the vendored copy). Re-vendor and
-  regenerate the record in the same PR when upstream moves.
+  Apache-2.0 `LICENSE` does not relicense the vendored copy), with two
+  repo-local disclosure notes appended (items 2 and 11: the serializer
+  netlist-regeneration drift behind `2.digital`/`11.digital` above) -- the
+  copy is otherwise byte-identical to that upstream commit. Re-vendor and
+  regenerate the record in the same PR when upstream moves, and re-apply
+  the two local notes.
 - **`sky130-lvds-tx.signoff.json`** — the verdict of record.
 
 ## klt pin

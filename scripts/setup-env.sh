@@ -92,7 +92,7 @@ for arg in "$@"; do
       PDK_ROOT="${arg#--pdk-root=}"
       ;;
     -h|--help)
-      sed -n '2,40p' "${BASH_SOURCE[0]}"
+      sed -n '2,36p' "${BASH_SOURCE[0]}"
       exit 0
       ;;
     *)
