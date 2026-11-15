@@ -1,6 +1,6 @@
 # Work Plan
 
-Roadmap generated from GitHub label state by the Guide role. Only the region between the markers is machine-generated.
+Roadmap generated from GitHub label state by the Guide role. Only the region between the markers is machine-generated. **Those rows are a point-in-time snapshot from when the region was last regenerated, not live state — some may since have closed or changed label. To recover the generation time, run `git log -1 --format=%cI -- WORK_PLAN.md`; the live labels are authoritative.**
 
 <!-- guide:plan-body:start -->
 ## Operator Attention: Merge-Risk-Hold Pileup
