@@ -20,7 +20,10 @@ investigation is discharged; what remains owed from it is only the re-run of
 this bench against the fixed cell (#125). The P4/P4a/P4b verdicts stand
 independent of the fix: F2 and F3 alone exceed row P4's limit by ~500× at the
 −40 °C corners where F1 is negligible, and F3's gate-clamping and F5's
-2.400 V are topology results the diode sizing cannot affect.
+2.400 V are topology results the diode sizing cannot affect. *(Re-run
+delivered 2026-11-15: the fenced-off figures are re-measured in the addendum
+at the end of this record, on base `de214b2` — the verdicts stand and the
+VSSIO column collapses to leakage scale.)*
 
 | Field | Value |
 |---|---|
@@ -104,7 +107,10 @@ currents are excluded from every range quoted below. That grading is not
 cosmetic: `tt`/−40 °C returned a pad current of **4271.4 A**, which is
 physically impossible and is a solver artifact of finding F1 below. The other
 two returned 4.95 mA and 5.27 mA, consistent with their trusted neighbours, but
-are still reported as inconclusive rather than cherry-picked.
+are still reported as inconclusive rather than cherry-picked. *(The re-run
+re-tests these three units on the fixed netlist: they still do not converge —
+now recorded as finding F7, since F1 is no longer a candidate cause — and
+remain excluded from the addendum's ranges too.)*
 
 The requests also declare `options.node_voltage_bounds: {min: -3.63, max: 3.63}`
 as a trust guard on every measurement in volts: nothing in this bench can
@@ -371,7 +377,9 @@ remains owed is only the **re-run** of this bench against the fixed netlist,
 filed as #125. Until it runs, the *magnitudes* in the P4 table above describe
 the base-commit netlist and are not usable as leakage figures — though the
 **verdicts** stand, because F2 and F3 alone exceed the limit by 500× at the
-corners where F1 is negligible.
+corners where F1 is negligible. *(That re-run has now run: the addendum at
+the end of this record re-measures the magnitudes on the fixed netlist and
+confirms the verdicts.)*
 
 ### F2 — the driver back-powers VDDIO through the current source's grounded n-well
 
@@ -466,6 +474,30 @@ That bench's recorded numbers are **not** affected — every device in it is
 `nf=1`, where the two readings coincide — but the omission is latent for any
 future multi-finger bench that copies it as a template.
 
+### F7 — the −40 °C Sweep A nonconvergence is not F1 (found by the #125 re-run; open)
+
+The re-run of this bench against the ESD-fixed cell (addendum below) shows the
+same three Sweep A units — `tt`, `sf`, `ss` at −40 °C — still emitting
+`nonconvergence: "Warning: Dynamic gmin stepping failed"`. F1 is no longer a
+candidate explanation: the 0.252 F junction and the 4271.4 A artifact it
+produced are gone from the netlist, and the three failing units' own results
+are now physically plausible and in family with their neighbours (7.55 /
+4.94 / 5.26 mA pad currents). The same corners solve cleanly at 27 °C (local
+probe) and 125 °C (trusted fleet units), so the failure is specific to the
+−40 °C solves.
+
+The grading consequence is unchanged: `fail_on_diagnostic:
+["nonconvergence"]` makes the three units `inconclusive`, and their pad
+currents remain excluded from every range quoted in this record and its
+addendum. Unlike the base record's three inconclusive units, these can no
+longer be attributed to a known defect — this finding is the acknowledgment
+that their nonconvergence cause is **not identified**.
+
+**Owed**: a bench-level convergence investigation at −40 °C (solver option
+probes, source-stepping alternatives, or an operating-point pre-solve) before
+any −40 °C Sweep A pad-current figure from this bench is trusted. Not
+investigated here — the re-run is evidence only.
+
 ## Tool notes
 
 Three corrections to the curated guidance, recorded because they cost time and
@@ -516,7 +548,9 @@ effective). Provenance for finding F6's setting is therefore the committed
   reason. The P4/P4a/P4b **verdicts** do not depend on F1: findings F2 and F3
   exceed the P4 limit by 500× at the corners where F1 is negligible, and every
   P4a/P4b voltage result is inside the declared plausibility window at all 10
-  corners.
+  corners. *(The magnitudes have since been re-measured on the fixed netlist —
+  see the addendum at the end of this record; the three units still do not
+  converge, now as finding F7, and the verdicts stand.)*
 - **Row P2 (ESD adequacy) is untouched** — not provable by simulation, per the
   spec's own verification column.
 - **The worker image carries its own sky130A** at a different open_pdks
@@ -541,3 +575,215 @@ effective). Provenance for finding F6's setting is therefore the committed
   --wait-for-capacity 600 --capacity-retries 2 -o <outdir> --report-out <path>`.
   Exit 4 (Sweep A, `inconclusive`) and exit 3 (Sweep B, ramp, `fail`) are the
   expected codes, not errors.
+
+## Addendum 2026-11-15 — re-run against the ESD-fixed pad cell (`cd0c89a`; issue #125)
+
+**Append-only.** Everything above this heading is the base-commit record at
+`d7da34a8` and stays exactly as written; this section is the re-run that record
+fences off (#125). It replaces the five figures F1 contaminated — F1's own
+numbers, the 125 °C current magnitudes, the three `inconclusive` Sweep A
+units' status, the "voids row P1" corollary, and the ramp's graded absolute
+reading — with measured ones. It changes no verdict and no limit, and touches
+no `spec/` text.
+
+### Why every delta below is attributable to the diode
+
+A canonical per-instance comparison of `design/lvds_tx_analog.spice` between
+the base record's commit `d7da34a8` and this addendum's base `de214b2`
+(`git show` of each; `+` continuation lines joined, tokens sorted, comments
+stripped; all 116 instance lines) reports **exactly one** differing instance —
+`XD1 PAD VSSIO sky130_fd_pr__diode_pw2nd_11v0 area=4e14 perim=8e7` →
+`area=64 perim=32` — and **zero** differences in instance names, node
+connectivity or model names. No `W`, `L`, `nf`, `ad`, `as`, `pd`, `ps`, `nrd`,
+`nrs`, `sa`, `sb`, `sd`, `mult` or `m` value moved anywhere. The raw
+`git diff` reads as 428 changed lines; that is `klt netlist` re-wrapping
+continuation lines, not device changes. The four testbenches are
+**byte-identical** to the ones the base record graded — the re-run's sha256s
+match the header table's pins — so the re-run is a true single-variable A/B.
+
+### Provenance
+
+| Field | Value |
+|---|---|
+| Repo base commit | `de214b2155d103133b2f6b07fa076e1344814b04` (post-`cd0c89a`, post-#107) |
+| PDK | sky130A, same pinned install (`~/.ciel`), same model library as the base record |
+| Model library sha256 | `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64` (`sky130.lib.spice` — unchanged) |
+| Design netlist sha256 | `b90b61fd221bb1d46e3a4aad0b670331218d43be473d03a08ab84e86af19d28f` (`design/lvds_tx_analog.spice`; base record pinned `e4e96a1b…c980b74e`) |
+| Testbench sha256s | identical to the header table's four pins (`b1bb6c53…`, `f6c6e439…`, `3dd141d7…`, `8f45d4ac…`) |
+| Client | `klt 0.9.3.dev3+gd5d57daf9a14`, klayout 0.30.12 (base record: `klt 0.9.2.dev1022+g2a9c52b27ce7`, klayout 0.30.10) |
+| Engine | ngspice-47 on the batch worker, creation date 2026-11-13 23:19:32 UTC, binary sha256 `39ca1adb826660324c3626f72bd946ec40704f0f3fc8e243c623f76e24b3eee2` — **the same build as the recorded run** |
+| Backend | `batch`, `options.stage_model_inputs: true` (319 staged model inputs, pinned library) |
+| Jobs | `klt-sim-2bb9e8aa16f1` (Sweep A), `klt-sim-955510835321` (Sweep B), `klt-sim-7e38da4564be` (ramp); 10 units each, 30 total |
+| Corner grid | unchanged: `tt`/`sf`/`ff`/`ss`/`fs` × −40 / 125 °C |
+| Completeness | every unit returned a value for every declared measurement (89 / 89 / 22, `valueless` = 0); no corner errored or timed out; `node_voltage_bounds` (±3.63 V) never tripped |
+| Artifacts | `results/de214b2/summary-{sweep-a,sweep-b,ramp}.json` and `results/de214b2/report-{sweep-a,sweep-b,ramp}.json.gz` (the base-commit artifacts in `results/` are untouched) |
+
+The three requests were re-run **unchanged** — no edit to any `request-*.json`
+or `tb_*.spice` — with the base record's own reproduce line. Exit codes:
+Sweep A 4 (`inconclusive`), Sweep B 3, ramp 3; the `--batch-set` envelope
+exits 4.
+
+| Request | Aggregate (this re-run) | Aggregate (base record) |
+|---|---|---|
+| `request-sweep-a.json` | `inconclusive` (7 fail, 3 inconclusive) | `inconclusive` (7 fail, 3 inconclusive) |
+| `request-sweep-b.json` | `fail` (10 fail) | `fail` (10 fail) |
+| `request-ramp.json` | `fail` (7 pass, 3 fail) | `fail` (5 pass, 5 fail) |
+
+### Single-corner local probe (host rule; run before the grid)
+
+Sweep A at `tt`/27 °C with `--backend local` (one corner; a throwaway request
+outside the repo — the committed requests were not touched). The deck
+elaborates against the fixed cell and solves with no diagnostic: `ivssio_max`
+= **105.7 pA**, against **107.4 mA** from the F1-era probe at the same corner
+(F1's own table above) — the pad current has collapsed to leakage scale. The
+unit still fails limits on F2/F3 (`ipadp_max` 9.54 mA, `ivddio_max` 18.9 mA),
+as every corner below does.
+
+### F1 recheck — reverse current and junction capacitance at `area=64 perim=32`
+
+Not re-derived here: `sim/pad-dc/RECORD.md` measures the corrected cell on its
+own grid and is the measurement of record — worst reverse shunt at the LVDS
+common mode **2.04 nA** (`sf`, 125 °C), **2.48 nA** at 2.4 V, `D1`
+**54.1 fF** at 64 µm², `XMESD` 60.5 fF, `pad_cell` total **114.6 fF** against
+row P1's 139 fF allocation (24.4 fF reserve). This bench cross-checks the
+current side with the **VSSIO rail ammeter** (the pad pair's return into the
+grounded rail): **94–95 pA** at −40 °C at the trusted corners (base: 13.62 µA)
+and **3.25–10.34 nA** at 125 °C across the five corners (base: 887.48 A). Same
+leakage scale as `sim/pad-dc`'s 1.0–2.5 nA; the up-to-~4× excess over the bare
+cell is the additional paths a top-level bench — where the pad also feeds the
+driver's switch and well devices — opens into VSSIO beyond D1 itself. No
+disagreement in scale or sign. The capacitance side is not measurable by this
+bench (DC and transient analyses only) and is taken from `sim/pad-dc/` as-is.
+
+### Row P4 — pad current, re-measured: **FAIL** (unchanged)
+
+Sweep A, worst pad current per corner, same columns as the base table:
+
+| Corner | i_padp worst | → VSSIO | → VDDIO | → VCCD | Status |
+|---|---|---|---|---|---|
+| tt/−40 °C | 7.55 mA | 5.24 nA | 14.90 mA | 0.189 mA | **inconclusive** |
+| sf/−40 °C | 4.94 mA | 95.4 pA | 9.76 mA | 0.122 mA | **inconclusive** |
+| ss/−40 °C | 5.26 mA | 94.5 pA | 10.39 mA | 0.131 mA | **inconclusive** |
+| ff/−40 °C | 9.98 mA | 95.1 pA | 19.72 mA | 0.253 mA | fail |
+| fs/−40 °C | 10.42 mA | 94.5 pA | 20.58 mA | 0.265 mA | fail |
+| tt/125 °C | 12.36 mA | 5.52 nA | 24.56 mA | 0.162 mA | fail |
+| sf/125 °C | 9.39 mA | 10.34 nA | 18.67 mA | 0.108 mA | fail |
+| ff/125 °C | 14.58 mA | 8.57 nA | 28.95 mA | 0.214 mA | fail |
+| ss/125 °C | 9.33 mA | 3.72 nA | 18.55 mA | 0.114 mA | fail |
+| fs/125 °C | 13.93 mA | 3.25 nA | 27.63 mA | 0.223 mA | fail |
+
+**The VSSIO column — F1's signature — is gone.** Base: 13.62 µA at −40 °C,
+887.48 A at 125 °C (the physically impossible number the base record flags).
+Re-run: 94–95 pA at −40 °C (trusted corners) and 3.25–10.34 nA at 125 °C —
+~145× down at −40 °C and ~11 orders down at 125 °C, smooth across corners and
+following a junction-leakage temperature law instead of exploding. The
+→ VDDIO and → VCCD columns reproduce the base record's printed digits exactly
+(F2 and F3 unchanged), and `i_padp` worst shifts only at its last digit where
+the diode's own pA-scale loading of the pad node reaches (e.g. ff/−40 °C
+9.99 → 9.98 mA). `i_padp` worst at 125 °C correspondingly collapses
+443.75 A → 9.33–14.58 mA: that figure was never anything but F1's artifact
+riding the pad ammeter.
+
+Sweep B, all 10 graded, all **fail** (unchanged aggregate). At −40 °C the
+worst pad current is **0.228–1.74 mA** (base: 0.235–1.75 mA — unchanged within
+the diode's last-digit loading; still 12×–87× the limit from F2/F3 alone). At
+125 °C it is **2.51–5.27 mA** (base: 443.74 A). `idiff` at −40 °C measures
+**0.165–0.929 mA — the base record's range to every reported digit** (the
+F4/F3 pad-to-pad decomposition is untouched); at 125 °C it is 1.30–2.72 mA
+(base: 18.3–19.7 mA — the F1 term, gone). `vcms` still sits at exactly 1.25 V
+at every corner (F4, unchanged).
+
+### Convergence at −40 °C: the same three units still do not solve — **finding F7**
+
+`tt`, `sf` and `ss` at −40 °C emit
+`nonconvergence: "Warning: Dynamic gmin stepping failed"` again, on the fixed
+netlist. F1 can no longer explain this: the 4271.4 A artifact and the 0.252 F
+junction it sprang from are gone, and these three units' own results are now
+physically plausible — 7.55 / 4.94 / 5.26 mA pad currents, in family with
+their neighbours — but the request's `fail_on_diagnostic:
+["nonconvergence"]` still grades them `inconclusive` and their pad currents
+stay excluded from every range above. The same corner solves cleanly at 27 °C
+(the local probe) and at 125 °C (trusted). Recorded as **finding F7** below:
+the −40 °C nonconvergence has a cause distinct from F1 that this re-run does
+not identify.
+
+### Rows P4a / P4b — voltage evidence unchanged
+
+Every topology-driven voltage in the base tables reproduces **to the digits
+the base record printed** (ranges over the 7 trusted Sweep A corners):
+
+| Quantity | Base record (7 trusted) | This re-run (7 trusted) |
+|---|---|---|
+| `ja_*_mspa_d` / `wt_main` | 0.440–0.504 V | 0.440–0.504 V |
+| `gw_main_a` / `gw_main_b` | 1.285–1.498 V | 1.285–1.498 V |
+| `gw_e0_*` / `gw_e1a_*` / `gw_e1b_*` | 0.997–1.261 V | 0.997–1.261 V |
+| `ja_pre_gpa` / `ja_pre_gpb` | 0.410–0.675 V | 0.410–0.675 V |
+| `ja_pre_xpa` / `ja_pre_xpb` | 0.683–0.973 V | 0.683–0.973 V |
+| `tox_*_ox` worst (Sweep A) | 2.400 V | 2.400 V |
+| `well_main_max` at V_pad = 2.4 V | 1.896–1.960 V | 1.896–1.960 V |
+| `core_max` (trusted) | ≤ 1.04e-18 V | ≤ 9.4e-14 V (still ≈ 0, sub-0.1 nV) |
+| `core_max` (3 inconclusive corners) | 0.32–0.48 mV | ≤ 0.483 mV (same residual scale) |
+
+At the three still-inconclusive corners every voltage is likewise in family
+(`wt_main` ≤ 0.416 V, `gw_main` ≤ 1.332 V). **F2, F3, F4 and F5 stand as
+written; nothing about them moves.** Row P4a: **FAIL**. Row P4b: **FAIL** —
+both unchanged, as the base record predicted from topology.
+
+### The "voids row P1" corollary of F1 — resolved
+
+F1 voided any row P1 figure computed from the `area=4e14` netlist (a 0.252 F
+junction against P1's 1.2 pF pad + ESD allocation). With the cell at
+`area=64 perim=32`, a P1 figure computed from this netlist **is meaningful**:
+`sim/pad-dc/RECORD.md` measures `pad_cell` at **114.6 fF** against the 139 fF
+allocation with 24.4 fF reserve, and is the measurement of record. The base
+record's **0.252 F** figure is superseded: it describes the base-commit
+netlist only, and is retained above solely as F1's evidence.
+
+### Ramp — graded absolute re-reported; excursion reading confirmed unchanged
+
+| Corner | static i_padp (t = 0) | worst i_padp | excursion, pad P | excursion, pad N | WELL at hold | Graded |
+|---|---|---|---|---|---|---|
+| tt/−40 °C | 7.42 µA | 7.42 µA | 0 | 8.82 µA | 1.541 V | pass |
+| sf/−40 °C | 1.22 µA | 1.22 µA | 0 | 77.2 nA | 1.415 V | pass |
+| ff/−40 °C | 30.29 µA | 30.29 µA | 0 | 43.8 µA | 1.774 V | pass |
+| ss/−40 °C | 2.02 µA | 2.02 µA | 0 | 1.21 µA | 1.425 V | pass |
+| fs/−40 °C | 65.58 µA | 65.58 µA | 0 | 167.6 µA | 1.798 V | pass |
+| tt/125 °C | 1.122 mA | 1.122 mA | 0 | 0 | 1.799 V | **fail** |
+| sf/125 °C | 520.4 µA | 520.4 µA | 0 | 0 | 1.788 V | pass |
+| ff/125 °C | 1.642 mA | 1.642 mA | 0 | 0 | 1.800 V | **fail** |
+| ss/125 °C | 642.0 µA | 642.0 µA | 0 | 0 | 1.794 V | pass |
+| fs/125 °C | 1.801 mA | 1.801 mA | 0 | 0 | 1.800 V | **fail** |
+
+**The excursion reading is confirmed unchanged.** Worst excursion anywhere is
+167.6 µA (pad N, fs/−40 °C) against the ±1 mA bound — the base record's
+figures to their reported digits; pad P excurses exactly 0 at every corner,
+again as before. The WELL-at-hold tracking figures match to the millivolt
+(one last-digit shift: fs/125 °C 1.797 → 1.800 V), so the positive evidence
+for DR-008 §1 stands.
+
+**The graded absolute reading — one of the five fenced-off items — is
+replaced.** The base run's 443.73 A static offset at 125 °C is gone; the five
+125 °C corners now grade 520.4 µA–1.801 mA, so `sf` and `ss` **pass** where
+they previously failed, and the ramp aggregate moves from 5 pass / 5 fail to
+**7 pass / 3 fail**. The three remaining failures (`tt`/`ff`/`fs`, 1.12–1.80
+mA) are the F2/F3 back-power against the ±1 mA bound, not a diode artifact.
+Each −40 °C static is the base record's figure minus exactly 6.81 µA — the
+per-pad share of F1's 13.62 µA pair term — an arithmetic confirmation of the
+single-variable A/B. The base text's observation still holds qualitatively:
+the ramp's static state remains the mildest condition in this bench, and
+`sf` (1.22 µA), `ss` (2.02 µA) and `tt` (7.42 µA) come in under the ±20 µA
+limit there while `ff` (30.29 µA) and `fs` (65.58 µA) do not.
+
+### Verdicts
+
+Rows **P4, P4a and P4b all still FAIL** at the re-run base commit, exactly as
+the base record graded them at `d7da34a8`. No graded limit moved and no
+`spec/` text changed. The only aggregate that improved is the ramp's graded
+absolute (5 → 7 passing units), which is one of the five fenced-off readings
+this re-run was filed to replace — it reflects the removal of F1's 443.73 A
+static offset, not a relaxation. **Toolchain note:** the client moved
+(`klt 0.9.2…` → `0.9.3…`, klayout 0.30.10 → 0.30.12) while the engine build
+and model library stayed identical; every topology-driven figure reproduced
+the base record's printed digits, so there is no evidence the client change
+moved any number on this deck — every figure that moved moves where the diode
+sits, which the instance comparison above licenses attributing to `XD1`.
