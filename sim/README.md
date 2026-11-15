@@ -25,5 +25,10 @@ klayout figure is the run's own `provenance.klayout_version` — the `klayout`
 Python module the run's `klt` imported, readable live via `klt version
 --format json` — **not** the host CLI's `klayout -v` and **not** the
 `docs/environment.md` venv pin. Where a record disagrees with its run's
-committed report, the report is canonical and the record is corrected by
-annotation, not rewrite.
+committed report, the report is canonical. How the record is corrected
+depends on the block. A **pinned** block — everything above a record's
+`## Addendum …` heading, which that heading declares append-only — is
+corrected by an annotation immediately below its table and never by editing
+the cell. The **current addendum** block, being the record's newest text,
+may have a provenance row corrected in place, provided an annotation
+immediately below the table preserves the figure originally printed.
