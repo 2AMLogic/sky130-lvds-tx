@@ -5,9 +5,13 @@
   "hdl_toplevel": "serializer",
   "pdk": {
     "cell_library": "sky130_fd_sc_hd",
-    "corner": "tt_025C_1v80",
+    "corner": "ss_n40C_1v60",
     "sweep_corners": [
-      "tt_025C_1v80"
+      "ss_100C_1v60",
+      "ss_n40C_1v60",
+      "ss_n40C_1v76",
+      "tt_025C_1v80",
+      "ff_n40C_1v95"
     ]
   },
   "floorplan": {
@@ -28,7 +32,7 @@
   },
   "constraints": {
     "clock_port": "clk",
-    "clock_period_ns": 2.0
+    "clock_period_ns": 1.6
   },
   "seed": 1,
   "target_stage": "route",

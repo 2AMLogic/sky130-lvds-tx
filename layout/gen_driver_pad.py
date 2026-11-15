@@ -74,21 +74,6 @@ def load_frame(dst):
     top.copy_tree(cell)
     return top
 
-def gen_esd(dst):
-    with tempfile.TemporaryDirectory() as tmp:
-        out = os.path.join(tmp, "esd.gds")
-        run = subprocess.run(
-            [KLT, "gen", "esd_device", "--params", json.dumps(ESD_PARAMS), "--pdk", PDK,
-             "--pdk-root", PDK_ROOT, "--cell-name", "lvds_esd_nfet", "-o", out,
-             "--format", "json"], capture_output=True, text=True)
-        if run.returncode != 0:
-            die("klt gen esd_device failed:\n%s%s" % (run.stdout, run.stderr))
-        src = pya.Layout()
-        src.read(out)
-        top = dst.create_cell("lvds_esd_nfet")
-        top.copy_tree(src.cell("lvds_esd_nfet"))
-    return top
-
 def klt_gen(dst, generator, params, cell_name):
     """Run `klt gen`, copy the cell into dst, return (cell, ports)."""
     with tempfile.TemporaryDirectory() as tmp:
@@ -549,7 +534,7 @@ def main():
     ly = pya.Layout()
     ly.dbu = 0.001
     frame = load_frame(ly)
-    esd = gen_esd(ly)
+    esd = klt_gen(ly, "esd_device", ESD_PARAMS, "lvds_esd_nfet")[0]
     bands = frame_bands(frame, ly)
 
     pad = ly.create_cell("sky130_lvds_tx_pad_cell")
