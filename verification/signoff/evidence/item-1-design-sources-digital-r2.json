@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 1,
+  "summary": "T1 item 1 (Design sources): 4/4 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-1-digital-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 4,
+    "passed_count": 4,
+    "checks": [
+      {
+        "check": "present",
+        "role": "source",
+        "path": "flow/serializer/synth.request.json",
+        "passed": true,
+        "content_hash": "sha256:171e0671f11da3c97a8a26b510c64c3c6d475e6a603a1bd40429a13362ce5189"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/serializer.v",
+        "passed": true,
+        "content_hash": "sha256:ec11e6d9a9e15c56643ce4b2c91df89c10d840f60d024e713c312b4251df68fc"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "flow/serializer/serializer_synth.v",
+        "passed": true,
+        "content_hash": "sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353"
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "flow/serializer/serializer_synth.v",
+        "generator": "klt synthesize",
+        "argv": [
+          "sh",
+          "-c",
+          "PATH=\"$HOME/.local/bin:$PATH\" sh verification/signoff/check-serializer-netlist.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.1",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "paths": [
+        {
+          "path": {
+            "path": "flow/serializer/serializer_synth.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353"
+        },
+        {
+          "path": {
+            "path": "flow/serializer/synth.request.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:171e0671f11da3c97a8a26b510c64c3c6d475e6a603a1bd40429a13362ce5189"
+        },
+        {
+          "path": {
+            "path": "rtl/serializer.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:ec11e6d9a9e15c56643ce4b2c91df89c10d840f60d024e713c312b4251df68fc"
+        },
+        {
+          "path": {
+            "path": "verification/signoff/item-1-digital-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:29e0eaba85eafb918885c968d2cbb4ee81de6b3799467bc342ed8fe1a42c7243"
+        }
+      ],
+      "content_hash": "sha256:6e977bd44df5773b644d60bb48773579ed33bfac7248eb3d5245a94b28b682b2"
+    }
+  }
+}
