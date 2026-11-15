@@ -2,6 +2,34 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-15
+
+- **PR #127**: fix: remove unused SLOT_DEPTH_UM constant from pad generator
+- **PR #126**: docs: cite klayout-tools#5780 cause beside #5798 in TMPDIR friction record
+- **PR #123**: docs(signoff): re-record serializer P&R artifact digests and enforce the binding
+- **PR #122**: docs: disclose klt TMPDIR-length yosys deadlock and inventory PATH-pin rationale in the verification record
+- **PR #121**: fix(signoff): regenerate the serializer netlist under the pinned yosys; re-close item 1 digital as r2 (stacked on #112)
+- **PR #118**: docs(layout): state the pad-seam deferral reason from live status, not issue #24
+- **PR #107**: sim: add unpowered-pad DC bench for the fail-safe well biasing
+- **PR #102**: sim: add driver DC bench recording V_OD and V_OS over the G75 grid
+- **Issue #124** (closed): verification/README.md: cross-reference klayout-tools#5780 (traced cause) alongside #5798 for the TMPDIR-length yosys deadlock
+- **Issue #115** (closed): Re-close the digital flow under the pinned toolchain (serializer_synth.v is not pin-reproducible; item-1 digital envelope cannot be regenerated under klt 0.9.1)
+- **Issue #113** (closed): flow/serializer/PNR.md: restore the committed-artifact hash table — the routed SPEF is now pinned by nothing
+- **Issue #110** (closed): layout: the pad-seam deferral row still cites closed #24 as its live reason
+- **Issue #109** (closed): layout: SLOT_DEPTH_UM in gen_driver_pad.py is defined and never read
+- **Issue #104** (closed): layout: the driver-pad GDS freshness gate fails because the klt pin is stale and the klayout binary is unpinned
+- **Issue #97** (closed): sim: unpowered-pad DC bench for the fail-safe well biasing (spec rows P4, P4a, P4b; DR-008)
+- **Issue #96** (closed): sim: driver DC bench for V_OD and V_OS (spec rows E1, E2) across the G75 grid
+
+### 2026-11-14
+
+- **PR #111**: fix(digital): close serializer setup timing at the in-spec ss corners
+- **PR #108**: fix(pad_cell): size the ESD diode junction from the P1 budget, not 400 m²
+- **PR #105**: refactor: generate the ESD clamp through the shared klt_gen wrapper
+- **Issue #100** (closed): design: pad_cell ESD diode area is 400x the model default and shunts 107 mA at 1.25 V DC
+- **Issue #99** (closed): Remove gen_esd(): klt_gen() is the same klt gen wrapper, generalised
+- **Issue #98** (closed): Serializer S3: close setup timing at the 1.60 V and 1.76 V ss corners with 10 % clock uncertainty
+
 ### 2026-11-12
 
 - **PR #91**: Bump Repo Skills 0.25.10 -> 0.26.1
