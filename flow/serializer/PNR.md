@@ -103,3 +103,31 @@ sh verification/signoff/check-serializer-pnr.sh
 
 `PDK=sky130A` is needed here because klt otherwise resolves the first variant
 under `PDK_ROOT`, which on this host is not a sky130 one.
+
+## Committed artifacts
+
+The routed artifacts committed next to this record are the P&R outputs of the
+run above; their sha256 digests are:
+
+| File | sha256 |
+|---|---|
+| `serializer_routed.gds` | `1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce` |
+| `serializer_routed.v` (as-built, post-CTS) | `56c0fcec6e669344e1c8c628b7d0d5767036d83aa2b7b5a922746ee64279ac77` |
+| `serializer_routed.def` | `3908451bf12beb8ca06aa32f64b234a41ff7e9ebeb96abe430f393fba0ce4539` |
+| `serializer_routed.spef` | `82425c64b4fb315d4f8cfa19078aec625f89f3368fc61cc504a4a0c97f135219` |
+
+The paths inside `pnr.response.json` (`gds_path`, `def_path`, `verilog_path`,
+`spef_sta.spef_path`) name klt's scratch directory
+`flow/serializer/.klt/place-and-route/`, which is not committed; the files
+above are copies of those outputs, and the response is otherwise verbatim.
+Recorded as a klt tool gap at 2AMLogic/klayout-tools#4231.
+
+The binding is executed, not merely transcribed:
+`verification/signoff/check-hygiene.sh` re-measures each of the four files
+and compares it against this table; it runs in CI as part of the T1 item 10
+attestation, so a perturbed or regenerated artifact fails the hygiene check
+instead of drifting silently. The SPEF row is the load-bearing one:
+`sta.response.json` points its top-level `spef_path` at the committed
+`serializer_routed.spef` while its provenance hash covers only the DEF, so
+this table is the only recorded binding of the parasitic numbers `STA.md`
+rests on.

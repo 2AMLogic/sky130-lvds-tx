@@ -30,6 +30,47 @@ DUT passes every test **and** the negative control fails.
 | Icarus Verilog | 13.0 (CI prints `iverilog -V`; Ubuntu apt may differ) |
 | Verilator | 5.x (CI prints `verilator --version`) |
 
+## Re-running the local_only checks
+
+Two toolchain frictions affect the checks marked `local_only` (run on a
+workstation, not in CI). Both were worked around in PR #111 and disclosed only
+in that PR's body; recorded here so the repo carries them.
+
+**`TMPDIR` must be a short path.** `klt synthesize`'s yosys → `yosys-abc`
+invocation deadlocks when the `TMPDIR` path is longer than ~35 characters:
+yosys blocks reading abc's stdout while abc polls stdin, with no diagnostic
+and no timeout. The trigger is the path *length*, not that `TMPDIR` is
+non-default — a short custom `TMPDIR` is fine. Measured 2026-11-15 against
+klt `0.9.2.dev1029+g76f47afa48f1` and host yosys `0.67+post` (git
+`b8e7da6f`): `/tmp` (4 characters), a 10-character and a 35-character
+`TMPDIR` pass in ~4 s; 36 and 65 characters hang. The harness's per-session
+`TMPDIR` is ~64 characters, so it hangs. Remedy: `TMPDIR=/tmp` — it works
+because it is *short*, not because it is the default. Filed upstream as
+[2AMLogic/klayout-tools#5798](https://github.com/2AMLogic/klayout-tools/issues/5798)
+(adjacent: [#5773](https://github.com/2AMLogic/klayout-tools/issues/5773),
+the yosys watchdog, which did not fire on the multi-hour hangs observed).
+
+**Why `item-1-digital-inventory.json` prepends `$HOME/.local/bin` to `PATH`.**
+The inventory's freshness-check argv runs the check with the *host* toolchain
+from inside the pinned-klt attestation (`KLT_VERSION: "0.8.0"` in
+`signoff.yml`). Rationale as disclosed in PR #111: host klt `0.9.2.dev1029`
+emits attest provenance in a new `inputs[]` shape the pinned `0.8.0` grader
+cannot grade, and pinned-`0.8.0` `synthesize` maps a different netlist than
+the committed one (second half disclosed in PR #111, not independently
+re-measured here). So the attestation is graded under the pin while the
+freshness re-synthesis runs with the host tools, which makes local
+re-attestation silently host-dependent. The provenance-shape half is tracked
+upstream as
+[2AMLogic/klayout-tools#5767](https://github.com/2AMLogic/klayout-tools/issues/5767);
+the cross-version `synthesize` mapping half is deferred to the
+netlist-reproducibility work in #115 rather than filed blind.
+
+Expect the `PATH` pin to change or disappear when #115 re-closes the digital
+flow under the pinned toolchain; if you are reading this after #115, re-derive
+the argv rather than preserving the workaround. The same `TMPDIR` warning is
+repeated at the call site in
+`verification/signoff/check-serializer-netlist.sh`.
+
 ## Negative-control rule
 
 A bench that has never failed is not known to be able to. Each bench ships a
