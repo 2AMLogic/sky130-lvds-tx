@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #137**: docs: scope sim provenance-correction clause to pinned vs addendum blocks
+- **Issue #136** (closed): sim/README.md provenance convention: 'corrected by annotation, not rewrite' is stated unconditionally, but the current addendum block may be edited in place
 - **PR #135**: docs(sim): correct unpowered-pad klayout provenance figures; state canonical-figure convention
 - **PR #132**: sim(unpowered-pad): re-run the grid against the ESD-fixed pad cell (cd0c89a)
 - **PR #131**: docs: state WORK_PLAN snapshot semantics in header, name generation-time recovery
