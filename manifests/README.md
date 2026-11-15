@@ -11,29 +11,48 @@ record**, produced by the regeneration command below. Never hand-edit it.
   the PROPOSED spec (`spec/target-spec.md`), used for both partitions; it moves
   at ratification (#2).
   - **Item 1, analog (`1.analog`)** cites
-    [`verification/signoff/evidence/item-1-analog-design-sources.json`](../verification/signoff/evidence/item-1-analog-design-sources.json),
+    [`verification/signoff/evidence/item-1-analog-design-sources-r2.json`](../verification/signoff/evidence/item-1-analog-design-sources-r2.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-analog-inventory.json`](../verification/signoff/item-1-analog-inventory.json)
     (schematics, symbols, derived netlists; see [`design/README.md`](../design/README.md)).
-    The manifest's `content_hash` is the sha256 of the inventory.
+    The manifest's `content_hash` is the envelope's `provenance.input.content_hash`
+    (the input-set digest over the inventoried files; klt 0.9.1 expands an
+    `--inventory` into `provenance.input.paths` and pins the set digest, no longer
+    the inventory file's own sha256).
   - **Item 1, digital (`1.digital`)** cites
-    [`verification/signoff/evidence/item-1-design-sources-digital.json`](../verification/signoff/evidence/item-1-design-sources-digital.json),
+    [`verification/signoff/evidence/item-1-design-sources-digital-r2.json`](../verification/signoff/evidence/item-1-design-sources-digital-r2.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-digital-inventory.json`](../verification/signoff/item-1-digital-inventory.json)
-    (serializer RTL, synthesis request, committed gate-level netlist).
+    (serializer RTL, synthesis request, committed gate-level netlist; regenerated
+    under the pinned `yowasp-yosys` so the netlist freshness leg genuinely
+    passes -- the earlier `item-1-design-sources-digital.json` is kept as history,
+    bound to a host-yosys netlist build).
   - **Item 2, digital (`2.digital`)** cites
     [`verification/signoff/evidence/item-2-layout-digital-r2.json`](../verification/signoff/evidence/item-2-layout-digital-r2.json),
     a hand-written `generic` envelope bound to the routed GDS
-    `flow/serializer/serializer_routed.gds` (`klt signoff --attest` has no item 2
-    producer, 2AMLogic/klayout-tools#4188). Its `regeneration` claim is backed by
+    `flow/serializer/serializer_routed.gds` (klt releases before 0.9.1 had no
+    item 2 producer; 2AMLogic/klayout-tools#4188 added one in 0.9.1 -- the
+    analog record below uses it, re-attesting the digital record is out of
+    scope there). Its `regeneration` claim is backed by
     `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
     [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
+    **At this head that regeneration claim is drifted**: the serializer
+    netlist was regenerated under the pinned `yowasp-yosys` (issue #115),
+    so re-running the generator now routes from the new netlist and no
+    longer produces the r2 envelope's `regenerated_hash`
+    (`sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce`,
+    from the pre-regeneration netlist) -- the committed routed GDS and this
+    envelope correspond to the previous netlist until the re-closure in
+    #119, which follows the pin decision in #120.
+    `flow/serializer/RECORD.md` carries the same disclosure.
   - **Item 2, analog (`2.analog`)** cites
-    [`verification/signoff/evidence/item-2-layout-analog-r3.json`](../verification/signoff/evidence/item-2-layout-analog-r3.json)
-    (append-only; the earlier `item-2-layout-analog.json` and `-r2.json` are kept as history, bound to earlier GDS revisions),
-    a hand-written `generic` envelope bound to
-    `layout/sky130_lvds_tx_driver_pad.gds` (the CI-pinned klt has no item 2
-    producer; same route as `2.digital`). Its `regeneration` claim is backed by
+    [`verification/signoff/evidence/item-2-layout-analog-r4.json`](../verification/signoff/evidence/item-2-layout-analog-r4.json)
+    (append-only; the earlier `item-2-layout-analog.json`, `-r2.json` and
+    `-r3.json` are kept as history, bound to earlier GDS revisions and tool pins),
+    produced by `klt signoff --attest 2 --input layout/sky130_lvds_tx_driver_pad.gds`
+    (the item 2 producer, klayout-tools#4188) under the pinned pair
+    (`klt 0.9.1` + `klayout 0.28.17.post1`, issue #104), bound to
+    `layout/sky130_lvds_tx_driver_pad.gds`. Its `regeneration` claim is backed by
     `verification/signoff/check-driver-pad-gds.sh` (`local_only`); see
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
     sha256 of the GDS, not of the envelope. The driver is routed (#48); `ddr_mux` and `predriver` are placement-only.
@@ -58,11 +77,22 @@ record**, produced by the regeneration command below. Never hand-edit it.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
     `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
+    Its `flow/serializer/pnr.response.json` citation binds the
+    pre-regeneration netlist: the response's
+    `provenance.input.content_hash` is
+    `sha256:a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd`,
+    while the committed `serializer_synth.v` hashes
+    `sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353`
+    since the pinned-yosys regeneration, so `klt place-and-route --check`
+    reports `drifted` on it at this head. #119 re-closes the digital
+    partition (regenerating the routed GDS and the envelopes that cite it)
+    behind the pin decision in #120.
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r4.json`](../verification/signoff/evidence/item-10-repo-hygiene-r4.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r9.json`](../verification/signoff/evidence/item-10-repo-hygiene-r9.json),
     produced by `klt signoff --attest 10` from
-    [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
+    [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
+    (append-only; r2-r8 are kept as history, bound to earlier workflow revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
@@ -79,33 +109,49 @@ record**, produced by the regeneration command below. Never hand-edit it.
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
-  Vendored **byte-identical** from
+  Vendored from
   [`2AMLogic/klayout-tools@267ea83a`](https://github.com/2AMLogic/klayout-tools/blob/267ea83a0510bcb61d2956058095201c0f481ff7/docs/design-evidence-tiers.md)
   `docs/design-evidence-tiers.md` (MIT-licensed upstream; this repo's
-  Apache-2.0 `LICENSE` does not relicense the vendored copy). Re-vendor and
-  regenerate the record in the same PR when upstream moves.
+  Apache-2.0 `LICENSE` does not relicense the vendored copy), with two
+  repo-local disclosure notes appended (items 2 and 11: the serializer
+  netlist-regeneration drift behind `2.digital`/`11.digital` above) -- the
+  copy is otherwise byte-identical to that upstream commit. Re-vendor and
+  regenerate the record in the same PR when upstream moves, and re-apply
+  the two local notes.
 - **`sky130-lvds-tx.signoff.json`** — the verdict of record.
 
 ## klt pin
 
-`klt signoff --attest` (klayout-tools#2844) and the `local_only` check flag are
-in the PyPI release `klayout-tools==0.8.0`, which is the pin. The pin lives in
-`.github/workflows/signoff.yml` (`KLT_VERSION`). A git build reports a dev
-version and does not satisfy `==0.8.0` (klayout-tools#2823).
+`klt signoff --attest` (klayout-tools#2844), the `local_only` check flag and
+the item 2 attest producer (`--input <layout stream>`; klayout-tools#4188) are
+in the PyPI release `klayout-tools==0.9.1`, which is the pin. The pins live in
+`scripts/setup-env.sh` (`KLT_VERSION`, plus `KLAYOUT_VERSION` for the klayout
+module, which serialises the layout bytes) and `.github/workflows/signoff.yml`
+(both). A git build reports a dev version and does not satisfy `==0.9.1`
+(klayout-tools#2823). The previous pin `0.8.0` was wrong for item 2 analog:
+it predates the attested driver-pad GDS and its `klt gen` renames 114 of the
+GDS's 237 cells, so it could not regenerate the artifact at all (issue #104).
 
 ## Regenerate
 
 ```console
-KLT="uvx --from klayout-tools==0.8.0 klt"
+KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r6.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r9.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-             -o verification/signoff/evidence/item-1-analog-design-sources.json
+             -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
-             -o verification/signoff/evidence/item-1-design-sources-digital.json
+             -o verification/signoff/evidence/item-1-design-sources-digital-r2.json
+# item 2 analog (producer from klayout-tools#4188; run it with the repo's pinned
+# .venv klt so the recorded versions are the pins -- the regeneration claim it
+# records is backed by the local_only gate below)
+$KLT signoff --attest 2 --input layout/sky130_lvds_tx_driver_pad.gds \
+             --generator "sh verification/signoff/check-driver-pad-gds.sh" \
+             --regenerated-hash sha256:... \
+             -o verification/signoff/evidence/item-2-layout-analog-rN.json
 $KLT signoff --manifest manifests/sky130-lvds-tx.json \
              --tiers-doc manifests/design-evidence-tiers.md \
              --format json > manifests/sky130-lvds-tx.signoff.json
@@ -120,9 +166,11 @@ requires re-attesting, then re-rendering the record, in the same PR.
 
 `.github/workflows/signoff.yml` re-attests item 1 (digital), item 10, item 1
 (analog) and item 9 with `--check` and re-renders the report, failing on any byte difference
-from the committed record. Item 2 (digital and analog) is not re-attested, since `klt signoff
---attest` has no item 2 producer (klayout-tools#4188); they are hash-bound only by that
-full-record comparison.
+from the committed record. Item 2 (digital and analog) is not re-attested: the
+analog regeneration claim is backed by the `local_only` PDK gate, and the
+digital one by the `local_only` PnP check; the producer itself exists since
+0.9.1 (klayout-tools#4188) and produced the analog r4 record. Both item 2
+envelopes are hash-bound by that full-record comparison.
 
 ## Current verdict
 
