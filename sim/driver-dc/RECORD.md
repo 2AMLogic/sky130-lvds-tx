@@ -269,10 +269,20 @@ values, and the committed summary carries a value — not an
   Monte Carlo question. This is a limitation to record, not a reason to change
   the spec.
 - **Measured at the driver output, not through the pad cell** — see below.
+  **[Annotated 2026-11-15: resolved by the addendum below (issue #116). The
+  corrected cell is now instantiated and the grid re-run; the limitation
+  applied to the run recorded above, not to the addendum's run.]**
 - The three disabled pre-emphasis slices are present and off; D3's enabled
   settings are not exercised.
 
 ### Why the pad cell is not in the deck
+
+> **[Annotated 2026-11-15, issue #116: this section describes the run recorded
+> above, whose deck deliberately omitted the then-defective cell. The corrected
+> cell (`cd0c89a`) IS instantiated in the deck as now committed, and the G75
+> grid has been re-run with it attached — see the addendum below. The rows
+> here are kept verbatim as the evidence this bench's original decision rested
+> on.]**
 
 E1 and E2 are specified "at the pad". The `pad_cell` **as committed when this
 bench was recorded** was nevertheless not instantiated, because it could not
@@ -313,7 +323,7 @@ cell's worst reverse shunt at the LVDS common mode at **2.04 nA** (`sf`,
 125 °C), 5.8 × 10⁻⁷ of the 3.5 mA nominal tail, against the 107.4 mA measured
 above before the fix. The equivalence argument therefore no longer rests on
 topology alone. Re-running this bench with the corrected cell instantiated is
-tracked in **#116**.
+tracked in **#116** — **[done: see the 2026-11-15 addendum below.]**
 
 ## The wnflag trap
 
@@ -445,3 +455,190 @@ temperature.
 | 73 | fs | -40 | 1.98 / 2.97 | 331.0 | 331.0 | 1254.0 | 1254.0 | -0.0000 | -0.0000 | pass | pass | pass | pass | pass |
 | 74 | fs | 27 | 1.98 / 2.97 | 330.5 | 330.5 | 1257.3 | 1257.3 | -0.0000 | -0.0001 | pass | pass | pass | pass | pass |
 | 75 | fs | 125 | 1.98 / 2.97 | 315.4 | 315.4 | 1427.1 | 1427.1 | +0.0006 | -0.0105 | pass | **FAIL** | **FAIL** | pass | pass |
+
+## Addendum — 2026-11-15: the G75 grid re-run with the corrected pad cell attached (#116)
+
+**Nothing above this section has been rewritten** — it records the run made
+without the pad cell and stays as the baseline this addendum reconciles
+against. This addendum records the second run: same bench, same request
+semantics, the corrected `pad_cell` (`cd0c89a`, PR #108) instantiated on all
+four output nodes behind ideal 0 V ammeters.
+
+**The headline is unchanged: 51 of 75 conditions pass every row, 24 miss at
+least one, 0 errored, 0 inconclusive.** No condition's pass flag changed and no
+condition's V_OD or V_OS moved by more than 1 mV (largest movement anywhere in
+the grid: 0.104 mV — see Reconciliation). E1/E2 are now graded at a simulated
+pad node instead of by the DC-equivalence argument, and the argument's
+prediction — unchanged pass counts — is confirmed by simulation, not by
+reasoning.
+
+### What changed in the deck and the request
+
+- `driver_dc.spice` gains `.include ../../design/pad_cell/pad_cell.spice` and
+  four `pad_cell` instances, one per output node (`outp1`, `outn1`, `outp0`,
+  `outn0`), identically, each behind an ideal 0 V ammeter (`VPCP1`/`VPCN1`/
+  `VPCP0`/`VPCN0`, DR-007-labelled) in the **shunt** branch — between the pad
+  node and the cell's `PAD` pin, so it carries only the cell's shunt current;
+  the 100 Ω loads stay directly across the pad nodes. No change to `IREF`
+  (still 54.3 µA, frozen), `VCMREF`, the gate-drive pattern, the loads, or any
+  device size. Instantiating one instance and not the other, or one side and
+  not its mirror, would have manufactured a spurious ΔV_OD/ΔV_OS out of this
+  bench's own asymmetry — hence all four.
+- `request.json` gains exactly two entries, both **ungraded diagnostic
+  observers** (`ishunt_p1` / `ishunt_n1`, `expr: abs(i(vpcp1))` /
+  `abs(i(vpcn1))`, unit A, **no `limits`**): one per side of instance 1;
+  instance 0 mirrors the cells. **The eight graded `measurements` entries are
+  byte-identical** to the recorded run, as are `options.ngspice_init`,
+  `options.stage_model_inputs`, `node_voltage_bounds` and
+  `batch.capacity_wait_s`. Because `pad_cell` adds no series element, the
+  graded nodes are the pad nodes the moment the cells are on them, so the new
+  grid is comparable to the recorded one condition-for-condition with no
+  expression change.
+- Nothing under `spec/` was touched; no graded limit was changed; a condition
+  that missed before and misses again is still a recorded miss.
+
+### Provenance
+
+| Field | Value |
+|---|---|
+| Repo base commit | `7b02f9dca35c493641c62183ecc2d5dfe920b263` (inputs below are content-hashed) |
+| PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` (unchanged) |
+| Model library sha256 | `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64` (`sky130.lib.spice`, unchanged) |
+| Testbench sha256 | `c522327d7f0994e51bb0774f95911b54a669639ac9633743d99f476860e06ed8` (`driver_dc.spice` **as run** — identical to the committed deck) |
+| DUT netlist sha256 | `5f008c909faf1fe3d3cc5dd43a9146fa5db9a7cf605634fbf37f912075959137` (`design/driver/driver.spice`, unchanged) |
+| Pad cell sha256 | `11be4ca2e27e2f1fa4968792dd61a3af6a8bad9f7f755e344a306ff54f18e116` (`design/pad_cell/pad_cell.spice`, new in the closure) |
+| Client | `klt 0.9.3.dev3+gd5d57daf9a14`, klayout 0.30.13 (recorded run: `0.9.2.dev1022` — a third klt generation, see Reconciliation) |
+| Runner | batch runner `klt 0.9.0`, `runner_compatibility: match` (same runner version as the recorded run) |
+| Engine | ngspice 47 on the batch worker, binary sha256 `39ca1adb826660324c3626f72bd946ec40704f0f3fc8e243c623f76e24b3eee2` (byte-identical to the recorded run's and to this host's) |
+| ngspice init | `set wnflag=1`, `set num_threads=1`, unchanged in the request — **still load-bearing, see "The wnflag trap"** (the pad cell's own devices are `nf=1`, which is why `sim/pad-dc/` needs no init; this request's driver devices with `nf = 2, 3, 4` decide it) |
+| Backend | `batch`, job `klt-sim-0dc289f63be9`, 75 units, `options.stage_model_inputs: true` (319 model files staged), spot `m7i.4xlarge` (recorded run: `c7i.4xlarge`), job wall time 115 s |
+
+Reproduce:
+
+```console
+PDK_ROOT=<pinned ciel root> klt sim sim/driver-dc/request.json \
+    --backend batch --wait-for-capacity 600 \
+    --report-out sim/driver-dc/results/report.json
+```
+
+Two solver notes for the new deck, both deliberately *not* acted on:
+
+- **No `gmin` override.** `sim/pad-dc/` sets `gmin: [1e-15]` to resolve pA
+  leakage; this request does not, because changing solver settings would
+  perturb the grid whose comparability is the deliverable. At ngspice's default
+  `gmin = 1e-12` each node carries a ~pA solver conductance to ground, so at
+  the cold corners the shunt observers read the **floor**, not the device —
+  reported below as a floor, never as a device figure.
+- **The fleet's job-ceiling warning fired** (conservative serial bound 9120 s >
+  ceiling 3600 s; the client suggests `remote.hosts: 3`). The job finished in
+  115 s, two orders inside the ceiling, so sharding was not needed this run; a
+  future grid of this shape with slower per-unit runtimes should shard per
+  that warning rather than assume the same headroom.
+
+### Single-corner probe before the fleet submit
+
+Run locally (`--backend local`, one operating point — the only leg this host
+runs locally) at `tt`/27 °C/1.80 V/3.30 V, on the committed deck and request,
+**before** the 75-unit submit: host klt `0.9.3.dev3+gd5d57daf9a14`, host ngspice
+47 (binary sha256 `39ca1adb…`, byte-identical to the fleet worker's), PDK
+`~/.ciel` (open_pdks `f6eeac7…`):
+
+| Quantity | Probe | Recorded baseline | Δ |
+|---|---|---|---|
+| V_OD state 1 | 349.9785 mV | 349.9785 mV | 0 |
+| V_OD state 0 | 349.9785 mV | 349.9785 mV | 0 |
+| V_OS state 1 | 1.2537480 V | 1.253748 V | 0 |
+| V_OS state 0 | 1.2537480 V | 1.253748 V | 0 |
+| `ishunt_p1` | 8.64 pA | — (not observed then) | new |
+| `ishunt_n1` | 6.74 pA | — (not observed then) | new |
+
+Attaching the corrected cell **moved the nominal V_OD/V_OS by nothing at the
+report's 7-significant-digit precision** — the strongest single-condition
+confirmation that the ammeter + shunt adds no series impedance to the graded
+nodes. Only then was the grid submitted to the fleet.
+
+### Reconciliation against the recorded grid
+
+Per-row pass counts, condition-for-condition:
+
+| Row | Recorded (no pad cell) | This run (pad cell attached) |
+|---|---:|---:|
+| E1 | 60 / 75 | **60 / 75** |
+| E2 window | 62 / 75 | **62 / 75** |
+| E2 regulation band | 62 / 75 | **62 / 75** |
+| E3 | 75 / 75 | **75 / 75** |
+| E4 (DC half) | 75 / 75 | **75 / 75** |
+| any-miss | 24 / 75 | **24 / 75** |
+
+0 errored, 0 inconclusive, and the committed `results/summary.json` carries a
+value — not an `unavailable_measurement` — at all 75 conditions.
+
+- **No condition's pass flag changed.** The 24 any-miss conditions are the same
+  conditions missing the same rows as the recorded run.
+- **No condition's V_OD or V_OS moved by more than 1 mV** — the naming
+  threshold set for this reconciliation — so there are no individually-named
+  conditions. The largest movement anywhere in the grid is **0.104 mV** (V_OS
+  state 0, `fs`/1.62 V/2.97 V/27 °C), an order of magnitude inside the
+  threshold; every delta is at solver-noise level.
+- Observed ranges: V_OD **117.1148 – 368.2871 mV** (recorded: 117.1159 –
+  368.2868 mV), V_OS **1.247141 – 2.592883 V** (recorded: 1.247141 – 2.592885
+  V) — endpoints move only at the µV scale.
+- |ΔV_OD| ≤ **19.4 µV**, |ΔV_OS| ≤ **110.8 µV** (recorded: 14.2 µV / 58.6 µV)
+  — both far inside the 50 mV E3/E4 budget. The roughly-2× growth of these
+  solver-noise residuals is not a design change: the four cells were
+  instantiated symmetrically, and E3/E4 still pass at every condition. (As
+  before, **do not read 75/75 as E3/E4 being met** — "Read E3 and E4 with
+  care" above applies to this run unchanged.)
+- Single-ended pad-node extremes from this run's committed summary: **2.6566 V**
+  (`fs`/1.62 V/3.63 V/125 °C) and **1.0642 V** (`ff`/1.98 V/3.63 V/27 °C),
+  matching the figures #116's curation derived from the recorded run — now
+  with the cell attached and its shunt measured there.
+- Three klt client generations (`0.9.2.dev1022` → `0.9.3.dev3`, same `0.9.0`
+  batch runner) have now produced the same graded verdicts on this bench.
+
+### The measured shunt
+
+`ishunt_p1`/`ishunt_n1` are the first in-repo measurements of the corrected
+cell **with the driver attached**, and they extend the characterised bias range
+past `sim/pad-dc/`'s 2.4 V ceiling:
+
+| Where | Pad node bias (V_OS ∓ V_OD/2) | `ishunt_p1` | `ishunt_n1` |
+|---|---|---|---|
+| nominal, `tt`/27 °C/1.80 V/3.30 V | 1.4287 / 1.0788 V | 8.64 pA | 6.74 pA |
+| all 25 −40 °C corners | ≈1.07–1.92 V (upper end `fs`/1.62 V/2.97 V/−40 °C) | 6.6–9.7 pA | 5.4–8.2 pA |
+| grid max, `sf`/1.62 V/3.63 V/125 °C | 1.4368 / 1.0798 V | **2.117 nA** | 1.982 nA |
+| **`fs`/1.62 V/3.63 V/125 °C** | **2.6566** / 2.5291 V | **1.118 nA** | 1.109 nA |
+| **`ss`/1.62 V/3.63 V/125 °C** | **2.4508** / 2.2337 V | **1.205 nA** | 1.185 nA |
+
+- **The two >2.4 V conditions are now measured, not argued.** At a pad node of
+  2.4508 V (`ss`) and 2.6566 V (`fs`) the cell shunts **1.1–1.2 nA** — six
+  orders of magnitude below the 3.5 mA nominal tail, and *smaller* than the
+  grid's own maximum. This was the bias range no existing measurement covered
+  (the strongest reason this run spent 75 fleet units), and the answer is that
+  the reverse-biased ESD diode's leakage follows the **process flavour and
+  temperature** far more than the reverse bias: the grid maximum, 2.117 nA,
+  sits at `sf`/125 °C with the pad node at only 1.44 V — consistent with
+  `sim/pad-dc/RECORD.md`'s worst-case 2.04 nA at `sf`/125 °C at 1.25 V,
+  measured there without the driver. A >2.4 V pad bias does **not** buy a
+  proportionally larger shunt, and in particular buys nothing close to the
+  107 mA the pre-fix cell shunted.
+- **The −40 °C rows are the gmin floor, not a device figure.** At −40 °C the
+  observers read 5–10 pA; ngspice's default `gmin = 1e-12` puts a ~pA solver
+  conductance on each node (the pad node at ~1.25 V alone explains ~1.25 pA,
+  and the ammeter's floating `pcp*` node adds its own). `sim/pad-dc/` needed
+  `gmin = 1e-15` to resolve true pA-scale device leakage; this run keeps the
+  default to preserve grid comparability, so those rows are a floor — quoted
+  as such and carried nowhere as device leakage.
+- The p1/n1 pairs differ because the two outputs of a state sit at *different*
+  absolute voltages (V_OS ± V_OD/2 → different reverse biases → different
+  diode leakage), not because of asymmetric instantiation; the symmetric
+  instantiation is evidenced by E3/E4 staying at solver noise across all 75.
+
+### What this still does not close
+
+Unchanged from this record's headline: **this bench closes no spec row.** E1–E4
+remain statistical rows owing the local-mismatch Monte Carlo, and E4's
+`V_OS(PP)` half remains transient and out of scope. The E8 / thin-oxide stress
+question at the three conditions where V_OS exceeds 1.98 V is re-observed here
+under the same numbers and remains unresolved. Sizing closure starts from this
+record plus that Monte Carlo.

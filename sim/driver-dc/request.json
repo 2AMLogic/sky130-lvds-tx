@@ -126,6 +126,18 @@
       },
       "spec_row": "E4",
       "comment": "change in V_OS between complementary states; the DC half of E4 only (V_OS(PP) is transient and out of scope here)"
+    },
+    {
+      "name": "ishunt_p1",
+      "expr": "abs(i(vpcp1))",
+      "unit": "A",
+      "comment": "DIAGNOSTIC OBSERVER, ungraded (no limits): pad_cell shunt current on outp1, through the ideal 0 V ammeter VPCP1 in the shunt branch. At ngspice's default gmin=1e-12 each node carries ~1-2.7 pA of solver conductance to ground, so at the cold corners this reads the solver floor, not the device -- report as a floor, do not tune gmin here"
+    },
+    {
+      "name": "ishunt_n1",
+      "expr": "abs(i(vpcn1))",
+      "unit": "A",
+      "comment": "DIAGNOSTIC OBSERVER, ungraded (no limits): pad_cell shunt current on outn1, through the ideal 0 V ammeter VPCN1 in the shunt branch. Same gmin-floor caveat as ishunt_p1; instance 0 mirrors this cell, so one observer per side of instance 1 is enough"
     }
   ],
   "options": {
