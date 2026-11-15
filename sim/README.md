@@ -19,3 +19,11 @@ ngspice testbenches and PVT corner results.
   bench's pinned base commit** (`d7da34a8`, which predates the ESD-diode
   sizing fix `cd0c89a`); the four findings and what each still owes are in
   `unpowered-pad/RECORD.md`.
+
+**Provenance convention:** a `RECORD.md` provenance block's `Client` row
+klayout figure is the run's own `provenance.klayout_version` — the `klayout`
+Python module the run's `klt` imported, readable live via `klt version
+--format json` — **not** the host CLI's `klayout -v` and **not** the
+`docs/environment.md` venv pin. Where a record disagrees with its run's
+committed report, the report is canonical and the record is corrected by
+annotation, not rewrite.
