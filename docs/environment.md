@@ -34,7 +34,8 @@ Inventory: `verification/signoff/item-9-inventory.json`.
 
 | Constant | Value |
 |---|---|
-| `KLT_VERSION` | `0.8.0` |
+| `KLT_VERSION` | `0.9.1` |
+| `KLAYOUT_VERSION` | `0.28.17.post1` |
 | `CIEL_VERSION` | `2.6.1` |
 | `CIEL_SKY130_VERSION` | `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` |
 | `CIEL_LIBRARIES` | `sky130_fd_pr sky130_fd_io sky130_fd_sc_hd` |
@@ -43,9 +44,14 @@ Inventory: `verification/signoff/item-9-inventory.json`.
 
 ## Notes
 
-- The venv's `klt` is `0.8.0` (PyPI). `KLT_SIM_BACKEND` is read from 0.7.0 on, so
-  this client honours the host's batch default; no sim was run against the
-  venv's `klt` for this bump. The PDK smoke sim was run with the host `klt`
+- The venv's `klt` is `0.9.1` (PyPI), installed `--no-deps` so the venv can
+  carry `klayout==0.28.17.post1` next to it: klt declares `klayout>=0.30`, but
+  the older module is what serialises the committed driver-pad GDS to its
+  attested bytes (a 0.30.x module re-encodes two TEXT `MAG` records in the
+  stock pad-frame cell; issue #104). klt's envelope output does not depend on
+  the module version. `KLT_SIM_BACKEND` is read from 0.7.0 on, so this client
+  honours the host's batch default; no sim was run against the venv's `klt`
+  for this bump. The PDK smoke sim was run with the host `klt`
   (`sim/pdk-smoke/RECORD.md`).
 - A batch worker's image carries its own sky130A (`open_pdks c6d73a35…`,
   not this pin). A `klt sim` request that must run on the pinned models sets
