@@ -42,6 +42,14 @@ VSSIO column collapses to leakage scale.)*
 | Jobs | `klt-sim-816401017acb` (Sweep A), `klt-sim-13d4789e5ccc` (Sweep B), `klt-sim-ee92c54c9c19` (ramp); 10 units each, 30 total |
 | Corner grid | `tt`/`sf`/`ff`/`ss`/`fs` × −40 / 125 °C, rails at 0 V, no supply axis (rows P4–P4b) |
 
+**[Annotated 2026-11-15 (issue #134): the `Client` row's klayout figure is
+wrong. This run's committed reports
+(`results/report-{sweep-a,sweep-b,ramp}.json.gz`) all carry
+`provenance.klayout_version` `0.30.13`, not the 0.30.10 printed above;
+`0.30.13` is the canonical figure (see `sim/README.md` for the convention).
+The row's `klt` figure matches its artifacts exactly and stands. The table
+is kept byte-stable; this annotation is the correction.]**
+
 ## What ran
 
 One `klt sim` request per condition, submitted as one set:
@@ -610,13 +618,20 @@ match the header table's pins — so the re-run is a true single-variable A/B.
 | Model library sha256 | `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64` (`sky130.lib.spice` — unchanged) |
 | Design netlist sha256 | `b90b61fd221bb1d46e3a4aad0b670331218d43be473d03a08ab84e86af19d28f` (`design/lvds_tx_analog.spice`; base record pinned `e4e96a1b…c980b74e`) |
 | Testbench sha256s | identical to the header table's four pins (`b1bb6c53…`, `f6c6e439…`, `3dd141d7…`, `8f45d4ac…`) |
-| Client | `klt 0.9.3.dev3+gd5d57daf9a14`, klayout 0.30.12 (base record: `klt 0.9.2.dev1022+g2a9c52b27ce7`, klayout 0.30.10) |
+| Client | `klt 0.9.3.dev3+gd5d57daf9a14`, klayout 0.30.13 (base record: `klt 0.9.2.dev1022+g2a9c52b27ce7`, klayout 0.30.13 — the same klayout module both runs; corrected 2026-11-15, issue #134) |
 | Engine | ngspice-47 on the batch worker, creation date 2026-11-13 23:19:32 UTC, binary sha256 `39ca1adb826660324c3626f72bd946ec40704f0f3fc8e243c623f76e24b3eee2` — **the same build as the recorded run** |
 | Backend | `batch`, `options.stage_model_inputs: true` (319 staged model inputs, pinned library) |
 | Jobs | `klt-sim-2bb9e8aa16f1` (Sweep A), `klt-sim-955510835321` (Sweep B), `klt-sim-7e38da4564be` (ramp); 10 units each, 30 total |
 | Corner grid | unchanged: `tt`/`sf`/`ff`/`ss`/`fs` × −40 / 125 °C |
 | Completeness | every unit returned a value for every declared measurement (89 / 89 / 22, `valueless` = 0); no corner errored or timed out; `node_voltage_bounds` (±3.63 V) never tripped |
 | Artifacts | `results/de214b2/summary-{sweep-a,sweep-b,ramp}.json` and `results/de214b2/report-{sweep-a,sweep-b,ramp}.json.gz` (the base-commit artifacts in `results/` are untouched) |
+
+**[Annotated 2026-11-15 (issue #134): the `Client` row above was corrected in
+place — it originally printed klayout 0.30.12 (and the base record 0.30.10),
+but both runs' own reports (`results/de214b2/report-*.json.gz`,
+`results/report-*.json.gz`) carry `provenance.klayout_version` `0.30.13`,
+which is canonical; see `sim/README.md` for the convention. The `klt`
+figures were already correct.]**
 
 The three requests were re-run **unchanged** — no edit to any `request-*.json`
 or `tb_*.spice` — with the base record's own reproduce line. Exit codes:
@@ -782,8 +797,11 @@ the base record graded them at `d7da34a8`. No graded limit moved and no
 absolute (5 → 7 passing units), which is one of the five fenced-off readings
 this re-run was filed to replace — it reflects the removal of F1's 443.73 A
 static offset, not a relaxation. **Toolchain note:** the client moved
-(`klt 0.9.2…` → `0.9.3…`, klayout 0.30.10 → 0.30.12) while the engine build
-and model library stayed identical; every topology-driven figure reproduced
+(`klt 0.9.2…` → `0.9.3…`) while the engine build
+and model library stayed identical and the klayout module was `0.30.13`
+across both runs (each record originally printed a different klayout
+figure; corrected and annotated in the provenance blocks above — issue
+#134); every topology-driven figure reproduced
 the base record's printed digits, so there is no evidence the client change
 moved any number on this deck — every figure that moved moves where the diode
 sits, which the instance comparison above licenses attributing to `XD1`.
