@@ -15,7 +15,7 @@ LVS-clean on both partitions, and 13 of the 22 T1 checklist items are met.
 `WORK_PLAN.md` tracks what is open.
 
 **Built agent-native.** Every specification, decision record, testbench, and
-line of documentation here is produced by AI agents working from a ratified
+line of documentation here is produced by AI agents working from a proposed
 spec and an append-only evidence trail — not human-authored work that agents
 merely assisted with. Verification is the product: every claim traces to a
 recorded result under PVT corners. Where the agents hit friction with the
@@ -73,8 +73,12 @@ Maturity ladder: spec ratified → serializer verified → driver simulated
 across PVT → pad cell DRC-clean → assembled and LVS-clean → post-layout
 eye simulation → shuttle seat → measured silicon. **Current position: spec
 drafted and awaiting ratification; serializer verified by its cocotb bench and
-routed (post-route STA records spec row S3 not met at the `ss` corners); driver
-PVT simulation and analog DRC clean are open.**
+routed, with post-route STA setup slack ≥ 0 at every corner at or above the
+spec's 1.62 V supply floor (worst `ss_n40C_1v60` +0.093 ns, the nearest
+published library to that floor); spec row S3 is still recorded NOT MET because
+its wording demands every Liberty corner, including the 1.28–1.44 V `ss`
+libraries below that window; driver PVT simulation and analog DRC clean are
+open.**
 
 ## Repo layout
 
