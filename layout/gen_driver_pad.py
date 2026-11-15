@@ -39,7 +39,6 @@ FRAME = "sky130_ef_io__analog_noesd_pad"
 # at 20 um, so the clamp is 5 fingers of 17.2 um: same total W, same L.
 ESD_PARAMS = {"finger_width_um": 17.2, "l_um": 0.55, "fingers": 5, "add_guard_ring": True}
 PAD_PITCH_UM = 75.0
-SLOT_DEPTH_UM = 200.0
 # Clamp origin inside the slot: below the met4/met5 bus rails, under the met3
 # P_CORE stub (x 24.72-49.72), clear of the VCCHIB/VCCD rails at y < 12.
 ESD_ORIGIN_UM = (34.0, 20.0)
