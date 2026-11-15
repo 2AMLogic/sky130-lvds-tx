@@ -64,6 +64,13 @@ informative part of those two rows is the Monte Carlo that is out of scope here.
 | ngspice init | `set wnflag=1`, `set num_threads=1`, declared in the request (`options.ngspice_init`) — **load-bearing, see "The wnflag trap"** |
 | Backend | `batch`, job `klt-sim-b415b94ced6d`, 75 units, `options.stage_model_inputs: true` (319 model files staged) |
 
+The committed `driver_dc.spice` hashes to `00389d012205c88b81bb2c0d6161b4e2720974c943026002addcb60adaa86556`:
+after this grid was recorded, its header comment was reworded (the pad-cell
+defect it described is fixed — see "Why the pad cell is not in the deck" below;
+PR #102). Comment lines only; the circuit body is byte-identical, so the run is
+exactly reproducible from the committed deck. The table row above identifies the
+deck **as run**.
+
 Reproduce:
 
 ```console
@@ -267,36 +274,46 @@ values, and the committed summary carries a value — not an
 
 ### Why the pad cell is not in the deck
 
-E1 and E2 are specified "at the pad". The committed `pad_cell` is nevertheless
-**not** instantiated, because it cannot carry a DC measurement: its ESD diode is
-declared with `area=4e14` — 400× the model's own default — and shunts
-**107 mA** at 1.25 V. Measured on this host, `tt`, 27 °C:
+E1 and E2 are specified "at the pad". The `pad_cell` **as committed when this
+bench was recorded** was nevertheless not instantiated, because it could not
+carry a DC measurement: its ESD diode was declared with `area=4e14` — 400× the
+model's own default — and shunted **107 mA** at 1.25 V. Measured on this host,
+`tt`, 27 °C:
 
 | Device under test | Shunt current at 1.25 V |
 |---|---:|
-| `pad_cell` as committed | 107.4 mA |
-| its ESD diode alone, as committed | 107.4 mA |
+| `pad_cell` as then committed | 107.4 mA |
+| its ESD diode alone, as then committed | 107.4 mA |
 | the same diode at the model default `area=1e12` | 268.6 µA |
 | the ESD nfet alone (gate at VSSIO) | 6.4 pA |
 
-A first version of this bench did instantiate it on both outputs: V_OD
-collapsed to 0.47 mV, V_OS to 0.23 mV, and the CMFB loop sat at a starved
-zero-current operating point. The whole shunt is the diode and it scales with
-`area` exactly as the 400× ratio predicts; the ESD nfet is correctly off. The
-diode's *orientation* is correct and must not be "fixed" — the model subcircuit
-is `.subckt sky130_fd_pr__diode_pw2nd_11v0 N P` with body `D0 N P`, so port 1 is
-the anode, and `XD1 VSSIO PAD` is therefore reverse-biased for a positive pad,
-which is the ESD-to-VSSIO orientation `DR-001` calls for. Filed as **#100**;
-fixing it is out of scope here.
+That defect is **fixed**: filed as #100 and resolved by `cd0c89a` (PR #108),
+which sizes the diode junction from the P1 budget (`area=64 perim=32`); #100 is
+closed as completed. The rows above are kept as recorded — they are the
+measurements this bench's decision rested on.
+
+A first version of this bench did instantiate the then-committed cell on both
+outputs: V_OD collapsed to 0.47 mV, V_OS to 0.23 mV, and the CMFB loop sat at a
+starved zero-current operating point. The whole shunt was the diode and it
+scaled with `area` exactly as the 400× ratio predicts; the ESD nfet was
+correctly off. The diode's *orientation* is correct and must not be "fixed" —
+the model subcircuit is `.subckt sky130_fd_pr__diode_pw2nd_11v0 N P` with body
+`D0 N P`, so port 1 is the anode, and `XD1 VSSIO PAD` is therefore
+reverse-biased for a positive pad, which is the ESD-to-VSSIO orientation
+`DR-001` calls for.
 
 With the pad cell absent, "at the pad" rests on an argument rather than a
 simulated node: `pad_cell` is a **shunt-only** network — one reverse-biased
 diode and one off ESD nfet, both from PAD to VSSIO — with **no series element
 between the driver output and the pad**. At DC the driver output and the pad are
-therefore the same node, and the corrected cell's only DC effect will be a
-shunt leakage that must be a small, stated fraction of the 3.5 mA tail (an
-acceptance criterion on #100). Re-running this bench with the corrected cell
-instantiated is tracked there.
+therefore the same node, and the cell's only DC effect is a shunt leakage. That
+leakage is no longer an acceptance criterion — it is a **measurement**:
+`sim/pad-dc/RECORD.md` ("DC shunt against the 3.5 mA tail") puts the corrected
+cell's worst reverse shunt at the LVDS common mode at **2.04 nA** (`sf`,
+125 °C), 5.8 × 10⁻⁷ of the 3.5 mA nominal tail, against the 107.4 mA measured
+above before the fix. The equivalence argument therefore no longer rests on
+topology alone. Re-running this bench with the corrected cell instantiated is
+tracked in **#116**.
 
 ## The wnflag trap
 

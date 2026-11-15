@@ -14,10 +14,13 @@
 * (EN = VCCD); see `sim/driver-dc/RECORD.md` for the derivation of both.
 *
 * E1/E2 are specified at the pad. The measurement is taken at the driver
-* output instead, and the committed `pad_cell` is deliberately NOT instantiated
-* -- its ESD diode shunts 107 mA at 1.25 V DC, which would swamp a 3.5 mA
-* driver. See `sim/driver-dc/RECORD.md` for the evidence and the equivalence
-* argument that makes the driver output the pad node at DC.
+* output instead: the `pad_cell` committed when this bench ran had an ESD diode
+* that shunted 107 mA at 1.25 V DC and would have swamped a 3.5 mA driver, so
+* it was deliberately NOT instantiated. That defect has since been fixed
+* (cd0c89a, PR #108; the corrected cell shunts 2.04 nA worst-case at the LVDS
+* common mode, sim/pad-dc/RECORD.md). See `sim/driver-dc/RECORD.md` for the
+* evidence and the equivalence argument that makes the driver output the pad
+* node at DC.
 *
 * Circuit body only: klt sim supplies .lib/.temp/.control (no .end here).
 

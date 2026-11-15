@@ -56,7 +56,7 @@
     "load_ohm": 100,
     "load_note": "differential, across the two outputs",
     "measured_at": "driver output",
-    "measured_at_note": "pad_cell is NOT instantiated: its ESD diode shunts 107 mA at 1.25 V DC (see issue #100). At DC the pad cell is a shunt-only network with no series element, so the driver output and the pad are the same node."
+    "measured_at_note": "pad_cell is NOT instantiated: its ESD diode shunted 107 mA at 1.25 V DC as committed when this bench ran (fixed by cd0c89a, PR #108; the corrected cell shunts 2.04 nA worst-case, see sim/pad-dc/RECORD.md). At DC the pad cell is a shunt-only network with no series element, so the driver output and the pad are the same node."
   },
   "limits_v": {
     "v_od": [
