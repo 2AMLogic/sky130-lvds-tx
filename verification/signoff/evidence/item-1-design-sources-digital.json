@@ -17,21 +17,21 @@
         "role": "source",
         "path": "flow/serializer/synth.request.json",
         "passed": true,
-        "content_hash": "sha256:7de2ca208733d480cbe9fcd75d7029bf8590704356269a28c27aba563798371d"
+        "content_hash": "sha256:171e0671f11da3c97a8a26b510c64c3c6d475e6a603a1bd40429a13362ce5189"
       },
       {
         "check": "present",
         "role": "source",
         "path": "rtl/serializer.v",
         "passed": true,
-        "content_hash": "sha256:195197ddf608528c600a07ac0047007491fb45bae51db97fba9119ff3945d847"
+        "content_hash": "sha256:ec11e6d9a9e15c56643ce4b2c91df89c10d840f60d024e713c312b4251df68fc"
       },
       {
         "check": "present",
         "role": "derived",
         "path": "flow/serializer/serializer_synth.v",
         "passed": true,
-        "content_hash": "sha256:ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74"
+        "content_hash": "sha256:a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd"
       },
       {
         "check": "command",
@@ -40,7 +40,8 @@
         "generator": "klt synthesize",
         "argv": [
           "sh",
-          "verification/signoff/check-serializer-netlist.sh"
+          "-c",
+          "PATH=\"$HOME/.local/bin:$PATH\" sh verification/signoff/check-serializer-netlist.sh"
         ],
         "cwd": ".",
         "exit_status": 0,
@@ -50,7 +51,7 @@
     ]
   },
   "provenance": {
-    "klt_version": "0.8.1.dev55+g879d39bad82b",
+    "klt_version": "0.8.0",
     "klayout_version": null,
     "pdk": null,
     "deck": null,
@@ -59,7 +60,7 @@
         "path": "verification/signoff/item-1-digital-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:4a7843befe48f1aad08aa9c9b9621b81e6ac0a60f055db11aeb46ecf91dda495"
+      "content_hash": "sha256:29e0eaba85eafb918885c968d2cbb4ee81de6b3799467bc342ed8fe1a42c7243"
     }
   }
 }

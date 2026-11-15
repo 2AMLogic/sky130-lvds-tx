@@ -56,14 +56,7 @@ def mult(c):
     return n
 def count(top, leaf_prefix):
     """total multiplicity of leaf cells whose name starts with leaf_prefix, under top"""
-    tot = 0
-    for inst in cell(top).each_inst():
-        ch = inst.cell
-        if ch.name.startswith(leaf_prefix):
-            tot += mult(ch)
-        else:
-            tot += count_sub(ch, leaf_prefix)
-    return tot
+    return count_sub(cell(top), leaf_prefix)
 def count_sub(c, leaf_prefix):
     tot = 0
     for inst in c.each_inst():

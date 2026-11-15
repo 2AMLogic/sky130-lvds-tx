@@ -1,0 +1,145 @@
+{
+  "netlist": "driver_dc.spice",
+  "models": {
+    "pdk": "sky130A",
+    "lib": "libs.tech/ngspice/sky130.lib.spice"
+  },
+  "corners": {
+    "process": [
+      "tt",
+      "ff",
+      "ss",
+      "sf",
+      "fs"
+    ],
+    "temperature_c": [
+      -40,
+      27,
+      125
+    ],
+    "supply_v": {
+      "VVCCD": [
+        1.62,
+        1.8,
+        1.98,
+        1.62,
+        1.98
+      ],
+      "VVDDIO": [
+        2.97,
+        3.3,
+        3.63,
+        3.63,
+        2.97
+      ]
+    }
+  },
+  "analysis": {
+    "kind": "op",
+    "args": ""
+  },
+  "measurements": [
+    {
+      "name": "v_od_1",
+      "expr": "v(outp1)-v(outn1)",
+      "unit": "V",
+      "limits": {
+        "min": 0.247,
+        "max": 0.454
+      },
+      "spec_row": "E1",
+      "comment": "differential output voltage, data state 1"
+    },
+    {
+      "name": "v_od_0",
+      "expr": "v(outn0)-v(outp0)",
+      "unit": "V",
+      "limits": {
+        "min": 0.247,
+        "max": 0.454
+      },
+      "spec_row": "E1",
+      "comment": "differential output voltage, data state 0"
+    },
+    {
+      "name": "v_os_1",
+      "expr": "(v(outp1)+v(outn1))/2",
+      "unit": "V",
+      "limits": {
+        "min": 1.125,
+        "max": 1.375
+      },
+      "spec_row": "E2",
+      "comment": "output common mode, data state 1, against the TIA/EIA-644 window"
+    },
+    {
+      "name": "v_os_0",
+      "expr": "(v(outp0)+v(outn0))/2",
+      "unit": "V",
+      "limits": {
+        "min": 1.125,
+        "max": 1.375
+      },
+      "spec_row": "E2",
+      "comment": "output common mode, data state 0, against the TIA/EIA-644 window"
+    },
+    {
+      "name": "v_os_reg_1",
+      "expr": "(v(outp1)+v(outn1))/2",
+      "unit": "V",
+      "limits": {
+        "min": 1.175,
+        "max": 1.325
+      },
+      "spec_row": "E2",
+      "comment": "same quantity as v_os_1, graded against the tighter 1.25 V +/- 75 mV regulation band so a band miss stays distinguishable from a window miss"
+    },
+    {
+      "name": "v_os_reg_0",
+      "expr": "(v(outp0)+v(outn0))/2",
+      "unit": "V",
+      "limits": {
+        "min": 1.175,
+        "max": 1.325
+      },
+      "spec_row": "E2",
+      "comment": "same quantity as v_os_0, graded against the 1.25 V +/- 75 mV band"
+    },
+    {
+      "name": "dv_od",
+      "expr": "abs(v(outp1)-v(outn1)) - abs(v(outp0)-v(outn0))",
+      "unit": "V",
+      "limits": {
+        "min": -0.05,
+        "max": 0.05
+      },
+      "spec_row": "E3",
+      "comment": "change in V_OD between complementary states"
+    },
+    {
+      "name": "dv_os",
+      "expr": "(v(outp1)+v(outn1))/2 - (v(outp0)+v(outn0))/2",
+      "unit": "V",
+      "limits": {
+        "min": -0.05,
+        "max": 0.05
+      },
+      "spec_row": "E4",
+      "comment": "change in V_OS between complementary states; the DC half of E4 only (V_OS(PP) is transient and out of scope here)"
+    }
+  ],
+  "options": {
+    "stage_model_inputs": true,
+    "ngspice_init": [
+      "set wnflag=1",
+      "set num_threads=1"
+    ],
+    "node_voltage_bounds": {
+      "min": -0.5,
+      "max": 4.0
+    }
+  },
+  "batch": {
+    "capacity_wait_s": 600
+  }
+}
