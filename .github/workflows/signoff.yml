@@ -55,7 +55,7 @@ jobs:
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene-r7.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r8.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
@@ -99,15 +99,14 @@ jobs:
           fi
           echo "Committed signoff record is fresh."
 
-      # Expected to fail until #115 lands (digital re-closure under the pinned
-      # toolchain): the committed item-1 digital envelope still carries its
-      # 0.8.x provenance shape, so klt 0.9.1 re-attests it as drifted. It runs
-      # LAST so the attest steps above and the record comparison report
-      # independently instead of being masked by this known failure.
+      # The committed item-1 digital envelope is the r2 re-closure under the
+      # pinned toolchain (#115): paths-shaped provenance produced by a real
+      # `klt synthesize` freshness run. It runs LAST so the attest steps above
+      # and the record comparison report independently.
       - name: Re-attest item 1 (digital) and check the committed envelope
         # The netlist freshness check is local_only (needs yosys + the PDK),
         # so this verifies file hashes and skips the re-synthesis.
         run: |
           klt signoff --attest 1 \
               --inventory verification/signoff/item-1-digital-inventory.json \
-              --check verification/signoff/evidence/item-1-design-sources-digital.json
+              --check verification/signoff/evidence/item-1-design-sources-digital-r2.json

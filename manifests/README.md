@@ -20,10 +20,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `--inventory` into `provenance.input.paths` and pins the set digest, no longer
     the inventory file's own sha256).
   - **Item 1, digital (`1.digital`)** cites
-    [`verification/signoff/evidence/item-1-design-sources-digital.json`](../verification/signoff/evidence/item-1-design-sources-digital.json),
+    [`verification/signoff/evidence/item-1-design-sources-digital-r2.json`](../verification/signoff/evidence/item-1-design-sources-digital-r2.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-digital-inventory.json`](../verification/signoff/item-1-digital-inventory.json)
-    (serializer RTL, synthesis request, committed gate-level netlist).
+    (serializer RTL, synthesis request, committed gate-level netlist; regenerated
+    under the pinned `yowasp-yosys` so the netlist freshness leg genuinely
+    passes -- the earlier `item-1-design-sources-digital.json` is kept as history,
+    bound to a host-yosys netlist build).
   - **Item 2, digital (`2.digital`)** cites
     [`verification/signoff/evidence/item-2-layout-digital-r2.json`](../verification/signoff/evidence/item-2-layout-digital-r2.json),
     a hand-written `generic` envelope bound to the routed GDS
@@ -67,9 +70,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r7.json`](../verification/signoff/evidence/item-10-repo-hygiene-r7.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r8.json`](../verification/signoff/evidence/item-10-repo-hygiene-r8.json),
     produced by `klt signoff --attest 10` from
-    [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json).
+    [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
+    (append-only; r2-r7 are kept as history, bound to earlier workflow revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
@@ -112,12 +116,12 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r7.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r8.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
-             -o verification/signoff/evidence/item-1-design-sources-digital.json
+             -o verification/signoff/evidence/item-1-design-sources-digital-r2.json
 # item 2 analog (producer from klayout-tools#4188; run it with the repo's pinned
 # .venv klt so the recorded versions are the pins -- the regeneration claim it
 # records is backed by the local_only gate below)

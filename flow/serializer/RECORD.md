@@ -42,11 +42,11 @@ late), so the bench still bites on the new design.
 
 | Field | Value |
 |---|---|
-| Request / response | `synth.request.json` / `synth.response.json` (run `run-ad87af40232e4f859f4b922d29668e9f`) |
-| Netlist | `serializer_synth.v`, sha256 `a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd` |
+| Request / response | `synth.request.json` / `synth.response.json` (run `run-b9e5c0c8159b4668b26f9ae3389bb221`) |
+| Netlist | `serializer_synth.v`, sha256 `c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353` |
 | PDK | sky130A, open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` |
-| `klt` | `0.9.2.dev1029+g76f47afa48f1` (host) |
-| Yosys | `0.67+post` |
+| `klt` | `0.9.1` (pinned venv per `scripts/setup-env.sh`) |
+| Yosys | `0.68.0.0.post1208` (yowasp wheel; wasm sha256 `e37a7e65…` verified against the pin) |
 | Result | 76 instances, 675.6 µm² (400.4 µm² sequential), 20 flops, 0 latches, 0 combinational loops |
 
 ## What this does and does not show
@@ -57,18 +57,27 @@ late), so the bench still bites on the new design.
   byte-reproducible (`run_id` differs per run), so the netlist (not the response)
   is the compared artifact. The check is `local_only`: CI re-verifies the
   inventoried files' hashes but does not re-run Yosys.
-- `timing` is ABC's `abc_stime` estimate (critical path 1160.7 ps against the
-  2000 ps target). `sta` is `null`: the `klt_statime_native` extension is not
+- `timing` is `null` in the pinned run's response (klt 0.9.1 records the
+  `timing_unavailable` warning where the older build printed ABC's `abc_stime`
+  estimate); the 2000 ps delay target is still enforced by the request's
+  `clock_period_ns`. `sta` is `null`: the `klt_statime_native` extension is not
   installed on this host, so **no gate-level STA was run and spec S3 is not
   claimed here**. Post-route STA with 10 % clock uncertainty is recorded in
   `STA.md`: setup passes at every corner inside the spec's supply range,
   including S3's reference corner `ss_100C_1v60`; the S3 verdict stays NOT MET
   only because the sub-1.62 V `ss` libraries still fail (ratification question,
   out of scope).
-- Synthesized here with the host `klt`, which is newer than the `KLT_REV` that
-  `scripts/setup-env.sh` pins (0.6.0); the item 1 envelope was attested with the
-  `signoff.yml` pin. The netlist is expected to be the same under the pinned
-  `klt`; that has not been checked.
+- Regenerated under the repo's pinned venv (`scripts/setup-env.sh`: `klt 0.9.1`,
+  `yowasp-yosys 0.68.0.0.post1208` wasm-sha-verified) per issue #115: the
+  previous netlist carried a host-yosys (`0.67+post`) header and was
+  pin-irreproducible. The logic is unchanged — same 76 instances across the
+  same 10 cell types; the regenerated netlist differs from the old one only in
+  the version header and net-alias/port-connection renames. **The routed GDS
+  does not reproduce from this netlist** (a fresh P&R yields a different
+  physical implementation — OpenROAD's resizer/CTS are net-name-sensitive);
+  that re-closure is tracked separately, and the committed
+  `serializer_routed.gds` and downstream digital envelopes correspond to the
+  previous netlist until it lands.
 
 ## Retired stand-in smoke flow
 
