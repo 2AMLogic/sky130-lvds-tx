@@ -4,6 +4,9 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #135**: docs(sim): correct unpowered-pad klayout provenance figures; state canonical-figure convention
+- **PR #132**: sim(unpowered-pad): re-run the grid against the ESD-fixed pad cell (cd0c89a)
+- **PR #131**: docs: state WORK_PLAN snapshot semantics in header, name generation-time recovery
 - **PR #129**: sim(driver-dc): instantiate the corrected pad_cell and re-grade E1/E2 at the pad node
 - **PR #127**: fix: remove unused SLOT_DEPTH_UM constant from pad generator
 - **PR #126**: docs: cite klayout-tools#5780 cause beside #5798 in TMPDIR friction record
@@ -13,6 +16,9 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 - **PR #118**: docs(layout): state the pad-seam deferral reason from live status, not issue #24
 - **PR #107**: sim: add unpowered-pad DC bench for the fail-safe well biasing
 - **PR #102**: sim: add driver DC bench recording V_OD and V_OS over the G75 grid
+- **Issue #134** (closed): sim/unpowered-pad/RECORD.md: recorded klayout client version disagrees with the committed reports (both blocks)
+- **Issue #128** (closed): WORK_PLAN.md's generated region carries no generated-at timestamp, so a stale snapshot reads as current truth
+- **Issue #125** (closed): Re-run sim/unpowered-pad bench against the ESD-fixed pad cell (cd0c89a)
 - **Issue #124** (closed): verification/README.md: cross-reference klayout-tools#5780 (traced cause) alongside #5798 for the TMPDIR-length yosys deadlock
 - **Issue #116** (closed): driver-dc bench: re-run the G75 grid with the corrected pad_cell instantiated
 - **Issue #115** (closed): Re-close the digital flow under the pinned toolchain (serializer_synth.v is not pin-reproducible; item-1 digital envelope cannot be regenerated under klt 0.9.1)
