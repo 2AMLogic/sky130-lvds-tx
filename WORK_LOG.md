@@ -4,6 +4,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #129**: sim(driver-dc): instantiate the corrected pad_cell and re-grade E1/E2 at the pad node
 - **PR #127**: fix: remove unused SLOT_DEPTH_UM constant from pad generator
 - **PR #126**: docs: cite klayout-tools#5780 cause beside #5798 in TMPDIR friction record
 - **PR #123**: docs(signoff): re-record serializer P&R artifact digests and enforce the binding
@@ -13,6 +14,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 - **PR #107**: sim: add unpowered-pad DC bench for the fail-safe well biasing
 - **PR #102**: sim: add driver DC bench recording V_OD and V_OS over the G75 grid
 - **Issue #124** (closed): verification/README.md: cross-reference klayout-tools#5780 (traced cause) alongside #5798 for the TMPDIR-length yosys deadlock
+- **Issue #116** (closed): driver-dc bench: re-run the G75 grid with the corrected pad_cell instantiated
 - **Issue #115** (closed): Re-close the digital flow under the pinned toolchain (serializer_synth.v is not pin-reproducible; item-1 digital envelope cannot be regenerated under klt 0.9.1)
 - **Issue #113** (closed): flow/serializer/PNR.md: restore the committed-artifact hash table — the routed SPEF is now pinned by nothing
 - **Issue #110** (closed): layout: the pad-seam deferral row still cites closed #24 as its live reason
