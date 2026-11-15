@@ -5,10 +5,22 @@ and P4b of `spec/target-spec.md` are proposed figures carrying the operator
 ruling of `DR-008` (2026-10-20); they are not ratified silicon limits. Nothing
 here is a measurement, and nothing here is post-layout.
 
-**Verdict: rows P4, P4a and P4b all FAIL on the committed schematics.** The
+**Verdict: rows P4, P4a and P4b all FAIL at this record's base commit.** The
 failures are recorded as findings. No schematic, device size or `spec/` text was
 changed to make a row pass — see *Findings* below for the four defects this
 bench surfaced and the follow-up work each one owes.
+
+**Base commit vs. current main:** the base commit `d7da34a8` predates `cd0c89a`
+(main, #100), which fixed finding **F1** — the pad cell's ESD diode is now
+`area=64 perim=32`, an 8.0 × 8.0 µm junction sized from row P1's budget; that
+commit cites the same 107.4 mA / 0.25 F evidence as F1 below, so the same
+defect was found independently. Everything here is pinned to the base commit
+and is deliberately not restated for the fixed netlist. F1's geometry
+investigation is discharged; what remains owed from it is only the re-run of
+this bench against the fixed cell (#125). The P4/P4a/P4b verdicts stand
+independent of the fix: F2 and F3 alone exceed row P4's limit by ~500× at the
+−40 °C corners where F1 is negligible, and F3's gate-clamping and F5's
+2.400 V are topology results the diode sizing cannot affect.
 
 | Field | Value |
 |---|---|
@@ -313,9 +325,10 @@ list forbids changing the schematics, device sizes or `spec/`, and the repo
 rule is that agents do not relax a ratified spec to make a row pass. Each
 finding names the follow-up it owes.
 
-### F1 — pad-cell ESD diode area/perimeter are ~11 orders of magnitude out (blocking)
+### F1 — pad-cell ESD diode area/perimeter are ~11 orders of magnitude out (blocking; fixed on main)
 
-`design/pad_cell/pad_cell.spice` (and `pad_cell.sch`, where it originates):
+At the base commit, `design/pad_cell/pad_cell.spice` (and `pad_cell.sch`, where
+it originates) carried:
 
 ```
 XD1 VSSIO PAD sky130_fd_pr__diode_pw2nd_11v0 area=4e14 perim=8e7
@@ -346,11 +359,15 @@ numerically untrustworthy: driving a ~10²–10³ A ideal junction from an ideal
 voltage source is what "Dynamic gmin stepping failed" and the 4271.4 A artifact
 are about.
 
-**Owed**: a follow-up issue against `design/pad_cell/` to establish the
-intended ESD diode geometry and correct `area`/`perim` in the schematic, then
-re-run this bench. Until then the *magnitudes* in the P4 table above are not
-usable as leakage figures — though the **verdicts** stand, because F2 and F3
-alone exceed the limit by 500× at the corners where F1 is negligible.
+**Fixed on main**: `cd0c89a` (#100) re-sized the diode to `area=64 perim=32` —
+an 8.0 × 8.0 µm junction sized from row P1's budget — and closed the geometry
+question this finding opens; that commit cites the same 107.4 mA / 0.25 F
+measured here, so the two efforts found the same defect independently. What
+remains owed is only the **re-run** of this bench against the fixed netlist,
+filed as #125. Until it runs, the *magnitudes* in the P4 table above describe
+the base-commit netlist and are not usable as leakage figures — though the
+**verdicts** stand, because F2 and F3 alone exceed the limit by 500× at the
+corners where F1 is negligible.
 
 ### F2 — the driver back-powers VDDIO through the current source's grounded n-well
 
