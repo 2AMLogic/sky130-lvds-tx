@@ -1,0 +1,25 @@
+* Unpowered-pad DC bench, Sweep B: row P4's differential partner pattern.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here, and
+* no title line -- under .include every line is circuit content).
+*
+* Rows P4/P4a/P4b, second condition of the P4 verification column: "the
+* partner's differential pattern (one pad at 0.9-1.6 V, the other at its
+* complement about 1.25 V)", with VCCD = VDDIO = 0 V. The complement about
+* 1.25 V is V_padn = 2.5 - V_padp: at 0.9 V the partner is 1.6 V and at
+* 1.6 V the partner is 0.9 V.
+*
+* ngspice `dc` sweeps one source at a time and cannot drive two sources
+* anti-correlated, so PSRC is swept and NSRC is derived from it with a
+* behavioural source.
+
+.include tb_unpowered.spice
+
+* --- rails: the unpowered state -----------------------------------------
+VVCCD  VCCD  0 DC 0
+VVDDIO VDDIO 0 DC 0
+VVSSIO VSSIO 0 DC 0
+
+* --- pad drive ----------------------------------------------------------
+VPSRC PSRC 0 DC 0.9
+BNSRC NSRC 0 V = 2.5 - v(PSRC)

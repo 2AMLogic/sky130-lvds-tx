@@ -23,6 +23,9 @@ sim_build/
 results.xml
 # local klt install, created by the setup script
 .venv/
+# klt sim scratch: per-corner decks/logs and the batch receipt, written to a
+# .klt/ directory next to the request file on every run (sim/*/)
+.klt/
 # >>> loom-managed (do not edit) >>>
 # Loom runtime state (don't commit these)
 .loom-in-use

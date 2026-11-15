@@ -12,3 +12,10 @@ ngspice testbenches and PVT corner results.
   pad, over G75's process and temperature axes (the supply axis is collapsed:
   the cell has no supply pin). Evidence for `P1` and the pad-side spot check of
   `P4`; it is not an ESD qualification and does not claim `P1` met.
+- `unpowered-pad/` — DC bench for the fail-safe well biasing with VCCD =
+  VDDIO = 0 V (spec rows P4, P4a, P4b; `DR-008`). Both pads swept together
+  0–2.4 V, the differential partner pattern, and the supply-ramp transient,
+  over five process corners at −40 and 125 °C. **All three rows fail at the
+  bench's pinned base commit** (`d7da34a8`, which predates the ESD-diode
+  sizing fix `cd0c89a`); the four findings and what each still owes are in
+  `unpowered-pad/RECORD.md`.
