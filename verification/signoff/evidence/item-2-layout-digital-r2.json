@@ -1,0 +1,25 @@
+{
+    "schema_version": 1,
+    "kind": "generic",
+    "status": "pass",
+    "t1_item": 2,
+    "summary": "T1 item 2 (Layout, digital): routed GDS from klt place-and-route of flow/serializer/serializer_synth.v, P&R repair aimed at ss_n40C_1v60 with a 1.6 ns implementation clock (issue #98); byte-identical on re-run at seed 1",
+    "source": "flow/serializer/serializer_routed.gds",
+    "provenance": {
+        "klt_version": "0.9.2.dev1029+g76f47afa48f1",
+        "klayout_version": "0.30.13",
+        "pdk": "sky130A",
+        "deck": null,
+        "input": {
+            "path": {
+                "path": "flow/serializer/serializer_routed.gds",
+                "scope": "repo"
+            },
+            "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce"
+        },
+        "regeneration": {
+            "generator": "sh verification/signoff/check-serializer-pnr.sh (klt place-and-route flow/serializer/pnr.request.json)",
+            "regenerated_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce"
+        }
+    }
+}

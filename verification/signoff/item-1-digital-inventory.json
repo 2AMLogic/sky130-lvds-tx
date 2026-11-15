@@ -12,7 +12,11 @@
       "path": "flow/serializer/serializer_synth.v",
       "generator": "klt synthesize",
       "check": {
-        "argv": ["sh", "verification/signoff/check-serializer-netlist.sh"],
+        "argv": [
+          "sh",
+          "-c",
+          "PATH=\"$HOME/.local/bin:$PATH\" sh verification/signoff/check-serializer-netlist.sh"
+        ],
         "local_only": true
       }
     }

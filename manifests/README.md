@@ -22,7 +22,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/item-1-digital-inventory.json`](../verification/signoff/item-1-digital-inventory.json)
     (serializer RTL, synthesis request, committed gate-level netlist).
   - **Item 2, digital (`2.digital`)** cites
-    [`verification/signoff/evidence/item-2-layout-digital.json`](../verification/signoff/evidence/item-2-layout-digital.json),
+    [`verification/signoff/evidence/item-2-layout-digital-r2.json`](../verification/signoff/evidence/item-2-layout-digital-r2.json),
     a hand-written `generic` envelope bound to the routed GDS
     `flow/serializer/serializer_routed.gds` (`klt signoff --attest` has no item 2
     producer, 2AMLogic/klayout-tools#4188). Its `regeneration` claim is backed by
@@ -38,7 +38,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
     sha256 of the GDS, not of the envelope. The driver is routed (#48); `ddr_mux` and `predriver` are placement-only.
   - **Item 3, digital (`3.digital`)** cites
-    [`verification/signoff/evidence/item-3-drc-digital.json`](../verification/signoff/evidence/item-3-drc-digital.json),
+    [`verification/signoff/evidence/item-3-drc-digital-r2.json`](../verification/signoff/evidence/item-3-drc-digital-r2.json),
     the `klt drc --deck sky130` report on `flow/serializer/serializer_routed.gds`
     (`status: clean`, 0 violations). The manifest's `content_hash` is the sha256 of the GDS.
     Coverage disclosure (verbatim from the report's `coverage` block) is in
@@ -51,13 +51,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 4 (LVS)** is cited per partition with `klt lvs` reports (`engine: klayout`, `status: match`); the manifest's `content_hash` is the sha256 of the layout GDS.
-    `4.digital` cites [`item-4-lvs-digital-r2.json`](../verification/signoff/evidence/item-4-lvs-digital-r2.json)
+    `4.digital` cites [`item-4-lvs-digital-r3.json`](../verification/signoff/evidence/item-4-lvs-digital-r3.json)
     (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified).
     `4.analog` cites [`item-4-lvs-analog-r2-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json),
     which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`; the unmodified-netlist report `item-4-lvs-analog-r2.json` is `mismatch` and kept as history. Pad/ESD devices are outside the driver top.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
-    `11.digital` is **met**: [`item-11-erc-digital.json`](../verification/signoff/evidence/item-11-erc-digital.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r2.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
+    `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r4.json`](../verification/signoff/evidence/item-10-repo-hygiene-r4.json),

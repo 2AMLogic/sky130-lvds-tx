@@ -76,7 +76,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:4a7843befe48f1aad08aa9c9b9621b81e6ac0a60f055db11aeb46ecf91dda495",
+        "content_hash": "sha256:29e0eaba85eafb918885c968d2cbb4ee81de6b3799467bc342ed8fe1a42c7243",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -85,7 +85,7 @@
             "path": "verification/signoff/item-1-digital-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:4a7843befe48f1aad08aa9c9b9621b81e6ac0a60f055db11aeb46ecf91dda495",
+          "content_hash": "sha256:29e0eaba85eafb918885c968d2cbb4ee81de6b3799467bc342ed8fe1a42c7243",
           "input_verified": true,
           "summary": "T1 item 1 (Design sources): 4/4 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-1-digital-inventory.json",
@@ -147,11 +147,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-2-layout-digital.json",
+        "file": "verification/signoff/evidence/item-2-layout-digital-r2.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+        "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -160,13 +160,13 @@
             "path": "flow/serializer/serializer_routed.gds",
             "scope": "repo"
           },
-          "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+          "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
           "input_verified": true,
-          "summary": "T1 item 2 (Layout, digital): routed GDS from klt place-and-route of flow/serializer/serializer_synth.v; byte-identical on re-run at seed 1",
+          "summary": "T1 item 2 (Layout, digital): routed GDS from klt place-and-route of flow/serializer/serializer_synth.v, P&R repair aimed at ss_n40C_1v60 with a 1.6 ns implementation clock (issue #98); byte-identical on re-run at seed 1",
           "source": "flow/serializer/serializer_routed.gds",
           "regeneration": {
             "generator": "sh verification/signoff/check-serializer-pnr.sh (klt place-and-route flow/serializer/pnr.request.json)",
-            "regenerated_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+            "regenerated_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
             "executed_by_klt": false
           }
         }
@@ -206,11 +206,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-3-drc-digital.json",
+        "file": "verification/signoff/evidence/item-3-drc-digital-r2.json",
         "command": null,
         "kind": "drc",
         "check_status": "clean",
-        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+        "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
         "input_verified": true,
         "exit_status": 0,
         "coverage": {
@@ -343,11 +343,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
+        "file": "verification/signoff/evidence/item-4-lvs-digital-r3.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+        "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
         "input_verified": true,
         "exit_status": 0
       }
@@ -694,29 +694,29 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-11-erc-digital.json",
+        "file": "verification/signoff/evidence/item-11-erc-digital-r2.json",
         "command": null,
         "kind": "erc",
         "check_status": "not_checked",
-        "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+        "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
           {
-            "file": "verification/signoff/evidence/item-11-erc-digital.json",
+            "file": "verification/signoff/evidence/item-11-erc-digital-r2.json",
             "command": null,
             "kind": "erc",
             "check_status": "not_checked",
-            "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+            "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
             "input_verified": true,
             "exit_status": 0
           },
           {
-            "file": "verification/signoff/evidence/item-4-lvs-digital-r2.json",
+            "file": "verification/signoff/evidence/item-4-lvs-digital-r3.json",
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:6a1239459c67b47fa001177b6be4d3f66abc7fb8e42f0e743fd5a0ee796cb8ff",
+            "content_hash": "sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce",
             "input_verified": true,
             "exit_status": 0
           },
@@ -725,7 +725,7 @@
             "command": null,
             "kind": "place-and-route",
             "check_status": "ok",
-            "content_hash": "sha256:ef27a14ba381f0032c5add3d11b0cdbb7efd82a52f305cf9c7094b1dd841ac74",
+            "content_hash": "sha256:a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd",
             "input_verified": null,
             "exit_status": 0
           }

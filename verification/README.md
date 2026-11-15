@@ -48,16 +48,17 @@ Reuse decision for the sibling's runner: `spec/decisions/0001-verification-runne
 
 T1 checklist item 3, one `klt drc` report per partition, committed under
 `verification/signoff/evidence/` and cited from `manifests/sky130-lvds-tx.json`.
-Deck `sky130` (content hash `sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267`,
-`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.0` for the analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`) and `0.8.1.dev181+g70d73835514c` for the digital one.
+Deck `sky130` (content hash `sha256:36027b82e3b16075e72b8e21775cde47ba7d08b7636efa4b73e9c34732a28efd` for the digital `r2` report,
+`sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` for the analog `r3`,
+`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.0` for the analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`), `0.8.1.dev181+g70d73835514c` for the earlier digital report and `0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98 netlist.
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
         layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r3.json
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --format json \
-        flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital.json
+        flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital-r2.json
     klt drc --check verification/signoff/evidence/item-3-drc-analog-r3.json --pdk-root "$PDK_ROOT"
-    klt drc --check verification/signoff/evidence/item-3-drc-digital.json --pdk-root "$PDK_ROOT"
+    klt drc --check verification/signoff/evidence/item-3-drc-digital-r2.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
 it needs the PDK and is not run in CI.
@@ -101,7 +102,7 @@ not this copy, if they differ):
 Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
-The manifest cites `item-4-lvs-digital-r2.json` (`4.digital`) and
+The manifest cites `item-4-lvs-digital-r3.json` (`4.digital`) and
 `item-4-lvs-analog-r2-scale-expanded.json` (`4.analog`); both grade `met`.
 **The analog citation compares against a derived netlist, not `design/driver/driver.spice`:**
 `verification/signoff/lvs/expand-scale.py` substitutes the `SCALE=11` value into `m={SCALE}`
@@ -113,7 +114,7 @@ by this LVS. Reports are append-only; earlier ones are kept.
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
 | Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` unmodified netlist; `match` scale-expanded (cited) | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). |
-| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r2.json` (klt with the #4363 fix): signal compare matches, `power_connectivity.status: "match"`, no findings, `reference.form: "gate-level-verilog"`, report `--check` clean. The `VNB`/`VPB` well-layer LEF pins (248 instances) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) is kept as append-only evidence. |
+| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r3.json` (re-run on the issue-#98 netlist with klt `0.9.2.dev1029+g76f47afa48f1`, schema 3; same verdict shape as the `r2` report below): signal compare matches, `power_connectivity.status: "match"`, no error findings, `reference.form: "gate-level-verilog"`. The `VNB`/`VPB` well-layer LEF pins (275 instances) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) and the `r2` report (the #4363-fix re-run, 248 instances) are kept as append-only evidence. |
 
 **Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
 `verification/signoff/evidence/item-4-lvs-digital-diagnosis.md`. A transistor-level
@@ -145,8 +146,8 @@ without it the routed GDS extracts 719 flat transistors against a 0-device
 reference. Re-run with:
 
     export PDK_ROOT=~/.ciel PDK=sky130A
-    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json > verification/signoff/evidence/item-4-lvs-digital-r2.json
-    klt lvs --check verification/signoff/evidence/item-4-lvs-digital-r2.json   # drift check
+    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json > verification/signoff/evidence/item-4-lvs-digital-r3.json
+    klt lvs --check verification/signoff/evidence/item-4-lvs-digital-r3.json   # drift check
 
 The digital `r2` report was produced with
 `uvx --from git+https://github.com/2AMLogic/klayout-tools@6f28dd6d74de81845995045c87689961092df924 klt`
@@ -156,8 +157,7 @@ The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
 
 ## T1 item 11: power delivery (`klt erc` supply spec)
 
-Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`klayout-tools==0.8.0`,
-`klt erc --check` passes on both): `verification/signoff/evidence/item-11-erc-{analog,digital}.json`.
+Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports: `verification/signoff/evidence/item-11-erc-{analog,digital}.json` (the analog report and the earlier digital one produced with `klayout-tools==0.8.0`, where `klt erc --check` passes; the digital `r2` report is the re-run on the issue-#98 netlist with klt `0.9.2.dev1029+g76f47afa48f1`, same verdict, same 7.3 % uncovered tap fraction).
 
 - **Digital: met.** Serializer `VCCD` and `VSS` each resolve to one island, zero findings, `erc_coverage.skipped` empty.
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted
