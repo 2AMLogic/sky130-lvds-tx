@@ -158,7 +158,11 @@ pad current is **0.235–1.75 mA**, still 12×–87× the limit; at 125 °C it i
 common-mode sense resistors are an active pad-to-pad divider (finding F4).
 
 The mildest condition measured anywhere is the ramp's static state (both pads
-at 1.25 V, −40 °C): 8.03–72.4 µA per pad. Even that exceeds ±20 µA.
+at 1.25 V, −40 °C): 8.03–72.4 µA per pad (both pads carry the same current
+there, by symmetry). It is also the only place in this bench where the ±20 µA
+limit is met at any corner — `sf` (8.03 µA), `ss` (8.82 µA) and `tt` (14.23 µA)
+come in under it, while `ff` (37.10 µA) and `fs` (72.39 µA) do not. Row P4's own
+graded conditions are the two DC sweeps, which fail at every graded corner.
 
 ## Row P4a — junction forward bias, per device: **FAIL**
 
