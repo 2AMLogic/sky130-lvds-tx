@@ -39,7 +39,10 @@ in that PR's body; recorded here so the repo carries them.
 **`TMPDIR` must be a short path.** `klt synthesize`'s yosys → `yosys-abc`
 invocation deadlocks when the `TMPDIR` path is longer than ~35 characters:
 yosys blocks reading abc's stdout while abc polls stdin, with no diagnostic
-and no timeout. The trigger is the path *length*, not that `TMPDIR` is
+and no timeout on this host —
+[#5780](https://github.com/2AMLogic/klayout-tools/issues/5780) reports the
+300 s yosys watchdog firing in its own configuration. The trigger is the
+path *length*, not that `TMPDIR` is
 non-default — a short custom `TMPDIR` is fine. Measured 2026-11-15 against
 klt `0.9.2.dev1029+g76f47afa48f1` and host yosys `0.67+post` (git
 `b8e7da6f`): `/tmp` (4 characters), a 10-character and a 35-character
@@ -47,7 +50,12 @@ klt `0.9.2.dev1029+g76f47afa48f1` and host yosys `0.67+post` (git
 `TMPDIR` is ~64 characters, so it hangs. Remedy: `TMPDIR=/tmp` — it works
 because it is *short*, not because it is the default. Filed upstream as
 [2AMLogic/klayout-tools#5798](https://github.com/2AMLogic/klayout-tools/issues/5798)
-(adjacent: [#5773](https://github.com/2AMLogic/klayout-tools/issues/5773),
+alongside
+[#5780](https://github.com/2AMLogic/klayout-tools/issues/5780), the filing
+that carries the traced cause: readline's wrapped echo of the
+`source <abc.script>` line breaks yosys's ABC `source` handshake, so both
+sides block (adjacent:
+[#5773](https://github.com/2AMLogic/klayout-tools/issues/5773),
 the yosys watchdog, which did not fire on the multi-hour hangs observed).
 
 **Why `item-1-digital-inventory.json` prepends `$HOME/.local/bin` to `PATH`.**
@@ -59,9 +67,10 @@ cannot grade, and pinned-`0.8.0` `synthesize` maps a different netlist than
 the committed one (second half disclosed in PR #111, not independently
 re-measured here). So the attestation is graded under the pin while the
 freshness re-synthesis runs with the host tools, which makes local
-re-attestation silently host-dependent. The provenance-shape half is tracked
+re-attestation silently host-dependent. The provenance-shape half was tracked
 upstream as
-[2AMLogic/klayout-tools#5767](https://github.com/2AMLogic/klayout-tools/issues/5767);
+[2AMLogic/klayout-tools#5767](https://github.com/2AMLogic/klayout-tools/issues/5767),
+closed as not planned on 2026-11-15;
 the cross-version `synthesize` mapping half is deferred to the
 netlist-reproducibility work in #115 rather than filed blind.
 
