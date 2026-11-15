@@ -605,7 +605,7 @@ past `sim/pad-dc/`'s 2.4 V ceiling:
 | Where | Pad node bias (V_OS ∓ V_OD/2) | `ishunt_p1` | `ishunt_n1` |
 |---|---|---|---|
 | nominal, `tt`/27 °C/1.80 V/3.30 V | 1.4287 / 1.0788 V | 8.64 pA | 6.74 pA |
-| all 25 −40 °C corners | ≈1.07–1.44 V | 6.6–9.7 pA | 5.4–8.2 pA |
+| all 25 −40 °C corners | ≈1.07–1.92 V (upper end `fs`/1.62 V/2.97 V/−40 °C) | 6.6–9.7 pA | 5.4–8.2 pA |
 | grid max, `sf`/1.62 V/3.63 V/125 °C | 1.4368 / 1.0798 V | **2.117 nA** | 1.982 nA |
 | **`fs`/1.62 V/3.63 V/125 °C** | **2.6566** / 2.5291 V | **1.118 nA** | 1.109 nA |
 | **`ss`/1.62 V/3.63 V/125 °C** | **2.4508** / 2.2337 V | **1.205 nA** | 1.185 nA |
