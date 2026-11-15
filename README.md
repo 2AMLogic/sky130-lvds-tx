@@ -53,7 +53,7 @@ pad-ring problem a two-PDK one.
   out of scope.
 - **Not claimed**: compliance with any interface standard. See `CLAUDE.md`.
 
-## Target specification (PROPOSED — not yet ratified)
+## Target specification (PROPOSED — not yet ratified, see issue #2)
 
 `spec/target-spec.md` and its decision records `DR-001`…`DR-008` are the
 authority; the table below is a summary. The spec is marked *proposed* and its
