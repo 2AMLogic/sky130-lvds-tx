@@ -201,19 +201,22 @@ written to every block.
      sub-case, this item is satisfied instead by the Analog column's
      artifact: committed GDS/OASIS, reproducibly generated or with
      documented provenance — hand-drawn layout, not P&R output.
-   - **Regeneration-freshness caveat (repo-local)**: a `regeneration`
+   - **Regeneration-freshness note (repo-local)**: a `regeneration`
      claim on this item is only as fresh as the netlist its generator
-     runs on. The serializer digital partition's gate-level netlist was
-     regenerated under the pinned `yowasp-yosys`
-     (2AMLogic/sky130-lvds-tx#115), moving it out from under the committed
-     digital evidence: `item-2-layout-digital-r2.json` records
-     `regenerated_hash: sha256:1cecbc44…` produced from the
-     pre-regeneration netlist, so the routed GDS that envelope binds will
-     not reproduce from the current tree until the re-closure lands
-     (2AMLogic/sky130-lvds-tx#119, sequenced behind the pin decision in
-     2AMLogic/sky130-lvds-tx#120). A claim citing **item 2 digital** must
-     read that envelope's `provenance.regeneration` and state the drift;
-     the analog partition's driver-pad GDS is unaffected.
+     runs on. The serializer digital partition was re-closed against the
+     current `serializer_synth.v` — the pinned-`yowasp-yosys` regeneration
+     of 2AMLogic/sky130-lvds-tx#115 — by 2AMLogic/sky130-lvds-tx#119:
+     `item-2-layout-digital-r3.json` records
+     `regenerated_hash: sha256:f5de0988…`, reproduced byte-identically by
+     `verification/signoff/check-serializer-pnr.sh` at seed 1 (the r2
+     envelope, bound to the pre-regeneration netlist's
+     `sha256:1cecbc44…`, stays as history). The P&R backend is
+     net-name-sensitive: a future regeneration of the netlist changes the
+     routed GDS bytes even at identical connectivity, because OpenROAD's
+     resizer and CTS follow net and instance names. A byte-compare failure
+     after a netlist regeneration therefore means the digital evidence
+     must be re-closed — as #119 did — not that the flow broke; the
+     analog partition's driver-pad GDS is unaffected.
 3. **DRC clean** — latest `klt drc` JSON report: `status: clean`, fresh,
    with the deck identified (content hash). Known deck coverage gaps
    (rule-free layers, skipped rules) must be enumerated in the claim, not
@@ -517,19 +520,18 @@ written to every block.
       column's artifacts, exactly as items 1, 2, and 5 are: there is no
       `klt place-and-route` response to cite, and the hand-drawn block's
       SPICE-reference LVS already carries its supplies.
-    - **Citation-freshness caveat (repo-local)**: a `klt place-and-route`
-      response cited for this item pins its input netlist by content hash,
-      and the serializer digital partition's netlist was regenerated under
-      the pinned `yowasp-yosys` (2AMLogic/sky130-lvds-tx#115) after the
-      committed response was produced: its
-      `provenance.input.content_hash` names the superseded netlist
-      (`sha256:a353a87b…`), so `klt place-and-route --check` reports
-      `status: drifted` on it at the current head. The structural facts it
-      records (`power.pdn`, tapcell) describe the routed GDS built from the
-      pre-regeneration netlist; the re-closure re-runs P&R and the digital
-      envelopes that cite it (2AMLogic/sky130-lvds-tx#119, behind
-      2AMLogic/sky130-lvds-tx#120). A claim citing **item 11 digital** must
-      state that the cited response predates the netlist regeneration.
+    - **Citation-freshness note (repo-local)**: a `klt place-and-route`
+      response cited for this item pins its input netlist by content hash.
+      The serializer digital partition's response is current: it was
+      re-run from the regenerated netlist by 2AMLogic/sky130-lvds-tx#119,
+      and its `provenance.input.content_hash` names the committed
+      `serializer_synth.v` (`sha256:c9760e74…`, the pinned-`yowasp-yosys`
+      regeneration of 2AMLogic/sky130-lvds-tx#115), so `klt place-and-route
+      --check` reports `match` and the `power.pdn`/tapcell facts it records
+      describe the routed GDS the digital envelopes bind. The backend is
+      net-name-sensitive, so a future netlist regeneration is expected to
+      drift the response again; re-run P&R and the digital envelopes that
+      cite it — as #119 did — rather than suppressing the check.
     - Both columns rest on the same `klt erc` **supply spec** run
       (`docs/cli/erc.md`): a spec declaring every supply as a `nets[]`
       entry with `"kind": "supply"`, a stackup covering the layers the

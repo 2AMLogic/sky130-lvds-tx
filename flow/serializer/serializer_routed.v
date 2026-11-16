@@ -31,16 +31,16 @@ module serializer (clk,
  wire _019_;
  wire _020_;
  wire _021_;
- wire word_clk5;
+ wire net3;
  wire _023_;
  wire _024_;
  wire _025_;
- wire net4;
+ wire net2;
  wire _027_;
  wire _028_;
  wire _029_;
  wire _030_;
- wire clknet_1_1__leaf_clk;
+ wire net6;
  wire _032_;
  wire _033_;
  wire _034_;
@@ -67,44 +67,45 @@ module serializer (clk,
  wire _055_;
  wire capture;
  wire load;
- wire net1;
- wire net6;
- wire clknet_1_0__leaf_clk;
+ wire net4;
+ wire net5;
  wire clknet_0_clk;
+ wire clknet_1_0__leaf_clk;
+ wire clknet_1_1__leaf_clk;
  wire [7:0] cap;
  wire [0:0] cnt;
  wire [7:0] sr;
 
- sky130_fd_sc_hd__nand2_1 _057_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _057_ (.A(net6),
     .B(din[2]),
     .Y(_023_));
- sky130_fd_sc_hd__nand2b_1 _058_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _058_ (.A_N(net4),
     .B(cap[2]),
     .Y(_024_));
  sky130_fd_sc_hd__clkbuf_1 _059_ (.A(rst),
     .X(_025_));
- sky130_fd_sc_hd__a21oi_1 _061_ (.A1(_023_),
-    .A2(_024_),
+ sky130_fd_sc_hd__a21oi_1 _061_ (.A1(_024_),
+    .A2(_023_),
     .B1(_025_),
     .Y(_000_));
- sky130_fd_sc_hd__nand2_1 _062_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _062_ (.A(net6),
     .B(din[1]),
     .Y(_027_));
- sky130_fd_sc_hd__nand2b_1 _063_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _063_ (.A_N(net4),
     .B(cap[1]),
     .Y(_028_));
- sky130_fd_sc_hd__a21oi_1 _064_ (.A1(_027_),
-    .A2(_028_),
+ sky130_fd_sc_hd__a21oi_1 _064_ (.A1(_028_),
+    .A2(_027_),
     .B1(_025_),
     .Y(_001_));
- sky130_fd_sc_hd__nand2_1 _065_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _065_ (.A(net6),
     .B(din[0]),
     .Y(_029_));
- sky130_fd_sc_hd__nand2b_1 _066_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _066_ (.A_N(net4),
     .B(cap[0]),
     .Y(_030_));
- sky130_fd_sc_hd__a21oi_1 _067_ (.A1(_029_),
-    .A2(_030_),
+ sky130_fd_sc_hd__a21oi_1 _067_ (.A1(_030_),
+    .A2(_029_),
     .B1(_025_),
     .Y(_002_));
  sky130_fd_sc_hd__nand2b_1 _069_ (.A_N(load),
@@ -117,28 +118,28 @@ module serializer (clk,
     .A2(_033_),
     .B1(_025_),
     .Y(_003_));
- sky130_fd_sc_hd__nor2_1 _072_ (.A(net6),
+ sky130_fd_sc_hd__nor2_1 _072_ (.A(net3),
     .B(_025_),
     .Y(_004_));
  sky130_fd_sc_hd__nand2b_1 _073_ (.A_N(_025_),
-    .B(net6),
+    .B(net3),
     .Y(_034_));
  sky130_fd_sc_hd__nor3b_2 _074_ (.A(cnt[0]),
     .B(_025_),
-    .C_N(net1),
+    .C_N(word_clk),
     .Y(_008_));
- sky130_fd_sc_hd__o21bai_1 _075_ (.A1(word_clk5),
+ sky130_fd_sc_hd__o21bai_1 _075_ (.A1(word_clk),
     .A2(_034_),
     .B1_N(_008_),
     .Y(_005_));
- sky130_fd_sc_hd__nand2_1 _076_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _076_ (.A(net6),
     .B(din[7]),
     .Y(_035_));
- sky130_fd_sc_hd__nand2b_1 _077_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _077_ (.A_N(net4),
     .B(cap[7]),
     .Y(_036_));
- sky130_fd_sc_hd__a21oi_1 _078_ (.A1(_035_),
-    .A2(_036_),
+ sky130_fd_sc_hd__a21oi_1 _078_ (.A1(_036_),
+    .A2(_035_),
     .B1(_025_),
     .Y(_006_));
  sky130_fd_sc_hd__inv_1 _079_ (.A(cap[7]),
@@ -149,7 +150,7 @@ module serializer (clk,
  sky130_fd_sc_hd__nor2_1 _081_ (.A(_037_),
     .B(_038_),
     .Y(_007_));
- sky130_fd_sc_hd__nor2_1 _082_ (.A(word_clk5),
+ sky130_fd_sc_hd__nor2_1 _082_ (.A(word_clk),
     .B(_034_),
     .Y(_009_));
  sky130_fd_sc_hd__nand2b_1 _083_ (.A_N(load),
@@ -182,14 +183,14 @@ module serializer (clk,
     .A2(_044_),
     .B1(_025_),
     .Y(_012_));
- sky130_fd_sc_hd__nand2_1 _092_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _092_ (.A(net6),
     .B(din[5]),
     .Y(_045_));
- sky130_fd_sc_hd__nand2b_1 _093_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _093_ (.A_N(net4),
     .B(cap[5]),
     .Y(_046_));
- sky130_fd_sc_hd__a21oi_1 _094_ (.A1(_045_),
-    .A2(_046_),
+ sky130_fd_sc_hd__a21oi_1 _094_ (.A1(_046_),
+    .A2(_045_),
     .B1(_025_),
     .Y(_013_));
  sky130_fd_sc_hd__nand2b_1 _095_ (.A_N(load),
@@ -217,41 +218,41 @@ module serializer (clk,
  sky130_fd_sc_hd__nor2_1 _102_ (.A(_051_),
     .B(_038_),
     .Y(_016_));
- sky130_fd_sc_hd__nand2_1 _103_ (.A(capture),
+ sky130_fd_sc_hd__nand2_4 _103_ (.A(net6),
     .B(din[3]),
     .Y(_052_));
- sky130_fd_sc_hd__nand2b_1 _104_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _104_ (.A_N(net5),
     .B(cap[3]),
     .Y(_053_));
- sky130_fd_sc_hd__a21oi_1 _105_ (.A1(_052_),
-    .A2(_053_),
+ sky130_fd_sc_hd__a21oi_1 _105_ (.A1(_053_),
+    .A2(_052_),
     .B1(_025_),
     .Y(_017_));
- sky130_fd_sc_hd__nand2_1 _106_ (.A(capture),
+ sky130_fd_sc_hd__nand2_1 _106_ (.A(net4),
     .B(din[6]),
     .Y(_054_));
- sky130_fd_sc_hd__nand2b_1 _107_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _107_ (.A_N(net5),
     .B(cap[6]),
     .Y(_055_));
- sky130_fd_sc_hd__a21oi_1 _108_ (.A1(_054_),
-    .A2(_055_),
+ sky130_fd_sc_hd__a21oi_1 _108_ (.A1(_055_),
+    .A2(_054_),
     .B1(_025_),
     .Y(_018_));
- sky130_fd_sc_hd__nand2_1 _109_ (.A(din[4]),
-    .B(capture),
+ sky130_fd_sc_hd__nand2_4 _109_ (.A(din[4]),
+    .B(net6),
     .Y(_020_));
- sky130_fd_sc_hd__nand2b_1 _110_ (.A_N(capture),
+ sky130_fd_sc_hd__nand2b_1 _110_ (.A_N(net4),
     .B(cap[4]),
     .Y(_021_));
- sky130_fd_sc_hd__a21oi_1 _111_ (.A1(_020_),
-    .A2(_021_),
+ sky130_fd_sc_hd__a21oi_1 _111_ (.A1(_021_),
+    .A2(_020_),
     .B1(_025_),
     .Y(_019_));
  sky130_fd_sc_hd__dfxtp_4 _112_ (.CLK(clknet_1_0__leaf_clk),
     .D(_009_),
     .Q(capture));
  sky130_fd_sc_hd__dfxtp_4 _113_ (.CLK(clknet_1_0__leaf_clk),
-    .D(net4),
+    .D(net2),
     .Q(load));
  sky130_fd_sc_hd__dfxtp_1 _114_ (.CLK(clknet_1_0__leaf_clk),
     .D(_016_),
@@ -262,16 +263,16 @@ module serializer (clk,
  sky130_fd_sc_hd__dfxtp_1 _116_ (.CLK(clknet_1_1__leaf_clk),
     .D(_015_),
     .Q(sr[0]));
- sky130_fd_sc_hd__dfxtp_1 _117_ (.CLK(clknet_1_1__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _117_ (.CLK(clknet_1_0__leaf_clk),
     .D(_014_),
     .Q(sr[1]));
- sky130_fd_sc_hd__dfxtp_1 _118_ (.CLK(clknet_1_0__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _118_ (.CLK(clknet_1_1__leaf_clk),
     .D(_012_),
     .Q(sr[2]));
- sky130_fd_sc_hd__dfxtp_1 _119_ (.CLK(clknet_1_1__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _119_ (.CLK(clknet_1_0__leaf_clk),
     .D(_011_),
     .Q(sr[3]));
- sky130_fd_sc_hd__dfxtp_1 _120_ (.CLK(clknet_1_0__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _120_ (.CLK(clknet_1_1__leaf_clk),
     .D(_003_),
     .Q(sr[4]));
  sky130_fd_sc_hd__dfxtp_1 _121_ (.CLK(clknet_1_1__leaf_clk),
@@ -280,16 +281,16 @@ module serializer (clk,
  sky130_fd_sc_hd__dfxtp_1 _122_ (.CLK(clknet_1_1__leaf_clk),
     .D(_002_),
     .Q(cap[0]));
- sky130_fd_sc_hd__dfxtp_1 _123_ (.CLK(clknet_1_1__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _123_ (.CLK(clknet_1_0__leaf_clk),
     .D(_001_),
     .Q(cap[1]));
- sky130_fd_sc_hd__dfxtp_1 _124_ (.CLK(clknet_1_0__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _124_ (.CLK(clknet_1_1__leaf_clk),
     .D(_000_),
     .Q(cap[2]));
- sky130_fd_sc_hd__dfxtp_1 _125_ (.CLK(clknet_1_1__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _125_ (.CLK(clknet_1_0__leaf_clk),
     .D(_017_),
     .Q(cap[3]));
- sky130_fd_sc_hd__dfxtp_1 _126_ (.CLK(clknet_1_0__leaf_clk),
+ sky130_fd_sc_hd__dfxtp_1 _126_ (.CLK(clknet_1_1__leaf_clk),
     .D(_019_),
     .Q(cap[4]));
  sky130_fd_sc_hd__dfxtp_1 _127_ (.CLK(clknet_1_1__leaf_clk),
@@ -306,7 +307,7 @@ module serializer (clk,
     .Q(cnt[0]));
  sky130_fd_sc_hd__dfxtp_1 _131_ (.CLK(clknet_1_0__leaf_clk),
     .D(_005_),
-    .Q(net1));
+    .Q(word_clk));
  sky130_fd_sc_hd__buf_4 clkbuf_0_clk (.A(clk),
     .X(clknet_0_clk));
  sky130_fd_sc_hd__buf_4 clkbuf_1_0__f_clk (.A(clknet_0_clk),
@@ -314,13 +315,16 @@ module serializer (clk,
  sky130_fd_sc_hd__buf_4 clkbuf_1_1__f_clk (.A(clknet_0_clk),
     .X(clknet_1_1__leaf_clk));
  sky130_fd_sc_hd__inv_1 clkload0 (.A(clknet_1_1__leaf_clk));
- sky130_fd_sc_hd__buf_4 place4 (.A(_008_),
-    .X(net4));
- sky130_fd_sc_hd__buf_4 place5 (.A(net1),
-    .X(word_clk5));
- sky130_fd_sc_hd__buf_4 place6 (.A(cnt[0]),
+ sky130_fd_sc_hd__clkbuf_16 clone6 (.A(capture),
     .X(net6));
+ sky130_fd_sc_hd__buf_4 place2 (.A(_008_),
+    .X(net2));
+ sky130_fd_sc_hd__buf_4 place3 (.A(cnt[0]),
+    .X(net3));
+ sky130_fd_sc_hd__buf_12 place4 (.A(capture),
+    .X(net4));
+ sky130_fd_sc_hd__buf_4 place5 (.A(capture),
+    .X(net5));
  assign dout[0] = sr[0];
  assign dout[1] = sr[1];
- assign word_clk = word_clk5;
 endmodule
