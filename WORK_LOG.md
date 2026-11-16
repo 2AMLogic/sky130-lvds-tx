@@ -4,6 +4,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-16
 
+- **PR #148**: chore(loom): resync installed Loom to v0.19.1302
 - **PR #150**: fix: existence-check in_tree[].decision pointers in the reuse-lock gate
 - **Issue #146** (closed): reuse.lock.json's in_tree[].decision pointers are not existence-checked by the new reuse-lock gate
 - **PR #147**: fix(verification): bind item-3 DRC deck provenance to its envelopes
