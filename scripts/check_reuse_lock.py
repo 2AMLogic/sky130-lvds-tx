@@ -78,6 +78,13 @@ def main() -> int:
                 failures += 1
                 print(f"MISSING: {diverged} (diverged: pointer for {local})")
 
+    # A gate that checks nothing must not look like one that passed: an
+    # imports[] entry removed, or a mode flipped away from `vendored`, would
+    # otherwise exit 0 vacuously.
+    if checked == 0:
+        failures += 1
+        print("VACUOUS: no vendored entries found in reuse.lock.json - nothing was checked")
+
     print(f"reuse.lock: {checked} vendored entr{'y' if checked == 1 else 'ies'} checked, "
           f"{failures} failure{'s' if failures != 1 else ''}")
     return 1 if failures else 0

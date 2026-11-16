@@ -5,6 +5,13 @@ on:
   push:
     branches: [main]
 
+# Both jobs are checkout + setup-python + local scripts; neither touches the
+# token or writes to the repo (same shape as signoff.yml, which runs under
+# `contents: read`). Explicit is required: an absent permissions block is a
+# CodeQL finding.
+permissions:
+  contents: read
+
 jobs:
   verification:
     runs-on: ubuntu-latest
