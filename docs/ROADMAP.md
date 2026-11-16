@@ -4,12 +4,11 @@ A ~1 Gb/s-per-lane LVDS-class transmitter on SkyWater sky130 (synthesized
 serializer, custom current-steering driver, custom pad cell), built as a canary
 that exercises klayout-tools (`klt`) on a mixed-signal block.
 
-Status as of 2026-11-13, `main` @ `d7da34a`.
+Status as of 2026-11-16, `main` @ `c3d2472`.
 
 `WORK_PLAN.md` is the generated label-state view and `WORK_LOG.md` the merge
 history; the evidence verdict of record is
-`manifests/sky130-lvds-tx.signoff.json`, tracked in #6. The README's "just
-opened, specification phase" status line is stale (see Next).
+`manifests/sky130-lvds-tx.signoff.json`, tracked in #6.
 
 ## Where it stands
 
@@ -19,7 +18,7 @@ unpowered behaviour). The ratification record in the spec header is still
 "not yet".
 
 **T1 checklist (`manifests/design-evidence-tiers.md`): 13 of 22 rows met**, per
-the committed `klt signoff` record (klt 0.8.0). `manifests/README.md` still
+the committed `klt signoff` record (klt 0.9.1). `manifests/README.md` still
 says 12; the record is the authority.
 
 | Item | Analog | Digital | Evidence / note |
@@ -32,48 +31,63 @@ says 12; the record is the authority.
 | 6 Monte Carlo | unmet | unmet | no evidence |
 | 7 Post-layout verification | unmet | unmet | no evidence |
 | 8 Characterization report | unmet | unmet | no evidence |
-| 9 Testbenches shipped | met | met | cocotb serializer bench with negative control; analog PDK smoke only |
+| 9 Testbenches shipped | met | met | cocotb serializer bench with negative control; the attested analog inventory is still `sim/pdk-smoke` only — the recorded `sim/driver-dc`, `sim/pad-dc` and `sim/unpowered-pad` benches are not yet item 9 evidence |
 | 10 Repo hygiene | met | met | attested, CI-checked (`.github/workflows/signoff.yml`) |
 | 11 Power delivery (structural) | met | met | `klt erc` supply specs (#26, #74); analog has two declared gaps (#77) |
 
 Two results that the table does not show:
 
-- **Serializer spec row S3 is not met.** Post-route STA with 10 % clock
-  uncertainty passes at every `tt`/`ff` Liberty corner and fails setup at
-  every `ss` corner: WNS -0.569 ns at the reference corner `ss_100C_1v60`,
-  -0.147 ns at `ss_n40C_1v76` (`flow/serializer/STA.md`, #82). Three output
+- **Serializer spec row S3 is still not met — but setup now passes at every
+  corner inside the spec's core-supply window.** Post-route STA with 10 % clock
+  uncertainty passes at every `tt`/`ff` Liberty corner and at the three `ss`
+  corners inside the supply window: WNS +0.173 ns at the reference corner
+  `ss_100C_1v60`, +0.035 ns at the binding `ss_n40C_1v60`, +0.488 ns at
+  `ss_n40C_1v76`. It still fails at the five `ss` libraries at 1.28–1.44 V,
+  below the spec's 1.62 V supply floor, worst -4.055 ns at `ss_n40C_1v28`; the
+  row says "every Liberty corner", so the verdict stays NOT MET until that
+  wording is revisited at ratification (`flow/serializer/STA.md`, re-run on
+  klt 0.9.1 after the #98 RTL restructure and the #119 re-route). Three output
   ports carry no output-delay constraint.
-- **No driver simulation exists.** `sim/` holds only the inverter smoke
-  (`sim/pdk-smoke/`). The schematics fix topology, device flavour and pin
-  names; sizing is provisional (`design/README.md`), and no spec row in the
-  Electrical, Driver, Pads or Power sections has a testbench yet.
+- **The driver has DC benches; the statistical rows still have no Monte Carlo
+  and no transient.** `sim/driver-dc/` records the G75 DC grid: E1 passes 60/75
+  conditions, E2 62/75 (the misses concentrate in V_OS), E3 and the DC half of
+  E4 75/75 — but E1–E4 are statistical rows, and the local-mismatch Monte
+  Carlo (`N >= 200` proposed) is not run, so no Electrical row closes yet
+  (`sim/driver-dc/RECORD.md`). `sim/unpowered-pad/` records P4, P4a and P4b
+  **failing**, kept as findings with follow-ups owed (a `DR-008` amendment for
+  the grounded n-well defects). Sizing is still provisional
+  (`design/README.md`), and no CMFB (D2), transient-edge or eye (E5, E9)
+  testbench exists.
 
 ## Now
 
-1. **Driver DC bench for V_OD and V_OS (spec rows E1, E2).** Filed as #96.
-   Adds files only under `sim/`, clear of the held PR #79. Done when
-   `sim/driver-dc/` holds a `klt sim` request, a record and committed results giving V_OD and V_OS into 100 Ω for both data states at
-   every G75 condition, each graded against the E1/E2 windows, labelled
-   *simulated* and *against a proposed spec*. A failing condition is a result
-   to record, not a reason to resize in the same PR.
-2. **Unpowered-pad DC bench (spec rows P4, P4a, P4b; `DR-008`).** Filed as #97. Done when `sim/unpowered-pad/` holds the request, record and
-   results for the common-mode and differential-pattern pad sweeps with
-   VCCD = VDDIO = 0 V at -40 and 125 °C across the five process corners,
-   reporting pad current, per-junction bias and well/gate tracking against
-   the row limits.
-3. **Close serializer setup timing at the 1.60 V and 1.76 V `ss` corners (S3).** Filed
-   as #98. Done when `flow/serializer/STA.md` shows setup WNS >= 0
-   with 10 % uncertainty at `ss_100C_1v60`, `ss_n40C_1v60` and `ss_n40C_1v76`,
-   all 16 corners are still reported, the cocotb bench passes with its negative
-   control still failing, and the digital evidence (items 1 to 4 and 11) is re-bound to the new
-   netlist and GDS with the record re-rendered. This PR and #79 both re-render
-   `manifests/sky130-lvds-tx.signoff.json`; whichever merges second re-renders.
+1. **Driver sizing closure against E1/E2.** The `sim/driver-dc` grid shows
+   where the draft sizing lands: E1 misses 15 of 75 conditions and E2 misses
+   13 (V_OS dominates the misses). Done when the same bench re-runs the G75
+   grid on resized netlists and reports E1 and E2 passing 75/75, with the
+   netlists and item 1 (analog) evidence regenerated — or the residual misses
+   are graded and recorded against the E1/E2 windows as findings. A failing
+   condition is a result to record, not a reason to resize in the same PR.
+   No row closes yet: E1–E4 stay statistical, and the Monte Carlo is still
+   owed on top of a passing grid.
+2. **Amend `DR-008` for the unpowered-state wells, then re-run the
+   unpowered-pad bench (spec rows P4, P4a, P4b).** `sim/unpowered-pad/RECORD.md`
+   finds the driver back-powering VDDIO through the current source's grounded
+   n-well (F2) and gate tracking defeated by the predriver's grounded
+   output-stage n-well (F3, upstream of F2); the P4/P4a/P4b verdicts stand
+   until the topology changes. Done when a new decision record amends
+   `DR-008` for the unpowered-state wells (or establishes that fixing F3
+   alone closes F2), the schematic change lands, and the bench re-runs with
+   the failing rows' verdicts re-graded.
+3. **Bench-hygiene follow-ups from the unpowered-pad record (F6, F7).** Done
+   when `sim/pdk-smoke/request.json` declares the same `ngspice_init` setting
+   (`set wnflag=1`, `num_threads=1`) its recorded numbers already assume, and
+   the −40 °C Sweep A nonconvergence cause is identified (solver-option
+   probes, source-stepping alternatives, or an operating-point pre-solve)
+   before any −40 °C Sweep A pad-current figure from that bench is trusted.
 
 ## Next
 
-- **Driver sizing closure against E1/E2**, once Now 1 shows where the draft
-  sizing lands. Done when the Now 1 bench passes at all 75 conditions with the
-  netlists and item 1 (analog) evidence regenerated.
 - **CMFB loop bench (D2), transient edge and eye benches (E5, E9),
   pre-emphasis bench (D3), power (W1)**, in that order, after sizing closure.
   First evidence uses an ideal clock and says so, as `DR-007` requires.
@@ -82,15 +96,16 @@ Two results that the table does not show:
 - **Finish the analog layout** after #79 merges (it rewrites the same GDS and
   generator): route the `ddr_mux` and `predriver` signal nets, then draw the
   `OUTP`/`OUTN` seam to the pad cells. Done when LVS matches at the
-  `lvds_tx_analog` top rather than the driver top. The pad-cell diode and
-  the ESD-device marker wait on generator gaps (`layout/README.md`, "Not
-  drawn yet").
+  `lvds_tx_analog` top rather than the driver top. The `D1` diode's generator
+  gap is closed (`klayout-tools#4300`, and the LVS deck derives the device,
+  `klayout-tools#3803`) and its target geometry is derived against P1/P2
+  (`sim/pad-dc/RECORD.md`, #100); what holds it is the pad seam it attaches
+  to. The `XMESD` thick-oxide/ESD marker is still a generator gap
+  (`layout/README.md`, "Not drawn yet"). The item 11 analog gaps (#77) are
+  being addressed.
 - **Constrain the serializer output ports in STA** (`dout[0]`, `dout[1]`,
   `word_clk`), once the DDR mux's input timing requirement is known from a
   `ddr_mux` bench. Done when `constraint_completeness` is `complete`.
-- **Refresh the README status and maturity-ladder lines** after #79 merges:
-  `README.md` is in the item 10 inventory, so the edit re-attests item 10 and
-  re-renders the record, which #79 also does.
 
 ## Later
 
@@ -115,16 +130,18 @@ Two results that the table does not show:
   unratified spec. The spec's own open items ask for the vendor-literature
   numbers in E3, E4 and E7 to be checked against the licensed standard's text
   at ratification, and S3's "every Liberty corner" wording covers libraries at
-  1.28 to 1.44 V, below the 1.62 V supply floor, where WNS reaches -6.7 ns.
-- **PR #79** (for #77): approved, mergeable, and on a ratification hold
+  1.28 to 1.44 V, below the 1.62 V supply floor — where WNS still reaches
+  -4.06 ns (`ss_n40C_1v28`) even though every corner inside the supply window
+  now passes. Whether those libraries belong in the row is left to
+  ratification (`flow/serializer/STA.md`).
+- **PR #79** (for #77): approved and on a ratification hold
   because it touches `spec/README.md` and adds `DR-009` (pad-body substrate tie
-  deferred); only a human merge releases it. Tracked in the hold digest #94.
+  deferred); only a human merge releases it, and it has gone CONFLICTING with
+  `main` — it needs a conflict resolution before it can merge. Tracked in the
+  hold digest #94.
 - **Item 3, analog.** The only route to `met` is a ruling on whether the stock
   pad frame's met4/met5 violations are waivable; this repo does not waive
   foundry-supplied geometry on its own (`layout/README.md`).
-- **klt pin.** CI pins `klayout-tools==0.8.0`. The S3 STA needed a newer build
-  for `clock_uncertainty_ns` (klayout-tools#4240), and item 2 has no attest
-  producer (klayout-tools#4188), so those records are not re-attested in CI.
 
 ## Not planned
 
