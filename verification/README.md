@@ -101,12 +101,16 @@ T1 checklist item 3, one `klt drc` report per partition, committed under
 
 ### Deck provenance
 
-Deck `sky130`; PDK `sky130A` at open_pdks
-`f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`. The deck moves between klt releases,
+Deck `sky130` for every report below; PDK `sky130A` at open_pdks
+`f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` for all of them except
+`item-3-drc-analog-r2.json`, which records `gf180mcuA` (uncited by the manifest,
+kept append-only — not investigated here). The deck moves between klt releases,
 so verify against the cited envelope. The manifest cites the `r3` report of each
 partition; the base-revision reports are kept append-only. klt `0.8.0` for the
 analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`),
-`0.8.1.dev181+g70d73835514c` for the earlier digital report,
+`0.8.1.dev181+g70d73835514c` for the earlier analog and digital reports (the two
+base revisions, sharing one klt build), `0.8.1.dev55+g879d39bad82b` for the
+analog `r2` re-run on the placement-only stream,
 `0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98
 netlist, and `0.9.1` (`.venv-pnr`) for the digital `r3` re-run on the issue-#119
 re-closure GDS.
