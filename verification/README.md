@@ -98,10 +98,34 @@ Reuse decision for the sibling's runner: `spec/decisions/0001-verification-runne
 
 T1 checklist item 3, one `klt drc` report per partition, committed under
 `verification/signoff/evidence/` and cited from `manifests/sky130-lvds-tx.json`.
-Deck `sky130` (content hash `sha256:029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` for the digital `r3` report — the deck moves between klt releases, so verify against the cited envelope —
-`sha256:36027b82e3b16075e72b8e21775cde47ba7d08b7636efa4b73e9c34732a28efd` for the digital `r2`,
-`sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` for the analog `r3`,
-`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.0` for the analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`), `0.8.1.dev181+g70d73835514c` for the earlier digital report, `0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98 netlist, and `0.9.1` (`.venv-pnr`) for the digital `r3` re-run on the issue-#119 re-closure GDS.
+
+### Deck provenance
+
+Deck `sky130`; PDK `sky130A` at open_pdks
+`f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`. The deck moves between klt releases,
+so verify against the cited envelope. The manifest cites the `r3` report of each
+partition; the base-revision reports are kept append-only. klt `0.8.0` for the
+analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`),
+`0.8.1.dev181+g70d73835514c` for the earlier digital report,
+`0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98
+netlist, and `0.9.1` (`.venv-pnr`) for the digital `r3` re-run on the issue-#119
+re-closure GDS.
+
+| Report | Deck `content_hash` | `released` |
+|---|---|---|
+| `item-3-drc-analog.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
+| `item-3-drc-analog-r2.json` | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-analog-r3.json` (manifest-cited) | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-digital.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
+| `item-3-drc-digital-r2.json` | `36027b82e3b16075e72b8e21775cde47ba7d08b7636efa4b73e9c34732a28efd` | `true` |
+| `item-3-drc-digital-r3.json` (manifest-cited) | `029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` | `true` |
+
+The binding is executed, not merely transcribed:
+`verification/signoff/check-hygiene.sh` re-reads every committed
+`item-3-drc-*.json` envelope and compares its `provenance.deck` hash and
+`released` flag against this table; it runs in CI as part of the T1 item 10
+attestation, so a drifted restatement fails the hygiene check instead of going
+stale silently.
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
