@@ -9,24 +9,30 @@
 #      klt's own dependency floor (`klayout>=0.30`) forbids.
 #      Also installs the pinned `klayout` module: it, not `klt`, serialises
 #      the generated layout bytes (issue #104).
-#   2. Installs the pinned Yosys build (YoWASP wheel) into that .venv and
+#   2. Creates a second venv `.venv-pnr` beside it and installs `klt` there
+#      with its dependency floor satisfied normally (no `--no-deps`) on the
+#      pinned `klayout` 0.30.x module -- the pair `klt place-and-route`
+#      needs (spec/decisions/0005-split-pnr-venv-pin.md; upstream
+#      klayout-tools#5768). The attest/CI pair from step 1 stays untouched.
+#   3. Installs the pinned Yosys build (YoWASP wheel) into that .venv and
 #      verifies its WebAssembly module's sha256 -- the mapper identity that
 #      `yosys -V` does NOT report (issue #143) -- then exposes it as
 #      `.venv/bin/yosys`.
-#   3. Fetches the pinned `sky130A` PDK version via `ciel` into
+#   4. Fetches the pinned `sky130A` PDK version via `ciel` into
 #      `${PDK_ROOT:-$HOME/.ciel}` and verifies the installed tree's open_pdks
 #      revision (its `SOURCES` file) matches the pin.
-#   4. Reports -- with an actionable message, never a Python traceback --
+#   5. Reports -- with an actionable message, never a Python traceback --
 #      which of `iverilog`, `openroad` are missing from `$PATH`.
 #
 # Exit codes:
-#   0  venv + klt + yosys + PDK provisioned. iverilog/openroad may still be
-#      individually reported missing (see step 4's summary) -- this is not
-#      itself a failure, since PDK-heavy legs (synthesis, P&R) are
-#      documented as locally-run-and-recorded, not a CI/setup requirement.
-#      P&R specifically needs `openroad`; see docs/environment.md.
-#   1  venv creation, klt install, pinned-yosys install/verification, or PDK
-#      fetch failed.
+#   0  both venvs + klt + yosys + PDK provisioned. iverilog/openroad may
+#      still be individually reported missing (see the toolchain summary) --
+#      this is not itself a failure, since PDK-heavy legs (synthesis, P&R)
+#      are documented as locally-run-and-recorded, not a CI/setup
+#      requirement. P&R specifically needs `openroad`; see
+#      docs/environment.md.
+#   1  venv creation (.venv or .venv-pnr), klt install, pinned-yosys
+#      install/verification, or PDK fetch failed.
 #
 # Usage:
 #   ./scripts/setup-env.sh
@@ -56,6 +62,17 @@ KLT_VERSION="0.9.1"
 # issue #104), so only the byte-writing interpreter is held back.
 # Wheels: klayout 0.28.17.post1 ships CPython 3.10-3.12 only (no cp313).
 KLAYOUT_VERSION="0.28.17.post1"
+# The dedicated P&R venv's klayout module
+# (spec/decisions/0005-split-pnr-venv-pin.md): klt 0.9.1's place-and-route
+# std-cell GDS merge needs a 0.30.x-only API (`Layout.read_bytes`, upstream
+# klayout-tools#5768), but the attest/CI venv above holds klayout back at
+# 0.28.17.post1 for byte-reproducible GDS writes (issue #104). Pinned
+# exactly -- not `>=0.30` -- so the P&R toolchain does not drift the next
+# time a 0.30.x ships. The P&R venv reuses this same klt pin (`KLT_VERSION`).
+# The constant must stay prefixed (`PNR_*`): check-driver-pad-gds.sh parses
+# the bare `KLAYOUT_VERSION` above with a ^-anchored sed, which a second
+# bare assignment would break.
+PNR_KLAYOUT_VERSION="0.30.13"
 CIEL_VERSION="2.6.1"
 CIEL_PDK_FAMILY="sky130"
 # Libraries enabled alongside the primitives: the standard cells and the I/O
@@ -81,6 +98,7 @@ PDK_ROOT="${PDK_ROOT:-${HOME}/.ciel}"
 # this script exit non-zero) and is never a way to re-pin.
 EXPECTED_OPEN_PDKS_REV="${SETUP_ENV_EXPECTED_OPEN_PDKS_REV:-${CIEL_SKY130_VERSION}}"
 VENV_DIR="${REPO_ROOT}/.venv"
+PNR_VENV_DIR="${REPO_ROOT}/.venv-pnr"
 
 for arg in "$@"; do
   case "${arg}" in
@@ -92,7 +110,7 @@ for arg in "$@"; do
       PDK_ROOT="${arg#--pdk-root=}"
       ;;
     -h|--help)
-      sed -n '2,36p' "${BASH_SOURCE[0]}"
+      sed -n '2,42p' "${BASH_SOURCE[0]}"
       exit 0
       ;;
     *)
@@ -102,9 +120,42 @@ for arg in "$@"; do
   esac
 done
 
+# create_venv <dir>: create a Python venv at <dir> from the interpreter
+# selected in step 1, falling back to `uv venv` when the venv module has no
+# ensurepip (Debian/Ubuntu without python3-venv; installing that package is
+# a host change this script must not ask for). Both venvs share this path so
+# the selection + fallback logic exists exactly once.
+create_venv() {
+  local dir="$1"
+  if [ -d "${dir}" ]; then
+    echo "reusing existing ${dir}"
+  else
+    rm -rf "${dir}"
+    if ! "${PYTHON_BIN}" -m venv "${dir}" >/dev/null 2>&1; then
+      rm -rf "${dir}"
+      if command -v uv >/dev/null 2>&1 \
+          && uv venv --seed --python "${PYTHON_BIN}" "${dir}" >/dev/null; then
+        echo "venv module unavailable; created ${dir} with uv"
+      else
+        echo "FATAL: 'python3 -m venv ${dir}' failed and 'uv venv' is not"
+        echo "  available as a fallback."
+        echo "  -> on Debian/Ubuntu: 'apt-get install python3-venv', or install uv."
+        return 1
+      fi
+    fi
+    echo "created ${dir}"
+  fi
+  if [ ! -x "${dir}/bin/python3" ]; then
+    echo "FATAL: ${dir}/bin/python3 not found after venv creation -- venv looks corrupt."
+    echo "  -> remove ${dir} and re-run this script."
+    return 1
+  fi
+  return 0
+}
+
 status=0
 
-echo "== 1/4 python venv =="
+echo "== 1/5 python venv =="
 # Two interpreter constraints: cocotb 2.x (pinned by klt) refuses to build on
 # Python > 3.13, and the pinned klayout wheel (KLAYOUT_VERSION below) ships
 # CPython 3.10-3.12 wheels only -- on 3.13+ pip would fall back to building
@@ -141,38 +192,15 @@ if [ -z "${PYTHON_BIN}" ]; then
 fi
 echo "python3: $(${PYTHON_BIN} --version 2>&1) (${PYTHON_BIN})"
 
-if [ ! -d "${VENV_DIR}" ]; then
-  rm -rf "${VENV_DIR}"
-  if ! "${PYTHON_BIN}" -m venv "${VENV_DIR}" >/dev/null 2>&1; then
-    # No ensurepip (Debian/Ubuntu without python3-venv): fall back to uv, which
-    # needs no system package. Installing python3-venv is a host change this
-    # script must not ask for.
-    rm -rf "${VENV_DIR}"
-    if command -v uv >/dev/null 2>&1 \
-        && uv venv --seed --python "${PYTHON_BIN}" "${VENV_DIR}" >/dev/null; then
-      echo "venv module unavailable; created ${VENV_DIR} with uv"
-    else
-      echo "FATAL: 'python3 -m venv ${VENV_DIR}' failed and 'uv venv' is not"
-      echo "  available as a fallback."
-      echo "  -> on Debian/Ubuntu: 'apt-get install python3-venv', or install uv."
-      exit 1
-    fi
-  fi
-  echo "created ${VENV_DIR}"
-else
-  echo "reusing existing ${VENV_DIR}"
+if ! create_venv "${VENV_DIR}"; then
+  exit 1
 fi
 
 VENV_PY="${VENV_DIR}/bin/python3"
 VENV_PIP="${VENV_DIR}/bin/pip"
-if [ ! -x "${VENV_PY}" ]; then
-  echo "FATAL: ${VENV_PY} not found after venv creation -- venv looks corrupt."
-  echo "  -> remove ${VENV_DIR} and re-run this script."
-  exit 1
-fi
 
 echo
-echo "== 2/4 klayout-tools (klt ${KLT_VERSION}) + klayout (${KLAYOUT_VERSION}) =="
+echo "== 2/5 klayout-tools (klt ${KLT_VERSION}) + klayout (${KLAYOUT_VERSION}) =="
 if ! "${VENV_PY}" -m pip --version >/dev/null 2>&1; then
   echo "FATAL: pip is not available inside ${VENV_DIR}."
   echo "  -> remove ${VENV_DIR} and re-run this script (venv bootstrap likely"
@@ -219,7 +247,7 @@ echo "installed: klayout ${INSTALLED_KLAYOUT_VERSION:-(version unknown)} (pinned
 echo "activate with: source ${VENV_DIR}/bin/activate"
 
 echo
-echo "== 3/4 yosys (YoWASP ${YOWASP_YOSYS_VERSION}) =="
+echo "== 3/5 yosys (YoWASP ${YOWASP_YOSYS_VERSION}) =="
 # Why a wheel and not the host's `yosys`: see the pin block at the top of this
 # file. The check below is the load-bearing half -- it verifies the *content*
 # of the WebAssembly module (Yosys + its embedded `abc`), which is the mapper
@@ -306,7 +334,7 @@ if command -v yosys >/dev/null 2>&1; then
 fi
 
 echo
-echo "== 4/4 sky130A PDK (ciel ${CIEL_VERSION}, open_pdks ${CIEL_SKY130_VERSION:0:12}) =="
+echo "== 4/5 sky130A PDK (ciel ${CIEL_VERSION}, open_pdks ${CIEL_SKY130_VERSION:0:12}) =="
 mkdir -p "${PDK_ROOT}"
 CIEL_LIB_ARGS=()
 for lib in ${CIEL_LIBRARIES}; do
@@ -347,6 +375,58 @@ else
   echo "       ${VENV_DIR}/bin/ciel enable --pdk-root ${PDK_ROOT} --pdk-family ${CIEL_PDK_FAMILY} ${CIEL_LIB_ARGS[*]} ${CIEL_SKY130_VERSION}"
   status=1
 fi
+
+echo
+echo "== 5/5 P&R venv (klt ${KLT_VERSION} + klayout ${PNR_KLAYOUT_VERSION}, deps satisfied) =="
+# The dedicated place-and-route venv
+# (spec/decisions/0005-split-pnr-venv-pin.md). A plain `klayout-tools`
+# install -- NO `--no-deps` -- so klt's `klayout>=0.30` floor is satisfied
+# by the module pinned below: `klt place-and-route` needs a 0.30.x-only API
+# at the std-cell GDS merge (`Layout.read_bytes`, klayout-tools#5768). The
+# attest/CI venv (step 2) keeps klayout at 0.28.17.post1 for
+# byte-reproducible GDS writes and is not touched here. yosys and the PDK
+# stay in the attest venv / ${PDK_ROOT}: P&R consumes the PDK through
+# PDK_ROOT, which is venv-independent.
+if ! create_venv "${PNR_VENV_DIR}"; then
+  exit 1
+fi
+PNR_VENV_PY="${PNR_VENV_DIR}/bin/python3"
+PNR_VENV_PIP="${PNR_VENV_DIR}/bin/pip"
+if ! "${PNR_VENV_PY}" -m pip --version >/dev/null 2>&1; then
+  echo "FATAL: pip is not available inside ${PNR_VENV_DIR}."
+  echo "  -> remove ${PNR_VENV_DIR} and re-run this script (venv bootstrap"
+  echo "     likely failed partway through)."
+  exit 1
+fi
+
+if ! "${PNR_VENV_PIP}" install --quiet --upgrade pip; then
+  echo "WARNING: could not upgrade pip in ${PNR_VENV_DIR}; continuing with the"
+  echo "  version venv bundled."
+fi
+
+# Module first, then klt normally (with deps): the already-installed
+# klayout==${PNR_KLAYOUT_VERSION} satisfies klt's `klayout>=0.30` floor, so
+# pip keeps it instead of re-resolving.
+if ! "${PNR_VENV_PIP}" install --quiet "klayout==${PNR_KLAYOUT_VERSION}"; then
+  echo "FATAL: failed to install klayout==${PNR_KLAYOUT_VERSION} into ${PNR_VENV_DIR}."
+  echo "  -> common causes: no network access to PyPI."
+  echo "  -> re-run with the venv's own pip for a full traceback:"
+  echo "       ${PNR_VENV_PIP} install \"klayout==${PNR_KLAYOUT_VERSION}\""
+  exit 1
+fi
+if ! "${PNR_VENV_PIP}" install --quiet "klayout-tools==${KLT_VERSION}"; then
+  echo "FATAL: failed to install klayout-tools==${KLT_VERSION} into ${PNR_VENV_DIR}."
+  echo "  -> common causes: no network access to PyPI."
+  echo "  -> re-run with the venv's own pip for a full traceback:"
+  echo "       ${PNR_VENV_PIP} install \"klayout-tools==${KLT_VERSION}\""
+  exit 1
+fi
+INSTALLED_PNR_KLT_VERSION="$("${PNR_VENV_PY}" -m klayout_tools.cli --version 2>/dev/null || true)"
+INSTALLED_PNR_KLT_VERSION="${INSTALLED_PNR_KLT_VERSION#klt }"
+echo "installed: klt ${INSTALLED_PNR_KLT_VERSION:-(version unknown)} (pinned klayout-tools==${KLT_VERSION}, deps satisfied)"
+INSTALLED_PNR_KLAYOUT_VERSION="$("${PNR_VENV_PY}" -c 'import klayout; print(klayout.__version__)' 2>/dev/null || true)"
+echo "installed: klayout ${INSTALLED_PNR_KLAYOUT_VERSION:-(version unknown)} (pinned klayout==${PNR_KLAYOUT_VERSION})"
+echo "activate with: source ${PNR_VENV_DIR}/bin/activate  (for 'klt place-and-route' only)"
 
 echo
 echo "== toolchain check (iverilog / openroad) =="
@@ -397,7 +477,7 @@ fi
 
 echo
 if [ "${status}" -eq 0 ]; then
-  echo "RESULT: environment provisioned (venv + klt + pinned yosys + sky130A)."
+  echo "RESULT: environment provisioned (both venvs + klt + pinned yosys + sky130A)."
 else
   echo "RESULT: environment provisioning incomplete -- see FATAL messages above."
 fi
