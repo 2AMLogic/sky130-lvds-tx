@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-16
+
+- **PR #140**: env: provision a dedicated .venv-pnr for place-and-route on a klayout 0.30.13 pin
+- **Issue #120** (closed): Module pin for the digital P&R re-closure (#119): split venv vs upstream vs full 0.30.x re-pin
+
 ### 2026-11-15
 
 - **PR #137**: docs: scope sim provenance-correction clause to pinned vs addendum blocks

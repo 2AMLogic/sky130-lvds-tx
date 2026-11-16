@@ -10,7 +10,7 @@
           "upstream": "scripts/setup-env.sh",
           "local": "scripts/setup-env.sh",
           "sha256": "30876d97bb62bb6c93c5fc84054cdf45c53ceb5ffb945e9d4a660997bfcb4c04",
-          "local_sha256": "56bd11955301a3209d18de40aa7ba37602e57548a502729bb11abf2e8ab3fd78",
+          "local_sha256": "ba0d3fc5b6fe2cb621c199e279ecd6a3bfea644898a59b0d0e513ff16d5157c6",
           "diverged": "spec/decisions/0002-vendored-setup-env-edits.md"
         }
       ]
