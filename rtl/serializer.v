@@ -10,6 +10,16 @@
 //             parallel input has a full word period of setup
 //   - sr:     loadable shift register, one mux2 level per bit: loads `cap`
 //             on the last cycle of a word, otherwise shifts right by two
+//   - load / capture: the `sr`-load and `cap`-capture enables, each held in
+//             its own flop instead of being decoded from `cnt` combinationally.
+//             `load` is registered from (cnt_next == LAST) and `capture` from
+//             (cnt_next == CAPT), so each carries exactly the value the
+//             equivalent decode of `cnt` would have in the same cycle --- a
+//             cycle-exact replica, not a retimed-by-one signal. This keeps the
+//             `cnt` -> decode -> register-input path out of the design: the
+//             enables reach the `sr`/`cap` mux selects straight off a flop.
+//             Spec S3 (setup at the slow corners) is what motivates it; see
+//             flow/serializer/STA.md.
 //
 // Bit order: din[0] is transmitted first. `din` is sampled at the rising clk
 // edge that ends the cycle with cnt == CYC-2 (word_clk is high); the word
@@ -40,6 +50,8 @@ module serializer #(
     reg [CW-1:0]    cnt;
     reg [WIDTH-1:0] cap;
     reg [WIDTH-1:0] sr;
+    reg             load;      // == (cnt == LAST), held in a flop
+    reg             capture;   // == (cnt == CAPT), held in a flop
 
     wire             last     = (cnt == LAST);
     wire [CW-1:0]    cnt_next = last ? {CW{1'b0}} : cnt + {{(CW-1){1'b0}}, 1'b1};
@@ -52,11 +64,18 @@ module serializer #(
             word_clk <= 1'b0;
             cap      <= {WIDTH{1'b0}};
             sr       <= {WIDTH{1'b0}};
+            // Reset holds cnt at 0, so each enable resets to the value its
+            // decode of cnt == 0 would give. Both are constant-folded at
+            // elaboration; for WIDTH = 8 (LAST = 3, CAPT = 2) both are 0.
+            load     <= (LAST == {CW{1'b0}});
+            capture  <= (CAPT == {CW{1'b0}});
         end else begin
             cnt      <= cnt_next;
             word_clk <= (cnt_next >= HALF);
-            if (cnt == CAPT) cap <= din;
-            if (last) sr <= cap;
+            load     <= (cnt_next == LAST);
+            capture  <= (cnt_next == CAPT);
+            if (capture) cap <= din;
+            if (load) sr <= cap;
             else      sr <= {2'b00, sr[WIDTH-1:2]};
         end
     end

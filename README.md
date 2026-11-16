@@ -7,10 +7,15 @@ D-PHY-class low-swing mode as a stretch — designed by AI agents driving
 [klayout-tools](https://github.com/2AMLogic/klayout-tools), xschem + ngspice
 on the analog side and Yosys/OpenROAD on the digital side.
 
-**Status: just opened, specification phase.** Nothing is designed yet.
+**Status: design and verification in progress; the spec is drafted but not
+yet ratified.** The serializer RTL is synthesized, placed and routed with
+post-route STA recorded, the analog driver and pad-cell layout is committed and
+LVS-clean on both partitions, and 13 of the 22 T1 checklist items are met.
+`manifests/sky130-lvds-tx.signoff.json` is the graded verdict of record;
+`WORK_PLAN.md` tracks what is open.
 
 **Built agent-native.** Every specification, decision record, testbench, and
-line of documentation here is produced by AI agents working from a ratified
+line of documentation here is produced by AI agents working from a proposed
 spec and an append-only evidence trail — not human-authored work that agents
 merely assisted with. Verification is the product: every claim traces to a
 recorded result under PVT corners. Where the agents hit friction with the
@@ -48,7 +53,11 @@ pad-ring problem a two-PDK one.
   out of scope.
 - **Not claimed**: compliance with any interface standard. See `CLAUDE.md`.
 
-## Target specification (DRAFT — engineering to ratify, see issue #2)
+## Target specification (PROPOSED — not yet ratified, see issue #2)
+
+`spec/target-spec.md` and its decision records `DR-001`…`DR-008` are the
+authority; the table below is a summary. The spec is marked *proposed* and its
+ratification record is still empty — agents do not ratify their own spec.
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
@@ -62,18 +71,28 @@ pad-ring problem a two-PDK one.
 
 Maturity ladder: spec ratified → serializer verified → driver simulated
 across PVT → pad cell DRC-clean → assembled and LVS-clean → post-layout
-eye simulation → shuttle seat → measured silicon. **Current position:
-pre-spec.**
+eye simulation → shuttle seat → measured silicon. **Current position: spec
+drafted and awaiting ratification; serializer verified by its cocotb bench and
+routed, with post-route STA setup slack ≥ 0 at every corner at or above the
+spec's 1.62 V supply floor (worst `ss_n40C_1v60` +0.093 ns, the nearest
+published library to that floor); spec row S3 is still recorded NOT MET because
+its wording demands every Liberty corner, including the 1.28–1.44 V `ss`
+libraries below that window; driver PVT simulation and analog DRC clean are
+open.**
 
 ## Repo layout
 
 ```
-spec/          ratified spec + decision records
+spec/          proposed spec + decision records
 rtl/           serializer and lane control
-verification/  cocotb testbenches
+verification/  cocotb testbenches + signoff evidence records
 design/        analog schematics (driver, CMFB, pre-emphasis, final serializer stage)
 sim/           testbenches + PVT corner results (ngspice)
+flow/          serializer synthesis and place-and-route (Yosys, OpenROAD)
 layout/        GDS + DRC/LVS reports, including the pad cell
+manifests/     signoff manifest graded against the T1 checklist
+scripts/       environment and toolchain setup
+docs/          working notes
 measurements/  silicon characterization (empty until tape-out)
 ```
 

@@ -17,10 +17,21 @@ permissions:
   contents: read
 
 env:
-  # Pinned to the PyPI release, not a commit: `klt signoff --attest`
-  # (klayout-tools#2844) and the `local_only` attestation check flag are both
-  # in 0.8.0. A git build reports a dev version and would not satisfy `==`.
-  KLT_VERSION: "0.8.0"
+  # Both pins are reinstallable PyPI releases; a git build reports a dev
+  # version and does not satisfy `==`. `klt signoff --attest` (klayout-tools
+  # #2844) and the `local_only` check flag are in 0.8.0+; the item 2 attest
+  # producer (--input <layout stream>) is new in 0.9.1 (klayout-tools#4188).
+  # 0.9.1 regenerates the committed driver-pad GDS byte-identically, where
+  # the old 0.8.0 pin renames 114 of its 237 cells (issue #104).
+  KLT_VERSION: "0.9.1"
+  # The klayout module is pinned because it, not klt, serialises layout
+  # bytes: a 0.30.x module re-encodes two TEXT MAG records in the stock
+  # pad-frame cell (issue #104). klt declares klayout>=0.30, so the module is
+  # installed first and klt goes on top with --no-deps (same recipe as
+  # scripts/setup-env.sh). Envelope bytes do not depend on the module version
+  # (verified in issue #104), so rendering the verdict record under this
+  # pinned pair matches what a local run produces.
+  KLAYOUT_VERSION: "0.28.17.post1"
 
 jobs:
   signoff:
@@ -33,24 +44,18 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install pinned klt
+      - name: Install pinned klt + klayout
         run: |
-          pip install "klayout-tools==${KLT_VERSION}"
+          pip install "klayout==${KLAYOUT_VERSION}" "jsonschema>=4.0"
+          pip install --no-deps "klayout-tools==${KLT_VERSION}"
           klt --version
-
-      - name: Re-attest item 1 (digital) and check the committed envelope
-        # The netlist freshness check is local_only (needs yosys + the PDK),
-        # so this verifies file hashes and skips the re-synthesis.
-        run: |
-          klt signoff --attest 1 \
-              --inventory verification/signoff/item-1-digital-inventory.json \
-              --check verification/signoff/evidence/item-1-design-sources-digital.json
+          python -c "import klayout; print('klayout', klayout.__version__)"
 
       - name: Re-attest item 10 and check the committed envelope
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene-r4.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r9.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
@@ -61,7 +66,7 @@ jobs:
         run: |
           klt signoff --attest 1 \
               --inventory verification/signoff/item-1-analog-inventory.json \
-              --check verification/signoff/evidence/item-1-analog-design-sources.json
+              --check verification/signoff/evidence/item-1-analog-design-sources-r2.json
 
       # The item 9 cold start is `local_only` (it needs the sky130A PDK, iverilog
       # and the batch fleet), so it is skipped here, visibly; the inventoried
@@ -93,3 +98,15 @@ jobs:
             exit 1
           fi
           echo "Committed signoff record is fresh."
+
+      # The committed item-1 digital envelope is the r2 re-closure under the
+      # pinned toolchain (#115): paths-shaped provenance produced by a real
+      # `klt synthesize` freshness run. It runs LAST so the attest steps above
+      # and the record comparison report independently.
+      - name: Re-attest item 1 (digital) and check the committed envelope
+        # The netlist freshness check is local_only (needs yosys + the PDK),
+        # so this verifies file hashes and skips the re-synthesis.
+        run: |
+          klt signoff --attest 1 \
+              --inventory verification/signoff/item-1-digital-inventory.json \
+              --check verification/signoff/evidence/item-1-design-sources-digital-r2.json

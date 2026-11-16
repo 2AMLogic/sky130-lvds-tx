@@ -8,6 +8,17 @@
 # Needs `klt`, yosys and the sky130 PDK (PDK_ROOT, or klt's PDK search path);
 # the inventory marks this check local_only so a toolchain-free CI runner
 # re-verifies file hashes but skips the re-synthesis.
+#
+# TMPDIR caveat: klt synthesize's yosys -> yosys-abc invocation deadlocks when
+# the TMPDIR path is longer than ~35 characters (measured 2026-11-15, klt
+# 0.9.2.dev1029+g76f47afa48f1 / yosys 0.67+post: 35 passes, 36 hangs), with no
+# diagnostic and no timeout on this host (#5780 reports the 300 s yosys
+# watchdog firing in its own configuration). The trigger is the path length,
+# not TMPDIR being non-default. Run with a short TMPDIR:
+#   TMPDIR=/tmp sh verification/signoff/check-serializer-netlist.sh
+# Upstream: 2AMLogic/klayout-tools#5798 and #5780; background in
+# verification/README.md.
+#
 # Run from the repository root.
 set -eu
 

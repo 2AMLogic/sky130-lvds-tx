@@ -1,0 +1,766 @@
+{
+  "netlist": "tb_sweep_b.spice",
+  "netlist_source": "schematic",
+  "models": {
+    "pdk": "sky130A",
+    "lib": "libs.tech/ngspice/sky130.lib.spice"
+  },
+  "corners": {
+    "process": [
+      "tt",
+      "sf",
+      "ff",
+      "ss",
+      "fs"
+    ],
+    "temperature_c": [
+      -40,
+      125
+    ]
+  },
+  "analysis": {
+    "kind": "dc",
+    "args": "VPSRC 0.9 1.6 0.005"
+  },
+  "measurements": [
+    {
+      "name": "ipadp_max",
+      "spice": ".meas dc ipadp_max MAX i(vamp)",
+      "unit": "A",
+      "limits": {
+        "max": 2e-05
+      },
+      "spec_row": "P4"
+    },
+    {
+      "name": "ipadp_min",
+      "spice": ".meas dc ipadp_min MIN i(vamp)",
+      "unit": "A",
+      "limits": {
+        "min": -2e-05
+      },
+      "spec_row": "P4"
+    },
+    {
+      "name": "ipadn_max",
+      "spice": ".meas dc ipadn_max MAX i(vamn)",
+      "unit": "A",
+      "limits": {
+        "max": 2e-05
+      },
+      "spec_row": "P4"
+    },
+    {
+      "name": "ipadn_min",
+      "spice": ".meas dc ipadn_min MIN i(vamn)",
+      "unit": "A",
+      "limits": {
+        "min": -2e-05
+      },
+      "spec_row": "P4"
+    },
+    {
+      "name": "ivccd_max",
+      "spice": ".meas dc ivccd_max MAX i(vvccd)",
+      "unit": "A"
+    },
+    {
+      "name": "ivccd_min",
+      "spice": ".meas dc ivccd_min MIN i(vvccd)",
+      "unit": "A"
+    },
+    {
+      "name": "ivddio_max",
+      "spice": ".meas dc ivddio_max MAX i(vvddio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivddio_min",
+      "spice": ".meas dc ivddio_min MIN i(vvddio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivssio_max",
+      "spice": ".meas dc ivssio_max MAX i(vvssio)",
+      "unit": "A"
+    },
+    {
+      "name": "ivssio_min",
+      "spice": ".meas dc ivssio_min MIN i(vvssio)",
+      "unit": "A"
+    },
+    {
+      "name": "idiff_max",
+      "spice": ".meas dc idiff_max MAX par('(i(vamp) - i(vamn)) / 2')",
+      "unit": "A"
+    },
+    {
+      "name": "idiff_min",
+      "spice": ".meas dc idiff_min MIN par('(i(vamp) - i(vamn)) / 2')",
+      "unit": "A"
+    },
+    {
+      "name": "vcms_max",
+      "spice": ".meas dc vcms_max MAX v(xtb.xdrv.vcms)",
+      "unit": "V"
+    },
+    {
+      "name": "vcms_min",
+      "spice": ".meas dc vcms_min MIN v(xtb.xdrv.vcms)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_main_mspa_d",
+      "spice": ".meas dc ja_main_mspa_d MAX par('v(PADP) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mspb_d",
+      "spice": ".meas dc ja_main_mspb_d MAX par('v(PADN) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_msp_s",
+      "spice": ".meas dc ja_main_msp_s MAX par('v(xtb.xdrv.xsl_main.top) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mwv_s",
+      "spice": ".meas dc ja_main_mwv_s MAX par('v(VCCD) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mgta_d",
+      "spice": ".meas dc ja_main_mgta_d MAX par('v(xtb.GPA) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mgtb_d",
+      "spice": ".meas dc ja_main_mgtb_d MAX par('v(xtb.GPB) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_nwsub",
+      "spice": ".meas dc ja_main_nwsub MAX par('v(VSSIO) - v(xtb.xdrv.xsl_main.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mspa_d",
+      "spice": ".meas dc ja_e0_mspa_d MAX par('v(PADP) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mspb_d",
+      "spice": ".meas dc ja_e0_mspb_d MAX par('v(PADN) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_msp_s",
+      "spice": ".meas dc ja_e0_msp_s MAX par('v(xtb.xdrv.xsl_e0.top) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mwv_s",
+      "spice": ".meas dc ja_e0_mwv_s MAX par('v(VCCD) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mgta_d",
+      "spice": ".meas dc ja_e0_mgta_d MAX par('v(xtb.XPA) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mgtb_d",
+      "spice": ".meas dc ja_e0_mgtb_d MAX par('v(xtb.XPB) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_nwsub",
+      "spice": ".meas dc ja_e0_nwsub MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e0.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mspa_d",
+      "spice": ".meas dc ja_e1a_mspa_d MAX par('v(PADP) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mspb_d",
+      "spice": ".meas dc ja_e1a_mspb_d MAX par('v(PADN) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_msp_s",
+      "spice": ".meas dc ja_e1a_msp_s MAX par('v(xtb.xdrv.xsl_e1a.top) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mwv_s",
+      "spice": ".meas dc ja_e1a_mwv_s MAX par('v(VCCD) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mgta_d",
+      "spice": ".meas dc ja_e1a_mgta_d MAX par('v(xtb.XPA) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mgtb_d",
+      "spice": ".meas dc ja_e1a_mgtb_d MAX par('v(xtb.XPB) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_nwsub",
+      "spice": ".meas dc ja_e1a_nwsub MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1a.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mspa_d",
+      "spice": ".meas dc ja_e1b_mspa_d MAX par('v(PADP) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mspb_d",
+      "spice": ".meas dc ja_e1b_mspb_d MAX par('v(PADN) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_msp_s",
+      "spice": ".meas dc ja_e1b_msp_s MAX par('v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mwv_s",
+      "spice": ".meas dc ja_e1b_mwv_s MAX par('v(VCCD) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mgta_d",
+      "spice": ".meas dc ja_e1b_mgta_d MAX par('v(xtb.XPA) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mgtb_d",
+      "spice": ".meas dc ja_e1b_mgtb_d MAX par('v(xtb.XPB) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_nwsub",
+      "spice": ".meas dc ja_e1b_nwsub MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_nsub_padp",
+      "spice": ".meas dc ja_nsub_padp MAX par('v(VSSIO) - v(PADP)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_nsub_padn",
+      "spice": ".meas dc ja_nsub_padn MAX par('v(VSSIO) - v(PADN)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_gpa",
+      "spice": ".meas dc ja_pre_gpa MAX par('v(xtb.GPA) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_gpb",
+      "spice": ".meas dc ja_pre_gpb MAX par('v(xtb.GPB) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_gna",
+      "spice": ".meas dc ja_pre_gna MAX par('v(xtb.GNA) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_gnb",
+      "spice": ".meas dc ja_pre_gnb MAX par('v(xtb.GNB) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_xpa",
+      "spice": ".meas dc ja_pre_xpa MAX par('v(xtb.XPA) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_xpb",
+      "spice": ".meas dc ja_pre_xpb MAX par('v(xtb.XPB) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_xna",
+      "spice": ".meas dc ja_pre_xna MAX par('v(xtb.XNA) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_pre_xnb",
+      "spice": ".meas dc ja_pre_xnb MAX par('v(xtb.XNB) - v(VCCD)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "wt_main",
+      "spice": ".meas dc wt_main MAX par('abs(v(xtb.xdrv.xsl_main.well) - v(VREFMAX))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "well_main_max",
+      "spice": ".meas dc well_main_max MAX v(xtb.xdrv.xsl_main.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_main_min",
+      "spice": ".meas dc well_main_min MIN v(xtb.xdrv.xsl_main.well)",
+      "unit": "V"
+    },
+    {
+      "name": "wt_e0",
+      "spice": ".meas dc wt_e0 MAX par('abs(v(xtb.xdrv.xsl_e0.well) - v(VREFMAX))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "well_e0_max",
+      "spice": ".meas dc well_e0_max MAX v(xtb.xdrv.xsl_e0.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e0_min",
+      "spice": ".meas dc well_e0_min MIN v(xtb.xdrv.xsl_e0.well)",
+      "unit": "V"
+    },
+    {
+      "name": "wt_e1a",
+      "spice": ".meas dc wt_e1a MAX par('abs(v(xtb.xdrv.xsl_e1a.well) - v(VREFMAX))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "well_e1a_max",
+      "spice": ".meas dc well_e1a_max MAX v(xtb.xdrv.xsl_e1a.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1a_min",
+      "spice": ".meas dc well_e1a_min MIN v(xtb.xdrv.xsl_e1a.well)",
+      "unit": "V"
+    },
+    {
+      "name": "wt_e1b",
+      "spice": ".meas dc wt_e1b MAX par('abs(v(xtb.xdrv.xsl_e1b.well) - v(VREFMAX))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "well_e1b_max",
+      "spice": ".meas dc well_e1b_max MAX v(xtb.xdrv.xsl_e1b.well)",
+      "unit": "V"
+    },
+    {
+      "name": "well_e1b_min",
+      "spice": ".meas dc well_e1b_min MIN v(xtb.xdrv.xsl_e1b.well)",
+      "unit": "V"
+    },
+    {
+      "name": "gw_main_a",
+      "spice": ".meas dc gw_main_a MAX par('abs(v(xtb.GPA) - v(xtb.xdrv.xsl_main.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_main_b",
+      "spice": ".meas dc gw_main_b MAX par('abs(v(xtb.GPB) - v(xtb.xdrv.xsl_main.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e0_a",
+      "spice": ".meas dc gw_e0_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e0.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e0_b",
+      "spice": ".meas dc gw_e0_b MAX par('abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e0.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e1a_a",
+      "spice": ".meas dc gw_e1a_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1a.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e1a_b",
+      "spice": ".meas dc gw_e1a_b MAX par('abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1a.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e1b_a",
+      "spice": ".meas dc gw_e1b_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1b.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gw_e1b_b",
+      "spice": ".meas dc gw_e1b_b MAX par('abs(v(xtb.XPB) - v(xtb.xdrv.xsl_e1b.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_main_ox",
+      "spice": ".meas dc tox_main_ox MAX v(TOX_MAIN_OX)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_main_ds",
+      "spice": ".meas dc tox_main_ds MAX v(TOX_MAIN_DS)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e0_ox",
+      "spice": ".meas dc tox_e0_ox MAX v(TOX_E0_OX)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e0_ds",
+      "spice": ".meas dc tox_e0_ds MAX v(TOX_E0_DS)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1a_ox",
+      "spice": ".meas dc tox_e1a_ox MAX v(TOX_E1A_OX)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1a_ds",
+      "spice": ".meas dc tox_e1a_ds MAX v(TOX_E1A_DS)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1b_ox",
+      "spice": ".meas dc tox_e1b_ox MAX v(TOX_E1B_OX)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1b_ds",
+      "spice": ".meas dc tox_e1b_ds MAX v(TOX_E1B_DS)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_pre_ox",
+      "spice": ".meas dc tox_pre_ox MAX v(TOX_PRE_OX)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_pre_ds",
+      "spice": ".meas dc tox_pre_ds MAX v(TOX_PRE_DS)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_main_db",
+      "spice": ".meas dc tox_main_db MAX v(TOX_MAIN_DB)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e0_db",
+      "spice": ".meas dc tox_e0_db MAX v(TOX_E0_DB)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1a_db",
+      "spice": ".meas dc tox_e1a_db MAX v(TOX_E1A_DB)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_e1b_db",
+      "spice": ".meas dc tox_e1b_db MAX v(TOX_E1B_DB)",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_nsub_padp",
+      "spice": ".meas dc tox_nsub_padp MAX par('abs(v(PADP) - v(VSSIO))')",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "tox_nsub_padn",
+      "spice": ".meas dc tox_nsub_padn MAX par('abs(v(PADN) - v(VSSIO))')",
+      "unit": "V",
+      "limits": {
+        "max": 1.98
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "core_max",
+      "spice": ".meas dc core_max MAX v(CORE_MAX)",
+      "unit": "V"
+    }
+  ],
+  "options": {
+    "timeout_s": 120,
+    "stage_model_inputs": true,
+    "ngspice_init": [
+      "set wnflag=1"
+    ],
+    "fail_on_diagnostic": [
+      "nonconvergence"
+    ],
+    "node_voltage_bounds": {
+      "min": -3.63,
+      "max": 3.63
+    }
+  }
+}
