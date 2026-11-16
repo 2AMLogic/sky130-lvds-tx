@@ -28,23 +28,26 @@ record**, produced by the regeneration command below. Never hand-edit it.
     passes -- the earlier `item-1-design-sources-digital.json` is kept as history,
     bound to a host-yosys netlist build).
   - **Item 2, digital (`2.digital`)** cites
-    [`verification/signoff/evidence/item-2-layout-digital-r2.json`](../verification/signoff/evidence/item-2-layout-digital-r2.json),
-    a hand-written `generic` envelope bound to the routed GDS
-    `flow/serializer/serializer_routed.gds` (klt releases before 0.9.1 had no
-    item 2 producer; 2AMLogic/klayout-tools#4188 added one in 0.9.1 -- the
-    analog record below uses it, re-attesting the digital record is out of
-    scope there). Its `regeneration` claim is backed by
-    `verification/signoff/check-serializer-pnr.sh` (`local_only`); see
-    [`flow/serializer/PNR.md`](../flow/serializer/PNR.md).
-    **At this head that regeneration claim is drifted**: the serializer
-    netlist was regenerated under the pinned `yowasp-yosys` (issue #115),
-    so re-running the generator now routes from the new netlist and no
-    longer produces the r2 envelope's `regenerated_hash`
-    (`sha256:1cecbc447bb64e157b9827df7adb60e13d678a4076f91cbcfe87c0240bbdd0ce`,
-    from the pre-regeneration netlist) -- the committed routed GDS and this
-    envelope correspond to the previous netlist until the re-closure in
-    #119, which follows the pin decision in #120.
-    `flow/serializer/RECORD.md` carries the same disclosure.
+    [`verification/signoff/evidence/item-2-layout-digital-r3.json`](../verification/signoff/evidence/item-2-layout-digital-r3.json),
+    produced by `klt signoff --attest 2 --input flow/serializer/serializer_routed.gds`
+    (the item 2 producer, klayout-tools#4188) under the pinned attest pair
+    (`klt 0.9.1` + `klayout 0.28.17.post1`), bound to the routed GDS
+    `flow/serializer/serializer_routed.gds` re-closed against the current
+    netlist by #119 (`regenerated_hash`
+    `sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25`;
+    the P&R that produced those bytes ran under `.venv-pnr`, disclosed in
+    the envelope's `regeneration.generator`).
+    Its `regeneration` claim is backed by
+    `verification/signoff/check-serializer-pnr.sh` (`local_only`), which
+    reproduces the GDS byte-identically at seed 1; see
+    [`flow/serializer/PNR.md`](../flow/serializer/PNR.md). The P&R backend
+    is net-name-sensitive: regenerating the netlist again would change the
+    routed bytes even at identical connectivity, so the byte-compare is only
+    expected to hold for the committed netlist (the check script's contract
+    states this). The hand-written r2 envelope
+    (`item-2-layout-digital-r2.json`, bound to the pre-#115 netlist's
+    `sha256:1cecbc447…`) stays as history.
+    `flow/serializer/RECORD.md` carries the netlist-regeneration context.
   - **Item 2, analog (`2.analog`)** cites
     [`verification/signoff/evidence/item-2-layout-analog-r4.json`](../verification/signoff/evidence/item-2-layout-analog-r4.json)
     (append-only; the earlier `item-2-layout-analog.json`, `-r2.json` and
@@ -57,9 +60,11 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`layout/README.md`](../layout/README.md). The manifest's `content_hash` is the
     sha256 of the GDS, not of the envelope. The driver is routed (#48); `ddr_mux` and `predriver` are placement-only.
   - **Item 3, digital (`3.digital`)** cites
-    [`verification/signoff/evidence/item-3-drc-digital-r2.json`](../verification/signoff/evidence/item-3-drc-digital-r2.json),
+    [`verification/signoff/evidence/item-3-drc-digital-r3.json`](../verification/signoff/evidence/item-3-drc-digital-r3.json),
     the `klt drc --deck sky130` report on `flow/serializer/serializer_routed.gds`
-    (`status: clean`, 0 violations). The manifest's `content_hash` is the sha256 of the GDS.
+    (`status: clean`, 0 violations; re-run under `.venv-pnr` on the #119
+    re-closure GDS; the r2 report on the previous implementation is kept as
+    history). The manifest's `content_hash` is the sha256 of the GDS.
     Coverage disclosure (verbatim from the report's `coverage` block) is in
     [`verification/README.md`](../verification/README.md#item-3-drc).
   - **Item 3, analog (`3.analog`)** cites
@@ -70,23 +75,22 @@ record**, produced by the regeneration command below. Never hand-edit it.
     row grades `unmet` / `check_failed`. It is cited, not waived: the report is the evidence. All 486 are in the
     unmodified stock pad frame; classification in [`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44).
   - **Item 4 (LVS)** is cited per partition with `klt lvs` reports (`engine: klayout`, `status: match`); the manifest's `content_hash` is the sha256 of the layout GDS.
-    `4.digital` cites [`item-4-lvs-digital-r3.json`](../verification/signoff/evidence/item-4-lvs-digital-r3.json)
-    (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified).
+    `4.digital` cites [`item-4-lvs-digital-r4.json`](../verification/signoff/evidence/item-4-lvs-digital-r4.json)
+    (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified;
+    re-run under `.venv-pnr` on the #119 re-closure GDS against the same run's routed verilog; the r3 report on the
+    previous implementation is kept as history).
     `4.analog` cites [`item-4-lvs-analog-r2-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json),
     which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`; the unmodified-netlist report `item-4-lvs-analog-r2.json` is `mismatch` and kept as history. Pad/ESD devices are outside the driver top.
     Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
-    `11.digital` is **met**: [`item-11-erc-digital-r2.json`](../verification/signoff/evidence/item-11-erc-digital-r2.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r3.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
-    Its `flow/serializer/pnr.response.json` citation binds the
-    pre-regeneration netlist: the response's
-    `provenance.input.content_hash` is
-    `sha256:a353a87bcfe3b3ec4586c1488685c609b1ac2dd6ec545e8944158671b10fdccd`,
-    while the committed `serializer_synth.v` hashes
-    `sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353`
-    since the pinned-yosys regeneration, so `klt place-and-route --check`
-    reports `drifted` on it at this head. #119 re-closes the digital
-    partition (regenerating the routed GDS and the envelopes that cite it)
-    behind the pin decision in #120.
+    `11.digital` is **met**: [`item-11-erc-digital-r3.json`](../verification/signoff/evidence/item-11-erc-digital-r3.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r4.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
+    The P&R response citation is current: #119 re-ran P&R from the committed
+    netlist, so the response's `provenance.input.content_hash` names
+    `serializer_synth.v`
+    (`sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353`)
+    and `klt place-and-route --check` reports `match`. The earlier r2
+    envelopes and response (bound to the pre-#115 netlist,
+    `sha256:a353a87b…`) stay as history.
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
     [`verification/signoff/evidence/item-10-repo-hygiene-r9.json`](../verification/signoff/evidence/item-10-repo-hygiene-r9.json),
@@ -113,8 +117,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
   [`2AMLogic/klayout-tools@267ea83a`](https://github.com/2AMLogic/klayout-tools/blob/267ea83a0510bcb61d2956058095201c0f481ff7/docs/design-evidence-tiers.md)
   `docs/design-evidence-tiers.md` (MIT-licensed upstream; this repo's
   Apache-2.0 `LICENSE` does not relicense the vendored copy), with two
-  repo-local disclosure notes appended (items 2 and 11: the serializer
-  netlist-regeneration drift behind `2.digital`/`11.digital` above) -- the
+  repo-local disclosure notes appended (items 2 and 11: the digital
+  partition's netlist-binding state behind `2.digital`/`11.digital` above,
+  including the P&R backend's net-name sensitivity, recorded when #119
+  re-closed it) -- the
   copy is otherwise byte-identical to that upstream commit. Re-vendor and
   regenerate the record in the same PR when upstream moves, and re-apply
   the two local notes.

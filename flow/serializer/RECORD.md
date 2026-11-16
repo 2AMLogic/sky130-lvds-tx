@@ -74,10 +74,14 @@ late), so the bench still bites on the new design.
   same 10 cell types; the regenerated netlist differs from the old one only in
   the version header and net-alias/port-connection renames. **The routed GDS
   does not reproduce from this netlist** (a fresh P&R yields a different
-  physical implementation — OpenROAD's resizer/CTS are net-name-sensitive);
-  that re-closure is tracked separately, and the committed
-  `serializer_routed.gds` and downstream digital envelopes correspond to the
-  previous netlist until it lands.
+  physical implementation — OpenROAD's resizer/CTS are net-name-sensitive).
+  That re-closure has landed (issue #119): the committed
+  `serializer_routed.gds` and the downstream digital envelopes are now bound
+  to this netlist (`pnr.response.json`'s `provenance.input.content_hash`
+  names it, `klt place-and-route --check` reports `match`, and
+  `verification/signoff/check-serializer-pnr.sh` reproduces the committed GDS
+  byte-identically); the pre-#119 artifacts and envelopes stay as append-only
+  history. See `PNR.md` for the re-closure run.
 
 ## Retired stand-in smoke flow
 

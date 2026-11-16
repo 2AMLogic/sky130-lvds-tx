@@ -57,9 +57,14 @@ Inventory: `verification/signoff/item-9-inventory.json`.
 - **`.venv-pnr`** — the place-and-route pair: `klayout==0.30.13` (pinned
   exactly, `PNR_KLAYOUT_VERSION`) with `klayout-tools==0.9.1` installed
   normally (no `--no-deps`), so klt's `klayout>=0.30` floor is satisfied.
-  Use it **for `klt place-and-route` only** — it is the only provisioned
-  environment in which P&R runs at all (`Layout.read_bytes` is
-  0.30.x-only; upstream `2AMLogic/klayout-tools#5768`).
+  Use it for `klt place-and-route` **and for the DRC/LVS/ERC gates run on
+  its outputs** (`klt drc`, `klt lvs`, `klt erc`) — it is the only
+  provisioned environment in which P&R runs at all (`Layout.read_bytes` is
+  0.30.x-only; upstream `2AMLogic/klayout-tools#5768`), and it is the
+  module every committed digital DRC/LVS/ERC envelope was produced under
+  (those envelopes record `klayout_version_mismatch: true` against the
+  attest pin). The attest venv is not able to run P&R itself.
+  `klt sta` on P&R outputs also runs under `.venv-pnr` in practice.
 
 ```
 source .venv-pnr/bin/activate
