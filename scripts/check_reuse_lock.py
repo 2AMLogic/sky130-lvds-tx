@@ -3,9 +3,10 @@
 
 For every `mode: vendored` import entry the script re-computes sha256 of the
 committed local file and compares it to the recorded `local_sha256`, and
-verifies the entry's `diverged:` decision-record path exists. Exits non-zero
-on any mismatch, naming the file and both hashes, so a vendored file can no
-longer drift (or lose its justification record) without a CI signal.
+verifies the entry's `diverged:` decision-record path exists. It also verifies
+each `in_tree[]` entry's `decision:` decision-record path exists. Exits
+non-zero on any mismatch, naming the file and both hashes, so a vendored file
+can no longer drift (or lose its justification record) without a CI signal.
 
 Needs no network, no simulators, no third-party packages:
 
@@ -78,6 +79,23 @@ def main() -> int:
                 failures += 1
                 print(f"MISSING: {diverged} (diverged: pointer for {local})")
 
+    # Existence-only check over in_tree[]: these entries carry no hashes
+    # (#141), but a rotted `decision:` pointer breaks the same "answerable
+    # mechanically" invariant. Counted separately from `checked` so the
+    # vendored vacuity guard below keeps meaning "no vendored entries".
+    in_tree_checked = 0
+    for entry in lock.get("in_tree", []):
+        in_tree_checked += 1
+        block = entry.get("block")
+        decision = entry.get("decision")
+
+        if decision is None:
+            failures += 1
+            print(f"INVALID: in_tree entry '{block}' has no 'decision' decision record in the lock")
+        elif not (REPO_ROOT / decision).is_file():
+            failures += 1
+            print(f"MISSING: {decision} (decision: pointer for in_tree block '{block}')")
+
     # A gate that checks nothing must not look like one that passed: an
     # imports[] entry removed, or a mode flipped away from `vendored`, would
     # otherwise exit 0 vacuously.
@@ -86,6 +104,7 @@ def main() -> int:
         print("VACUOUS: no vendored entries found in reuse.lock.json - nothing was checked")
 
     print(f"reuse.lock: {checked} vendored entr{'y' if checked == 1 else 'ies'} checked, "
+          f"{in_tree_checked} in_tree decision{'s' if in_tree_checked != 1 else ''} checked, "
           f"{failures} failure{'s' if failures != 1 else ''}")
     return 1 if failures else 0
 
