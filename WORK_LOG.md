@@ -4,6 +4,12 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-16
 
+- **PR #147**: fix(verification): bind item-3 DRC deck provenance to its envelopes
+- **Issue #145** (closed): verification/README.md item-3 deck provenance: analog r3 hash mislabeled and 'released: false' stale
+- **PR #144**: Re-close the digital physical flow against the r2 serializer netlist
+- **Issue #119** (closed): Re-close the digital physical flow (routed GDS + items 2/3/4/11 digital) against #115's regenerated serializer netlist
+- **PR #142**: ci: gate reuse.lock local_sha256 drift; refresh vendored setup-env hash; re-derive 0002 edit list
+- **Issue #141** (closed): reuse.lock.json's local_sha256 for the vendored scripts/setup-env.sh is stale, and 0002's edit list no longer covers the file's divergences
 - **PR #140**: env: provision a dedicated .venv-pnr for place-and-route on a klayout 0.30.13 pin
 - **Issue #120** (closed): Module pin for the digital P&R re-closure (#119): split venv vs upstream vs full 0.30.x re-pin
 
