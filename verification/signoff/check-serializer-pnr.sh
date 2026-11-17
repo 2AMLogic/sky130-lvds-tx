@@ -4,10 +4,21 @@
 # pnr.response.json to still match (klt place-and-route --check --rerun) and
 # (b) the freshly routed GDS to be byte-identical to the committed
 # flow/serializer/serializer_routed.gds. The GDS is byte-reproducible at the
-# fixed seed (two consecutive runs gave the same sha256).
+# fixed seed -- two consecutive runs and a third from the committed tree gave
+# the same sha256 (issue #119).
+#
+# The byte-compare is premised on a FIXED netlist: the P&R backend is
+# net-name-sensitive, so a regenerated netlist yields a different routed GDS
+# even at identical connectivity (OpenROAD's resizer/CTS follow net and
+# instance names; measured in issue #119). A byte-compare failure after a
+# netlist regeneration therefore means the digital evidence must be
+# re-closed -- re-run P&R, then the gates and envelopes that cite it, and
+# commit the new artifacts -- not that this flow broke, and not something to
+# suppress here.
 #
 # Needs `klt`, OpenROAD and the sky130 PDK (PDK_ROOT, PDK=sky130A); local_only,
-# like the synthesis freshness check. Run from the repository root.
+# like the synthesis freshness check. Run from the repository root with the
+# P&R venv active (.venv-pnr) so `klt` is the pinned pair.
 set -eu
 
 req=flow/serializer/pnr.request.json

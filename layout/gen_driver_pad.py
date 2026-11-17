@@ -39,7 +39,6 @@ FRAME = "sky130_ef_io__analog_noesd_pad"
 # at 20 um, so the clamp is 5 fingers of 17.2 um: same total W, same L.
 ESD_PARAMS = {"finger_width_um": 17.2, "l_um": 0.55, "fingers": 5, "add_guard_ring": True}
 PAD_PITCH_UM = 75.0
-SLOT_DEPTH_UM = 200.0
 # Clamp origin inside the slot: below the met4/met5 bus rails, under the met3
 # P_CORE stub (x 24.72-49.72), clear of the VCCHIB/VCCD rails at y < 12.
 ESD_ORIGIN_UM = (34.0, 20.0)
@@ -72,21 +71,6 @@ def load_frame(dst):
         die("%s has no cell %s" % (IO_GDS, FRAME))
     top = dst.create_cell(FRAME)
     top.copy_tree(cell)
-    return top
-
-def gen_esd(dst):
-    with tempfile.TemporaryDirectory() as tmp:
-        out = os.path.join(tmp, "esd.gds")
-        run = subprocess.run(
-            [KLT, "gen", "esd_device", "--params", json.dumps(ESD_PARAMS), "--pdk", PDK,
-             "--pdk-root", PDK_ROOT, "--cell-name", "lvds_esd_nfet", "-o", out,
-             "--format", "json"], capture_output=True, text=True)
-        if run.returncode != 0:
-            die("klt gen esd_device failed:\n%s%s" % (run.stdout, run.stderr))
-        src = pya.Layout()
-        src.read(out)
-        top = dst.create_cell("lvds_esd_nfet")
-        top.copy_tree(src.cell("lvds_esd_nfet"))
     return top
 
 def klt_gen(dst, generator, params, cell_name):
@@ -558,7 +542,7 @@ def main():
     ly = pya.Layout()
     ly.dbu = 0.001
     frame = load_frame(ly)
-    esd = gen_esd(ly)
+    esd = klt_gen(ly, "esd_device", ESD_PARAMS, "lvds_esd_nfet")[0]
     bands = frame_bands(frame, ly)
 
     pad = ly.create_cell("sky130_lvds_tx_pad_cell")

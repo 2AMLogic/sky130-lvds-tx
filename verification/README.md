@@ -30,6 +30,56 @@ DUT passes every test **and** the negative control fails.
 | Icarus Verilog | 13.0 (CI prints `iverilog -V`; Ubuntu apt may differ) |
 | Verilator | 5.x (CI prints `verilator --version`) |
 
+## Re-running the local_only checks
+
+Two toolchain frictions affect the checks marked `local_only` (run on a
+workstation, not in CI). Both were worked around in PR #111 and disclosed only
+in that PR's body; recorded here so the repo carries them.
+
+**`TMPDIR` must be a short path.** `klt synthesize`'s yosys → `yosys-abc`
+invocation deadlocks when the `TMPDIR` path is longer than ~35 characters:
+yosys blocks reading abc's stdout while abc polls stdin, with no diagnostic
+and no timeout on this host —
+[#5780](https://github.com/2AMLogic/klayout-tools/issues/5780) reports the
+300 s yosys watchdog firing in its own configuration. The trigger is the
+path *length*, not that `TMPDIR` is
+non-default — a short custom `TMPDIR` is fine. Measured 2026-11-15 against
+klt `0.9.2.dev1029+g76f47afa48f1` and host yosys `0.67+post` (git
+`b8e7da6f`): `/tmp` (4 characters), a 10-character and a 35-character
+`TMPDIR` pass in ~4 s; 36 and 65 characters hang. The harness's per-session
+`TMPDIR` is ~64 characters, so it hangs. Remedy: `TMPDIR=/tmp` — it works
+because it is *short*, not because it is the default. Filed upstream as
+[2AMLogic/klayout-tools#5798](https://github.com/2AMLogic/klayout-tools/issues/5798)
+alongside
+[#5780](https://github.com/2AMLogic/klayout-tools/issues/5780), the filing
+that carries the traced cause: readline's wrapped echo of the
+`source <abc.script>` line breaks yosys's ABC `source` handshake, so both
+sides block (adjacent:
+[#5773](https://github.com/2AMLogic/klayout-tools/issues/5773),
+the yosys watchdog, which did not fire on the multi-hour hangs observed).
+
+**Why `item-1-digital-inventory.json` prepends `$HOME/.local/bin` to `PATH`.**
+The inventory's freshness-check argv runs the check with the *host* toolchain
+from inside the pinned-klt attestation (`KLT_VERSION: "0.8.0"` in
+`signoff.yml`). Rationale as disclosed in PR #111: host klt `0.9.2.dev1029`
+emits attest provenance in a new `inputs[]` shape the pinned `0.8.0` grader
+cannot grade, and pinned-`0.8.0` `synthesize` maps a different netlist than
+the committed one (second half disclosed in PR #111, not independently
+re-measured here). So the attestation is graded under the pin while the
+freshness re-synthesis runs with the host tools, which makes local
+re-attestation silently host-dependent. The provenance-shape half was tracked
+upstream as
+[2AMLogic/klayout-tools#5767](https://github.com/2AMLogic/klayout-tools/issues/5767),
+closed as not planned on 2026-11-15;
+the cross-version `synthesize` mapping half is deferred to the
+netlist-reproducibility work in #115 rather than filed blind.
+
+Expect the `PATH` pin to change or disappear when #115 re-closes the digital
+flow under the pinned toolchain; if you are reading this after #115, re-derive
+the argv rather than preserving the workaround. The same `TMPDIR` warning is
+repeated at the call site in
+`verification/signoff/check-serializer-netlist.sh`.
+
 ## Negative-control rule
 
 A bench that has never failed is not known to be able to. Each bench ships a
@@ -48,16 +98,49 @@ Reuse decision for the sibling's runner: `spec/decisions/0001-verification-runne
 
 T1 checklist item 3, one `klt drc` report per partition, committed under
 `verification/signoff/evidence/` and cited from `manifests/sky130-lvds-tx.json`.
-Deck `sky130` (content hash `sha256:072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267`,
-`released: false`), PDK `sky130A` at open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`, klt `0.8.0` for the analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`) and `0.8.1.dev181+g70d73835514c` for the digital one.
+
+### Deck provenance
+
+Deck `sky130` for every report below; PDK `sky130A` at open_pdks
+`f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` for all of them except
+`item-3-drc-analog-r2.json`, which records `gf180mcuA` (uncited by the manifest,
+kept append-only — not investigated here). The deck moves between klt releases,
+so verify against the cited envelope. The manifest cites the `r3` digital report
+and, for analog, the `r4` report (re-run on the #77 `WELL`-labeled GDS);
+the base-revision reports are kept append-only. klt `0.8.0` for the
+analog `r3` report (then the CI pin, `KLT_VERSION` in `signoff.yml`) and for the
+analog `r4` re-run on the labeled GDS (issue #77),
+`0.8.1.dev181+g70d73835514c` for the earlier analog and digital reports (the two
+base revisions, sharing one klt build), `0.8.1.dev55+g879d39bad82b` for the
+analog `r2` re-run on the placement-only stream,
+`0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98
+netlist, and `0.9.1` (`.venv-pnr`) for the digital `r3` re-run on the issue-#119
+re-closure GDS.
+
+| Report | Deck `content_hash` | `released` |
+|---|---|---|
+| `item-3-drc-analog.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
+| `item-3-drc-analog-r2.json` | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-analog-r3.json` | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-analog-r4.json` (manifest-cited) | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-digital.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
+| `item-3-drc-digital-r2.json` | `36027b82e3b16075e72b8e21775cde47ba7d08b7636efa4b73e9c34732a28efd` | `true` |
+| `item-3-drc-digital-r3.json` (manifest-cited) | `029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` | `true` |
+
+The binding is executed, not merely transcribed:
+`verification/signoff/check-hygiene.sh` re-reads every committed
+`item-3-drc-*.json` envelope and compares its `provenance.deck` hash and
+`released` flag against this table; it runs in CI as part of the T1 item 10
+attestation, so a drifted restatement fails the hygiene check instead of going
+stale silently.
 
     export PDK_ROOT=~/.ciel PDK=sky130A
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
         layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r4.json
     klt drc --deck sky130 --pdk-root "$PDK_ROOT" --format json \
-        flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital.json
+        flow/serializer/serializer_routed.gds > verification/signoff/evidence/item-3-drc-digital-r3.json
     klt drc --check verification/signoff/evidence/item-3-drc-analog-r4.json --pdk-root "$PDK_ROOT"
-    klt drc --check verification/signoff/evidence/item-3-drc-digital.json --pdk-root "$PDK_ROOT"
+    klt drc --check verification/signoff/evidence/item-3-drc-digital-r3.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
 it needs the PDK and is not run in CI.
@@ -101,7 +184,7 @@ not this copy, if they differ):
 Two probe runs, one per partition, `engine: klayout` with the curated `sky130`
 deck. Requests: `verification/signoff/lvs/item-4-{analog,digital}.request.json`;
 reports: `verification/signoff/evidence/item-4-lvs-{analog,digital}.json`.
-The manifest cites `item-4-lvs-digital-r2.json` (`4.digital`) and
+The manifest cites `item-4-lvs-digital-r4.json` (`4.digital`) and
 `item-4-lvs-analog-r3-scale-expanded.json` (`4.analog`, the GDS after #77; `-r2-scale-expanded` is kept as history); both grade `met`. `klt lvs --check` on the scale-expanded reports `reference_sha256` as drifted because it resolves the reference relative to the working directory, not the request; the hash in the report equals `sha256sum` of `driver-scale-expanded.spice`.
 **The analog citation compares against a derived netlist, not `design/driver/driver.spice`:**
 `verification/signoff/lvs/expand-scale.py` substitutes the `SCALE=11` value into `m={SCALE}`
@@ -113,7 +196,7 @@ by this LVS. Reports are append-only; earlier ones are kept.
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
 | Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` unmodified netlist; `match` scale-expanded (cited) | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). |
-| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r2.json` (klt with the #4363 fix): signal compare matches, `power_connectivity.status: "match"`, no findings, `reference.form: "gate-level-verilog"`, report `--check` clean. The `VNB`/`VPB` well-layer LEF pins (248 instances) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) is kept as append-only evidence. |
+| Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r4.json` (re-run on the issue-#119 re-closure GDS against the same P&R run's routed verilog, klt `0.9.1` under `.venv-pnr`, schema 3): signal compare matches, `power_connectivity.status: "match"`, no error findings, `reference.form: "gate-level-verilog"`. The `VNB`/`VPB` well-layer LEF pins (274 instances each) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The `r3` report (the issue-#98 netlist, 275 instances), the first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) and the `r2` report (the #4363-fix re-run, 248 instances) are kept as append-only evidence. |
 
 **Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
 `verification/signoff/evidence/item-4-lvs-digital-diagnosis.md`. A transistor-level
@@ -145,8 +228,8 @@ without it the routed GDS extracts 719 flat transistors against a 0-device
 reference. Re-run with:
 
     export PDK_ROOT=~/.ciel PDK=sky130A
-    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json > verification/signoff/evidence/item-4-lvs-digital-r2.json
-    klt lvs --check verification/signoff/evidence/item-4-lvs-digital-r2.json   # drift check
+    klt lvs --format json verification/signoff/lvs/item-4-digital.request.json > verification/signoff/evidence/item-4-lvs-digital-r4.json
+    klt lvs --check verification/signoff/evidence/item-4-lvs-digital-r4.json   # drift check
 
 The digital `r2` report was produced with
 `uvx --from git+https://github.com/2AMLogic/klayout-tools@6f28dd6d74de81845995045c87689961092df924 klt`
@@ -156,8 +239,7 @@ The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
 
 ## T1 item 11: power delivery (`klt erc` supply spec)
 
-Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports (`klayout-tools==0.8.0`,
-`klt erc --check` passes on both): `verification/signoff/evidence/item-11-erc-{analog,digital}.json`.
+Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports: `verification/signoff/evidence/item-11-erc-{analog,digital}.json` (the analog report and the earlier digital one produced with `klayout-tools==0.8.0`, where `klt erc --check` passes; the digital `r2` report is the re-run on the issue-#98 netlist with klt `0.9.2.dev1029+g76f47afa48f1`; the cited digital `r3` report is the issue-#119 re-run on the re-closure GDS with klt `0.9.1` under `.venv-pnr`, same verdict and the same 7.3 % uncovered tap fraction).
 
 - **Digital: met.** Serializer `VCCD` and `VSS` each resolve to one island, zero findings, `erc_coverage.skipped` empty.
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted

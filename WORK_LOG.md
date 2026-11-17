@@ -2,6 +2,67 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-17
+
+- **PR #155**: chore(loom): resync installed Loom to v0.19.1306
+
+### 2026-11-16
+
+- **PR #95**: docs: roadmap as of 2026-11-13
+- **PR #148**: chore(loom): resync installed Loom to v0.19.1302
+- **PR #150**: fix: existence-check in_tree[].decision pointers in the reuse-lock gate
+- **Issue #146** (closed): reuse.lock.json's in_tree[].decision pointers are not existence-checked by the new reuse-lock gate
+- **PR #147**: fix(verification): bind item-3 DRC deck provenance to its envelopes
+- **Issue #145** (closed): verification/README.md item-3 deck provenance: analog r3 hash mislabeled and 'released: false' stale
+- **PR #144**: Re-close the digital physical flow against the r2 serializer netlist
+- **Issue #119** (closed): Re-close the digital physical flow (routed GDS + items 2/3/4/11 digital) against #115's regenerated serializer netlist
+- **PR #142**: ci: gate reuse.lock local_sha256 drift; refresh vendored setup-env hash; re-derive 0002 edit list
+- **Issue #141** (closed): reuse.lock.json's local_sha256 for the vendored scripts/setup-env.sh is stale, and 0002's edit list no longer covers the file's divergences
+- **PR #140**: env: provision a dedicated .venv-pnr for place-and-route on a klayout 0.30.13 pin
+- **Issue #120** (closed): Module pin for the digital P&R re-closure (#119): split venv vs upstream vs full 0.30.x re-pin
+
+### 2026-11-15
+
+- **PR #137**: docs: scope sim provenance-correction clause to pinned vs addendum blocks
+- **Issue #136** (closed): sim/README.md provenance convention: 'corrected by annotation, not rewrite' is stated unconditionally, but the current addendum block may be edited in place
+- **PR #135**: docs(sim): correct unpowered-pad klayout provenance figures; state canonical-figure convention
+- **PR #132**: sim(unpowered-pad): re-run the grid against the ESD-fixed pad cell (cd0c89a)
+- **PR #131**: docs: state WORK_PLAN snapshot semantics in header, name generation-time recovery
+- **PR #129**: sim(driver-dc): instantiate the corrected pad_cell and re-grade E1/E2 at the pad node
+- **PR #127**: fix: remove unused SLOT_DEPTH_UM constant from pad generator
+- **PR #126**: docs: cite klayout-tools#5780 cause beside #5798 in TMPDIR friction record
+- **PR #123**: docs(signoff): re-record serializer P&R artifact digests and enforce the binding
+- **PR #122**: docs: disclose klt TMPDIR-length yosys deadlock and inventory PATH-pin rationale in the verification record
+- **PR #121**: fix(signoff): regenerate the serializer netlist under the pinned yosys; re-close item 1 digital as r2 (stacked on #112)
+- **PR #118**: docs(layout): state the pad-seam deferral reason from live status, not issue #24
+- **PR #107**: sim: add unpowered-pad DC bench for the fail-safe well biasing
+- **PR #102**: sim: add driver DC bench recording V_OD and V_OS over the G75 grid
+- **Issue #134** (closed): sim/unpowered-pad/RECORD.md: recorded klayout client version disagrees with the committed reports (both blocks)
+- **Issue #128** (closed): WORK_PLAN.md's generated region carries no generated-at timestamp, so a stale snapshot reads as current truth
+- **Issue #125** (closed): Re-run sim/unpowered-pad bench against the ESD-fixed pad cell (cd0c89a)
+- **Issue #124** (closed): verification/README.md: cross-reference klayout-tools#5780 (traced cause) alongside #5798 for the TMPDIR-length yosys deadlock
+- **Issue #116** (closed): driver-dc bench: re-run the G75 grid with the corrected pad_cell instantiated
+- **Issue #115** (closed): Re-close the digital flow under the pinned toolchain (serializer_synth.v is not pin-reproducible; item-1 digital envelope cannot be regenerated under klt 0.9.1)
+- **Issue #113** (closed): flow/serializer/PNR.md: restore the committed-artifact hash table — the routed SPEF is now pinned by nothing
+- **Issue #110** (closed): layout: the pad-seam deferral row still cites closed #24 as its live reason
+- **Issue #109** (closed): layout: SLOT_DEPTH_UM in gen_driver_pad.py is defined and never read
+- **Issue #104** (closed): layout: the driver-pad GDS freshness gate fails because the klt pin is stale and the klayout binary is unpinned
+- **Issue #97** (closed): sim: unpowered-pad DC bench for the fail-safe well biasing (spec rows P4, P4a, P4b; DR-008)
+- **Issue #96** (closed): sim: driver DC bench for V_OD and V_OS (spec rows E1, E2) across the G75 grid
+
+### 2026-11-14
+
+- **PR #111**: fix(digital): close serializer setup timing at the in-spec ss corners
+- **PR #108**: fix(pad_cell): size the ESD diode junction from the P1 budget, not 400 m²
+- **PR #105**: refactor: generate the ESD clamp through the shared klt_gen wrapper
+- **Issue #100** (closed): design: pad_cell ESD diode area is 400x the model default and shunts 107 mA at 1.25 V DC
+- **Issue #99** (closed): Remove gen_esd(): klt_gen() is the same klt gen wrapper, generalised
+- **Issue #98** (closed): Serializer S3: close setup timing at the 1.60 V and 1.76 V ss corners with 10 % clock uncertainty
+
+### 2026-11-12
+
+- **PR #91**: Bump Repo Skills 0.25.10 -> 0.26.1
+
 ### 2026-11-07
 
 - **PR #87**: Bump Repo Skills 0.25.1 -> 0.25.10

@@ -6,8 +6,16 @@
 # driver.spice device (stage 2) and every ddr_mux.spice / predriver.spice device
 # (stage 3) to be present with the right m / SCALE.
 #
-# Needs klayout, `klt` and the pinned sky130A PDK (PDK_ROOT); local_only.
+# Needs the provisioned .venv (scripts/setup-env.sh: the pinned `klt` and the
+# pinned `klayout` module) and the pinned sky130A PDK (PDK_ROOT); local_only.
 # Run from the repository root.
+#
+# The GDS's bytes depend on BOTH tools: `klt` generates the cells, and the
+# `klayout` module serialises the file (`ly.write()`; a 0.30.x module
+# re-encodes two TEXT `MAG` records in the stock pad-frame cell, issue #104).
+# So before comparing bytes this gate asserts both tools against the pins in
+# scripts/setup-env.sh and refuses off-pin tools with expected/actual named
+# -- a version mismatch must never surface as an unexplained "is stale".
 set -eu
 
 committed=layout/sky130_lvds_tx_driver_pad.gds
@@ -18,7 +26,47 @@ trap 'rm -f "$fresh" "$probe" "${probe%.py}"' EXIT
 : "${PDK_ROOT:=$HOME/.ciel}"
 export PDK_ROOT PDK="${PDK:-sky130A}"
 
-GEN_OUT="$fresh" klayout -b -r layout/gen_driver_pad.py >/dev/null
+# --- pinned-tool guard (issue #104) ----------------------------------------
+# Expected versions come from scripts/setup-env.sh's pin block, whose plain
+# NAME="value" lines exist (by that file's own contract) to be parsed here.
+expected_klt=$(sed -n 's/^KLT_VERSION="\(.*\)"$/\1/p' scripts/setup-env.sh)
+expected_klayout=$(sed -n 's/^KLAYOUT_VERSION="\(.*\)"$/\1/p' scripts/setup-env.sh)
+if [ -z "$expected_klt" ] || [ -z "$expected_klayout" ]; then
+  echo "ERROR: could not read KLT_VERSION/KLAYOUT_VERSION from scripts/setup-env.sh" >&2
+  exit 1
+fi
+# pip spells the wheel 0.28.17.post1; the module self-reports 0.28.17-1.
+expected_klayout_mod=$(printf '%s\n' "$expected_klayout" | sed 's/\.post/-/')
+
+venv_py=.venv/bin/python3
+if [ ! -x "$venv_py" ]; then
+  echo "ERROR: $venv_py not found -- run scripts/setup-env.sh first." >&2
+  exit 1
+fi
+
+KLT="${KLT:-.venv/bin/klt}"
+got_klt=$("$KLT" --version 2>/dev/null || true)
+got_klt="${got_klt#klt }"
+got_klayout_mod=$("$venv_py" -c 'import klayout; print(klayout.__version__)' 2>/dev/null || true)
+
+version_ok=1
+if [ "$got_klt" != "$expected_klt" ]; then
+  echo "ERROR: klt version mismatch: expected $expected_klt (KLT_VERSION in scripts/setup-env.sh), got ${got_klt:-none} ($KLT)." >&2
+  version_ok=0
+fi
+if [ "$got_klayout_mod" != "$expected_klayout_mod" ]; then
+  echo "ERROR: klayout version mismatch: expected $expected_klayout_mod (klayout==$expected_klayout in scripts/setup-env.sh), got ${got_klayout_mod:-none} (imported by $venv_py)." >&2
+  version_ok=0
+fi
+if [ "$version_ok" -ne 1 ]; then
+  echo "  -> the committed GDS is only byte-reproducible under the pinned pair." >&2
+  echo "     Re-run scripts/setup-env.sh, or re-pin deliberately (setup-env.sh," >&2
+  echo "     this gate and docs/environment.md together) and re-attest." >&2
+  exit 1
+fi
+export KLT
+
+GEN_OUT="$fresh" "$venv_py" layout/gen_driver_pad.py >/dev/null
 if ! cmp -s "$fresh" "$committed"; then
   echo "$committed is stale: it differs from a fresh run of layout/gen_driver_pad.py" >&2
   exit 1
@@ -56,14 +104,7 @@ def mult(c):
     return n
 def count(top, leaf_prefix):
     """total multiplicity of leaf cells whose name starts with leaf_prefix, under top"""
-    tot = 0
-    for inst in cell(top).each_inst():
-        ch = inst.cell
-        if ch.name.startswith(leaf_prefix):
-            tot += mult(ch)
-        else:
-            tot += count_sub(ch, leaf_prefix)
-    return tot
+    return count_sub(cell(top), leaf_prefix)
 def count_sub(c, leaf_prefix):
     tot = 0
     for inst in c.each_inst():
@@ -127,5 +168,5 @@ t = box("sky130_lvds_tx_driver_pad")
 tot = sum(box(n).width() * box(n).height() for n in ("sky130_lvds_tx_driver", "sky130_lvds_tx_ddr_mux", "sky130_lvds_tx_predriver"))
 print("analog blocks total %.0f um^2 vs one slot 15000, pair 30000; top cell %.1f x %.1f um" % (tot, t.width(), t.height()))
 PY
-GDS="$committed" klayout -b -r "$probe"
+GDS="$committed" "$venv_py" "$probe"
 echo "$committed matches a fresh run, fits the slot, and carries the driver, ddr_mux and predriver devices"
