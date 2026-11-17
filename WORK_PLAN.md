@@ -8,8 +8,8 @@ Roadmap generated from GitHub label state by the Guide role. Only the region bet
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
 - **#79**: feat: label DR-008 well nets and declare analog well and substrate ties
-- **#95**: docs: roadmap as of 2026-11-13
 - **#117**: docs(spec): state the decision-record placement rule semantically
+- **#153**: chore(loom): resync installed Loom to v0.19.1305
 
 ## Very Important
 
@@ -47,8 +47,8 @@ _None._
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
 - **#79**: feat: label DR-008 well nets and declare analog well and substrate ties
-- **#95**: docs: roadmap as of 2026-11-13
 - **#117**: docs(spec): state the decision-record placement rule semantically
+- **#153**: chore(loom): resync installed Loom to v0.19.1305
 
 ## Proposed
 
