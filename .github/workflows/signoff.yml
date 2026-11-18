@@ -12,6 +12,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  merge_group:
 
 permissions:
   contents: read
@@ -55,7 +56,7 @@ jobs:
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene-r9.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r10.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
