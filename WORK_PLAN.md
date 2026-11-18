@@ -24,7 +24,7 @@ _None._
 
 ## Ready
 
-Human-approved issues ready for implementation (`loom:issue`).
+Human-approved issues (`loom:issue`) ready for implementation — excluding held (`loom:blocked`/`loom:operator`/`loom:frozen`), `loom:building`, and issues closed by an open `loom:pr` PR (listed under Approved).
 
 _None._
 
@@ -45,8 +45,8 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#79**: feat: label DR-008 well nets and declare analog well and substrate ties
-- **#117**: docs(spec): state the decision-record placement rule semantically
+- **#79**: feat: label DR-008 well nets and declare analog well and substrate ties — closes #77
+- **#117**: docs(spec): state the decision-record placement rule semantically — closes #103
 
 ## Proposed
 
@@ -54,11 +54,11 @@ Issues carrying `loom:curated`.
 
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#77**: layout: label the DR-008 floating WELL net and tie the pad-pair substrate to VSSIO so item 11 analog ERC can declare both *(curated)*
-- **#114**: Document (and file upstream) the two klt/host toolchain frictions worked around in PR #111 *(curated)*
+- **#114**: Document (and file upstream) the two klt/host toolchain frictions worked around in PR #111 *(curated)* *(held)*
 
 ## Proposed (Architect / Hermit)
 
-- **#101**: Remove manifests/design-evidence-tiers.md: a byte-identical copy of the pinned klt wheel's own package data *(hermit)*
+- **#101**: Remove manifests/design-evidence-tiers.md: a byte-identical copy of the pinned klt wheel's own package data *(hermit)* *(held)*
 
 ## Epics
 
@@ -71,7 +71,7 @@ _None._
 | Operator merge-risk holds | 2 |
 | Very important | 0 |
 | Important | 0 |
-| Ready (`loom:issue`) | 0 |
+| Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
 | In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 2 |
