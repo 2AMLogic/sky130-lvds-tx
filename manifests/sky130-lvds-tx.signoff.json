@@ -758,7 +758,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r9.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r10.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -796,7 +796,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r9.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r10.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
