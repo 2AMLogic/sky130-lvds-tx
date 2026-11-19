@@ -17,11 +17,17 @@ only on human merge approval, recorded in the header of `target-spec.md`
 | [`decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md`](decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md) | bit-clock requirement, the gap to `sky130-pll`, and the filed requirement |
 | [`decision-records/DR-008-unpowered-behaviour-fail-safe-well-biasing.md`](decision-records/DR-008-unpowered-behaviour-fail-safe-well-biasing.md) | operator ruling (2026-10-20): P4 kept as a joint pad-and-driver requirement; fail-safe floating-well biasing specified; rows P4–P4b |
 
-Two earlier records live in [`decisions/`](decisions/) (`0001`, the
-verification runner kept separate from `gf180-tmds-tx`; `0002`, the vendored
-`setup-env.sh` edits). They predate this series, concern the environment
-rather than the target spec, and keep their numbering; new records go in
-`decision-records/`.
+Placement follows what a record decides, not its date: a record that decides
+something the target spec decides goes in [`decision-records/`](decision-records/)
+as `DR-NNN`; a record that decides repository or verification housekeeping goes
+in [`decisions/`](decisions/) as `NNNN`. Housekeeping records:
+
+| File | What it decides |
+|---|---|
+| [`decisions/0001-verification-runner-kept-separate.md`](decisions/0001-verification-runner-kept-separate.md) | the cocotb/Icarus runner is written here, not vendored from `gf180-tmds-tx` |
+| [`decisions/0002-vendored-setup-env-edits.md`](decisions/0002-vendored-setup-env-edits.md) | the local edits to the vendored `scripts/setup-env.sh` |
+| [`decisions/0003-retire-smoke-placeholder-bench.md`](decisions/0003-retire-smoke-placeholder-bench.md) | the 4-bit counter placeholder bench retired once the serializer bench landed |
+| [`decisions/0004-relocate-smoke-runner.md`](decisions/0004-relocate-smoke-runner.md) | `run_bench()` moved into `verification/serializer/runner.py`; `verification/smoke/` deleted |
 
 Sibling references are by commit: `2AMLogic/gf180-tmds-tx`
 `9a55961ab5e4608d42ffefb70308adcb4b42213e`; `2AMLogic/sky130-pll`
