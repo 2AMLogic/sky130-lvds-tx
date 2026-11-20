@@ -34,17 +34,17 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-1-analog-design-sources-r2.json",
+        "file": "verification/signoff/evidence/item-1-analog-design-sources-r3.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f",
+        "content_hash": "sha256:f0c5312ff3caef87654f42e029883ad52186d932775ed064e7103b24d651e721",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
           "path": null,
-          "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f",
+          "content_hash": "sha256:f0c5312ff3caef87654f42e029883ad52186d932775ed064e7103b24d651e721",
           "input_verified": true,
           "members": [
             {
@@ -140,7 +140,7 @@
                 "path": "design/lvds_tx_analog.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:b90b61fd221bb1d46e3a4aad0b670331218d43be473d03a08ab84e86af19d28f",
+              "content_hash": "sha256:1885eec576235f7be805b403ae0d6ff5b3bd8d0aa50ba89a4c579e122c601032",
               "status": "verified"
             },
             {
@@ -172,7 +172,7 @@
                 "path": "design/predriver/predriver.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:c21cf99165271f3ed75c195efea9745893256d437afe9fad22b6880002828cff",
+              "content_hash": "sha256:b1ff7a174db1152239bd7a7b05cd8756dbffabd8a5a7217c1e2cb11052e08bc2",
               "status": "verified"
             },
             {
@@ -180,7 +180,7 @@
                 "path": "design/predriver/predriver.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:5397b8ae9637c1d2697c871511cf068c9ae6fb18fbed869afaa7cb4ab8bb0084",
+              "content_hash": "sha256:7b295174d37dec9ab5868d58567562ca5177831713e75270ace0c9f89d065986",
               "status": "verified"
             },
             {
@@ -758,7 +758,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -796,7 +796,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
