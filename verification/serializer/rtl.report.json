@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "engine": "icarus",
+  "hdl_toplevel": "serializer",
+  "testbench": "test_serializer",
+  "status": "pass",
+  "test_count": 4,
+  "passed_count": 4,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_word_clock_is_div4_50pct",
+      "status": "passed",
+      "sim_time_ns": 69.0,
+      "real_time_s": 0.0020041465759277344
+    },
+    {
+      "name": "test_bit_order_walking_ones",
+      "status": "passed",
+      "sim_time_ns": 125.0,
+      "real_time_s": 0.0030770301818847656
+    },
+    {
+      "name": "test_no_dropped_or_repeated_bit_back_to_back",
+      "status": "passed",
+      "sim_time_ns": 1629.0,
+      "real_time_s": 0.039353132247924805
+    },
+    {
+      "name": "test_reset_clears_outputs_and_restarts_count",
+      "status": "passed",
+      "sim_time_ns": 51.0,
+      "real_time_s": 0.0013515949249267578
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "tools": [],
+    "cocotb_version": "2.0.1",
+    "results_xml": {
+      "path": "verification/serializer/.klt/rtl/results_icarus.xml",
+      "scope": "repo",
+      "sha256": "sha256:8a352bee24a8a162206e9cddbcba2228a26e9eaed55b2e0e4c6a4aad22a8c5dc"
+    },
+    "test_log": {
+      "path": "verification/serializer/.klt/rtl/test_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:82a5e739155d3d6412145cd100cd1ade009dfed5dcee64c86aab0b9b4435a8a2"
+    },
+    "build_log": {
+      "path": "verification/serializer/.klt/rtl/build_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "random_seed": 21,
+    "source_defines": {},
+    "env": {},
+    "initial_state": null,
+    "sdf": null
+  }
+}
