@@ -95,10 +95,11 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `sha256:a353a87b…`) stay as history.
     `11.analog` cites [`item-11-erc-analog-r4.json`](../verification/signoff/evidence/item-11-erc-analog-r4.json) (the earlier `item-11-erc-analog.json` and main's `-r3` chain are kept as history) and is **unmet**: the `WELL` ties pass, the two pad-cell tub and deep n-well ring ties do not (`DR-009`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r10.json`](../verification/signoff/evidence/item-10-repo-hygiene-r10.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r12.json`](../verification/signoff/evidence/item-10-repo-hygiene-r12.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (append-only; r2-r9 are kept as history, bound to earlier workflow revisions).
+    (append-only; r2-r11 are kept as history, bound to earlier workflow and
+    spec revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
@@ -147,7 +148,7 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r10.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r12.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json

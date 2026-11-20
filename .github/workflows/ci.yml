@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+  merge_group:
 
 # Both jobs are checkout + setup-python + local scripts; neither touches the
 # token or writes to the repo (same shape as signoff.yml, which runs under
