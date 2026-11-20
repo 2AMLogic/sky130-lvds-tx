@@ -805,3 +805,90 @@ figure; corrected and annotated in the provenance blocks above — issue
 the base record's printed digits, so there is no evidence the client change
 moved any number on this deck — every figure that moved moves where the diode
 sits, which the instance comparison above licenses attributing to `XD1`.
+
+## Addendum 2026-11-20 — F3 isolation fix (issue #167, `DR-010` proposed)
+
+**Simulated, not measured; graded against the PROPOSED rows.** Base commit
+`e27999f` plus this change. Nothing in `spec/target-spec.md` or `DR-008` was
+edited; the arrangement is in the new proposed record `DR-010`.
+
+**What changed in the netlist.** The four P-side predriver output stages
+(`XMP_3pma/3pmb/3pea/3peb`, `XMN_*`) now drive inner nodes `IN_3p*`; thick-oxide
+transmission gates (`XMTP_*`/`XMTN_*`) connect those to `GPA`/`GPB`/`XPA`/`XPB`.
+The `TG` PMOS wells float (`PWM`, `PWE`) through `XMWV_*`/`XMWP_*`
+well-switches, and `XMGI_P_*`/`XMGI_N_*` set the PMOS gates. Schematic
+`design/predriver/predriver.sch`, netlists regenerated with the pinned
+`klt netlist` (0.8.0); item 1 analog re-attested as `r3` and item 10 as `r12` with klt 0.9.1, the version CI uses. The
+bench changes: the P-side `ja_pre_*` and `tox_pre_*` measurements now read the
+inner nodes (their thin-oxide drains), and `ja_tg_*`, `ja_tgn_*`, `pw_*_max`,
+`in_pre_max` were added to Sweeps A/B for the new junctions. The graded limits
+are unchanged.
+
+| Field | Value |
+|---|---|
+| Design netlist sha256 | `1885eec576235f7be805b403ae0d6ff5b3bd8d0aa50ba89a4c579e122c601032` |
+| Testbench `tb_unpowered.spice` sha256 | `5a5923efc11569de8a165c0f0ac6abfcad8f0987467ad9a03ab5322916862843` |
+| Client | `klt 0.9.3.dev2575+g6bd18bbc8637`, klayout 0.30.12; runner `klt 0.9.0`, ngspice-47 |
+| Jobs | `klt-sim-b083aea7542d` (A), `klt-sim-cf86067ad271` (B), `klt-sim-19369663a2ce` (ramp); batch, 10 units each |
+| Results | `results/issue-167-f3/{summary,report}-*` |
+
+### Verdicts
+
+| Row | Before (addendum 2026-11-15, #125) | Now | Remaining |
+|---|---|---|---|
+| P4, Sweep A | fail, ~10 mA per pad at -40 C | pad current 0.1-41 uA over all 10 units; `fs`/125 C (41 uA) **fails**, the other nine are under 20 uA but **six are inconclusive** (nonconvergence) | the three converged 125 C units `tt`,`ff`,`ss` pass (2.3, 18.0, 0.12 uA) |
+| P4, Sweep B | fail | **fail at all 10 units**, 100-288 uA per pad | F4, below |
+| P4a pad-to-well | fail | still fails at the inconclusive `sf`/`ss` -40 C units (0.37-0.5 V); passes at the four converged 125 C units | threshold lag |
+| P4a predriver junctions | fail (0.4-0.97 V) | 0.002-0.36 V; fails only at `sf`/-40 C (inconclusive) and `sf`/-40 C Sweep B | |
+| P4b well tracking (`wt_*`) | fail | passes at every converged unit (<= 0.034 V at 125 C); fails at inconclusive `sf`/`ss` -40 C | |
+| P4b gate-to-well (`gw_*`) | fail by 0.7-1.5 V | Sweep A: 0.06-0.55 V; fails at `tt`,`sf`,`ss` -40 C and `sf`/125 C (all inconclusive) and passes at `ff`,`fs`,`ss` 125 C | residual threshold deadband |
+| P4b thin-oxide, Sweep A | fail 2.400 V | **fail 2.400 V, unchanged** (F5) | |
+| P4b thin-oxide, Sweep B | pass | pass (1.6 V) | |
+| P4b ramp | pass on excursion | **6 pass, 4 inconclusive** (nonconvergence at `tt`/125 C, `sf`, `ff`, `ss` -40 C); no excursion above 38 uA | |
+
+### Findings after the change
+
+- **F3 (resolved for the pad-current mechanism).** With the gates tracked, the
+  top switch is off: the 7.5 mA Sweep A endpoint (`tt`/-40 C, local probe on this
+  base) fell to 5.4e-7 A. F2 closed with it, as `DR-008` §4 predicted; no
+  current-source well measure was needed. `fs`/125 C leaves 41 uA: **not
+  traced** beyond the junction leakage scaling of the 125 C corner.
+- **Gate-to-well deadband (new, traced).** Below a pad voltage of about 0.4-0.6 V
+  the tracking PMOS (gate on VCCD = 0 V) has `V_sg` under its threshold, so the
+  gate sits near 0 V while the well is a threshold above it. Widening
+  `XMGTA`/`XMGTB` from 0.5 to 2 to 8 um at `tt`/-40 C moved the error 0.383 to
+  0.406 to 0.392 V: width does not help. The pad current there is nA, so the
+  switch is off in fact; the miss is against the 0.3 V criterion as written.
+  Owed: a different tracking arrangement or a ruling on the criterion (not
+  mine to make).
+- **F4 (not subsumed after all).** Sweep B pad current is 100-288 uA at every
+  unit, the common-mode sense resistors' pad-to-pad path (7.4 kohm at 0.7 V is
+  94 uA) on top of residue. The earlier expectation that F3 subsumes it was wrong.
+  Owed: a measure for the sense network in the unpowered state.
+- **F5 (open).** Not addressed; see `DR-010` §6.
+- **F7 (widened, open).** Sweep A nonconvergence ("Dynamic gmin stepping
+  failed") now hits 6 of 10 units (`tt`,`sf`,`ss`,`ff`,`fs` at -40 C and `sf`/125
+  C) against 3 before, and the ramp 4 of 10. The added floating nodes are a
+  candidate cause but **not shown**; the cause is not identified. Whether this is
+  a solver limitation (a `klayout-tools` issue) or a circuit one is undecided, so
+  no tool issue is filed; owed is the bench-level investigation F7 already asked
+  for. Pad currents at inconclusive units are not claimed above except as
+  ranges.
+
+### Powered-mode regression check
+
+`sim/driver-dc` re-run, 75 conditions, batch: E1 60/75, E2 window 62/75, E2
+regulation band 62/75, E3 75/75, E4 75/75, any-miss 24/75 — identical to the
+current record (`sim/driver-dc/results/issue-167-regression/report.json.gz`).
+`driver.spice` is unchanged and that bench does not include the predriver, so
+this confirms the driver is untouched; it does **not** cover the predriver's
+powered behaviour. The only powered check of the new transmission gate is a
+single local transient (tt, 27 C, 120 fF per net): rise/fall of about 0.38 /
+0.40 ns against 0.29 / 0.26 ns before, and a 1.79 V high. Not a corner grid; the
+eye impact is not assessed.
+
+### Layout and evidence not refreshed
+
+`layout/` was not updated. The seven new device groups and two floating wells
+are not in the layout, so items 2, 3, 4 and 11 analog evidence predates this
+schematic change and must not be cited as covering it.
