@@ -115,17 +115,19 @@ record**, produced by the regeneration command below. Never hand-edit it.
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r11.json`](../verification/signoff/evidence/item-10-repo-hygiene-r11.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r12.json`](../verification/signoff/evidence/item-10-repo-hygiene-r12.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (append-only; r2-r10 are kept as history, bound to earlier workflow and
+    (append-only; r2-r11 are kept as history, bound to earlier workflow and
     spec revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r4.json`](../verification/signoff/evidence/item-9-testbenches-r4.json),
+    [`verification/signoff/evidence/item-9-testbenches-r5.json`](../verification/signoff/evidence/item-9-testbenches-r5.json),
     produced by `klt signoff --attest 9` from
-    [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
+    [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json)
+    (append-only; r2-r4 are kept as history, bound to earlier inventory
+    revisions).
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
     one inventory lists the analog and digital benches together. The
     `content_hash` is the sha256 of the inventory file. Its `cold_start` is
@@ -133,6 +135,18 @@ record**, produced by the regeneration command below. Never hand-edit it.
     (digital serializer bench with negative control, then the analog smoke through
     `klt sim`, which goes to the batch fleet on a dispatch worker).
     The cold start is `local_only`, so CI re-hashes the inventory but does not re-run it.
+  - **Item 5, digital (`5.digital`)** cites
+    [`verification/serializer/rtl.report.json`](../verification/serializer/rtl.report.json),
+    a `klt functional-verification` report of the serializer bit-exact suite
+    (4/4 pass, seed 21, `environment.sdf: null` — the RTL, unannotated run;
+    request beside it). The row stays `unmet` / `partial_coverage` with
+    `detail.missing_kinds: ["sta"]` by construction: the Digital column needs
+    a `klt sta` report **plus** this one, and the STA half is not citable
+    until spec S3's "every Liberty corner" wording is settled
+    (`flow/serializer/STA.md` records setup failing at the five slowest `ss`
+    libraries — a ratification question, out of scope of #169). The item-7
+    SDF-annotated half of the same task is staged but not citable at the
+    pinned klt (portability gaps, `flow/serializer/SDF.md`).
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
 - **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
@@ -166,9 +180,9 @@ GDS's 237 cells, so it could not regenerate the artifact at all (issue #104).
 ```console
 KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
-             -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
+             -o verification/signoff/evidence/item-9-testbenches-r5.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r11.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r12.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
@@ -226,8 +240,11 @@ envelopes are hash-bound by that full-record comparison.
 
 ## Current verdict
 
-14 of 22 T1 items met (item 10 once per partition; item 9, both partitions;
+Not T1: 14 of 22 T1 items met (item 10 once per partition; item 9, both partitions;
 item 1, both partitions; item 2, both partitions; item 3, both partitions —
 analog through the disclosed foundry-cell exception of issue #165; item 4,
-both partitions; item 11, both partitions). All others are `unmet` /
+both partitions; item 11, both partitions). Item 5 digital is cited but
+`unmet` / `partial_coverage` (the STA half and spec S3 ratification are
+pending, above); item 7 digital is uncited pending the klt pin bump
+(`flow/serializer/SDF.md`). All others are `unmet` /
 `no_evidence`.

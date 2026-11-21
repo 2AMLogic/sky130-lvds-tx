@@ -2,15 +2,18 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 9,
-  "description": "Testbenches shipped for sky130-lvds-tx, both partitions: the committed PDK-smoke benches (analog ngspice via klt sim, digital cocotb/Icarus serializer bench with a negative control, synthesis and P&R requests), one cold-start command, and the pinned PDK and tool versions.",
+  "description": "Testbenches shipped for sky130-lvds-tx, both partitions: the committed PDK-smoke benches (analog ngspice via klt sim, digital cocotb/Icarus serializer bench with a negative control, synthesis and P&R requests, the serializer klt functional-verification requests -- RTL good leg plus negative control -- and the post-route SDF corner request), one cold-start command, and the pinned PDK and tool versions.",
   "testbenches": [
     "sim/pdk-smoke/inverters.spice",
     "sim/pdk-smoke/request.json",
     "verification/serializer/test_serializer.py",
     "verification/serializer/runner.py",
     "verification/serializer/negative_control/serializer_broken.v",
+    "verification/serializer/rtl.request.json",
+    "verification/serializer/negative-control.request.json",
     "flow/serializer/synth.request.json",
-    "flow/serializer/pnr.request.json"
+    "flow/serializer/pnr.request.json",
+    "flow/serializer/sdf.request.json"
   ],
   "cold_start": {
     "argv": ["sh", "verification/signoff/cold-start.sh"],
@@ -22,7 +25,7 @@
       "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
     },
     "tools": {
-      "klt": "0.8.0",
+      "klt": "0.9.1",
       "ngspice": "46",
       "cocotb": "2.0.1",
       "iverilog": "13.0",

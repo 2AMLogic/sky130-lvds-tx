@@ -15,11 +15,11 @@
       "content_hash": "sha256:6e977bd44df5773b644d60bb48773579ed33bfac7248eb3d5245a94b28b682b2"
     },
     "9": {
-      "file": "verification/signoff/evidence/item-9-testbenches-r4.json",
-      "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a"
+      "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
+      "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
@@ -61,6 +61,10 @@
     "4.digital": {
       "file": "verification/signoff/evidence/item-4-lvs-digital-r4.json",
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
+    },
+    "5.digital": {
+      "file": "verification/serializer/rtl.report.json",
+      "content_hash": "sha256:54a5186f0b3dc4bbb60138a05ab0670fb06c6d770c8536e348fd2ad8c4ec8571"
     },
     "11.analog": [
       {

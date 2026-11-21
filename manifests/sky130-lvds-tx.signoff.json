@@ -677,9 +677,21 @@
         "Both require the spec table itself to be ratified \u2014 verdicts against a draft spec are provisional by construction."
       ],
       "status": "unmet",
-      "reason": "no_evidence",
+      "reason": "partial_coverage",
       "graded_by_build": true,
-      "citation": null
+      "citation": null,
+      "citations_graded": [
+        {
+          "citation": "verification/serializer/rtl.report.json",
+          "status": "met",
+          "reason": null
+        }
+      ],
+      "detail": {
+        "missing_kinds": [
+          "sta"
+        ]
+      }
     },
     {
       "tier": "T1",
@@ -775,11 +787,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r4.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a",
+        "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -788,15 +800,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a",
+          "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 10/10 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 13/13 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 10,
-            "passed_count": 10
+            "check_count": 13,
+            "passed_count": 13
           }
         }
       }
@@ -813,11 +825,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r4.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a",
+        "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -826,15 +838,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a",
+          "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 10/10 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 13/13 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 10,
-            "passed_count": 10
+            "check_count": 13,
+            "passed_count": 13
           }
         }
       }
@@ -851,7 +863,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -889,7 +901,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
