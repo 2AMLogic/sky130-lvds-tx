@@ -1,0 +1,53 @@
+* Driver transient bench -- E5 (pad rise/fall), E9 (PRBS-7 eye), E4 dynamic
+* (V_OS peak-to-peak) and W1 (lane power), spec rows of the PROPOSED
+* spec/target-spec.md. Simulated, not measured; a schematic-level baseline,
+* not a pass claim: the spec is PROPOSED, E4 still owes its Monte Carlo half
+* and W1's serializer share is measured by a separate bench (see RECORD.md).
+*
+* Instantiates design/lvds_tx_analog.spice ONCE: both DDR muxes, predriver,
+* driver with CMFB, and both pad cells. No device, bias or schematic change;
+* the stimulus, load and references are ideal and DR-007-labelled.
+*
+* Bias: the driver DC bench's frozen values (IREF = 54.3 uA, VCMREF = 1.25 V,
+* EN = VCCD, EM0 = EM1 = 0 V; sim/driver-dc/RECORD.md), so a miss here is a
+* recorded miss, not a tuned-away one.
+*
+* Load: 100 ohm differential + 1.0 pF per side, the E5/E9 row's load. CLP/CLN
+* are the negative control's handle: request-control.json alters them to
+* 10 pF, which must push E5 beyond its upper limit at the same corner.
+*
+* Circuit body only: klt sim supplies .lib/.temp/.control (no .end here).
+
+.include ../../design/lvds_tx_analog.spice
+.include prbs7_stim_400m.spice
+
+* ---------------------------------------------------------------------------
+* Rails. corners.supply_v in the request is keyed by these two source names,
+* so the five G75 (VCCD, VDDIO) pairs move as a set.
+* ---------------------------------------------------------------------------
+VVCCD  vccd  0 DC 1.8
+VVDDIO vddio 0 DC 3.3
+
+* ---------------------------------------------------------------------------
+* Ideal external references (DR-007), frozen from sim/driver-dc:
+*   vcmref -- CMFB target, 1.25 V at every condition.
+*   iref   -- 54.3 uA forced into the driver's diode-connected XMNB1.
+* ---------------------------------------------------------------------------
+VVCMREF vcmref 0 DC 1.25
+IIREF   0 iref  DC 54.3u
+
+* ---------------------------------------------------------------------------
+* The DUT: one lvds_tx_analog. Port order:
+*   D0 D0B D1 D1B CLK EN EM0 EM1 IREF VCMREF PADP PADN VCCD VDDIO VSSIO
+* EN ties to the vccd node (tracks the swept rail); pre-emphasis is off.
+* ---------------------------------------------------------------------------
+xtx d0 d0b d1 d1b clk vccd 0 0 iref vcmref padp padn vccd vddio 0 lvds_tx_analog
+
+* ---------------------------------------------------------------------------
+* The E5/E9 row load: 100 ohm across the pair, 1.0 pF from each pad to
+* ground. The pad cells are inside the DUT (shunt-only, no series element),
+* so PADP/PADN here are the pad nodes.
+* ---------------------------------------------------------------------------
+RL  padp padn 100
+CLP padp 0 1p
+CLN padn 0 1p

@@ -93,7 +93,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     `sha256:a353a87b…`) stay as history.
     `11.analog` is **unmet** (`supply_spec_incomplete`); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r11.json`](../verification/signoff/evidence/item-10-repo-hygiene-r11.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r12.json`](../verification/signoff/evidence/item-10-repo-hygiene-r12.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
     (append-only; r2-r10 are kept as history, bound to earlier workflow and
@@ -101,7 +101,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r4.json`](../verification/signoff/evidence/item-9-testbenches-r4.json),
+    [`verification/signoff/evidence/item-9-testbenches-r5.json`](../verification/signoff/evidence/item-9-testbenches-r5.json),
     produced by `klt signoff --attest 9` from
     [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json).
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
@@ -144,9 +144,9 @@ GDS's 237 cells, so it could not regenerate the artifact at all (issue #104).
 ```console
 KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
-             -o verification/signoff/evidence/item-9-testbenches-r4.json   # runs the cold start (sim leg: batch fleet)
+             -o verification/signoff/evidence/item-9-testbenches-r5.json   # runs the cold start (sim leg: batch fleet)
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r11.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r12.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
@@ -181,7 +181,7 @@ envelopes are hash-bound by that full-record comparison.
 
 ## Current verdict
 
-Not T1: 12 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
+Not T1: 13 of 22 items met (item 10 once per partition; item 9, both partitions; item 1,
 both partitions; item 2, both partitions; item 3, digital only: the analog DRC report is not clean; item 4, both
 partitions; item 11, digital only: the analog supply spec is incomplete and its supplies are not single islands). All others are
 `unmet` / `no_evidence`.

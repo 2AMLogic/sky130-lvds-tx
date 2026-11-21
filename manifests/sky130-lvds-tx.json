@@ -15,11 +15,11 @@
       "content_hash": "sha256:6e977bd44df5773b644d60bb48773579ed33bfac7248eb3d5245a94b28b682b2"
     },
     "9": {
-      "file": "verification/signoff/evidence/item-9-testbenches-r4.json",
-      "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a"
+      "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
+      "content_hash": "sha256:29dfb829f12af3d8a29da66ad3c1c119457a7896b642506862fd15123e2603d6"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r11.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {

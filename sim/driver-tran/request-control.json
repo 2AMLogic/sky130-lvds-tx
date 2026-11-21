@@ -1,0 +1,4833 @@
+{
+ "netlist": "driver_tran_400m.spice",
+ "netlist_source": "schematic",
+ "models": {
+  "pdk": "sky130A",
+  "lib": "libs.tech/ngspice/sky130.lib.spice"
+ },
+ "corners": {
+  "process": [
+   "tt"
+  ],
+  "temperature_c": [
+   27
+  ],
+  "supply_v": {
+   "VVCCD": [
+    1.8
+   ],
+   "VVDDIO": [
+    3.3
+   ]
+  }
+ },
+ "analysis_steps": [
+  {
+   "name": "ref",
+   "analysis": {
+    "kind": "tran",
+    "args": "5.000000e-12 6.462500e-07 0 2.500000e-11"
+   },
+   "alter": {
+    "CLP": 2e-12,
+    "CLN": 2e-12
+   },
+   "measurements": [
+    {
+     "name": "m_vd",
+     "comment": "intermediate: differential pad voltage",
+     "unit": "V",
+     "expr": "v(padp)-v(padn)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vos",
+     "comment": "intermediate: instantaneous common mode",
+     "unit": "V",
+     "expr": "(v(padp)+v(padn))/2",
+     "intermediate": true
+    },
+    {
+     "name": "m_pwr",
+     "comment": "intermediate: instantaneous delivered power; ngspice source current is positive into the + terminal, so the minus signs make sourcing positive",
+     "unit": "W",
+     "expr": "-i(vvccd)*v(vccd)-i(vvddio)*v(vddio)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1p",
+     "comment": "intermediate: PADP over 1-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*v(padp)+(1-v(s1))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0p",
+     "comment": "intermediate: PADP over 0-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*v(padp)+(1-v(s0))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1n",
+     "comment": "intermediate: PADN over 1-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*v(padn)+(1-v(s1))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0n",
+     "comment": "intermediate: PADN over 0-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*v(padn)+(1-v(s0))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1d",
+     "comment": "intermediate: differential over 1-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*(v(padp)-v(padn))+(1-v(s1))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0d",
+     "comment": "intermediate: differential over 0-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*(v(padp)-v(padn))+(1-v(s0))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vdwhi",
+     "comment": "intermediate: differential over the measurement window, -5 V fill (max basis)",
+     "unit": "V",
+     "expr": "v(sw)*(v(padp)-v(padn))+(1-v(sw))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vdwlo",
+     "comment": "intermediate: differential over the measurement window, +5 V fill (min basis)",
+     "unit": "V",
+     "expr": "v(sw)*(v(padp)-v(padn))+(1-v(sw))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_hi_p",
+     "comment": "observer: worst settled high on PADP across 1-bit strobes; under common-mode ripple this can fall below m_lo_p -- that inversion is data (the E4 finding), not a bench error, and nothing is graded on it",
+     "unit": "V",
+     "expr": "vecmin(m_s1p)"
+    },
+    {
+     "name": "m_lo_p",
+     "comment": "observer: worst settled low on PADP across 0-bit strobes",
+     "unit": "V",
+     "expr": "vecmax(m_s0p)"
+    },
+    {
+     "name": "m_hi_n",
+     "comment": "observer: worst settled high on PADN across 0-bit strobes",
+     "unit": "V",
+     "expr": "vecmin(m_s0n)"
+    },
+    {
+     "name": "m_lo_n",
+     "comment": "observer: worst settled low on PADN across 1-bit strobes",
+     "unit": "V",
+     "expr": "vecmax(m_s1n)"
+    },
+    {
+     "name": "m_eh",
+     "comment": "eye high level: worst differential 1-bit sample at the stated phase",
+     "unit": "V",
+     "expr": "vecmin(m_s1d)"
+    },
+    {
+     "name": "m_el",
+     "comment": "eye low level: worst differential 0-bit sample at the stated phase",
+     "unit": "V",
+     "expr": "vecmax(m_s0d)"
+    },
+    {
+     "name": "m_vhi",
+     "comment": "observer: differential window maximum",
+     "unit": "V",
+     "expr": "vecmax(m_vdwhi)"
+    },
+    {
+     "name": "m_vlo",
+     "comment": "observer: differential window minimum",
+     "unit": "V",
+     "expr": "vecmin(m_vdwlo)"
+    },
+    {
+     "name": "m_eye_h_v",
+     "comment": "E9 eye height at the stated sampling phase = worst 1-bit sample minus worst 0-bit sample",
+     "unit": "V",
+     "expr": "m_eh - m_el",
+     "spec_row": "E9",
+     "limits": {
+      "min": 0.12,
+      "max": 1.0
+     }
+    },
+    {
+     "name": "m_vdn",
+     "comment": "intermediate: differential normalized to its window extremes",
+     "unit": "V",
+     "expr": "(v(padp)-v(padn)-m_vlo)/(m_vhi-m_vlo)",
+     "intermediate": true
+    },
+    {
+     "name": "m_e5ft20b127",
+     "comment": "20 % point of bit 127 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b127 when m_vdn=0.8 fall=1 td=3.193750e-07"
+    },
+    {
+     "name": "m_e5ft80b127",
+     "comment": "80 % point of bit 127 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b127 when m_vdn=0.2 fall=1 td=3.193750e-07"
+    },
+    {
+     "name": "m_e5fb127",
+     "comment": "E5: 20-80 % of bit 127 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b127 - m_e5ft20b127",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b133",
+     "comment": "20 % point of bit 133 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b133 when m_vdn=0.2 rise=1 td=3.343750e-07"
+    },
+    {
+     "name": "m_e5rt80b133",
+     "comment": "80 % point of bit 133 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b133 when m_vdn=0.8 rise=1 td=3.343750e-07"
+    },
+    {
+     "name": "m_e5rb133",
+     "comment": "E5: 20-80 % of bit 133 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b133 - m_e5rt20b133",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b134",
+     "comment": "20 % point of bit 134 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b134 when m_vdn=0.8 fall=1 td=3.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b134",
+     "comment": "80 % point of bit 134 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b134 when m_vdn=0.2 fall=1 td=3.368750e-07"
+    },
+    {
+     "name": "m_e5fb134",
+     "comment": "E5: 20-80 % of bit 134 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b134 - m_e5ft20b134",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b139",
+     "comment": "20 % point of bit 139 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b139 when m_vdn=0.2 rise=1 td=3.493750e-07"
+    },
+    {
+     "name": "m_e5rt80b139",
+     "comment": "80 % point of bit 139 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b139 when m_vdn=0.8 rise=1 td=3.493750e-07"
+    },
+    {
+     "name": "m_e5rb139",
+     "comment": "E5: 20-80 % of bit 139 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b139 - m_e5rt20b139",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b141",
+     "comment": "20 % point of bit 141 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b141 when m_vdn=0.8 fall=1 td=3.543750e-07"
+    },
+    {
+     "name": "m_e5ft80b141",
+     "comment": "80 % point of bit 141 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b141 when m_vdn=0.2 fall=1 td=3.543750e-07"
+    },
+    {
+     "name": "m_e5fb141",
+     "comment": "E5: 20-80 % of bit 141 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b141 - m_e5ft20b141",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b145",
+     "comment": "20 % point of bit 145 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b145 when m_vdn=0.2 rise=1 td=3.643750e-07"
+    },
+    {
+     "name": "m_e5rt80b145",
+     "comment": "80 % point of bit 145 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b145 when m_vdn=0.8 rise=1 td=3.643750e-07"
+    },
+    {
+     "name": "m_e5rb145",
+     "comment": "E5: 20-80 % of bit 145 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b145 - m_e5rt20b145",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b146",
+     "comment": "20 % point of bit 146 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b146 when m_vdn=0.8 fall=1 td=3.668750e-07"
+    },
+    {
+     "name": "m_e5ft80b146",
+     "comment": "80 % point of bit 146 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b146 when m_vdn=0.2 fall=1 td=3.668750e-07"
+    },
+    {
+     "name": "m_e5fb146",
+     "comment": "E5: 20-80 % of bit 146 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b146 - m_e5ft20b146",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b147",
+     "comment": "20 % point of bit 147 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b147 when m_vdn=0.2 rise=1 td=3.693750e-07"
+    },
+    {
+     "name": "m_e5rt80b147",
+     "comment": "80 % point of bit 147 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b147 when m_vdn=0.8 rise=1 td=3.693750e-07"
+    },
+    {
+     "name": "m_e5rb147",
+     "comment": "E5: 20-80 % of bit 147 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b147 - m_e5rt20b147",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b148",
+     "comment": "20 % point of bit 148 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b148 when m_vdn=0.8 fall=1 td=3.718750e-07"
+    },
+    {
+     "name": "m_e5ft80b148",
+     "comment": "80 % point of bit 148 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b148 when m_vdn=0.2 fall=1 td=3.718750e-07"
+    },
+    {
+     "name": "m_e5fb148",
+     "comment": "E5: 20-80 % of bit 148 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b148 - m_e5ft20b148",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b151",
+     "comment": "20 % point of bit 151 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b151 when m_vdn=0.2 rise=1 td=3.793750e-07"
+    },
+    {
+     "name": "m_e5rt80b151",
+     "comment": "80 % point of bit 151 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b151 when m_vdn=0.8 rise=1 td=3.793750e-07"
+    },
+    {
+     "name": "m_e5rb151",
+     "comment": "E5: 20-80 % of bit 151 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b151 - m_e5rt20b151",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b155",
+     "comment": "20 % point of bit 155 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b155 when m_vdn=0.8 fall=1 td=3.893750e-07"
+    },
+    {
+     "name": "m_e5ft80b155",
+     "comment": "80 % point of bit 155 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b155 when m_vdn=0.2 fall=1 td=3.893750e-07"
+    },
+    {
+     "name": "m_e5fb155",
+     "comment": "E5: 20-80 % of bit 155 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b155 - m_e5ft20b155",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b157",
+     "comment": "20 % point of bit 157 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b157 when m_vdn=0.2 rise=1 td=3.943750e-07"
+    },
+    {
+     "name": "m_e5rt80b157",
+     "comment": "80 % point of bit 157 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b157 when m_vdn=0.8 rise=1 td=3.943750e-07"
+    },
+    {
+     "name": "m_e5rb157",
+     "comment": "E5: 20-80 % of bit 157 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b157 - m_e5rt20b157",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b158",
+     "comment": "20 % point of bit 158 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b158 when m_vdn=0.8 fall=1 td=3.968750e-07"
+    },
+    {
+     "name": "m_e5ft80b158",
+     "comment": "80 % point of bit 158 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b158 when m_vdn=0.2 fall=1 td=3.968750e-07"
+    },
+    {
+     "name": "m_e5fb158",
+     "comment": "E5: 20-80 % of bit 158 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b158 - m_e5ft20b158",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b161",
+     "comment": "20 % point of bit 161 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b161 when m_vdn=0.2 rise=1 td=4.043750e-07"
+    },
+    {
+     "name": "m_e5rt80b161",
+     "comment": "80 % point of bit 161 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b161 when m_vdn=0.8 rise=1 td=4.043750e-07"
+    },
+    {
+     "name": "m_e5rb161",
+     "comment": "E5: 20-80 % of bit 161 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b161 - m_e5rt20b161",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b162",
+     "comment": "20 % point of bit 162 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b162 when m_vdn=0.8 fall=1 td=4.068750e-07"
+    },
+    {
+     "name": "m_e5ft80b162",
+     "comment": "80 % point of bit 162 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b162 when m_vdn=0.2 fall=1 td=4.068750e-07"
+    },
+    {
+     "name": "m_e5fb162",
+     "comment": "E5: 20-80 % of bit 162 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b162 - m_e5ft20b162",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b163",
+     "comment": "20 % point of bit 163 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b163 when m_vdn=0.2 rise=1 td=4.093750e-07"
+    },
+    {
+     "name": "m_e5rt80b163",
+     "comment": "80 % point of bit 163 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b163 when m_vdn=0.8 rise=1 td=4.093750e-07"
+    },
+    {
+     "name": "m_e5rb163",
+     "comment": "E5: 20-80 % of bit 163 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b163 - m_e5rt20b163",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b165",
+     "comment": "20 % point of bit 165 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b165 when m_vdn=0.8 fall=1 td=4.143750e-07"
+    },
+    {
+     "name": "m_e5ft80b165",
+     "comment": "80 % point of bit 165 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b165 when m_vdn=0.2 fall=1 td=4.143750e-07"
+    },
+    {
+     "name": "m_e5fb165",
+     "comment": "E5: 20-80 % of bit 165 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b165 - m_e5ft20b165",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b167",
+     "comment": "20 % point of bit 167 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b167 when m_vdn=0.2 rise=1 td=4.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b167",
+     "comment": "80 % point of bit 167 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b167 when m_vdn=0.8 rise=1 td=4.193750e-07"
+    },
+    {
+     "name": "m_e5rb167",
+     "comment": "E5: 20-80 % of bit 167 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b167 - m_e5rt20b167",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b170",
+     "comment": "20 % point of bit 170 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b170 when m_vdn=0.8 fall=1 td=4.268750e-07"
+    },
+    {
+     "name": "m_e5ft80b170",
+     "comment": "80 % point of bit 170 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b170 when m_vdn=0.2 fall=1 td=4.268750e-07"
+    },
+    {
+     "name": "m_e5fb170",
+     "comment": "E5: 20-80 % of bit 170 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b170 - m_e5ft20b170",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b171",
+     "comment": "20 % point of bit 171 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b171 when m_vdn=0.2 rise=1 td=4.293750e-07"
+    },
+    {
+     "name": "m_e5rt80b171",
+     "comment": "80 % point of bit 171 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b171 when m_vdn=0.8 rise=1 td=4.293750e-07"
+    },
+    {
+     "name": "m_e5rb171",
+     "comment": "E5: 20-80 % of bit 171 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b171 - m_e5rt20b171",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b172",
+     "comment": "20 % point of bit 172 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b172 when m_vdn=0.8 fall=1 td=4.318750e-07"
+    },
+    {
+     "name": "m_e5ft80b172",
+     "comment": "80 % point of bit 172 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b172 when m_vdn=0.2 fall=1 td=4.318750e-07"
+    },
+    {
+     "name": "m_e5fb172",
+     "comment": "E5: 20-80 % of bit 172 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b172 - m_e5ft20b172",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b173",
+     "comment": "20 % point of bit 173 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b173 when m_vdn=0.2 rise=1 td=4.343750e-07"
+    },
+    {
+     "name": "m_e5rt80b173",
+     "comment": "80 % point of bit 173 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b173 when m_vdn=0.8 rise=1 td=4.343750e-07"
+    },
+    {
+     "name": "m_e5rb173",
+     "comment": "E5: 20-80 % of bit 173 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b173 - m_e5rt20b173",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b174",
+     "comment": "20 % point of bit 174 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b174 when m_vdn=0.8 fall=1 td=4.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b174",
+     "comment": "80 % point of bit 174 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b174 when m_vdn=0.2 fall=1 td=4.368750e-07"
+    },
+    {
+     "name": "m_e5fb174",
+     "comment": "E5: 20-80 % of bit 174 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b174 - m_e5ft20b174",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b176",
+     "comment": "20 % point of bit 176 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b176 when m_vdn=0.2 rise=1 td=4.418750e-07"
+    },
+    {
+     "name": "m_e5rt80b176",
+     "comment": "80 % point of bit 176 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b176 when m_vdn=0.8 rise=1 td=4.418750e-07"
+    },
+    {
+     "name": "m_e5rb176",
+     "comment": "E5: 20-80 % of bit 176 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b176 - m_e5rt20b176",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b181",
+     "comment": "20 % point of bit 181 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b181 when m_vdn=0.8 fall=1 td=4.543750e-07"
+    },
+    {
+     "name": "m_e5ft80b181",
+     "comment": "80 % point of bit 181 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b181 when m_vdn=0.2 fall=1 td=4.543750e-07"
+    },
+    {
+     "name": "m_e5fb181",
+     "comment": "E5: 20-80 % of bit 181 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b181 - m_e5ft20b181",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b182",
+     "comment": "20 % point of bit 182 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b182 when m_vdn=0.2 rise=1 td=4.568750e-07"
+    },
+    {
+     "name": "m_e5rt80b182",
+     "comment": "80 % point of bit 182 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b182 when m_vdn=0.8 rise=1 td=4.568750e-07"
+    },
+    {
+     "name": "m_e5rb182",
+     "comment": "E5: 20-80 % of bit 182 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b182 - m_e5rt20b182",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b183",
+     "comment": "20 % point of bit 183 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b183 when m_vdn=0.8 fall=1 td=4.593750e-07"
+    },
+    {
+     "name": "m_e5ft80b183",
+     "comment": "80 % point of bit 183 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b183 when m_vdn=0.2 fall=1 td=4.593750e-07"
+    },
+    {
+     "name": "m_e5fb183",
+     "comment": "E5: 20-80 % of bit 183 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b183 - m_e5ft20b183",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b187",
+     "comment": "20 % point of bit 187 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b187 when m_vdn=0.2 rise=1 td=4.693750e-07"
+    },
+    {
+     "name": "m_e5rt80b187",
+     "comment": "80 % point of bit 187 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b187 when m_vdn=0.8 rise=1 td=4.693750e-07"
+    },
+    {
+     "name": "m_e5rb187",
+     "comment": "E5: 20-80 % of bit 187 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b187 - m_e5rt20b187",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b190",
+     "comment": "20 % point of bit 190 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b190 when m_vdn=0.8 fall=1 td=4.768750e-07"
+    },
+    {
+     "name": "m_e5ft80b190",
+     "comment": "80 % point of bit 190 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b190 when m_vdn=0.2 fall=1 td=4.768750e-07"
+    },
+    {
+     "name": "m_e5fb190",
+     "comment": "E5: 20-80 % of bit 190 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b190 - m_e5ft20b190",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b193",
+     "comment": "20 % point of bit 193 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b193 when m_vdn=0.2 rise=1 td=4.843750e-07"
+    },
+    {
+     "name": "m_e5rt80b193",
+     "comment": "80 % point of bit 193 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b193 when m_vdn=0.8 rise=1 td=4.843750e-07"
+    },
+    {
+     "name": "m_e5rb193",
+     "comment": "E5: 20-80 % of bit 193 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b193 - m_e5rt20b193",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b194",
+     "comment": "20 % point of bit 194 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b194 when m_vdn=0.8 fall=1 td=4.868750e-07"
+    },
+    {
+     "name": "m_e5ft80b194",
+     "comment": "80 % point of bit 194 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b194 when m_vdn=0.2 fall=1 td=4.868750e-07"
+    },
+    {
+     "name": "m_e5fb194",
+     "comment": "E5: 20-80 % of bit 194 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b194 - m_e5ft20b194",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b196",
+     "comment": "20 % point of bit 196 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b196 when m_vdn=0.2 rise=1 td=4.918750e-07"
+    },
+    {
+     "name": "m_e5rt80b196",
+     "comment": "80 % point of bit 196 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b196 when m_vdn=0.8 rise=1 td=4.918750e-07"
+    },
+    {
+     "name": "m_e5rb196",
+     "comment": "E5: 20-80 % of bit 196 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b196 - m_e5rt20b196",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b197",
+     "comment": "20 % point of bit 197 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b197 when m_vdn=0.8 fall=1 td=4.943750e-07"
+    },
+    {
+     "name": "m_e5ft80b197",
+     "comment": "80 % point of bit 197 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b197 when m_vdn=0.2 fall=1 td=4.943750e-07"
+    },
+    {
+     "name": "m_e5fb197",
+     "comment": "E5: 20-80 % of bit 197 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b197 - m_e5ft20b197",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b199",
+     "comment": "20 % point of bit 199 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b199 when m_vdn=0.2 rise=1 td=4.993750e-07"
+    },
+    {
+     "name": "m_e5rt80b199",
+     "comment": "80 % point of bit 199 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b199 when m_vdn=0.8 rise=1 td=4.993750e-07"
+    },
+    {
+     "name": "m_e5rb199",
+     "comment": "E5: 20-80 % of bit 199 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b199 - m_e5rt20b199",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b201",
+     "comment": "20 % point of bit 201 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b201 when m_vdn=0.8 fall=1 td=5.043750e-07"
+    },
+    {
+     "name": "m_e5ft80b201",
+     "comment": "80 % point of bit 201 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b201 when m_vdn=0.2 fall=1 td=5.043750e-07"
+    },
+    {
+     "name": "m_e5fb201",
+     "comment": "E5: 20-80 % of bit 201 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b201 - m_e5ft20b201",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b202",
+     "comment": "20 % point of bit 202 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b202 when m_vdn=0.2 rise=1 td=5.068750e-07"
+    },
+    {
+     "name": "m_e5rt80b202",
+     "comment": "80 % point of bit 202 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b202 when m_vdn=0.8 rise=1 td=5.068750e-07"
+    },
+    {
+     "name": "m_e5rb202",
+     "comment": "E5: 20-80 % of bit 202 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b202 - m_e5rt20b202",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b204",
+     "comment": "20 % point of bit 204 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b204 when m_vdn=0.8 fall=1 td=5.118750e-07"
+    },
+    {
+     "name": "m_e5ft80b204",
+     "comment": "80 % point of bit 204 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b204 when m_vdn=0.2 fall=1 td=5.118750e-07"
+    },
+    {
+     "name": "m_e5fb204",
+     "comment": "E5: 20-80 % of bit 204 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b204 - m_e5ft20b204",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b205",
+     "comment": "20 % point of bit 205 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b205 when m_vdn=0.2 rise=1 td=5.143750e-07"
+    },
+    {
+     "name": "m_e5rt80b205",
+     "comment": "80 % point of bit 205 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b205 when m_vdn=0.8 rise=1 td=5.143750e-07"
+    },
+    {
+     "name": "m_e5rb205",
+     "comment": "E5: 20-80 % of bit 205 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b205 - m_e5rt20b205",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b206",
+     "comment": "20 % point of bit 206 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b206 when m_vdn=0.8 fall=1 td=5.168750e-07"
+    },
+    {
+     "name": "m_e5ft80b206",
+     "comment": "80 % point of bit 206 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b206 when m_vdn=0.2 fall=1 td=5.168750e-07"
+    },
+    {
+     "name": "m_e5fb206",
+     "comment": "E5: 20-80 % of bit 206 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b206 - m_e5ft20b206",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b207",
+     "comment": "20 % point of bit 207 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b207 when m_vdn=0.2 rise=1 td=5.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b207",
+     "comment": "80 % point of bit 207 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b207 when m_vdn=0.8 rise=1 td=5.193750e-07"
+    },
+    {
+     "name": "m_e5rb207",
+     "comment": "E5: 20-80 % of bit 207 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b207 - m_e5rt20b207",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b209",
+     "comment": "20 % point of bit 209 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b209 when m_vdn=0.8 fall=1 td=5.243750e-07"
+    },
+    {
+     "name": "m_e5ft80b209",
+     "comment": "80 % point of bit 209 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b209 when m_vdn=0.2 fall=1 td=5.243750e-07"
+    },
+    {
+     "name": "m_e5fb209",
+     "comment": "E5: 20-80 % of bit 209 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b209 - m_e5ft20b209",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b210",
+     "comment": "20 % point of bit 210 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b210 when m_vdn=0.2 rise=1 td=5.268750e-07"
+    },
+    {
+     "name": "m_e5rt80b210",
+     "comment": "80 % point of bit 210 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b210 when m_vdn=0.8 rise=1 td=5.268750e-07"
+    },
+    {
+     "name": "m_e5rb210",
+     "comment": "E5: 20-80 % of bit 210 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b210 - m_e5rt20b210",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b214",
+     "comment": "20 % point of bit 214 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b214 when m_vdn=0.8 fall=1 td=5.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b214",
+     "comment": "80 % point of bit 214 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b214 when m_vdn=0.2 fall=1 td=5.368750e-07"
+    },
+    {
+     "name": "m_e5fb214",
+     "comment": "E5: 20-80 % of bit 214 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b214 - m_e5ft20b214",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b215",
+     "comment": "20 % point of bit 215 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b215 when m_vdn=0.2 rise=1 td=5.393750e-07"
+    },
+    {
+     "name": "m_e5rt80b215",
+     "comment": "80 % point of bit 215 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b215 when m_vdn=0.8 rise=1 td=5.393750e-07"
+    },
+    {
+     "name": "m_e5rb215",
+     "comment": "E5: 20-80 % of bit 215 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b215 - m_e5rt20b215",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b217",
+     "comment": "20 % point of bit 217 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b217 when m_vdn=0.8 fall=1 td=5.443750e-07"
+    },
+    {
+     "name": "m_e5ft80b217",
+     "comment": "80 % point of bit 217 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b217 when m_vdn=0.2 fall=1 td=5.443750e-07"
+    },
+    {
+     "name": "m_e5fb217",
+     "comment": "E5: 20-80 % of bit 217 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b217 - m_e5ft20b217",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b220",
+     "comment": "20 % point of bit 220 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b220 when m_vdn=0.2 rise=1 td=5.518750e-07"
+    },
+    {
+     "name": "m_e5rt80b220",
+     "comment": "80 % point of bit 220 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b220 when m_vdn=0.8 rise=1 td=5.518750e-07"
+    },
+    {
+     "name": "m_e5rb220",
+     "comment": "E5: 20-80 % of bit 220 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b220 - m_e5rt20b220",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b222",
+     "comment": "20 % point of bit 222 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b222 when m_vdn=0.8 fall=1 td=5.568750e-07"
+    },
+    {
+     "name": "m_e5ft80b222",
+     "comment": "80 % point of bit 222 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b222 when m_vdn=0.2 fall=1 td=5.568750e-07"
+    },
+    {
+     "name": "m_e5fb222",
+     "comment": "E5: 20-80 % of bit 222 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b222 - m_e5ft20b222",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b223",
+     "comment": "20 % point of bit 223 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b223 when m_vdn=0.2 rise=1 td=5.593750e-07"
+    },
+    {
+     "name": "m_e5rt80b223",
+     "comment": "80 % point of bit 223 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b223 when m_vdn=0.8 rise=1 td=5.593750e-07"
+    },
+    {
+     "name": "m_e5rb223",
+     "comment": "E5: 20-80 % of bit 223 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b223 - m_e5rt20b223",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b224",
+     "comment": "20 % point of bit 224 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b224 when m_vdn=0.8 fall=1 td=5.618750e-07"
+    },
+    {
+     "name": "m_e5ft80b224",
+     "comment": "80 % point of bit 224 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b224 when m_vdn=0.2 fall=1 td=5.618750e-07"
+    },
+    {
+     "name": "m_e5fb224",
+     "comment": "E5: 20-80 % of bit 224 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b224 - m_e5ft20b224",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b226",
+     "comment": "20 % point of bit 226 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b226 when m_vdn=0.2 rise=1 td=5.668750e-07"
+    },
+    {
+     "name": "m_e5rt80b226",
+     "comment": "80 % point of bit 226 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b226 when m_vdn=0.8 rise=1 td=5.668750e-07"
+    },
+    {
+     "name": "m_e5rb226",
+     "comment": "E5: 20-80 % of bit 226 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b226 - m_e5rt20b226",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b227",
+     "comment": "20 % point of bit 227 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b227 when m_vdn=0.8 fall=1 td=5.693750e-07"
+    },
+    {
+     "name": "m_e5ft80b227",
+     "comment": "80 % point of bit 227 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b227 when m_vdn=0.2 fall=1 td=5.693750e-07"
+    },
+    {
+     "name": "m_e5fb227",
+     "comment": "E5: 20-80 % of bit 227 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b227 - m_e5ft20b227",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b228",
+     "comment": "20 % point of bit 228 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b228 when m_vdn=0.2 rise=1 td=5.718750e-07"
+    },
+    {
+     "name": "m_e5rt80b228",
+     "comment": "80 % point of bit 228 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b228 when m_vdn=0.8 rise=1 td=5.718750e-07"
+    },
+    {
+     "name": "m_e5rb228",
+     "comment": "E5: 20-80 % of bit 228 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b228 - m_e5rt20b228",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b231",
+     "comment": "20 % point of bit 231 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b231 when m_vdn=0.8 fall=1 td=5.793750e-07"
+    },
+    {
+     "name": "m_e5ft80b231",
+     "comment": "80 % point of bit 231 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b231 when m_vdn=0.2 fall=1 td=5.793750e-07"
+    },
+    {
+     "name": "m_e5fb231",
+     "comment": "E5: 20-80 % of bit 231 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b231 - m_e5ft20b231",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b232",
+     "comment": "20 % point of bit 232 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b232 when m_vdn=0.2 rise=1 td=5.818750e-07"
+    },
+    {
+     "name": "m_e5rt80b232",
+     "comment": "80 % point of bit 232 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b232 when m_vdn=0.8 rise=1 td=5.818750e-07"
+    },
+    {
+     "name": "m_e5rb232",
+     "comment": "E5: 20-80 % of bit 232 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b232 - m_e5rt20b232",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b235",
+     "comment": "20 % point of bit 235 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b235 when m_vdn=0.8 fall=1 td=5.893750e-07"
+    },
+    {
+     "name": "m_e5ft80b235",
+     "comment": "80 % point of bit 235 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b235 when m_vdn=0.2 fall=1 td=5.893750e-07"
+    },
+    {
+     "name": "m_e5fb235",
+     "comment": "E5: 20-80 % of bit 235 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b235 - m_e5ft20b235",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b237",
+     "comment": "20 % point of bit 237 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b237 when m_vdn=0.2 rise=1 td=5.943750e-07"
+    },
+    {
+     "name": "m_e5rt80b237",
+     "comment": "80 % point of bit 237 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b237 when m_vdn=0.8 rise=1 td=5.943750e-07"
+    },
+    {
+     "name": "m_e5rb237",
+     "comment": "E5: 20-80 % of bit 237 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b237 - m_e5rt20b237",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b239",
+     "comment": "20 % point of bit 239 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b239 when m_vdn=0.8 fall=1 td=5.993750e-07"
+    },
+    {
+     "name": "m_e5ft80b239",
+     "comment": "80 % point of bit 239 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b239 when m_vdn=0.2 fall=1 td=5.993750e-07"
+    },
+    {
+     "name": "m_e5fb239",
+     "comment": "E5: 20-80 % of bit 239 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b239 - m_e5ft20b239",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b241",
+     "comment": "20 % point of bit 241 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b241 when m_vdn=0.2 rise=1 td=6.043750e-07"
+    },
+    {
+     "name": "m_e5rt80b241",
+     "comment": "80 % point of bit 241 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b241 when m_vdn=0.8 rise=1 td=6.043750e-07"
+    },
+    {
+     "name": "m_e5rb241",
+     "comment": "E5: 20-80 % of bit 241 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b241 - m_e5rt20b241",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b242",
+     "comment": "20 % point of bit 242 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b242 when m_vdn=0.8 fall=1 td=6.068750e-07"
+    },
+    {
+     "name": "m_e5ft80b242",
+     "comment": "80 % point of bit 242 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b242 when m_vdn=0.2 fall=1 td=6.068750e-07"
+    },
+    {
+     "name": "m_e5fb242",
+     "comment": "E5: 20-80 % of bit 242 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b242 - m_e5ft20b242",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b243",
+     "comment": "20 % point of bit 243 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b243 when m_vdn=0.2 rise=1 td=6.093750e-07"
+    },
+    {
+     "name": "m_e5rt80b243",
+     "comment": "80 % point of bit 243 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b243 when m_vdn=0.8 rise=1 td=6.093750e-07"
+    },
+    {
+     "name": "m_e5rb243",
+     "comment": "E5: 20-80 % of bit 243 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b243 - m_e5rt20b243",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b244",
+     "comment": "20 % point of bit 244 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b244 when m_vdn=0.8 fall=1 td=6.118750e-07"
+    },
+    {
+     "name": "m_e5ft80b244",
+     "comment": "80 % point of bit 244 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b244 when m_vdn=0.2 fall=1 td=6.118750e-07"
+    },
+    {
+     "name": "m_e5fb244",
+     "comment": "E5: 20-80 % of bit 244 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b244 - m_e5ft20b244",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b245",
+     "comment": "20 % point of bit 245 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b245 when m_vdn=0.2 rise=1 td=6.143750e-07"
+    },
+    {
+     "name": "m_e5rt80b245",
+     "comment": "80 % point of bit 245 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b245 when m_vdn=0.8 rise=1 td=6.143750e-07"
+    },
+    {
+     "name": "m_e5rb245",
+     "comment": "E5: 20-80 % of bit 245 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b245 - m_e5rt20b245",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b246",
+     "comment": "20 % point of bit 246 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b246 when m_vdn=0.8 fall=1 td=6.168750e-07"
+    },
+    {
+     "name": "m_e5ft80b246",
+     "comment": "80 % point of bit 246 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b246 when m_vdn=0.2 fall=1 td=6.168750e-07"
+    },
+    {
+     "name": "m_e5fb246",
+     "comment": "E5: 20-80 % of bit 246 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b246 - m_e5ft20b246",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b247",
+     "comment": "20 % point of bit 247 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b247 when m_vdn=0.2 rise=1 td=6.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b247",
+     "comment": "80 % point of bit 247 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b247 when m_vdn=0.8 rise=1 td=6.193750e-07"
+    },
+    {
+     "name": "m_e5rb247",
+     "comment": "E5: 20-80 % of bit 247 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b247 - m_e5rt20b247",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e9w64",
+     "comment": "bit 127..132 crossing gap, nominal 15 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w64 trig m_vd val=0 cross=64 targ m_vd val=0 cross=65",
+     "limits": {
+      "min": 1.4375000000000001e-08,
+      "max": 1.5625000000000003e-08
+     }
+    },
+    {
+     "name": "m_e9w65",
+     "comment": "bit 133..133 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w65 trig m_vd val=0 cross=65 targ m_vd val=0 cross=66",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w66",
+     "comment": "bit 134..138 crossing gap, nominal 12.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w66 trig m_vd val=0 cross=66 targ m_vd val=0 cross=67",
+     "limits": {
+      "min": 1.1874999999999999e-08,
+      "max": 1.3125e-08
+     }
+    },
+    {
+     "name": "m_e9w67",
+     "comment": "bit 139..140 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w67 trig m_vd val=0 cross=67 targ m_vd val=0 cross=68",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w68",
+     "comment": "bit 141..144 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w68 trig m_vd val=0 cross=68 targ m_vd val=0 cross=69",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w69",
+     "comment": "bit 145..145 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w69 trig m_vd val=0 cross=69 targ m_vd val=0 cross=70",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w70",
+     "comment": "bit 146..146 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w70 trig m_vd val=0 cross=70 targ m_vd val=0 cross=71",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w71",
+     "comment": "bit 147..147 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w71 trig m_vd val=0 cross=71 targ m_vd val=0 cross=72",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w72",
+     "comment": "bit 148..150 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w72 trig m_vd val=0 cross=72 targ m_vd val=0 cross=73",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w73",
+     "comment": "bit 151..154 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w73 trig m_vd val=0 cross=73 targ m_vd val=0 cross=74",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w74",
+     "comment": "bit 155..156 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w74 trig m_vd val=0 cross=74 targ m_vd val=0 cross=75",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w75",
+     "comment": "bit 157..157 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w75 trig m_vd val=0 cross=75 targ m_vd val=0 cross=76",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w76",
+     "comment": "bit 158..160 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w76 trig m_vd val=0 cross=76 targ m_vd val=0 cross=77",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w77",
+     "comment": "bit 161..161 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w77 trig m_vd val=0 cross=77 targ m_vd val=0 cross=78",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w78",
+     "comment": "bit 162..162 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w78 trig m_vd val=0 cross=78 targ m_vd val=0 cross=79",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w79",
+     "comment": "bit 163..164 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w79 trig m_vd val=0 cross=79 targ m_vd val=0 cross=80",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w80",
+     "comment": "bit 165..166 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w80 trig m_vd val=0 cross=80 targ m_vd val=0 cross=81",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w81",
+     "comment": "bit 167..169 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w81 trig m_vd val=0 cross=81 targ m_vd val=0 cross=82",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w82",
+     "comment": "bit 170..170 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w82 trig m_vd val=0 cross=82 targ m_vd val=0 cross=83",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w83",
+     "comment": "bit 171..171 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w83 trig m_vd val=0 cross=83 targ m_vd val=0 cross=84",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w84",
+     "comment": "bit 172..172 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w84 trig m_vd val=0 cross=84 targ m_vd val=0 cross=85",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w85",
+     "comment": "bit 173..173 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w85 trig m_vd val=0 cross=85 targ m_vd val=0 cross=86",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w86",
+     "comment": "bit 174..175 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w86 trig m_vd val=0 cross=86 targ m_vd val=0 cross=87",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w87",
+     "comment": "bit 176..180 crossing gap, nominal 12.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w87 trig m_vd val=0 cross=87 targ m_vd val=0 cross=88",
+     "limits": {
+      "min": 1.1874999999999999e-08,
+      "max": 1.3125e-08
+     }
+    },
+    {
+     "name": "m_e9w88",
+     "comment": "bit 181..181 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w88 trig m_vd val=0 cross=88 targ m_vd val=0 cross=89",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w89",
+     "comment": "bit 182..182 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w89 trig m_vd val=0 cross=89 targ m_vd val=0 cross=90",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w90",
+     "comment": "bit 183..186 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w90 trig m_vd val=0 cross=90 targ m_vd val=0 cross=91",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w91",
+     "comment": "bit 187..189 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w91 trig m_vd val=0 cross=91 targ m_vd val=0 cross=92",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w92",
+     "comment": "bit 190..192 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w92 trig m_vd val=0 cross=92 targ m_vd val=0 cross=93",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w93",
+     "comment": "bit 193..193 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w93 trig m_vd val=0 cross=93 targ m_vd val=0 cross=94",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w94",
+     "comment": "bit 194..195 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w94 trig m_vd val=0 cross=94 targ m_vd val=0 cross=95",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w95",
+     "comment": "bit 196..196 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w95 trig m_vd val=0 cross=95 targ m_vd val=0 cross=96",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w96",
+     "comment": "bit 197..198 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w96 trig m_vd val=0 cross=96 targ m_vd val=0 cross=97",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w97",
+     "comment": "bit 199..200 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w97 trig m_vd val=0 cross=97 targ m_vd val=0 cross=98",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w98",
+     "comment": "bit 201..201 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w98 trig m_vd val=0 cross=98 targ m_vd val=0 cross=99",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w99",
+     "comment": "bit 202..203 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w99 trig m_vd val=0 cross=99 targ m_vd val=0 cross=100",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w100",
+     "comment": "bit 204..204 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w100 trig m_vd val=0 cross=100 targ m_vd val=0 cross=101",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w101",
+     "comment": "bit 205..205 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w101 trig m_vd val=0 cross=101 targ m_vd val=0 cross=102",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w102",
+     "comment": "bit 206..206 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w102 trig m_vd val=0 cross=102 targ m_vd val=0 cross=103",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w103",
+     "comment": "bit 207..208 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w103 trig m_vd val=0 cross=103 targ m_vd val=0 cross=104",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w104",
+     "comment": "bit 209..209 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w104 trig m_vd val=0 cross=104 targ m_vd val=0 cross=105",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w105",
+     "comment": "bit 210..213 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w105 trig m_vd val=0 cross=105 targ m_vd val=0 cross=106",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w106",
+     "comment": "bit 214..214 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w106 trig m_vd val=0 cross=106 targ m_vd val=0 cross=107",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w107",
+     "comment": "bit 215..216 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w107 trig m_vd val=0 cross=107 targ m_vd val=0 cross=108",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w108",
+     "comment": "bit 217..219 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w108 trig m_vd val=0 cross=108 targ m_vd val=0 cross=109",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w109",
+     "comment": "bit 220..221 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w109 trig m_vd val=0 cross=109 targ m_vd val=0 cross=110",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w110",
+     "comment": "bit 222..222 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w110 trig m_vd val=0 cross=110 targ m_vd val=0 cross=111",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w111",
+     "comment": "bit 223..223 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w111 trig m_vd val=0 cross=111 targ m_vd val=0 cross=112",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w112",
+     "comment": "bit 224..225 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w112 trig m_vd val=0 cross=112 targ m_vd val=0 cross=113",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w113",
+     "comment": "bit 226..226 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w113 trig m_vd val=0 cross=113 targ m_vd val=0 cross=114",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w114",
+     "comment": "bit 227..227 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w114 trig m_vd val=0 cross=114 targ m_vd val=0 cross=115",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w115",
+     "comment": "bit 228..230 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w115 trig m_vd val=0 cross=115 targ m_vd val=0 cross=116",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w116",
+     "comment": "bit 231..231 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w116 trig m_vd val=0 cross=116 targ m_vd val=0 cross=117",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w117",
+     "comment": "bit 232..234 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w117 trig m_vd val=0 cross=117 targ m_vd val=0 cross=118",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w118",
+     "comment": "bit 235..236 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w118 trig m_vd val=0 cross=118 targ m_vd val=0 cross=119",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w119",
+     "comment": "bit 237..238 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w119 trig m_vd val=0 cross=119 targ m_vd val=0 cross=120",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w120",
+     "comment": "bit 239..240 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w120 trig m_vd val=0 cross=120 targ m_vd val=0 cross=121",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w121",
+     "comment": "bit 241..241 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w121 trig m_vd val=0 cross=121 targ m_vd val=0 cross=122",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w122",
+     "comment": "bit 242..242 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w122 trig m_vd val=0 cross=122 targ m_vd val=0 cross=123",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w123",
+     "comment": "bit 243..243 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w123 trig m_vd val=0 cross=123 targ m_vd val=0 cross=124",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w124",
+     "comment": "bit 244..244 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w124 trig m_vd val=0 cross=124 targ m_vd val=0 cross=125",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w125",
+     "comment": "bit 245..245 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w125 trig m_vd val=0 cross=125 targ m_vd val=0 cross=126",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w126",
+     "comment": "bit 246..246 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w126 trig m_vd val=0 cross=126 targ m_vd val=0 cross=127",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_vos_pp",
+     "comment": "E4 dynamic half: peak-to-peak V_OS over the settled PRBS window",
+     "unit": "V",
+     "spice": ".meas tran m_vos_pp pp m_vos from=3.200000e-07 to=6.375000e-07",
+     "spec_row": "E4",
+     "limits": {
+      "min": 0.0,
+      "max": 0.15
+     }
+    },
+    {
+     "name": "m_i_vccd_avg",
+     "comment": "observer: mean VCCD source current (negative = sourcing)",
+     "unit": "A",
+     "spice": ".meas tran m_i_vccd_avg avg i(vvccd) from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_i_vddio_avg",
+     "comment": "observer: mean VDDIO source current (negative = sourcing)",
+     "unit": "A",
+     "spice": ".meas tran m_i_vddio_avg avg i(vvddio) from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_p_avg",
+     "comment": "observer: time-weighted mean delivered power over the window",
+     "unit": "W",
+     "spice": ".meas tran m_p_avg avg m_pwr from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_pw_analog_mv",
+     "comment": "W1 analog subtotal (muxes + predriver + driver + CMFB + pad cells, both rails), graded against the <= 30 mW any-G75-condition cap. NOT the full W1: the serializer share is not included, and the <= 18 mW nominal-TT leg is reported from this same grid's tt/27C/1.80/3.30 row by summarize.py (RECORD.md)",
+     "unit": "mW",
+     "expr": "m_p_avg*1e3",
+     "spec_row": "W1",
+     "limits": {
+      "min": 0.0,
+      "max": 30.0
+     }
+    },
+    {
+     "name": "m_bit127",
+     "comment": "bit-order observer, bit 127: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit127 find m_vd at=3.216100e-07"
+    },
+    {
+     "name": "m_bit128",
+     "comment": "bit-order observer, bit 128: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit128 find m_vd at=3.241100e-07"
+    },
+    {
+     "name": "m_bit133",
+     "comment": "bit-order observer, bit 133: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit133 find m_vd at=3.366100e-07"
+    },
+    {
+     "name": "m_bit135",
+     "comment": "bit-order observer, bit 135: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit135 find m_vd at=3.416100e-07"
+    },
+    {
+     "name": "m_bit136",
+     "comment": "bit-order observer, bit 136: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit136 find m_vd at=3.441100e-07"
+    },
+    {
+     "name": "m_bit137",
+     "comment": "bit-order observer, bit 137: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit137 find m_vd at=3.466100e-07"
+    },
+    {
+     "name": "m_bit190",
+     "comment": "bit-order observer, bit 190: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit190 find m_vd at=4.791100e-07"
+    },
+    {
+     "name": "m_bit252",
+     "comment": "bit-order observer, bit 252: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit252 find m_vd at=6.341100e-07"
+    },
+    {
+     "name": "m_bit253",
+     "comment": "bit-order observer, bit 253: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit253 find m_vd at=6.366100e-07"
+    },
+    {
+     "name": "m_xlat",
+     "comment": "chain-latency observer: absolute time of crossing 65 (bit 133 entry, nominal 3.350000e-07 s)",
+     "unit": "s",
+     "spice": ".meas tran m_xlat when m_vd=0 cross=65"
+    }
+   ]
+  },
+  {
+   "name": "ctl",
+   "analysis": {
+    "kind": "tran",
+    "args": "5.000000e-12 6.462500e-07 0 2.500000e-11"
+   },
+   "reset": true,
+   "alter": {
+    "CLP": 2.2e-11,
+    "CLN": 2.2e-11
+   },
+   "measurements": [
+    {
+     "name": "m_vd",
+     "comment": "intermediate: differential pad voltage",
+     "unit": "V",
+     "expr": "v(padp)-v(padn)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vos",
+     "comment": "intermediate: instantaneous common mode",
+     "unit": "V",
+     "expr": "(v(padp)+v(padn))/2",
+     "intermediate": true
+    },
+    {
+     "name": "m_pwr",
+     "comment": "intermediate: instantaneous delivered power; ngspice source current is positive into the + terminal, so the minus signs make sourcing positive",
+     "unit": "W",
+     "expr": "-i(vvccd)*v(vccd)-i(vvddio)*v(vddio)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1p",
+     "comment": "intermediate: PADP over 1-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*v(padp)+(1-v(s1))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0p",
+     "comment": "intermediate: PADP over 0-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*v(padp)+(1-v(s0))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1n",
+     "comment": "intermediate: PADN over 1-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*v(padn)+(1-v(s1))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0n",
+     "comment": "intermediate: PADN over 0-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*v(padn)+(1-v(s0))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s1d",
+     "comment": "intermediate: differential over 1-bit strobes, +5 V fill",
+     "unit": "V",
+     "expr": "v(s1)*(v(padp)-v(padn))+(1-v(s1))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_s0d",
+     "comment": "intermediate: differential over 0-bit strobes, -5 V fill",
+     "unit": "V",
+     "expr": "v(s0)*(v(padp)-v(padn))+(1-v(s0))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vdwhi",
+     "comment": "intermediate: differential over the measurement window, -5 V fill (max basis)",
+     "unit": "V",
+     "expr": "v(sw)*(v(padp)-v(padn))+(1-v(sw))*(-5)",
+     "intermediate": true
+    },
+    {
+     "name": "m_vdwlo",
+     "comment": "intermediate: differential over the measurement window, +5 V fill (min basis)",
+     "unit": "V",
+     "expr": "v(sw)*(v(padp)-v(padn))+(1-v(sw))*5",
+     "intermediate": true
+    },
+    {
+     "name": "m_hi_p",
+     "comment": "observer: worst settled high on PADP across 1-bit strobes; under common-mode ripple this can fall below m_lo_p -- that inversion is data (the E4 finding), not a bench error, and nothing is graded on it",
+     "unit": "V",
+     "expr": "vecmin(m_s1p)"
+    },
+    {
+     "name": "m_lo_p",
+     "comment": "observer: worst settled low on PADP across 0-bit strobes",
+     "unit": "V",
+     "expr": "vecmax(m_s0p)"
+    },
+    {
+     "name": "m_hi_n",
+     "comment": "observer: worst settled high on PADN across 0-bit strobes",
+     "unit": "V",
+     "expr": "vecmin(m_s0n)"
+    },
+    {
+     "name": "m_lo_n",
+     "comment": "observer: worst settled low on PADN across 1-bit strobes",
+     "unit": "V",
+     "expr": "vecmax(m_s1n)"
+    },
+    {
+     "name": "m_eh",
+     "comment": "eye high level: worst differential 1-bit sample at the stated phase",
+     "unit": "V",
+     "expr": "vecmin(m_s1d)"
+    },
+    {
+     "name": "m_el",
+     "comment": "eye low level: worst differential 0-bit sample at the stated phase",
+     "unit": "V",
+     "expr": "vecmax(m_s0d)"
+    },
+    {
+     "name": "m_vhi",
+     "comment": "observer: differential window maximum",
+     "unit": "V",
+     "expr": "vecmax(m_vdwhi)"
+    },
+    {
+     "name": "m_vlo",
+     "comment": "observer: differential window minimum",
+     "unit": "V",
+     "expr": "vecmin(m_vdwlo)"
+    },
+    {
+     "name": "m_eye_h_v",
+     "comment": "E9 eye height at the stated sampling phase = worst 1-bit sample minus worst 0-bit sample",
+     "unit": "V",
+     "expr": "m_eh - m_el",
+     "spec_row": "E9",
+     "limits": {
+      "min": 0.12,
+      "max": 1.0
+     }
+    },
+    {
+     "name": "m_vdn",
+     "comment": "intermediate: differential normalized to its window extremes",
+     "unit": "V",
+     "expr": "(v(padp)-v(padn)-m_vlo)/(m_vhi-m_vlo)",
+     "intermediate": true
+    },
+    {
+     "name": "m_e5ft20b127",
+     "comment": "20 % point of bit 127 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b127 when m_vdn=0.8 fall=1 td=3.193750e-07"
+    },
+    {
+     "name": "m_e5ft80b127",
+     "comment": "80 % point of bit 127 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b127 when m_vdn=0.2 fall=1 td=3.193750e-07"
+    },
+    {
+     "name": "m_e5fb127",
+     "comment": "E5: 20-80 % of bit 127 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b127 - m_e5ft20b127",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b133",
+     "comment": "20 % point of bit 133 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b133 when m_vdn=0.2 rise=1 td=3.343750e-07"
+    },
+    {
+     "name": "m_e5rt80b133",
+     "comment": "80 % point of bit 133 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b133 when m_vdn=0.8 rise=1 td=3.343750e-07"
+    },
+    {
+     "name": "m_e5rb133",
+     "comment": "E5: 20-80 % of bit 133 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b133 - m_e5rt20b133",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b134",
+     "comment": "20 % point of bit 134 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b134 when m_vdn=0.8 fall=1 td=3.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b134",
+     "comment": "80 % point of bit 134 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b134 when m_vdn=0.2 fall=1 td=3.368750e-07"
+    },
+    {
+     "name": "m_e5fb134",
+     "comment": "E5: 20-80 % of bit 134 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b134 - m_e5ft20b134",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b139",
+     "comment": "20 % point of bit 139 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b139 when m_vdn=0.2 rise=1 td=3.493750e-07"
+    },
+    {
+     "name": "m_e5rt80b139",
+     "comment": "80 % point of bit 139 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b139 when m_vdn=0.8 rise=1 td=3.493750e-07"
+    },
+    {
+     "name": "m_e5rb139",
+     "comment": "E5: 20-80 % of bit 139 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b139 - m_e5rt20b139",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b141",
+     "comment": "20 % point of bit 141 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b141 when m_vdn=0.8 fall=1 td=3.543750e-07"
+    },
+    {
+     "name": "m_e5ft80b141",
+     "comment": "80 % point of bit 141 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b141 when m_vdn=0.2 fall=1 td=3.543750e-07"
+    },
+    {
+     "name": "m_e5fb141",
+     "comment": "E5: 20-80 % of bit 141 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b141 - m_e5ft20b141",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b145",
+     "comment": "20 % point of bit 145 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b145 when m_vdn=0.2 rise=1 td=3.643750e-07"
+    },
+    {
+     "name": "m_e5rt80b145",
+     "comment": "80 % point of bit 145 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b145 when m_vdn=0.8 rise=1 td=3.643750e-07"
+    },
+    {
+     "name": "m_e5rb145",
+     "comment": "E5: 20-80 % of bit 145 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b145 - m_e5rt20b145",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b146",
+     "comment": "20 % point of bit 146 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b146 when m_vdn=0.8 fall=1 td=3.668750e-07"
+    },
+    {
+     "name": "m_e5ft80b146",
+     "comment": "80 % point of bit 146 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b146 when m_vdn=0.2 fall=1 td=3.668750e-07"
+    },
+    {
+     "name": "m_e5fb146",
+     "comment": "E5: 20-80 % of bit 146 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b146 - m_e5ft20b146",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b147",
+     "comment": "20 % point of bit 147 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b147 when m_vdn=0.2 rise=1 td=3.693750e-07"
+    },
+    {
+     "name": "m_e5rt80b147",
+     "comment": "80 % point of bit 147 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b147 when m_vdn=0.8 rise=1 td=3.693750e-07"
+    },
+    {
+     "name": "m_e5rb147",
+     "comment": "E5: 20-80 % of bit 147 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b147 - m_e5rt20b147",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b148",
+     "comment": "20 % point of bit 148 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b148 when m_vdn=0.8 fall=1 td=3.718750e-07"
+    },
+    {
+     "name": "m_e5ft80b148",
+     "comment": "80 % point of bit 148 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b148 when m_vdn=0.2 fall=1 td=3.718750e-07"
+    },
+    {
+     "name": "m_e5fb148",
+     "comment": "E5: 20-80 % of bit 148 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b148 - m_e5ft20b148",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b151",
+     "comment": "20 % point of bit 151 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b151 when m_vdn=0.2 rise=1 td=3.793750e-07"
+    },
+    {
+     "name": "m_e5rt80b151",
+     "comment": "80 % point of bit 151 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b151 when m_vdn=0.8 rise=1 td=3.793750e-07"
+    },
+    {
+     "name": "m_e5rb151",
+     "comment": "E5: 20-80 % of bit 151 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b151 - m_e5rt20b151",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b155",
+     "comment": "20 % point of bit 155 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b155 when m_vdn=0.8 fall=1 td=3.893750e-07"
+    },
+    {
+     "name": "m_e5ft80b155",
+     "comment": "80 % point of bit 155 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b155 when m_vdn=0.2 fall=1 td=3.893750e-07"
+    },
+    {
+     "name": "m_e5fb155",
+     "comment": "E5: 20-80 % of bit 155 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b155 - m_e5ft20b155",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b157",
+     "comment": "20 % point of bit 157 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b157 when m_vdn=0.2 rise=1 td=3.943750e-07"
+    },
+    {
+     "name": "m_e5rt80b157",
+     "comment": "80 % point of bit 157 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b157 when m_vdn=0.8 rise=1 td=3.943750e-07"
+    },
+    {
+     "name": "m_e5rb157",
+     "comment": "E5: 20-80 % of bit 157 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b157 - m_e5rt20b157",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b158",
+     "comment": "20 % point of bit 158 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b158 when m_vdn=0.8 fall=1 td=3.968750e-07"
+    },
+    {
+     "name": "m_e5ft80b158",
+     "comment": "80 % point of bit 158 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b158 when m_vdn=0.2 fall=1 td=3.968750e-07"
+    },
+    {
+     "name": "m_e5fb158",
+     "comment": "E5: 20-80 % of bit 158 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b158 - m_e5ft20b158",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b161",
+     "comment": "20 % point of bit 161 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b161 when m_vdn=0.2 rise=1 td=4.043750e-07"
+    },
+    {
+     "name": "m_e5rt80b161",
+     "comment": "80 % point of bit 161 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b161 when m_vdn=0.8 rise=1 td=4.043750e-07"
+    },
+    {
+     "name": "m_e5rb161",
+     "comment": "E5: 20-80 % of bit 161 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b161 - m_e5rt20b161",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b162",
+     "comment": "20 % point of bit 162 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b162 when m_vdn=0.8 fall=1 td=4.068750e-07"
+    },
+    {
+     "name": "m_e5ft80b162",
+     "comment": "80 % point of bit 162 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b162 when m_vdn=0.2 fall=1 td=4.068750e-07"
+    },
+    {
+     "name": "m_e5fb162",
+     "comment": "E5: 20-80 % of bit 162 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b162 - m_e5ft20b162",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b163",
+     "comment": "20 % point of bit 163 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b163 when m_vdn=0.2 rise=1 td=4.093750e-07"
+    },
+    {
+     "name": "m_e5rt80b163",
+     "comment": "80 % point of bit 163 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b163 when m_vdn=0.8 rise=1 td=4.093750e-07"
+    },
+    {
+     "name": "m_e5rb163",
+     "comment": "E5: 20-80 % of bit 163 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b163 - m_e5rt20b163",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b165",
+     "comment": "20 % point of bit 165 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b165 when m_vdn=0.8 fall=1 td=4.143750e-07"
+    },
+    {
+     "name": "m_e5ft80b165",
+     "comment": "80 % point of bit 165 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b165 when m_vdn=0.2 fall=1 td=4.143750e-07"
+    },
+    {
+     "name": "m_e5fb165",
+     "comment": "E5: 20-80 % of bit 165 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b165 - m_e5ft20b165",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b167",
+     "comment": "20 % point of bit 167 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b167 when m_vdn=0.2 rise=1 td=4.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b167",
+     "comment": "80 % point of bit 167 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b167 when m_vdn=0.8 rise=1 td=4.193750e-07"
+    },
+    {
+     "name": "m_e5rb167",
+     "comment": "E5: 20-80 % of bit 167 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b167 - m_e5rt20b167",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b170",
+     "comment": "20 % point of bit 170 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b170 when m_vdn=0.8 fall=1 td=4.268750e-07"
+    },
+    {
+     "name": "m_e5ft80b170",
+     "comment": "80 % point of bit 170 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b170 when m_vdn=0.2 fall=1 td=4.268750e-07"
+    },
+    {
+     "name": "m_e5fb170",
+     "comment": "E5: 20-80 % of bit 170 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b170 - m_e5ft20b170",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b171",
+     "comment": "20 % point of bit 171 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b171 when m_vdn=0.2 rise=1 td=4.293750e-07"
+    },
+    {
+     "name": "m_e5rt80b171",
+     "comment": "80 % point of bit 171 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b171 when m_vdn=0.8 rise=1 td=4.293750e-07"
+    },
+    {
+     "name": "m_e5rb171",
+     "comment": "E5: 20-80 % of bit 171 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b171 - m_e5rt20b171",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b172",
+     "comment": "20 % point of bit 172 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b172 when m_vdn=0.8 fall=1 td=4.318750e-07"
+    },
+    {
+     "name": "m_e5ft80b172",
+     "comment": "80 % point of bit 172 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b172 when m_vdn=0.2 fall=1 td=4.318750e-07"
+    },
+    {
+     "name": "m_e5fb172",
+     "comment": "E5: 20-80 % of bit 172 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b172 - m_e5ft20b172",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b173",
+     "comment": "20 % point of bit 173 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b173 when m_vdn=0.2 rise=1 td=4.343750e-07"
+    },
+    {
+     "name": "m_e5rt80b173",
+     "comment": "80 % point of bit 173 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b173 when m_vdn=0.8 rise=1 td=4.343750e-07"
+    },
+    {
+     "name": "m_e5rb173",
+     "comment": "E5: 20-80 % of bit 173 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b173 - m_e5rt20b173",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b174",
+     "comment": "20 % point of bit 174 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b174 when m_vdn=0.8 fall=1 td=4.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b174",
+     "comment": "80 % point of bit 174 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b174 when m_vdn=0.2 fall=1 td=4.368750e-07"
+    },
+    {
+     "name": "m_e5fb174",
+     "comment": "E5: 20-80 % of bit 174 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b174 - m_e5ft20b174",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b176",
+     "comment": "20 % point of bit 176 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b176 when m_vdn=0.2 rise=1 td=4.418750e-07"
+    },
+    {
+     "name": "m_e5rt80b176",
+     "comment": "80 % point of bit 176 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b176 when m_vdn=0.8 rise=1 td=4.418750e-07"
+    },
+    {
+     "name": "m_e5rb176",
+     "comment": "E5: 20-80 % of bit 176 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b176 - m_e5rt20b176",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b181",
+     "comment": "20 % point of bit 181 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b181 when m_vdn=0.8 fall=1 td=4.543750e-07"
+    },
+    {
+     "name": "m_e5ft80b181",
+     "comment": "80 % point of bit 181 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b181 when m_vdn=0.2 fall=1 td=4.543750e-07"
+    },
+    {
+     "name": "m_e5fb181",
+     "comment": "E5: 20-80 % of bit 181 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b181 - m_e5ft20b181",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b182",
+     "comment": "20 % point of bit 182 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b182 when m_vdn=0.2 rise=1 td=4.568750e-07"
+    },
+    {
+     "name": "m_e5rt80b182",
+     "comment": "80 % point of bit 182 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b182 when m_vdn=0.8 rise=1 td=4.568750e-07"
+    },
+    {
+     "name": "m_e5rb182",
+     "comment": "E5: 20-80 % of bit 182 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b182 - m_e5rt20b182",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b183",
+     "comment": "20 % point of bit 183 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b183 when m_vdn=0.8 fall=1 td=4.593750e-07"
+    },
+    {
+     "name": "m_e5ft80b183",
+     "comment": "80 % point of bit 183 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b183 when m_vdn=0.2 fall=1 td=4.593750e-07"
+    },
+    {
+     "name": "m_e5fb183",
+     "comment": "E5: 20-80 % of bit 183 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b183 - m_e5ft20b183",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b187",
+     "comment": "20 % point of bit 187 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b187 when m_vdn=0.2 rise=1 td=4.693750e-07"
+    },
+    {
+     "name": "m_e5rt80b187",
+     "comment": "80 % point of bit 187 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b187 when m_vdn=0.8 rise=1 td=4.693750e-07"
+    },
+    {
+     "name": "m_e5rb187",
+     "comment": "E5: 20-80 % of bit 187 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b187 - m_e5rt20b187",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b190",
+     "comment": "20 % point of bit 190 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b190 when m_vdn=0.8 fall=1 td=4.768750e-07"
+    },
+    {
+     "name": "m_e5ft80b190",
+     "comment": "80 % point of bit 190 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b190 when m_vdn=0.2 fall=1 td=4.768750e-07"
+    },
+    {
+     "name": "m_e5fb190",
+     "comment": "E5: 20-80 % of bit 190 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b190 - m_e5ft20b190",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b193",
+     "comment": "20 % point of bit 193 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b193 when m_vdn=0.2 rise=1 td=4.843750e-07"
+    },
+    {
+     "name": "m_e5rt80b193",
+     "comment": "80 % point of bit 193 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b193 when m_vdn=0.8 rise=1 td=4.843750e-07"
+    },
+    {
+     "name": "m_e5rb193",
+     "comment": "E5: 20-80 % of bit 193 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b193 - m_e5rt20b193",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b194",
+     "comment": "20 % point of bit 194 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b194 when m_vdn=0.8 fall=1 td=4.868750e-07"
+    },
+    {
+     "name": "m_e5ft80b194",
+     "comment": "80 % point of bit 194 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b194 when m_vdn=0.2 fall=1 td=4.868750e-07"
+    },
+    {
+     "name": "m_e5fb194",
+     "comment": "E5: 20-80 % of bit 194 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b194 - m_e5ft20b194",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b196",
+     "comment": "20 % point of bit 196 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b196 when m_vdn=0.2 rise=1 td=4.918750e-07"
+    },
+    {
+     "name": "m_e5rt80b196",
+     "comment": "80 % point of bit 196 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b196 when m_vdn=0.8 rise=1 td=4.918750e-07"
+    },
+    {
+     "name": "m_e5rb196",
+     "comment": "E5: 20-80 % of bit 196 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b196 - m_e5rt20b196",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b197",
+     "comment": "20 % point of bit 197 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b197 when m_vdn=0.8 fall=1 td=4.943750e-07"
+    },
+    {
+     "name": "m_e5ft80b197",
+     "comment": "80 % point of bit 197 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b197 when m_vdn=0.2 fall=1 td=4.943750e-07"
+    },
+    {
+     "name": "m_e5fb197",
+     "comment": "E5: 20-80 % of bit 197 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b197 - m_e5ft20b197",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b199",
+     "comment": "20 % point of bit 199 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b199 when m_vdn=0.2 rise=1 td=4.993750e-07"
+    },
+    {
+     "name": "m_e5rt80b199",
+     "comment": "80 % point of bit 199 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b199 when m_vdn=0.8 rise=1 td=4.993750e-07"
+    },
+    {
+     "name": "m_e5rb199",
+     "comment": "E5: 20-80 % of bit 199 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b199 - m_e5rt20b199",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b201",
+     "comment": "20 % point of bit 201 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b201 when m_vdn=0.8 fall=1 td=5.043750e-07"
+    },
+    {
+     "name": "m_e5ft80b201",
+     "comment": "80 % point of bit 201 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b201 when m_vdn=0.2 fall=1 td=5.043750e-07"
+    },
+    {
+     "name": "m_e5fb201",
+     "comment": "E5: 20-80 % of bit 201 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b201 - m_e5ft20b201",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b202",
+     "comment": "20 % point of bit 202 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b202 when m_vdn=0.2 rise=1 td=5.068750e-07"
+    },
+    {
+     "name": "m_e5rt80b202",
+     "comment": "80 % point of bit 202 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b202 when m_vdn=0.8 rise=1 td=5.068750e-07"
+    },
+    {
+     "name": "m_e5rb202",
+     "comment": "E5: 20-80 % of bit 202 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b202 - m_e5rt20b202",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b204",
+     "comment": "20 % point of bit 204 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b204 when m_vdn=0.8 fall=1 td=5.118750e-07"
+    },
+    {
+     "name": "m_e5ft80b204",
+     "comment": "80 % point of bit 204 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b204 when m_vdn=0.2 fall=1 td=5.118750e-07"
+    },
+    {
+     "name": "m_e5fb204",
+     "comment": "E5: 20-80 % of bit 204 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b204 - m_e5ft20b204",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b205",
+     "comment": "20 % point of bit 205 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b205 when m_vdn=0.2 rise=1 td=5.143750e-07"
+    },
+    {
+     "name": "m_e5rt80b205",
+     "comment": "80 % point of bit 205 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b205 when m_vdn=0.8 rise=1 td=5.143750e-07"
+    },
+    {
+     "name": "m_e5rb205",
+     "comment": "E5: 20-80 % of bit 205 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b205 - m_e5rt20b205",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b206",
+     "comment": "20 % point of bit 206 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b206 when m_vdn=0.8 fall=1 td=5.168750e-07"
+    },
+    {
+     "name": "m_e5ft80b206",
+     "comment": "80 % point of bit 206 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b206 when m_vdn=0.2 fall=1 td=5.168750e-07"
+    },
+    {
+     "name": "m_e5fb206",
+     "comment": "E5: 20-80 % of bit 206 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b206 - m_e5ft20b206",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b207",
+     "comment": "20 % point of bit 207 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b207 when m_vdn=0.2 rise=1 td=5.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b207",
+     "comment": "80 % point of bit 207 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b207 when m_vdn=0.8 rise=1 td=5.193750e-07"
+    },
+    {
+     "name": "m_e5rb207",
+     "comment": "E5: 20-80 % of bit 207 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b207 - m_e5rt20b207",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b209",
+     "comment": "20 % point of bit 209 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b209 when m_vdn=0.8 fall=1 td=5.243750e-07"
+    },
+    {
+     "name": "m_e5ft80b209",
+     "comment": "80 % point of bit 209 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b209 when m_vdn=0.2 fall=1 td=5.243750e-07"
+    },
+    {
+     "name": "m_e5fb209",
+     "comment": "E5: 20-80 % of bit 209 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b209 - m_e5ft20b209",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b210",
+     "comment": "20 % point of bit 210 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b210 when m_vdn=0.2 rise=1 td=5.268750e-07"
+    },
+    {
+     "name": "m_e5rt80b210",
+     "comment": "80 % point of bit 210 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b210 when m_vdn=0.8 rise=1 td=5.268750e-07"
+    },
+    {
+     "name": "m_e5rb210",
+     "comment": "E5: 20-80 % of bit 210 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b210 - m_e5rt20b210",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b214",
+     "comment": "20 % point of bit 214 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b214 when m_vdn=0.8 fall=1 td=5.368750e-07"
+    },
+    {
+     "name": "m_e5ft80b214",
+     "comment": "80 % point of bit 214 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b214 when m_vdn=0.2 fall=1 td=5.368750e-07"
+    },
+    {
+     "name": "m_e5fb214",
+     "comment": "E5: 20-80 % of bit 214 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b214 - m_e5ft20b214",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b215",
+     "comment": "20 % point of bit 215 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b215 when m_vdn=0.2 rise=1 td=5.393750e-07"
+    },
+    {
+     "name": "m_e5rt80b215",
+     "comment": "80 % point of bit 215 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b215 when m_vdn=0.8 rise=1 td=5.393750e-07"
+    },
+    {
+     "name": "m_e5rb215",
+     "comment": "E5: 20-80 % of bit 215 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b215 - m_e5rt20b215",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b217",
+     "comment": "20 % point of bit 217 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b217 when m_vdn=0.8 fall=1 td=5.443750e-07"
+    },
+    {
+     "name": "m_e5ft80b217",
+     "comment": "80 % point of bit 217 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b217 when m_vdn=0.2 fall=1 td=5.443750e-07"
+    },
+    {
+     "name": "m_e5fb217",
+     "comment": "E5: 20-80 % of bit 217 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b217 - m_e5ft20b217",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b220",
+     "comment": "20 % point of bit 220 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b220 when m_vdn=0.2 rise=1 td=5.518750e-07"
+    },
+    {
+     "name": "m_e5rt80b220",
+     "comment": "80 % point of bit 220 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b220 when m_vdn=0.8 rise=1 td=5.518750e-07"
+    },
+    {
+     "name": "m_e5rb220",
+     "comment": "E5: 20-80 % of bit 220 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b220 - m_e5rt20b220",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b222",
+     "comment": "20 % point of bit 222 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b222 when m_vdn=0.8 fall=1 td=5.568750e-07"
+    },
+    {
+     "name": "m_e5ft80b222",
+     "comment": "80 % point of bit 222 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b222 when m_vdn=0.2 fall=1 td=5.568750e-07"
+    },
+    {
+     "name": "m_e5fb222",
+     "comment": "E5: 20-80 % of bit 222 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b222 - m_e5ft20b222",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b223",
+     "comment": "20 % point of bit 223 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b223 when m_vdn=0.2 rise=1 td=5.593750e-07"
+    },
+    {
+     "name": "m_e5rt80b223",
+     "comment": "80 % point of bit 223 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b223 when m_vdn=0.8 rise=1 td=5.593750e-07"
+    },
+    {
+     "name": "m_e5rb223",
+     "comment": "E5: 20-80 % of bit 223 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b223 - m_e5rt20b223",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b224",
+     "comment": "20 % point of bit 224 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b224 when m_vdn=0.8 fall=1 td=5.618750e-07"
+    },
+    {
+     "name": "m_e5ft80b224",
+     "comment": "80 % point of bit 224 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b224 when m_vdn=0.2 fall=1 td=5.618750e-07"
+    },
+    {
+     "name": "m_e5fb224",
+     "comment": "E5: 20-80 % of bit 224 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b224 - m_e5ft20b224",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b226",
+     "comment": "20 % point of bit 226 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b226 when m_vdn=0.2 rise=1 td=5.668750e-07"
+    },
+    {
+     "name": "m_e5rt80b226",
+     "comment": "80 % point of bit 226 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b226 when m_vdn=0.8 rise=1 td=5.668750e-07"
+    },
+    {
+     "name": "m_e5rb226",
+     "comment": "E5: 20-80 % of bit 226 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b226 - m_e5rt20b226",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b227",
+     "comment": "20 % point of bit 227 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b227 when m_vdn=0.8 fall=1 td=5.693750e-07"
+    },
+    {
+     "name": "m_e5ft80b227",
+     "comment": "80 % point of bit 227 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b227 when m_vdn=0.2 fall=1 td=5.693750e-07"
+    },
+    {
+     "name": "m_e5fb227",
+     "comment": "E5: 20-80 % of bit 227 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b227 - m_e5ft20b227",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b228",
+     "comment": "20 % point of bit 228 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b228 when m_vdn=0.2 rise=1 td=5.718750e-07"
+    },
+    {
+     "name": "m_e5rt80b228",
+     "comment": "80 % point of bit 228 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b228 when m_vdn=0.8 rise=1 td=5.718750e-07"
+    },
+    {
+     "name": "m_e5rb228",
+     "comment": "E5: 20-80 % of bit 228 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b228 - m_e5rt20b228",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b231",
+     "comment": "20 % point of bit 231 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b231 when m_vdn=0.8 fall=1 td=5.793750e-07"
+    },
+    {
+     "name": "m_e5ft80b231",
+     "comment": "80 % point of bit 231 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b231 when m_vdn=0.2 fall=1 td=5.793750e-07"
+    },
+    {
+     "name": "m_e5fb231",
+     "comment": "E5: 20-80 % of bit 231 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b231 - m_e5ft20b231",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b232",
+     "comment": "20 % point of bit 232 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b232 when m_vdn=0.2 rise=1 td=5.818750e-07"
+    },
+    {
+     "name": "m_e5rt80b232",
+     "comment": "80 % point of bit 232 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b232 when m_vdn=0.8 rise=1 td=5.818750e-07"
+    },
+    {
+     "name": "m_e5rb232",
+     "comment": "E5: 20-80 % of bit 232 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b232 - m_e5rt20b232",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b235",
+     "comment": "20 % point of bit 235 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b235 when m_vdn=0.8 fall=1 td=5.893750e-07"
+    },
+    {
+     "name": "m_e5ft80b235",
+     "comment": "80 % point of bit 235 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b235 when m_vdn=0.2 fall=1 td=5.893750e-07"
+    },
+    {
+     "name": "m_e5fb235",
+     "comment": "E5: 20-80 % of bit 235 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b235 - m_e5ft20b235",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b237",
+     "comment": "20 % point of bit 237 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b237 when m_vdn=0.2 rise=1 td=5.943750e-07"
+    },
+    {
+     "name": "m_e5rt80b237",
+     "comment": "80 % point of bit 237 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b237 when m_vdn=0.8 rise=1 td=5.943750e-07"
+    },
+    {
+     "name": "m_e5rb237",
+     "comment": "E5: 20-80 % of bit 237 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b237 - m_e5rt20b237",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b239",
+     "comment": "20 % point of bit 239 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b239 when m_vdn=0.8 fall=1 td=5.993750e-07"
+    },
+    {
+     "name": "m_e5ft80b239",
+     "comment": "80 % point of bit 239 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b239 when m_vdn=0.2 fall=1 td=5.993750e-07"
+    },
+    {
+     "name": "m_e5fb239",
+     "comment": "E5: 20-80 % of bit 239 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b239 - m_e5ft20b239",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b241",
+     "comment": "20 % point of bit 241 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b241 when m_vdn=0.2 rise=1 td=6.043750e-07"
+    },
+    {
+     "name": "m_e5rt80b241",
+     "comment": "80 % point of bit 241 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b241 when m_vdn=0.8 rise=1 td=6.043750e-07"
+    },
+    {
+     "name": "m_e5rb241",
+     "comment": "E5: 20-80 % of bit 241 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b241 - m_e5rt20b241",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b242",
+     "comment": "20 % point of bit 242 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b242 when m_vdn=0.8 fall=1 td=6.068750e-07"
+    },
+    {
+     "name": "m_e5ft80b242",
+     "comment": "80 % point of bit 242 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b242 when m_vdn=0.2 fall=1 td=6.068750e-07"
+    },
+    {
+     "name": "m_e5fb242",
+     "comment": "E5: 20-80 % of bit 242 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b242 - m_e5ft20b242",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b243",
+     "comment": "20 % point of bit 243 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b243 when m_vdn=0.2 rise=1 td=6.093750e-07"
+    },
+    {
+     "name": "m_e5rt80b243",
+     "comment": "80 % point of bit 243 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b243 when m_vdn=0.8 rise=1 td=6.093750e-07"
+    },
+    {
+     "name": "m_e5rb243",
+     "comment": "E5: 20-80 % of bit 243 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b243 - m_e5rt20b243",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b244",
+     "comment": "20 % point of bit 244 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b244 when m_vdn=0.8 fall=1 td=6.118750e-07"
+    },
+    {
+     "name": "m_e5ft80b244",
+     "comment": "80 % point of bit 244 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b244 when m_vdn=0.2 fall=1 td=6.118750e-07"
+    },
+    {
+     "name": "m_e5fb244",
+     "comment": "E5: 20-80 % of bit 244 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b244 - m_e5ft20b244",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b245",
+     "comment": "20 % point of bit 245 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b245 when m_vdn=0.2 rise=1 td=6.143750e-07"
+    },
+    {
+     "name": "m_e5rt80b245",
+     "comment": "80 % point of bit 245 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b245 when m_vdn=0.8 rise=1 td=6.143750e-07"
+    },
+    {
+     "name": "m_e5rb245",
+     "comment": "E5: 20-80 % of bit 245 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b245 - m_e5rt20b245",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5ft20b246",
+     "comment": "20 % point of bit 246 entry (PADP falling / PADN rising); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft20b246 when m_vdn=0.8 fall=1 td=6.168750e-07"
+    },
+    {
+     "name": "m_e5ft80b246",
+     "comment": "80 % point of bit 246 entry (PADP falling / PADN rising); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5ft80b246 when m_vdn=0.2 fall=1 td=6.168750e-07"
+    },
+    {
+     "name": "m_e5fb246",
+     "comment": "E5: 20-80 % of bit 246 entry (PADP falling / PADN rising)",
+     "unit": "s",
+     "expr": "m_e5ft80b246 - m_e5ft20b246",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e5rt20b247",
+     "comment": "20 % point of bit 247 entry (PADP rising / PADN falling); observer, the graded quantity is m_e5{tag}b{bit}",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt20b247 when m_vdn=0.2 rise=1 td=6.193750e-07"
+    },
+    {
+     "name": "m_e5rt80b247",
+     "comment": "80 % point of bit 247 entry (PADP rising / PADN falling); observer",
+     "unit": "s",
+     "spice": ".meas tran m_e5rt80b247 when m_vdn=0.8 rise=1 td=6.193750e-07"
+    },
+    {
+     "name": "m_e5rb247",
+     "comment": "E5: 20-80 % of bit 247 entry (PADP rising / PADN falling)",
+     "unit": "s",
+     "expr": "m_e5rt80b247 - m_e5rt20b247",
+     "spec_row": "E5",
+     "limits": {
+      "min": 1e-10,
+      "max": 1e-09
+     }
+    },
+    {
+     "name": "m_e9w64",
+     "comment": "bit 127..132 crossing gap, nominal 15 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w64 trig m_vd val=0 cross=64 targ m_vd val=0 cross=65",
+     "limits": {
+      "min": 1.4375000000000001e-08,
+      "max": 1.5625000000000003e-08
+     }
+    },
+    {
+     "name": "m_e9w65",
+     "comment": "bit 133..133 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w65 trig m_vd val=0 cross=65 targ m_vd val=0 cross=66",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w66",
+     "comment": "bit 134..138 crossing gap, nominal 12.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w66 trig m_vd val=0 cross=66 targ m_vd val=0 cross=67",
+     "limits": {
+      "min": 1.1874999999999999e-08,
+      "max": 1.3125e-08
+     }
+    },
+    {
+     "name": "m_e9w67",
+     "comment": "bit 139..140 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w67 trig m_vd val=0 cross=67 targ m_vd val=0 cross=68",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w68",
+     "comment": "bit 141..144 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w68 trig m_vd val=0 cross=68 targ m_vd val=0 cross=69",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w69",
+     "comment": "bit 145..145 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w69 trig m_vd val=0 cross=69 targ m_vd val=0 cross=70",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w70",
+     "comment": "bit 146..146 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w70 trig m_vd val=0 cross=70 targ m_vd val=0 cross=71",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w71",
+     "comment": "bit 147..147 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w71 trig m_vd val=0 cross=71 targ m_vd val=0 cross=72",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w72",
+     "comment": "bit 148..150 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w72 trig m_vd val=0 cross=72 targ m_vd val=0 cross=73",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w73",
+     "comment": "bit 151..154 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w73 trig m_vd val=0 cross=73 targ m_vd val=0 cross=74",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w74",
+     "comment": "bit 155..156 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w74 trig m_vd val=0 cross=74 targ m_vd val=0 cross=75",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w75",
+     "comment": "bit 157..157 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w75 trig m_vd val=0 cross=75 targ m_vd val=0 cross=76",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w76",
+     "comment": "bit 158..160 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w76 trig m_vd val=0 cross=76 targ m_vd val=0 cross=77",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w77",
+     "comment": "bit 161..161 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w77 trig m_vd val=0 cross=77 targ m_vd val=0 cross=78",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w78",
+     "comment": "bit 162..162 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w78 trig m_vd val=0 cross=78 targ m_vd val=0 cross=79",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w79",
+     "comment": "bit 163..164 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w79 trig m_vd val=0 cross=79 targ m_vd val=0 cross=80",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w80",
+     "comment": "bit 165..166 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w80 trig m_vd val=0 cross=80 targ m_vd val=0 cross=81",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w81",
+     "comment": "bit 167..169 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w81 trig m_vd val=0 cross=81 targ m_vd val=0 cross=82",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w82",
+     "comment": "bit 170..170 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w82 trig m_vd val=0 cross=82 targ m_vd val=0 cross=83",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w83",
+     "comment": "bit 171..171 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w83 trig m_vd val=0 cross=83 targ m_vd val=0 cross=84",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w84",
+     "comment": "bit 172..172 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w84 trig m_vd val=0 cross=84 targ m_vd val=0 cross=85",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w85",
+     "comment": "bit 173..173 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w85 trig m_vd val=0 cross=85 targ m_vd val=0 cross=86",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w86",
+     "comment": "bit 174..175 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w86 trig m_vd val=0 cross=86 targ m_vd val=0 cross=87",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w87",
+     "comment": "bit 176..180 crossing gap, nominal 12.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w87 trig m_vd val=0 cross=87 targ m_vd val=0 cross=88",
+     "limits": {
+      "min": 1.1874999999999999e-08,
+      "max": 1.3125e-08
+     }
+    },
+    {
+     "name": "m_e9w88",
+     "comment": "bit 181..181 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w88 trig m_vd val=0 cross=88 targ m_vd val=0 cross=89",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w89",
+     "comment": "bit 182..182 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w89 trig m_vd val=0 cross=89 targ m_vd val=0 cross=90",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w90",
+     "comment": "bit 183..186 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w90 trig m_vd val=0 cross=90 targ m_vd val=0 cross=91",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w91",
+     "comment": "bit 187..189 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w91 trig m_vd val=0 cross=91 targ m_vd val=0 cross=92",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w92",
+     "comment": "bit 190..192 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w92 trig m_vd val=0 cross=92 targ m_vd val=0 cross=93",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w93",
+     "comment": "bit 193..193 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w93 trig m_vd val=0 cross=93 targ m_vd val=0 cross=94",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w94",
+     "comment": "bit 194..195 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w94 trig m_vd val=0 cross=94 targ m_vd val=0 cross=95",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w95",
+     "comment": "bit 196..196 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w95 trig m_vd val=0 cross=95 targ m_vd val=0 cross=96",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w96",
+     "comment": "bit 197..198 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w96 trig m_vd val=0 cross=96 targ m_vd val=0 cross=97",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w97",
+     "comment": "bit 199..200 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w97 trig m_vd val=0 cross=97 targ m_vd val=0 cross=98",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w98",
+     "comment": "bit 201..201 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w98 trig m_vd val=0 cross=98 targ m_vd val=0 cross=99",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w99",
+     "comment": "bit 202..203 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w99 trig m_vd val=0 cross=99 targ m_vd val=0 cross=100",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w100",
+     "comment": "bit 204..204 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w100 trig m_vd val=0 cross=100 targ m_vd val=0 cross=101",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w101",
+     "comment": "bit 205..205 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w101 trig m_vd val=0 cross=101 targ m_vd val=0 cross=102",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w102",
+     "comment": "bit 206..206 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w102 trig m_vd val=0 cross=102 targ m_vd val=0 cross=103",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w103",
+     "comment": "bit 207..208 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w103 trig m_vd val=0 cross=103 targ m_vd val=0 cross=104",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w104",
+     "comment": "bit 209..209 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w104 trig m_vd val=0 cross=104 targ m_vd val=0 cross=105",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w105",
+     "comment": "bit 210..213 crossing gap, nominal 10 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w105 trig m_vd val=0 cross=105 targ m_vd val=0 cross=106",
+     "limits": {
+      "min": 9.375e-09,
+      "max": 1.0625000000000001e-08
+     }
+    },
+    {
+     "name": "m_e9w106",
+     "comment": "bit 214..214 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w106 trig m_vd val=0 cross=106 targ m_vd val=0 cross=107",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w107",
+     "comment": "bit 215..216 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w107 trig m_vd val=0 cross=107 targ m_vd val=0 cross=108",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w108",
+     "comment": "bit 217..219 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w108 trig m_vd val=0 cross=108 targ m_vd val=0 cross=109",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w109",
+     "comment": "bit 220..221 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w109 trig m_vd val=0 cross=109 targ m_vd val=0 cross=110",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w110",
+     "comment": "bit 222..222 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w110 trig m_vd val=0 cross=110 targ m_vd val=0 cross=111",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w111",
+     "comment": "bit 223..223 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w111 trig m_vd val=0 cross=111 targ m_vd val=0 cross=112",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w112",
+     "comment": "bit 224..225 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w112 trig m_vd val=0 cross=112 targ m_vd val=0 cross=113",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w113",
+     "comment": "bit 226..226 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w113 trig m_vd val=0 cross=113 targ m_vd val=0 cross=114",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w114",
+     "comment": "bit 227..227 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w114 trig m_vd val=0 cross=114 targ m_vd val=0 cross=115",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w115",
+     "comment": "bit 228..230 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w115 trig m_vd val=0 cross=115 targ m_vd val=0 cross=116",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w116",
+     "comment": "bit 231..231 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w116 trig m_vd val=0 cross=116 targ m_vd val=0 cross=117",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w117",
+     "comment": "bit 232..234 crossing gap, nominal 7.5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w117 trig m_vd val=0 cross=117 targ m_vd val=0 cross=118",
+     "limits": {
+      "min": 6.875000000000001e-09,
+      "max": 8.125000000000002e-09
+     }
+    },
+    {
+     "name": "m_e9w118",
+     "comment": "bit 235..236 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w118 trig m_vd val=0 cross=118 targ m_vd val=0 cross=119",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w119",
+     "comment": "bit 237..238 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w119 trig m_vd val=0 cross=119 targ m_vd val=0 cross=120",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w120",
+     "comment": "bit 239..240 crossing gap, nominal 5 ns; run guard, window only",
+     "unit": "s",
+     "spice": ".meas tran m_e9w120 trig m_vd val=0 cross=120 targ m_vd val=0 cross=121",
+     "limits": {
+      "min": 4.375e-09,
+      "max": 5.625e-09
+     }
+    },
+    {
+     "name": "m_e9w121",
+     "comment": "bit 241..241 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w121 trig m_vd val=0 cross=121 targ m_vd val=0 cross=122",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w122",
+     "comment": "bit 242..242 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w122 trig m_vd val=0 cross=122 targ m_vd val=0 cross=123",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w123",
+     "comment": "bit 243..243 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w123 trig m_vd val=0 cross=123 targ m_vd val=0 cross=124",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w124",
+     "comment": "bit 244..244 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w124 trig m_vd val=0 cross=124 targ m_vd val=0 cross=125",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w125",
+     "comment": "bit 245..245 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w125 trig m_vd val=0 cross=125 targ m_vd val=0 cross=126",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_e9w126",
+     "comment": "bit 246..246 crossing gap, nominal 2.5 ns; isolated bit, carries the E9 width limit",
+     "unit": "s",
+     "spice": ".meas tran m_e9w126 trig m_vd val=0 cross=126 targ m_vd val=0 cross=127",
+     "spec_row": "E9",
+     "limits": {
+      "min": 1.8750000000000002e-09,
+      "max": 3.125e-09
+     }
+    },
+    {
+     "name": "m_vos_pp",
+     "comment": "E4 dynamic half: peak-to-peak V_OS over the settled PRBS window",
+     "unit": "V",
+     "spice": ".meas tran m_vos_pp pp m_vos from=3.200000e-07 to=6.375000e-07",
+     "spec_row": "E4",
+     "limits": {
+      "min": 0.0,
+      "max": 0.15
+     }
+    },
+    {
+     "name": "m_i_vccd_avg",
+     "comment": "observer: mean VCCD source current (negative = sourcing)",
+     "unit": "A",
+     "spice": ".meas tran m_i_vccd_avg avg i(vvccd) from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_i_vddio_avg",
+     "comment": "observer: mean VDDIO source current (negative = sourcing)",
+     "unit": "A",
+     "spice": ".meas tran m_i_vddio_avg avg i(vvddio) from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_p_avg",
+     "comment": "observer: time-weighted mean delivered power over the window",
+     "unit": "W",
+     "spice": ".meas tran m_p_avg avg m_pwr from=3.200000e-07 to=6.375000e-07"
+    },
+    {
+     "name": "m_pw_analog_mv",
+     "comment": "W1 analog subtotal (muxes + predriver + driver + CMFB + pad cells, both rails), graded against the <= 30 mW any-G75-condition cap. NOT the full W1: the serializer share is not included, and the <= 18 mW nominal-TT leg is reported from this same grid's tt/27C/1.80/3.30 row by summarize.py (RECORD.md)",
+     "unit": "mW",
+     "expr": "m_p_avg*1e3",
+     "spec_row": "W1",
+     "limits": {
+      "min": 0.0,
+      "max": 30.0
+     }
+    },
+    {
+     "name": "m_bit127",
+     "comment": "bit-order observer, bit 127: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit127 find m_vd at=3.216100e-07"
+    },
+    {
+     "name": "m_bit128",
+     "comment": "bit-order observer, bit 128: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit128 find m_vd at=3.241100e-07"
+    },
+    {
+     "name": "m_bit133",
+     "comment": "bit-order observer, bit 133: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit133 find m_vd at=3.366100e-07"
+    },
+    {
+     "name": "m_bit135",
+     "comment": "bit-order observer, bit 135: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit135 find m_vd at=3.416100e-07"
+    },
+    {
+     "name": "m_bit136",
+     "comment": "bit-order observer, bit 136: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit136 find m_vd at=3.441100e-07"
+    },
+    {
+     "name": "m_bit137",
+     "comment": "bit-order observer, bit 137: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit137 find m_vd at=3.466100e-07"
+    },
+    {
+     "name": "m_bit190",
+     "comment": "bit-order observer, bit 190: expected 0 (negative differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit190 find m_vd at=4.791100e-07"
+    },
+    {
+     "name": "m_bit252",
+     "comment": "bit-order observer, bit 252: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit252 find m_vd at=6.341100e-07"
+    },
+    {
+     "name": "m_bit253",
+     "comment": "bit-order observer, bit 253: expected 1 (positive differential)",
+     "unit": "V",
+     "spice": ".meas tran m_bit253 find m_vd at=6.366100e-07"
+    },
+    {
+     "name": "m_xlat",
+     "comment": "chain-latency observer: absolute time of crossing 65 (bit 133 entry, nominal 3.350000e-07 s)",
+     "unit": "s",
+     "spice": ".meas tran m_xlat when m_vd=0 cross=65"
+    }
+   ]
+  }
+ ],
+ "options": {
+  "timeout_s": 900,
+  "stage_model_inputs": true,
+  "ngspice_init": [
+   "set wnflag=1",
+   "set num_threads=1"
+  ],
+  "node_voltage_bounds": {
+   "min": -0.5,
+   "max": 4.0
+  },
+  "save_vectors": [
+   "v(padp)",
+   "v(padn)",
+   "v(vccd)",
+   "v(vddio)",
+   "v(s1)",
+   "v(s0)",
+   "v(sw)",
+   "i(vvccd)",
+   "i(vvddio)"
+  ]
+ },
+ "batch": {
+  "capacity_wait_s": 600
+ }
+}
