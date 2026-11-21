@@ -916,8 +916,8 @@ already failed before isolation do so through the same mechanism on the
 pre-existing floating driver wells (`WELL` in `drv_slice`) — F7's cause,
 now identified. ngspice-47 never actually failed to solve: in every graded
 unit a later rung of its homotopy ladder (true gmin stepping, source
-stepping, or the pseudo-transient op) recovered, all sweep rows and all 89 /
-89 / 22 measurements were produced, and `fail_on_diagnostic` grades them
+stepping, or the pseudo-transient op) recovered, all sweep rows and all 96 /
+96 / 22 measurements were produced, and `fail_on_diagnostic` grades them
 `inconclusive` as configured. The fix direction is a DC path on the floating
 wells, which is a design change owned by #167 — nothing was landed here.
 
