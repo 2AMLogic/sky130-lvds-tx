@@ -6,6 +6,7 @@ edit the GDS by hand.
 ```
 source .venv/bin/activate && export PDK_ROOT=~/.ciel PDK=sky130A
 klayout -b -r layout/gen_driver_pad.py        # rewrites the GDS
+klayout -b -r layout/gen_bare_pad_frame.py   # the bare-cell exception layout
 sh verification/signoff/check-driver-pad-gds.sh   # fresh == committed, slot fit
 ```
 
@@ -109,10 +110,12 @@ Checked on the routed layout (`klt lvs` / `klt drc`, `sky130` deck):
   mismatch, so the deck does tell them apart. The ESD clamp, the `D1` diode and
   the pad frame are not in this compare (the top is the driver cell), so their
   recognition is still not established.
-- **DRC** (`klt drc --deck sky130 --top sky130_lvds_tx_driver_pad`): 486
-  violations, the same per-rule counts as `item-3-drc-analog-r3.json`, all in the
-  stock pad frame. The routed driver adds none. The hvi mark is extended over each
-  thick-oxide PMOS guard-ring well (`nwell.enclosed.hvi.1` fired 43 times without it).
+- **DRC** (`klt drc --deck sky130 --top sky130_lvds_tx_driver_pad`), as of #48:
+  486 violations, the same per-rule counts as `item-3-drc-analog-r3.json`, all
+  in the stock pad frame. The routed driver adds none. The hvi mark is extended
+  over each thick-oxide PMOS guard-ring well (`nwell.enclosed.hvi.1` fired 43
+  times without it). (Superseded: #74 merged two slivers, #165 removed the met5
+  set and disclosed the met4 remainder — see the later sections.)
 
 ## Supply routing (issue #74)
 
@@ -132,11 +135,13 @@ as 1.27 um met4/met5 edge stubs with no via4 between them, so `build_supplies` a
   `ddr_mux` and `predriver` route only `VCCD` and `VSSIO`.
 
 Metal only: nothing touches an n-well, so the DR-008 pad-facing n-well stays
-floating. The straps are not sized for current. `klt drc` on the top cell: 484
-violations, all in the stock frame (was 486: two stock met5 edge slivers now merge
-into straps); the new geometry adds none. `check-driver-pad-gds.sh` and
-`check-pad-frame-drc.sh` pass. The remaining `erc.floating_gate` findings (10) are
-signal gates left unrouted. Neither DRC nor LVS is claimed clean.
+floating. The straps are not sized for current. `klt drc` on the top cell after
+#74: 484 violations, all in the stock frame (was 486: two stock met5 edge
+slivers now merge into straps); the new geometry adds none. The remaining
+`erc.floating_gate` findings (10) are signal gates left unrouted. Issue #165's
+free-end met5 completions (next sections) then removed the 26 met5 findings,
+leaving 458 met4; neither DRC nor LVS is claimed clean — the met4 findings are
+a disclosed foundry-cell exception, not a clean verdict.
 
 ## Not drawn yet (deferred)
 
@@ -151,13 +156,20 @@ signal gates left unrouted. Neither DRC nor LVS is claimed clean.
 T1 item 2 (analog) is claimed as **provenance only**: the committed GDS is
 reproducibly generated (`verification/signoff/check-driver-pad-gds.sh`), and
 the envelope cited as `2.analog` in `manifests/sky130-lvds-tx.json` is
-`item-2-layout-analog-r4.json`, produced by `klt signoff --attest 2` under
-the pinned pair (issue #104; r3 and earlier are kept as history). The item 4 LVS and item 3 DRC
-reports cited in the manifest still describe the earlier GDS: the record shows
-item 4 analog with `input_verified: false`, and they are not re-run here. Neither
-DRC nor LVS is claimed clean.
+`item-2-layout-analog-r5.json`, produced by `klt signoff --attest 2` under
+the pinned pair (issue #104; r3, r4 and earlier are kept as history). Since
+issue #165 the item 3 DRC, item 4 LVS and item 11 ERC reports cited in the
+manifest are all re-run on and hash-bound to the committed GDS
+(`input_verified: true`). Neither DRC nor LVS is claimed clean: the DRC row
+is `met` through the disclosed foundry-cell exception below, not a `clean`
+report.
 
 ## DRC of the stock pad frame (issue #44)
+
+This section records the #44 classification of the pre-#165 state; the
+met5 findings it lists are since removed in the design and the met4 remainder
+is a disclosed exception ("Foundry-cell DRC exception applied (issue #165)"
+below).
 
 `klt drc --deck sky130 --top sky130_lvds_tx_driver_pad` reports 486 `met4`/`met5`
 violations (`verification/signoff/evidence/item-3-drc-analog-r3.json`, bound to the routed
@@ -190,3 +202,56 @@ met4 groups. Whether the foundry waives these in its I/O library is not document
 PDK files read here and is **not established**; that is a ruling for the operator, since
 the only route to a `met` analog row is a waiver of foundry-supplied geometry, which this
 repo does not add on its own.
+
+## Foundry-cell DRC exception applied (issue #165)
+
+The operator ruling on #44 — violations inside unmodified foundry cells become
+a disclosed item-3 exception once the tooling supports it — is applied here,
+using `foundry_cell_exceptions` in `manifests/sky130-lvds-tx.json` entry
+`3.analog` (klayout-tools#4530, shipped in the pinned `klt 0.9.1`). Two
+changes land together:
+
+1. **The met5 findings are removed for real, in this repo's geometry** (the
+   exception never covers something the design can fix). The stock cell's
+   free-end met5 stripes — the 26 `met5.width.1` + 2 `met5.area.1` markers —
+   are completed by parent-level met5 boxes (`complete_met5_edges` in
+   `gen_driver_pad.py`): one box per edge stripe, extending it outward past
+   the pair's free edge to 1.8 um total width / 4.4 um^2 (rules 1.6 um /
+   4.0 um^2 plus margin). A stripe a supply strap crosses only partly keeps
+   narrow arms outside the strap band, so every edge stripe is extended; an
+   extension that overlaps a strap of the same supply was already merged
+   with it. The stock cell itself is unmodified (DR-001): only top-level
+   geometry is added, one box per stripe, so no two stripes (which may sit
+   on different nets) are joined. Block report after the fix:
+   `item-3-drc-analog-r4.json`, 458 violations, all `met4` — zero `met5`.
+2. **The remaining met4 findings are the disclosed exception.** Every one of
+   the 458 has `source_cell` `sky130_ef_io__simple_pad_and_busses` — the
+   stock cell instantiated twice inside the pad pair — and reproduces on the
+   bare cell: `layout/bare_pad_frame.gds` (generated by
+   `layout/gen_bare_pad_frame.py`) is exactly two unmodified instances of
+   that cell at the 75 um pad pitch and nothing else, and its report
+   `item-3-drc-analog-r4-bare.json` shows the same 458 with identical
+   per-rule counts.
+
+The exception record in the manifest (each field grader-checked, klayout-tools
+`signoff_foundry_cell.py`):
+
+| Field | Value |
+|---|---|
+| `cell` | `sky130_ef_io__simple_pad_and_busses` |
+| `cell_hash` | `sha256:a27d049ea2c715755cbef23097dcad2c7cf44c480472917375ef078bf02628ca` (`cell_geometry_digest`, identical inside the block GDS, the bare layout and the stock GDS) |
+| `rules` | `met4.space.1` 216, `met4.enclosing.via3.1` 160, `met4.holes_area.1` 40, `met4.width.1` 40, `met4.area.1` 2 (the block's whole `rule_counts`: 2 x the bare cell's 229) |
+| `bare_cell_layout` | `layout/bare_pad_frame.gds` |
+| `bare_cell_report` | `verification/signoff/evidence/item-3-drc-analog-r4-bare.json` (input hash = the bare layout's sha256) |
+
+The grader applies it only because (a) the record's `rules` equal the bare
+report's `rule_counts` exactly, (b) the block's `rule_counts` equal their sum,
+and (c) every violation's `source_cell` is the excepted cell. Nothing was
+waived beyond geometry inside that unmodified cell: the deck, the spec and the
+counts are untouched, and nothing is claimed about the internals of the stock
+cell. The item-3 analog row is `met` **through this exception** — the report
+itself is `status: violations` (458), not `clean`, and
+`check-pad-frame-drc.sh` still reproduces the stock cells' own findings
+unchanged. The upstream `cell_hash` gap (no `klt` subcommand prints it; only
+the private `klayout_tools._provenance.cell_geometry_digest`) is filed as
+2AMLogic/klayout-tools#6946.
