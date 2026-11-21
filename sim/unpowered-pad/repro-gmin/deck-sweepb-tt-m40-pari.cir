@@ -1,0 +1,12 @@
+* klt sim -- generated corner deck, do not edit
+.lib /home/ubuntu/.ciel/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.include ../tb_sweep_b.spice
+.temp -40
+.meas dc idiff_max MAX par('(i(vamp) - i(vamn)) / 2')
+.control
+save all
+dc VPSRC 0.9 1.6 0.005
+quit
+.endc
+.end
+
