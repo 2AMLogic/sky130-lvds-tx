@@ -33,7 +33,13 @@
   {
    "name": "v_os_1",
    "expr": "(v(outp1)+v(outn1))/2",
-   "unit": "V"
+   "unit": "V",
+   "limits": {
+    "min": 1.175,
+    "max": 1.325
+   },
+   "spec_row": "E2",
+   "comment": "negative control: VCMREF is moved to 1.35 V, so this regulation-band check (same limits as v_os_reg_1 in ../request.json) MUST fail"
   }
  ],
  "options": {

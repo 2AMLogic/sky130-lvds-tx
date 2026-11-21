@@ -1,6 +1,7 @@
-.lib /home/ubuntu/.ciel/sky130A/libs.tech/ngspice/sky130.lib.spice ss
+* raw one-corner probe: ss / -40C / VCCD=1.62 / VDDIO=2.97 (worst E1 condition on the old sizing)
+.lib __SKY130_LIB__ ss
 .temp -40
-.include ../../design/driver/driver.spice
+.include __DRIVER_SPICE__
 VVDDIO vddio 0 DC 2.97
 VVCCD  vccd  0 DC 1.62
 VVCMREF vcmref 0 DC 1.25
@@ -21,7 +22,7 @@ print @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[id] @m.xdrv1.xsl_main
 * XMSPA p-switch
 print @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[id] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vth] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vgs] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vds]
 * bias mirror
-print @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[id] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vth] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vgs] @m.xdrv1.xmpb.m__xmpb__poly0[id]
+print @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[id] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vth] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vgs] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vds]
 * XMT amp tail
 print @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[id] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vth] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vgs] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vds]
 quit

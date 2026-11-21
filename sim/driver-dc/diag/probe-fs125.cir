@@ -1,8 +1,8 @@
 * raw one-corner probe: fs / 125C / VCCD=1.62 / VDDIO=3.63 (worst E2 condition)
-.lib /home/ubuntu/.ciel/sky130A/libs.tech/ngspice/sky130.lib.spice fs
+.lib __SKY130_LIB__ fs
 .temp 125
-.include ../../design/driver/driver.spice
-.include ../../design/pad_cell/pad_cell.spice
+.include __DRIVER_SPICE__
+.include __PAD_CELL_SPICE__
 VVCCD  vccd  0 DC 1.62
 VVDDIO vddio 0 DC 3.63
 VVCMREF vcmref 0 DC 1.25

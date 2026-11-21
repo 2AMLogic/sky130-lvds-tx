@@ -95,10 +95,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     (`gate-level-verilog`, `power_connectivity.status: "match"`; `VNB`/`VPB` are excluded and disclosed, not verified;
     re-run under `.venv-pnr` on the #119 re-closure GDS against the same run's routed verilog; the r3 report on the
     previous implementation is kept as history).
-    `4.analog` cites [`item-4-lvs-analog-r3-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json)
-    (the issue-#165 re-run on the met5-completed GDS, klt `0.9.1` under `.venv-pnr`, `input_verified: true`; the `r2` re-run on the earlier GDS and the unmodified-netlist `item-4-lvs-analog-r2.json`, `mismatch`, are kept as history),
+    `4.analog` is **unmet** (`check_failed`): it cites [`item-4-lvs-analog-r4-scale-expanded.json`](../verification/signoff/evidence/item-4-lvs-analog-r4-scale-expanded.json)
+    (issue #166: the committed GDS against the scale-expanded netlist regenerated from the resized driver, klt `0.9.1`, `status: mismatch`, 41/89 devices matched, width differences; the layout still carries the pre-resize widths and its repair is issue #185. The issue-#165 `r3` report, `match` against the *old* geometry, the `r2` re-run and the unmodified-netlist `item-4-lvs-analog-r2.json`, `mismatch`, are kept as history),
     which compares against a derived netlist with `SCALE` substituted (klayout-tools#4406), not `design/driver/driver.spice`. Pad/ESD devices are outside the driver top.
-    Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-match-scale-expanded-reference).
+    Details: [`verification/README.md`](../verification/README.md#t1-item-4-lvs-klt-lvs-digital-match-analog-mismatch-after-166-scale-expanded-reference).
   - **Item 11 (power delivery, structural)** is cited per partition as an array (`klt erc` supply report + LVS report, digital also the P&R response).
     `11.digital` is **met**: [`item-11-erc-digital-r3.json`](../verification/signoff/evidence/item-11-erc-digital-r3.json) (`VCCD`, `VSS` one island each; n-well and asserted p-substrate ties checked), `item-4-lvs-digital-r4.json` (`power_connectivity: match`) and `flow/serializer/pnr.response.json` (`pdn: true`, tapcell named).
     The P&R response citation is current: #119 re-ran P&R from the committed
@@ -108,10 +108,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     and `klt place-and-route --check` reports `match`. The earlier r2
     envelopes and response (bound to the pre-#115 netlist,
     `sha256:a353a87b…`) stay as history.
-    `11.analog` is **met**: [`item-11-erc-analog-r2.json`](../verification/signoff/evidence/item-11-erc-analog-r2.json)
+    `11.analog` is **unmet** (`lvs_did_not_pass`, because its LVS leg is the `r4` mismatch above); its ERC leg is [`item-11-erc-analog-r2.json`](../verification/signoff/evidence/item-11-erc-analog-r2.json)
     (the issue-#165 re-run on the met5-completed GDS with klt `0.9.1` under
     `.venv-pnr`; the earlier analog ERC report is kept as history) plus
-    `item-4-lvs-analog-r3-scale-expanded.json`. Two supply-spec gaps stay
+    `item-4-lvs-analog-r4-scale-expanded.json`. Two supply-spec gaps stay
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
@@ -240,10 +240,10 @@ envelopes are hash-bound by that full-record comparison.
 
 ## Current verdict
 
-Not T1: 14 of 22 T1 items met (item 10 once per partition; item 9, both partitions;
+Not T1: 12 of 22 T1 items met (item 10 once per partition; item 9, both partitions;
 item 1, both partitions; item 2, both partitions; item 3, both partitions —
 analog through the disclosed foundry-cell exception of issue #165; item 4,
-both partitions; item 11, both partitions). Item 5 digital is cited but
+digital only — analog LVS is a `mismatch` after the #166 resize, repair in #185; item 11, digital only for the same reason). Item 5 digital is cited but
 `unmet` / `partial_coverage` (the STA half and spec S3 ratification are
 pending, above); item 7 digital is uncited pending the klt pin bump
 (`flow/serializer/SDF.md`). All others are `unmet` /

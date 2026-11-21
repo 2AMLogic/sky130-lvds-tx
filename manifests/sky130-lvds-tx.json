@@ -55,7 +55,7 @@
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
     },
     "4.analog": {
-      "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+      "file": "verification/signoff/evidence/item-4-lvs-analog-r4-scale-expanded.json",
       "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
     },
     "4.digital": {
@@ -68,7 +68,7 @@
         "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
       },
       {
-        "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r4-scale-expanded.json",
         "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
       }
     ],

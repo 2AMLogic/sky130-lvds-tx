@@ -784,9 +784,17 @@ per-device E8 verdict is still its own bench and is not claimed here.
 ### Negative control — re-run, still fails as designed
 
 `VCMREF` 1.25 → 1.35 V at `tt`/27 °C/1.80 V/3.30 V, everything else unchanged
-(`diag/request-negctl.json`): V_OS tracks to **1.3453 V** (+95.9 mV for
-+100 mV), outside the 1.325 V regulation-band edge — the tighter band still
-grades it a miss, so `v_os_*` is still reading the regulated common mode.
+(`diag/request-negctl.json`, run with `klt sim --backend local`, ngspice 47,
+the pinned sky130A models; report committed as `diag/negctl-report.json`).
+`v_os_1` now carries the main bench's 1.175–1.325 V regulation-band limits
+(spec row E2), so the control is graded rather than merely printed: V_OS
+tracks to **1.345311 V**, **+99.916 mV** against the nominal-grid 1.245395 V
+for +100 mV of `VCMREF`, which is **20.311 mV above the band edge** — the run
+reports `status: fail`, 0 passed / 1 failed, `v_os_1 [fail]`. So `v_os_*` is
+reading the regulated common mode. (An earlier revision of this record
+quoted 1.3453 V / +95.9 mV from a request whose `v_os_1` had no limits, which
+returned 1 passed / 0 failed; that +95.9 mV figure was wrong and that run did
+not grade the control.)
 
 ### Provenance
 
@@ -824,8 +832,15 @@ under `sim/driver-dc/diag/`:
   `xdrv1`'s internal nodes (`biasp`, `vcmfb`, `n1`, `tail`, `vcms`, `pgm`,
   `ngm`, the main slice's `top`/`bot`/`well`, `xsel_en.enh`, `v(iref1)`),
   corners pinned per probe (one condition per run, `--backend local`).
-- `probe-fs125.cir`, `probe-ssm40.cir` — raw `ngspice -b` decks (one operating
-  point each, at `fs`/125 °C/1.62 V/3.63 V and `ss`/−40 °C/1.62 V/2.97 V on the
+- `probe-fs125.cir`, `probe-ssm40.cir` — raw `ngspice -b` decks, run through
+  `diag/run-probe.sh` (resolves the PDK library from `PDK_ROOT`, default
+  `~/.ciel`, and sets `wnflag` before the netlist is read; no absolute paths
+  in the decks). They probe whichever driver `DRIVER_SPICE` names — by default
+  the **current** sizing. To reproduce the quoted *old-sizing* numbers use the
+  post-#177, pre-resize driver:
+  `git show 7be1ca4:design/driver/driver.spice > /tmp/driver-pre-resize.spice`
+  then `DRIVER_SPICE=/tmp/driver-pre-resize.spice sim/driver-dc/diag/run-probe.sh probe-fs125.cir`
+  (one operating point each, at `fs`/125 °C/1.62 V/3.63 V and `ss`/−40 °C/1.62 V/2.97 V on the
   *old* sizing) printing `@m…[id/vth/vgs/vds]` for the nine devices named in
   the diagnosis. Every number quoted above comes from one of these two probes
   or from `request-diag.json`.
