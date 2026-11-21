@@ -1,0 +1,271 @@
+{
+ "netlist_source": "schematic",
+ "models": {
+  "pdk": "sky130A",
+  "lib": "libs.tech/ngspice/sky130.lib.spice"
+ },
+ "corners": {
+  "process": [
+   "tt",
+   "sf",
+   "ff",
+   "ss",
+   "fs"
+  ],
+  "temperature_c": [
+   -40,
+   125
+  ]
+ },
+ "options": {
+  "timeout_s": 360,
+  "stage_model_inputs": true,
+  "ngspice_init": [
+   "set wnflag=1"
+  ],
+  "fail_on_diagnostic": [
+   "nonconvergence"
+  ],
+  "node_voltage_bounds": {
+   "min": -3.63,
+   "max": 3.63
+  }
+ },
+ "netlist": "tb_trace_a.spice",
+ "analysis": {
+  "kind": "dc",
+  "args": "VPSRC 0 2.4 0.01"
+ },
+ "measurements": [
+  {
+   "name": "t_ip_max",
+   "spice": ".meas dc t_ip_max MAX i(vamp)",
+   "unit": "A"
+  },
+  {
+   "name": "t_ip_min",
+   "spice": ".meas dc t_ip_min MIN i(vamp)",
+   "unit": "A"
+  },
+  {
+   "name": "t_in_max",
+   "spice": ".meas dc t_in_max MAX i(vamn)",
+   "unit": "A"
+  },
+  {
+   "name": "t_in_min",
+   "spice": ".meas dc t_in_min MIN i(vamn)",
+   "unit": "A"
+  },
+  {
+   "name": "t_idiff_max",
+   "spice": ".meas dc t_idiff_max MAX par('(i(vamp) - i(vamn)) / 2')",
+   "unit": "A"
+  },
+  {
+   "name": "t_idiff_min",
+   "spice": ".meas dc t_idiff_min MIN par('(i(vamp) - i(vamn)) / 2')",
+   "unit": "A"
+  },
+  {
+   "name": "t_vcms_max",
+   "spice": ".meas dc t_vcms_max MAX v(xtb.xdrv.vcms)",
+   "unit": "V"
+  },
+  {
+   "name": "t_vcms_min",
+   "spice": ".meas dc t_vcms_min MIN v(xtb.xdrv.vcms)",
+   "unit": "V"
+  },
+  {
+   "name": "t_ip_hi",
+   "spice": ".meas dc t_ip_hi find i(vamp) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_in_hi",
+   "spice": ".meas dc t_in_hi find i(vamn) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_vcms_hi",
+   "spice": ".meas dc t_vcms_hi find v(xtb.xdrv.vcms) at=2.395",
+   "unit": "V"
+  },
+  {
+   "name": "t_ivccd_hi",
+   "spice": ".meas dc t_ivccd_hi find i(vvccd) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_ivddio_hi",
+   "spice": ".meas dc t_ivddio_hi find i(vvddio) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_ivssio_hi",
+   "spice": ".meas dc t_ivssio_hi find i(vvssio) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_xrs1_hi",
+   "spice": ".meas dc t_xrs1_hi find i(v.xtb.xdrv.vbr_xrs1) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_xrs2_hi",
+   "spice": ".meas dc t_xrs2_hi find i(v.xtb.xdrv.vbr_xrs2) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_mspa_hi",
+   "spice": ".meas dc t_main_mspa_hi find i(v.xtb.xdrv.xsl_main.vbr_mspa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_msna_hi",
+   "spice": ".meas dc t_main_msna_hi find i(v.xtb.xdrv.xsl_main.vbr_msna) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_mwpa_hi",
+   "spice": ".meas dc t_main_mwpa_hi find i(v.xtb.xdrv.xsl_main.vbr_mwpa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_mspb_hi",
+   "spice": ".meas dc t_main_mspb_hi find i(v.xtb.xdrv.xsl_main.vbr_mspb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_msnb_hi",
+   "spice": ".meas dc t_main_msnb_hi find i(v.xtb.xdrv.xsl_main.vbr_msnb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_main_mwpb_hi",
+   "spice": ".meas dc t_main_mwpb_hi find i(v.xtb.xdrv.xsl_main.vbr_mwpb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_mspa_hi",
+   "spice": ".meas dc t_e0_mspa_hi find i(v.xtb.xdrv.xsl_e0.vbr_mspa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_msna_hi",
+   "spice": ".meas dc t_e0_msna_hi find i(v.xtb.xdrv.xsl_e0.vbr_msna) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_mwpa_hi",
+   "spice": ".meas dc t_e0_mwpa_hi find i(v.xtb.xdrv.xsl_e0.vbr_mwpa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_mspb_hi",
+   "spice": ".meas dc t_e0_mspb_hi find i(v.xtb.xdrv.xsl_e0.vbr_mspb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_msnb_hi",
+   "spice": ".meas dc t_e0_msnb_hi find i(v.xtb.xdrv.xsl_e0.vbr_msnb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e0_mwpb_hi",
+   "spice": ".meas dc t_e0_mwpb_hi find i(v.xtb.xdrv.xsl_e0.vbr_mwpb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_mspa_hi",
+   "spice": ".meas dc t_e1a_mspa_hi find i(v.xtb.xdrv.xsl_e1a.vbr_mspa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_msna_hi",
+   "spice": ".meas dc t_e1a_msna_hi find i(v.xtb.xdrv.xsl_e1a.vbr_msna) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_mwpa_hi",
+   "spice": ".meas dc t_e1a_mwpa_hi find i(v.xtb.xdrv.xsl_e1a.vbr_mwpa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_mspb_hi",
+   "spice": ".meas dc t_e1a_mspb_hi find i(v.xtb.xdrv.xsl_e1a.vbr_mspb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_msnb_hi",
+   "spice": ".meas dc t_e1a_msnb_hi find i(v.xtb.xdrv.xsl_e1a.vbr_msnb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1a_mwpb_hi",
+   "spice": ".meas dc t_e1a_mwpb_hi find i(v.xtb.xdrv.xsl_e1a.vbr_mwpb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_mspa_hi",
+   "spice": ".meas dc t_e1b_mspa_hi find i(v.xtb.xdrv.xsl_e1b.vbr_mspa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_msna_hi",
+   "spice": ".meas dc t_e1b_msna_hi find i(v.xtb.xdrv.xsl_e1b.vbr_msna) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_mwpa_hi",
+   "spice": ".meas dc t_e1b_mwpa_hi find i(v.xtb.xdrv.xsl_e1b.vbr_mwpa) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_mspb_hi",
+   "spice": ".meas dc t_e1b_mspb_hi find i(v.xtb.xdrv.xsl_e1b.vbr_mspb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_msnb_hi",
+   "spice": ".meas dc t_e1b_msnb_hi find i(v.xtb.xdrv.xsl_e1b.vbr_msnb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_e1b_mwpb_hi",
+   "spice": ".meas dc t_e1b_mwpb_hi find i(v.xtb.xdrv.xsl_e1b.vbr_mwpb) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_p_d1_hi",
+   "spice": ".meas dc t_p_d1_hi find i(v.xtb.xpadp.vbr_d1) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_p_mesd_hi",
+   "spice": ".meas dc t_p_mesd_hi find i(v.xtb.xpadp.vbr_mesd) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_n_d1_hi",
+   "spice": ".meas dc t_n_d1_hi find i(v.xtb.xpadn.vbr_d1) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_n_mesd_hi",
+   "spice": ".meas dc t_n_mesd_hi find i(v.xtb.xpadn.vbr_mesd) at=2.395",
+   "unit": "A"
+  },
+  {
+   "name": "t_ip_mid",
+   "spice": ".meas dc t_ip_mid find i(vamp) at=2.0",
+   "unit": "A"
+  },
+  {
+   "name": "t_in_mid",
+   "spice": ".meas dc t_in_mid find i(vamn) at=2.0",
+   "unit": "A"
+  }
+ ]
+}

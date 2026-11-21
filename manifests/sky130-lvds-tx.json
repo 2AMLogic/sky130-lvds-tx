@@ -7,73 +7,53 @@
   },
   "evidence": {
     "1.analog": {
-      "file": "verification/signoff/evidence/item-1-analog-design-sources-r2.json",
-      "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f"
+      "file": "verification/signoff/evidence/item-1-analog-design-sources-r4.json",
+      "content_hash": "sha256:351a80093899ba9df7baf861d3a6c4358253e31f04265e33150ae66419ac7c81"
     },
     "1.digital": {
       "file": "verification/signoff/evidence/item-1-design-sources-digital-r2.json",
       "content_hash": "sha256:6e977bd44df5773b644d60bb48773579ed33bfac7248eb3d5245a94b28b682b2"
     },
     "9": {
-      "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
-      "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088"
+      "file": "verification/signoff/evidence/item-9-testbenches-r4.json",
+      "content_hash": "sha256:a5c06dad8f2b03085a082d8c1bd932d755b63bac5ad6668ea24bbc0c6ebd749a"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r13.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
-      "file": "verification/signoff/evidence/item-2-layout-analog-r5.json",
-      "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
+      "file": "verification/signoff/evidence/item-2-layout-analog-r4.json",
+      "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
     },
     "2.digital": {
       "file": "verification/signoff/evidence/item-2-layout-digital-r3.json",
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
     },
     "3.analog": {
-      "file": "verification/signoff/evidence/item-3-drc-analog-r4.json",
-      "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
-      "foundry_cell_exceptions": [
-        {
-          "cell": "sky130_ef_io__simple_pad_and_busses",
-          "cell_hash": "sha256:a27d049ea2c715755cbef23097dcad2c7cf44c480472917375ef078bf02628ca",
-          "rules": {
-            "met4.area.1": 2,
-            "met4.enclosing.via3.1": 160,
-            "met4.holes_area.1": 40,
-            "met4.space.1": 216,
-            "met4.width.1": 40
-          },
-          "bare_cell_report": "verification/signoff/evidence/item-3-drc-analog-r4-bare.json",
-          "bare_cell_layout": "layout/bare_pad_frame.gds",
-          "layout": "layout/sky130_lvds_tx_driver_pad.gds"
-        }
-      ]
+      "file": "verification/signoff/evidence/item-3-drc-analog-r3.json",
+      "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
     },
     "3.digital": {
       "file": "verification/signoff/evidence/item-3-drc-digital-r3.json",
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
     },
     "4.analog": {
-      "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
-      "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
+      "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+      "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
     },
     "4.digital": {
       "file": "verification/signoff/evidence/item-4-lvs-digital-r4.json",
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
     },
-    "5.digital": {
-      "file": "verification/serializer/rtl.report.json",
-      "content_hash": "sha256:54a5186f0b3dc4bbb60138a05ab0670fb06c6d770c8536e348fd2ad8c4ec8571"
-    },
     "11.analog": [
       {
-        "file": "verification/signoff/evidence/item-11-erc-analog-r2.json",
-        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
+        "file": "verification/signoff/evidence/item-11-erc-analog.json",
+        "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0"
       },
       {
-        "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
-        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71"
       }
     ],
     "11.digital": [

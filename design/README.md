@@ -63,7 +63,7 @@ Freshness of one netlist: the same command with `--check` (exit 0 `match`,
 
 ```console
 klt signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-            -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
+            -o verification/signoff/evidence/item-1-analog-design-sources-r3.json
 ```
 
 Unresolved symbols make xschem emit auto-named nets (`net1`, ...) with no
