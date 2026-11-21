@@ -24,8 +24,10 @@ and the outcome of the SDF-annotated functional run against them. Request:
   `sdf.response.json`).
 - Committed SDF copies: `serializer_routed.ss_n40C_1v76.sdf`,
   `serializer_routed.ff_n40C_1v95.sdf` — byte-identical to the run's
-  `.klt/sta/` outputs (per-corner `sdf.content_hash` in `sdf.response.json`
-  pins the committed files; re-running the request reproduces them).
+  `.klt/sta/` outputs. Each corner's `sdf.content_hash` in `sdf.response.json`
+  verifies the committed copy. OpenSTA writes the generation time into the
+  `DATE` header, so a later run produces a different file hash. When comparing
+  timing data across runs, exclude the `DATE` line from the diff.
 
 ## Corner selection
 
@@ -74,10 +76,10 @@ release cannot publish them portably:
    would have to be named in `sources` by host-specific PDK paths.
 
 Per #169 these are not papered over (no host paths in committed evidence, no
-hand-written `$sdf_annotate` loader, no SDF stripping). The remedy is a pin
-bump to a release carrying #6434 and the #5784 fix, proposed as its own
-change; until then the committed artifacts above are the item-7 staging
-point: the SDFs and their hash-pinned regeneration recipe.
+hand-written `$sdf_annotate` loader, no SDF stripping). The committed SDFs
+and the STA request are available for the next item-7 run. The pin bump to a
+release carrying #6434 and the #5784 fix is tracked in
+[#181](https://github.com/2AMLogic/sky130-lvds-tx/issues/181).
 
 ## Negative control
 
