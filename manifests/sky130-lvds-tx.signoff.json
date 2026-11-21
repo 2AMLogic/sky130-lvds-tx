@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 13,
+  "t1_met_count": 14,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:89d90bd2dcea838e3c795119559ea6cc2f2697492782f320ff6ad57461bb4049",
   "build": {
@@ -302,11 +302,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-2-layout-analog-r4.json",
+        "file": "verification/signoff/evidence/item-2-layout-analog-r5.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0",
+        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -315,7 +315,7 @@
             "path": "layout/sky130_lvds_tx_driver_pad.gds",
             "scope": "repo"
           },
-          "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0",
+          "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
           "input_verified": true,
           "summary": "T1 item 2 (Layout): 3/3 attestation checks passed (klt signoff --attest)",
           "source": "layout/sky130_lvds_tx_driver_pad.gds",
@@ -327,7 +327,7 @@
           },
           "regeneration": {
             "generator": "sh verification/signoff/check-driver-pad-gds.sh (layout/gen_driver_pad.py under .venv: klt 0.9.1, klayout 0.28.17.post1, CPython 3.12.3)",
-            "regenerated_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0",
+            "regenerated_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
             "executed_by_klt": false
           }
         }
@@ -386,16 +386,109 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "latest `klt drc` JSON report: `status: clean`, fresh, with the deck identified (content hash). Known deck coverage gaps (rule-free layers, skipped rules) must be enumerated in the claim, not hidden behind \"clean\" \u2014 a clean verdict from a deck with undisclosed holes is a false claim. The report already states its own gaps, so the disclosure is those fields quoted from the cited envelope's `coverage` block (`docs/cli/drc.md`), not prose written from memory: `coverage.layers_in_stream_without_rules` (layers drawn in this stream that the deck has no rule for), `coverage.rules_skipped` (rules the deck carries but this run did not evaluate), and `coverage.deck_scope` (which chapters of the foundry DRM the deck transcribes at all). A claim that leaves a non-empty `layers_in_stream_without_rules` or `rules_skipped` unstated, or that never states the `deck_scope` its \"clean\" was measured inside, has not satisfied this item however clean the `status` is. **This disclosure is claimant-enforced, not tool-enforced**: `klt signoff` grades item 3 on `status: \"clean\"` alone \u2014 a deck with rule-free drawn layers or skipped rules grades `met` exactly like a fully-covering one. Since #2002 it does *report* all three fields (item 3's citation carries a `coverage` block quoting them verbatim, `docs/cli/signoff.md` \u2192 \"DRC coverage is reported, not graded\"), so a reviewer no longer has to re-open the DRC envelope to find them \u2014 but reporting is not enforcing: nothing compares them against what the claim actually disclosed, so a `met` verdict from `klt signoff` is still not evidence that the gaps were disclosed. A reviewer must read the reported `coverage` against the claim themselves.",
       "notes": [],
-      "status": "unmet",
-      "reason": "check_failed",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null,
-      "detail": {
-        "critical_metric_blockers": [
+      "citation": {
+        "file": "verification/signoff/evidence/item-3-drc-analog-r4.json",
+        "command": null,
+        "kind": "drc",
+        "check_status": "violations",
+        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
+        "input_verified": true,
+        "exit_status": 0,
+        "coverage": {
+          "layers_in_stream_without_rules": [
+            "66/13",
+            "70/5",
+            "70/16",
+            "71/5",
+            "71/16",
+            "72/5",
+            "72/16"
+          ],
+          "rules_skipped": [
+            "areaid_re.ongrid.1",
+            "capm.enclosing.via3.1",
+            "capm.separation.via3.1",
+            "capm.space.1",
+            "capm.width.1",
+            "capm2.enclosing.via4.1",
+            "capm2.separation.via4.1",
+            "capm2.space.1",
+            "capm2.width.1",
+            "hvntm.angle.1",
+            "hvntm.ongrid.1",
+            "hvtp.angle.1",
+            "hvtp.ongrid.1",
+            "hvtr.angle.1",
+            "hvtr.ongrid.1",
+            "lvtn.angle.1",
+            "lvtn.ongrid.1",
+            "met3.enclosing.capm.1",
+            "met4.enclosing.capm2.1",
+            "mf.angle.1",
+            "mf.ongrid.1",
+            "ncm.angle.1",
+            "ncm.ongrid.1",
+            "nsm.angle.1",
+            "nsm.ongrid.1",
+            "pad.angle.1",
+            "pad.ongrid.1",
+            "pwbm.angle.1",
+            "pwbm.ongrid.1",
+            "pwde.angle.1",
+            "pwde.ongrid.1",
+            "pwell_rs.angle.1",
+            "pwell_rs.ongrid.1",
+            "tunm.angle.1",
+            "tunm.ongrid.1",
+            "uhvi.angle.1",
+            "uhvi.ongrid.1",
+            "urpm.width.1",
+            "vhvi.angle.1",
+            "vhvi.ongrid.1",
+            "vpp.angle.1",
+            "vpp.ongrid.1"
+          ],
+          "deck_scope": [
+            "cap2m",
+            "capm",
+            "ct",
+            "difftap",
+            "li",
+            "licon",
+            "m1",
+            "m2",
+            "m3",
+            "m4",
+            "m5",
+            "npc",
+            "nsdm",
+            "nwell",
+            "poly",
+            "psdm",
+            "rpm",
+            "urpm",
+            "via",
+            "via2",
+            "via3",
+            "via4",
+            "x"
+          ]
+        },
+        "foundry_cell_exceptions": [
           {
-            "metric": "drc__error__count",
-            "value": 486,
-            "higher_is_better": false
+            "cell": "sky130_ef_io__simple_pad_and_busses",
+            "cell_hash": "sha256:a27d049ea2c715755cbef23097dcad2c7cf44c480472917375ef078bf02628ca",
+            "rules": {
+              "met4.area.1": 2,
+              "met4.enclosing.via3.1": 160,
+              "met4.holes_area.1": 40,
+              "met4.space.1": 216,
+              "met4.width.1": 40
+            },
+            "bare_cell_report": "verification/signoff/evidence/item-3-drc-analog-r4-bare.json"
           }
         ]
       }
@@ -528,12 +621,12 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71",
-        "input_verified": false,
+        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
+        "input_verified": true,
         "exit_status": 0
       }
     },
@@ -584,9 +677,21 @@
         "Both require the spec table itself to be ratified \u2014 verdicts against a draft spec are provisional by construction."
       ],
       "status": "unmet",
-      "reason": "no_evidence",
+      "reason": "partial_coverage",
       "graded_by_build": true,
-      "citation": null
+      "citation": null,
+      "citations_graded": [
+        {
+          "citation": "verification/serializer/rtl.report.json",
+          "status": "met",
+          "reason": null
+        }
+      ],
+      "detail": {
+        "missing_kinds": [
+          "sta"
+        ]
+      }
     },
     {
       "tier": "T1",
@@ -682,11 +787,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r6.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:29dfb829f12af3d8a29da66ad3c1c119457a7896b642506862fd15123e2603d6",
+        "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -695,15 +800,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:29dfb829f12af3d8a29da66ad3c1c119457a7896b642506862fd15123e2603d6",
+          "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 19/19 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 22/22 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 19,
-            "passed_count": 19
+            "check_count": 22,
+            "passed_count": 22
           }
         }
       }
@@ -720,11 +825,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r5.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r6.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:29dfb829f12af3d8a29da66ad3c1c119457a7896b642506862fd15123e2603d6",
+        "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -733,15 +838,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:29dfb829f12af3d8a29da66ad3c1c119457a7896b642506862fd15123e2603d6",
+          "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 19/19 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 22/22 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 19,
-            "passed_count": 19
+            "check_count": 22,
+            "passed_count": 22
           }
         }
       }
@@ -758,7 +863,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r13.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -796,7 +901,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r13.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -838,30 +943,30 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-11-erc-analog.json",
+        "file": "verification/signoff/evidence/item-11-erc-analog-r2.json",
         "command": null,
         "kind": "erc",
         "check_status": "violations",
-        "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0",
+        "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
           {
-            "file": "verification/signoff/evidence/item-11-erc-analog.json",
+            "file": "verification/signoff/evidence/item-11-erc-analog-r2.json",
             "command": null,
             "kind": "erc",
             "check_status": "violations",
-            "content_hash": "sha256:3ea54c0603e060fc1c30e4f94b4ba9d69f5f51816da82d20ab5da1ad9f9785d0",
+            "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
             "input_verified": true,
             "exit_status": 0
           },
           {
-            "file": "verification/signoff/evidence/item-4-lvs-analog-r2-scale-expanded.json",
+            "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:17a471bc872e47f375e1f8841ac4a5e635d1a09ff06c4e0a5a9b1269663e3c71",
-            "input_verified": false,
+            "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45",
+            "input_verified": true,
             "exit_status": 0
           }
         ],

@@ -105,21 +105,26 @@ Deck `sky130` for every report below; PDK `sky130A` at open_pdks
 `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` for all of them except
 `item-3-drc-analog-r2.json`, which records `gf180mcuA` (uncited by the manifest,
 kept append-only — not investigated here). The deck moves between klt releases,
-so verify against the cited envelope. The manifest cites the `r3` report of each
-partition; the base-revision reports are kept append-only. klt `0.8.0` for the
+so verify against the cited envelope. The manifest cites the `r4` report of the
+analog partition (issue #165) and the `r3` report of the digital one; the
+base-revision reports are kept append-only. klt `0.8.0` for the
 analog `r3` report (the CI pin, `KLT_VERSION` in `signoff.yml`),
 `0.8.1.dev181+g70d73835514c` for the earlier analog and digital reports (the two
 base revisions, sharing one klt build), `0.8.1.dev55+g879d39bad82b` for the
 analog `r2` re-run on the placement-only stream,
 `0.9.2.dev1029+g76f47afa48f1` for the digital `r2` re-run on the issue-#98
 netlist, and `0.9.1` (`.venv-pnr`) for the digital `r3` re-run on the issue-#119
-re-closure GDS.
+re-closure GDS, and `0.9.1` (`.venv-pnr`) for the analog `r4` and `r4-bare`
+re-runs on the issue-#165 met5-completed GDS (the same deck hash as the
+digital `r3`).
 
 | Report | Deck `content_hash` | `released` |
 |---|---|---|
 | `item-3-drc-analog.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
 | `item-3-drc-analog-r2.json` | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
-| `item-3-drc-analog-r3.json` (manifest-cited) | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-analog-r3.json` | `ba0f97887e3d231aec8b54f1f52f2941ded0228f0234b6759712bcaca0e942e6` | `true` |
+| `item-3-drc-analog-r4.json` (manifest-cited) | `029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` | `true` |
+| `item-3-drc-analog-r4-bare.json` (the exception's bare-cell report) | `029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` | `true` |
 | `item-3-drc-digital.json` (base revision) | `072b456a6c867ff7244bfc287908a960c265628b3c26a64db5506c4bb124d267` | `false` |
 | `item-3-drc-digital-r2.json` | `36027b82e3b16075e72b8e21775cde47ba7d08b7636efa4b73e9c34732a28efd` | `true` |
 | `item-3-drc-digital-r3.json` (manifest-cited) | `029ef177c1f4e872c13cc81093f94a02a9bbfe1f51939a88194a83532d60bf7c` | `true` |
@@ -140,30 +145,57 @@ stale silently.
     klt drc --check verification/signoff/evidence/item-3-drc-digital-r3.json --pdk-root "$PDK_ROOT"
 
 (`klt drc` exits 3 on violations; the report is still written.) `--check` is `local_only`:
-it needs the PDK and is not run in CI.
+it needs the PDK and is not run in CI. **Since issue #165 the analog leg has its own
+commands** (free-end met5 completions in the GDS, disclosed foundry-cell exception; the
+full-deck runs must not subset rules, and the pinned `klt 0.9.1` needs a satisfied
+`klayout>=0.30` floor for `drc` — the repo runs them under `.venv-pnr`):
+
+    klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top sky130_lvds_tx_driver_pad --format json \
+        layout/sky130_lvds_tx_driver_pad.gds > verification/signoff/evidence/item-3-drc-analog-r4.json
+    klt drc --deck sky130 --pdk-root "$PDK_ROOT" --top bare_pad_frame --format json \
+        layout/bare_pad_frame.gds > verification/signoff/evidence/item-3-drc-analog-r4-bare.json
 
 | Partition | Status | Violations |
 |---|---|---|
 | digital (`serializer_routed.gds`) | `clean` | 0 |
-| analog (`sky130_lvds_tx_driver_pad.gds`) | `violations` | 486 |
+| analog (`sky130_lvds_tx_driver_pad.gds`) | `violations` | 458 |
 
-**Analog is not clean, and nothing was waived or relaxed.** All 486 violations are
-`met4`/`met5` rules (`met4.space.1` 216, `met4.enclosing.via3.1` 160, `met4.holes_area.1` 40,
-`met4.width.1` 40, `met4.area.1` 2, `met5.width.1` 26, `met5.area.1` 2), and every one has
-`source_cell` `sky130_ef_io__simple_pad_and_busses` or `sky130_ef_io__analog_noesd_pad`, i.e.
-the stock pad frame instantiated by `layout/gen_driver_pad.py`, not geometry drawn here. The
-analog layout is the routed driver beside the stock pad pair (`layout/README.md`); the routing
-(met1-met3, #48) adds no violation. Issue #44 traced them: they reproduce
-on the unmodified PDK cells, the foundry's own deck flags the same met4/met5 width, spacing,
-enclosure and area rules, and the met5 ones are cell-edge stripes that close when cells abut.
-The classification, and what stays unestablished (`met4.holes_area.1`, `met5.area.1`, and whether
-the foundry waives the I/O library), is in
-[`layout/README.md`](../layout/README.md#drc-of-the-stock-pad-frame-issue-44). The earlier report
-`item-3-drc-analog.json` and `item-3-drc-analog-r2.json` are kept (append-only); the manifest now cites
-`item-3-drc-analog-r3.json`, the same deck re-run with the CI-pinned klt (`0.8.0`) on the routed GDS
-(`sha256:17a471bc…3c71`, the committed file; `r2` was bound to the earlier placement-only stream,
-`sha256:4cbd2819…e488`, so it was stale). Same 486, same per-rule counts, and by `source_cell` 458 in
-`sky130_ef_io__simple_pad_and_busses` and 28 in `sky130_ef_io__analog_noesd_pad`; none in a cell drawn here.
+**Analog is not `clean`, and nothing was waived or relaxed.** The r3-era state
+(486, later 484: 458 `met4` + 26 `met5`) changed in two steps, both in issue #165:
+
+- The 26 `met5.width.1` + 2 `met5.area.1` free-end findings are **removed in the
+  design**: parent-level met5 boxes extend every stock edge stripe at the pair's
+  two free ends to 1.8 um width / 4.4 um^2 (`complete_met5_edges` in
+  `layout/gen_driver_pad.py`; the stock cell is unmodified — `layout/README.md`).
+  The r4 report has **zero `met5`** findings.
+- The remaining 458 are all `met4` with `source_cell`
+  `sky130_ef_io__simple_pad_and_busses` (`met4.space.1` 216,
+  `met4.enclosing.via3.1` 160, `met4.holes_area.1` 40, `met4.width.1` 40,
+  `met4.area.1` 2), i.e. the stock cell instantiated twice in the pad pair. They
+  are covered by the **disclosed foundry-cell exception** of the operator ruling
+  on #44, applied per issue #165 via `foundry_cell_exceptions` on the manifest's
+  `3.analog` entry (klayout-tools#4530, in klt 0.9.1): cell
+  `sky130_ef_io__simple_pad_and_busses`, `cell_hash`
+  `sha256:a27d049e…28ca`, rules = the bare-cell report's exact `rule_counts`,
+  `bare_cell_layout` `layout/bare_pad_frame.gds` (two unmodified instances at the
+  75 um pitch, generated by `layout/gen_bare_pad_frame.py`), `bare_cell_report`
+  `item-3-drc-analog-r4-bare.json` (458, identical per-rule counts, input hash =
+  the bare layout's sha256). The grader applies the exception only because the
+  record's rules equal the bare counts, the block's `rule_counts` equal their
+  sum, and every violation's `source_cell` is the excepted cell; the citation
+  carries `foundry_cell_exceptions` and `input_verified: true`.
+
+`klt signoff` grades the analog row `met` on that exception, **not** on
+`status: clean` — the report is `violations` (458), cited as evidence. The
+classification of what the findings are (issue #44) and the exception's full
+record are in
+[`layout/README.md`](../layout/README.md#foundry-cell-drc-exception-applied-issue-165).
+The earlier reports `item-3-drc-analog.json`, `-r2.json` and `-r3.json` are kept
+(append-only); the manifest now cites `item-3-drc-analog-r4.json`, the full-deck
+re-run with klt 0.9.1 on the met5-completed GDS
+(`sha256:32ef4626…f7e45`, the committed file). The upstream gap that no `klt`
+subcommand prints a cell's geometry digest is filed as
+2AMLogic/klayout-tools#6946.
 
 **Coverage, quoted verbatim from each report's `coverage` block** (quote the committed report,
 not this copy, if they differ):
@@ -171,7 +203,7 @@ not this copy, if they differ):
 - `deck_scope` (both): `["cap2m", "capm", "ct", "difftap", "li", "licon", "m1", "m2", "m3", "m4", "m5", "npc", "nsdm", "nwell", "poly", "psdm", "rpm", "urpm", "via", "via2", "via3", "via4", "x"]`
 - `layers_in_stream_without_rules`, analog: `["66/13", "70/5", "70/16", "71/5", "71/16", "72/5", "72/16"]`
 - `layers_in_stream_without_rules`, digital: `["64/5", "64/16", "64/59", "67/5", "67/16", "68/5", "68/16", "69/5", "69/16", "72/5", "72/16", "81/4", "83/44", "122/16", "235/4", "236/0"]`
-- `rules_skipped`, analog (48): `areaid_re.ongrid.1`, `capm.*`/`capm2.*` (9), `hvntm`, `hvtp`, `hvtr`, `lvtn`, `mf`, `ncm`, `nsm`, `pad`, `pwbm`, `pwde`, `pwell_rs`, `tunm`, `uhvi`, `vhvi`, `vpp` `.angle.1`/`.ongrid.1`, `urpm.width.1`, `met3.enclosing.capm.1`, `met4.enclosing.capm2.1`, `met4.enclosing.via4.1`, `met5.enclosing.via4.1`, `via4.angle.1`, `via4.ongrid.1`, `via4.space.1`, `via4.width.1`. Full list in the report.
+- `rules_skipped`, analog (42; the r4 GDS draws via4, so the via4 family and `met4`/`met5.enclosing.via4.1` are checked, not skipped — r3's 48-entry list is in that report): `areaid_re.ongrid.1`, `capm.*`/`capm2.*` (8), `hvntm`, `hvtp`, `hvtr`, `lvtn`, `mf`, `ncm`, `nsm`, `pad`, `pwbm`, `pwde`, `pwell_rs`, `tunm`, `uhvi`, `vhvi`, `vpp` `.angle.1`/`.ongrid.1` (30), `urpm.width.1`, `met3.enclosing.capm.1`, `met4.enclosing.capm2.1`. Full list in the report.
 - `rules_skipped`, digital (48): the analog list without `hvtp.*`, `met4.enclosing.via4.1`, `met5.enclosing.via4.1` and the four `via4.*` rules, plus `dnwell.angle.1`, `dnwell.ongrid.1`, `hvi.angle.1`, `hvi.ongrid.1`, `nwell.enclosed.hvi.1`, `rpm.angle.1`, `rpm.ongrid.1`, `rpm.width.1`. Full list in the report.
 - Skipped rules are `inapplicable` / `no_applicable_geometry` in the report, and `unmodeled_rules` lists DRM rules the curated deck does not transcribe at all.
 - Analog `voltage_domain_warnings`: the `hvi` (75/20) thick-oxide marker is modelled only for device recognition and `nwell.enclosed.hvi.1`; geometry drawn inside it is checked at general-case thresholds, not the medium-voltage ones (`difftap.14` etc.). Pad/ESD and 5 V device layers are therefore **not** fully covered by this deck.
@@ -192,7 +224,7 @@ by this LVS. Reports are append-only; earlier ones are kept.
 
 | Partition | `status` | `power_connectivity.status` | Why |
 |---|---|---|---|
-| Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` unmodified netlist; `match` scale-expanded (cited) | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). |
+| Analog (`sky130_lvds_tx_driver` vs `design/driver/driver.spice`) | `mismatch` unmodified netlist; `match` scale-expanded (cited) | `unchecked` (not applicable to `subckt-call`) | `item-4-lvs-analog.json` (placement-only layout): 309 devices and 500 nets extracted against 11 and 29, 0 matched. Re-run as `item-4-lvs-analog-r2.json` after routing (#48), with `flatten_*`, `combine_devices` and `compare_mos_flavour`: 89/89 devices, 50/50 nets, 81 and 37 matched; the 8 unmatched are the `SCALE=11` slice, whose `m={SCALE}` the converter does not evaluate (klayout-tools#4406). With the scale substituted into a derived netlist (`item-4-lvs-analog-r2-scale-expanded.json`) the same layout is `match` (89/89, 50/50, 18/18 pins). Issue #165 re-ran it on the met5-completed GDS as `item-4-lvs-analog-r3-scale-expanded.json` (klt `0.9.1` under `.venv-pnr`), same `match`, now hash-bound to the committed GDS (`input_verified: true`); the manifest cites the `r3` report. |
 | Digital (`serializer_routed.gds` vs `serializer_routed.v`, `gate-level-verilog`) | `match` | `match` | `item-4-lvs-digital-r4.json` (re-run on the issue-#119 re-closure GDS against the same P&R run's routed verilog, klt `0.9.1` under `.venv-pnr`, schema 3): signal compare matches, `power_connectivity.status: "match"`, no error findings, `reference.form: "gate-level-verilog"`. The `VNB`/`VPB` well-layer LEF pins (274 instances each) are **excluded and disclosed** by the tool, not verified: substrate continuity is not modelled in abstract-cell extraction. The `r3` report (the issue-#98 netlist, 275 instances), the first report `item-4-lvs-digital.json` (`mismatch`, `VNB` finding) and the `r2` report (the #4363-fix re-run, 248 instances) are kept as append-only evidence. |
 
 **Digital `VNB` finding: diagnosed (#49), tool gap, not a flow defect.** Record:
@@ -218,7 +250,8 @@ the pad frame) are outside the driver top and remain not established; the
 `met` grade for item 4 covers the driver and serializer partitions only. The
 unmodified-netlist analog `r2` report is `mismatch` only because of the
 converter gap above (klayout-tools#4406); the manifest cites the scale-expanded
-`match` report instead, and grades `4.analog` and `4.digital` `met`.
+`match` report instead (the `r3` re-run on the issue-#165 GDS), and grades
+`4.analog` and `4.digital` `met`.
 
 Digital needs `layout.abstract_cells` (`sky130_fd_sc_hd__*`) plus the library LEF;
 without it the routed GDS extracts 719 flat transistors against a 0-device
@@ -236,7 +269,7 @@ The digital request names the LEF by absolute path; edit it for your `PDK_ROOT`.
 
 ## T1 item 11: power delivery (`klt erc` supply spec)
 
-Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports: `verification/signoff/evidence/item-11-erc-{analog,digital}.json` (the analog report and the earlier digital one produced with `klayout-tools==0.8.0`, where `klt erc --check` passes; the digital `r2` report is the re-run on the issue-#98 netlist with klt `0.9.2.dev1029+g76f47afa48f1`; the cited digital `r3` report is the issue-#119 re-run on the re-closure GDS with klt `0.9.1` under `.venv-pnr`, same verdict and the same 7.3 % uncovered tap fraction).
+Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports: `verification/signoff/evidence/item-11-erc-{analog,digital}*.json` (the analog `r2` report is the issue-#165 re-run on the met5-completed GDS with klt `0.9.1` under `.venv-pnr` — same verdict, same ten `erc.floating_gate` findings, hash-bound to the committed GDS; the first analog report and the earlier digital one were produced with `klayout-tools==0.8.0`, where `klt erc --check` passes; the digital `r2` report is the re-run on the issue-#98 netlist with klt `0.9.2.dev1029+g76f47afa48f1`; the cited digital `r3` report is the issue-#119 re-run on the re-closure GDS with klt `0.9.1` under `.venv-pnr`, same verdict and the same 7.3 % uncovered tap fraction).
 
 - **Digital: met.** Serializer `VCCD` and `VSS` each resolve to one island, zero findings, `erc_coverage.skipped` empty.
   Ties: `nwell_tap` (drawn n-well, dedicated tap layer) and `p_substrate_tap` (native substrate, four asserted

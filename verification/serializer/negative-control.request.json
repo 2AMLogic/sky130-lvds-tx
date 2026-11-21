@@ -1,0 +1,15 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": ["negative_control/serializer_broken.v"],
+  "hdl_toplevel": "serializer",
+  "testbench": {
+    "module": "test_serializer",
+    "search_path": "."
+  },
+  "options": {
+    "timescale": ["1ns", "1ps"],
+    "random_seed": 21,
+    "build_args": ["-g2005"]
+  }
+}
