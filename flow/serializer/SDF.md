@@ -14,7 +14,10 @@ and the outcome of the SDF-annotated functional run against them. Request:
   re-placed or re-routed** (`klt place-and-route`'s `post_route_sdf` was not
   used), so the routed bytes items 2, 3, 4 and 11 digital bind to are
   untouched. SPEF annotation at both corners: 93/93 design nets, 0 reader
-  warnings.
+  warnings (`annotation_complete: true`; `sdf.response.json` also records
+  `unannotated_driver_count` 1 and `floating_driver_count` 1 (`clkload0/Y`),
+  and `partially_unannotated_driver_count` 2 (`_116_/Q`, `_117_/Q`; `dout[0]`,
+  `dout[1]`)).
 - klt `0.9.1` (`.venv-pnr`, klayout `0.30.13` — the STA pin,
   `spec/decisions/0005-split-pnr-venv-pin.md`), OpenROAD `26Q3-1510-g6cb3f2b704`,
   PDK open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` (provenance in
@@ -56,7 +59,7 @@ both corners — `ss_n40C_1v76` at `corner: "max"`, `ff_n40C_1v95` at
   (2) and `zero_delay_bus_port_source_interconnect` (8; both zero-delay
   entries, timing-neutral by construction).
 - **The 2AMLogic/klayout-tools#5002 `vvp` abort does not reproduce** on this
-  design (91 nets; the SDF fixes #5296, #5705 and #6075 are in 0.9.1). No
+  design (93 design nets as measured here; the SDF fixes #5296, #5705 and #6075 are in 0.9.1). No
   simulator abort, no refused SDF construct.
 
 The reports are **not committed**, and item 7 stays open, because the pinned
