@@ -399,7 +399,7 @@
     },
     {
       "name": "ja_pre_gna",
-      "spice": ".meas dc ja_pre_gna MAX par('v(xtb.GNA) - v(VCCD)')",
+      "spice": ".meas dc ja_pre_gna MAX par('v(xtb.xpre.in_3nma) - v(VCCD)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -408,7 +408,7 @@
     },
     {
       "name": "ja_pre_gnb",
-      "spice": ".meas dc ja_pre_gnb MAX par('v(xtb.GNB) - v(VCCD)')",
+      "spice": ".meas dc ja_pre_gnb MAX par('v(xtb.xpre.in_3nmb) - v(VCCD)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -435,7 +435,7 @@
     },
     {
       "name": "ja_pre_xna",
-      "spice": ".meas dc ja_pre_xna MAX par('v(xtb.XNA) - v(VCCD)')",
+      "spice": ".meas dc ja_pre_xna MAX par('v(xtb.xpre.in_3nea) - v(VCCD)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -444,7 +444,7 @@
     },
     {
       "name": "ja_pre_xnb",
-      "spice": ".meas dc ja_pre_xnb MAX par('v(xtb.XNB) - v(VCCD)')",
+      "spice": ".meas dc ja_pre_xnb MAX par('v(xtb.xpre.in_3neb) - v(VCCD)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -797,6 +797,297 @@
     {
       "name": "core_max",
       "spice": ".meas dc core_max MAX v(CORE_MAX)",
+      "unit": "V"
+    },
+    {
+      "name": "bot_main_max",
+      "spice": ".meas dc bot_main_max MAX v(xtb.xdrv.xsl_main.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "bot_main_min",
+      "spice": ".meas dc bot_main_min MIN v(xtb.xdrv.xsl_main.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_main_mgna_d",
+      "spice": ".meas dc ja_main_mgna_d MAX par('v(xtb.xdrv.xsl_main.bot) - v(xtb.GNA)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mgnb_d",
+      "spice": ".meas dc ja_main_mgnb_d MAX par('v(xtb.xdrv.xsl_main.bot) - v(xtb.GNB)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mbta_d",
+      "spice": ".meas dc ja_main_mbta_d MAX par('v(xtb.xdrv.xsl_main.well) - v(xtb.xdrv.xsl_main.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mbn",
+      "spice": ".meas dc ja_main_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_main.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "gt2_main_a",
+      "spice": ".meas dc gt2_main_a MAX par('abs(v(xtb.GPA) - v(xtb.xdrv.xsl_main.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "bot_e0_max",
+      "spice": ".meas dc bot_e0_max MAX v(xtb.xdrv.xsl_e0.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "bot_e0_min",
+      "spice": ".meas dc bot_e0_min MIN v(xtb.xdrv.xsl_e0.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_e0_mgna_d",
+      "spice": ".meas dc ja_e0_mgna_d MAX par('v(xtb.xdrv.xsl_e0.bot) - v(xtb.XNA)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mgnb_d",
+      "spice": ".meas dc ja_e0_mgnb_d MAX par('v(xtb.xdrv.xsl_e0.bot) - v(xtb.XNB)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mbta_d",
+      "spice": ".meas dc ja_e0_mbta_d MAX par('v(xtb.xdrv.xsl_e0.well) - v(xtb.xdrv.xsl_e0.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mbn",
+      "spice": ".meas dc ja_e0_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e0.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "gt2_e0_a",
+      "spice": ".meas dc gt2_e0_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e0.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "bot_e1a_max",
+      "spice": ".meas dc bot_e1a_max MAX v(xtb.xdrv.xsl_e1a.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "bot_e1a_min",
+      "spice": ".meas dc bot_e1a_min MIN v(xtb.xdrv.xsl_e1a.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_e1a_mgna_d",
+      "spice": ".meas dc ja_e1a_mgna_d MAX par('v(xtb.xdrv.xsl_e1a.bot) - v(xtb.XNA)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mgnb_d",
+      "spice": ".meas dc ja_e1a_mgnb_d MAX par('v(xtb.xdrv.xsl_e1a.bot) - v(xtb.XNB)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mbta_d",
+      "spice": ".meas dc ja_e1a_mbta_d MAX par('v(xtb.xdrv.xsl_e1a.well) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mbn",
+      "spice": ".meas dc ja_e1a_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "gt2_e1a_a",
+      "spice": ".meas dc gt2_e1a_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1a.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "bot_e1b_max",
+      "spice": ".meas dc bot_e1b_max MAX v(xtb.xdrv.xsl_e1b.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "bot_e1b_min",
+      "spice": ".meas dc bot_e1b_min MIN v(xtb.xdrv.xsl_e1b.bot)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_e1b_mgna_d",
+      "spice": ".meas dc ja_e1b_mgna_d MAX par('v(xtb.xdrv.xsl_e1b.bot) - v(xtb.XNA)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mgnb_d",
+      "spice": ".meas dc ja_e1b_mgnb_d MAX par('v(xtb.xdrv.xsl_e1b.bot) - v(xtb.XNB)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mbta_d",
+      "spice": ".meas dc ja_e1b_mbta_d MAX par('v(xtb.xdrv.xsl_e1b.well) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mbn",
+      "spice": ".meas dc ja_e1b_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "gt2_e1b_a",
+      "spice": ".meas dc gt2_e1b_a MAX par('abs(v(xtb.XPA) - v(xtb.xdrv.xsl_e1b.well))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4b"
+    },
+    {
+      "name": "gna_max",
+      "spice": ".meas dc gna_max MAX v(xtb.GNA)",
+      "unit": "V"
+    },
+    {
+      "name": "gnb_max",
+      "spice": ".meas dc gnb_max MAX v(xtb.GNB)",
+      "unit": "V"
+    },
+    {
+      "name": "xna_max",
+      "spice": ".meas dc xna_max MAX v(xtb.XNA)",
+      "unit": "V"
+    },
+    {
+      "name": "xnb_max",
+      "spice": ".meas dc xnb_max MAX v(xtb.XNB)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_ntg_m",
+      "spice": ".meas dc ja_ntg_m MAX par('max(max(v(xtb.GNA), v(xtb.GNB)), max(v(xtb.xpre.in_3nma), v(xtb.xpre.in_3nmb))) - v(xtb.xpre.pwn)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_ntgn_m",
+      "spice": ".meas dc ja_ntgn_m MAX par('v(VSSIO) - min(min(v(xtb.GNA), v(xtb.GNB)), min(v(xtb.xpre.in_3nma), v(xtb.xpre.in_3nmb)))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "pw_n_max",
+      "spice": ".meas dc pw_n_max MAX v(xtb.xpre.pwn)",
+      "unit": "V"
+    },
+    {
+      "name": "ja_ntg_e",
+      "spice": ".meas dc ja_ntg_e MAX par('max(max(v(xtb.XNA), v(xtb.XNB)), max(v(xtb.xpre.in_3nea), v(xtb.xpre.in_3neb))) - v(xtb.xpre.pwx)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_ntgn_e",
+      "spice": ".meas dc ja_ntgn_e MAX par('v(VSSIO) - min(min(v(xtb.XNA), v(xtb.XNB)), min(v(xtb.xpre.in_3nea), v(xtb.xpre.in_3neb)))')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "pw_x_max",
+      "spice": ".meas dc pw_x_max MAX v(xtb.xpre.pwx)",
+      "unit": "V"
+    },
+    {
+      "name": "in_pre_n_max",
+      "spice": ".meas dc in_pre_n_max MAX par('max(max(v(xtb.xpre.in_3nma), v(xtb.xpre.in_3nmb)), max(v(xtb.xpre.in_3nea), v(xtb.xpre.in_3neb)))')",
       "unit": "V"
     }
   ],
