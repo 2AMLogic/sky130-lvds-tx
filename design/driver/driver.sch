@@ -71,11 +71,11 @@ C {lab_pin.sym} 660 240 0 0 {name=l33 lab=VSSIO}
 C {lab_pin.sym} 620 270 2 0 {name=l34 lab=VCMFB}
 C {lab_pin.sym} 660 300 0 0 {name=l35 lab=VSSIO}
 C {lab_pin.sym} 660 270 0 0 {name=l36 lab=VSSIO}
-C {res_high_po_1p41.sym} 860 270 0 0 {name=RS1 L=15 model=res_high_po_1p41 spiceprefix=X mult=1}
+C {res_high_po_1p41.sym} 860 270 0 0 {name=RS1 L=150 model=res_high_po_1p41 spiceprefix=X mult=1}
 C {lab_pin.sym} 860 240 0 0 {name=l37 lab=OUTP}
 C {lab_pin.sym} 860 300 0 0 {name=l38 lab=VCMS}
 C {lab_pin.sym} 840 270 2 0 {name=l39 lab=VSSIO}
-C {res_high_po_1p41.sym} 1080 270 0 0 {name=RS2 L=15 model=res_high_po_1p41 spiceprefix=X mult=1}
+C {res_high_po_1p41.sym} 1080 270 0 0 {name=RS2 L=150 model=res_high_po_1p41 spiceprefix=X mult=1}
 C {lab_pin.sym} 1080 240 0 0 {name=l40 lab=OUTN}
 C {lab_pin.sym} 1080 300 0 0 {name=l41 lab=VCMS}
 C {lab_pin.sym} 1060 270 2 0 {name=l42 lab=VSSIO}

@@ -892,3 +892,248 @@ eye impact is not assessed.
 `layout/` was not updated. The seven new device groups and two floating wells
 are not in the layout, so items 2, 3, 4 and 11 analog evidence predates this
 schematic change and must not be cited as covering it.
+
+## Addendum 2026-11-21 — branch-current trace and 10× sense impedance (issue #177)
+
+**Simulated, not measured; graded against the PROPOSED rows.** Base commit
+`45ebd2d3` (the #175 / `feature/issue-167` F3 state) plus this change. Nothing
+in `spec/` or any DR was edited; the sense-resistor length is a design-source
+sizing the `design/README.md` left explicitly unsized ("the sense resistors …
+are unsized"), so this addendum needs no decision record.
+
+**What changed in the netlist.** Exactly two cards, `XRS1`/`XRS2`
+(`res_high_po_1p41`, `VCMS`–`OUTP`/`OUTN`): `L=15` → `L=150`, i.e. each sense
+resistor 3.96 kΩ → 34.97 kΩ nominal (rbody = l·rsheet + ends at 230.05 Ω/□) and
+the pad-to-pad sense path 7.9 kΩ → 70 kΩ. The joined-card diff of
+`design/driver/driver.spice` and `design/lvds_tx_analog.spice` against `45ebd2d3`
+is those two cards and nothing else (the raw textual diff is xschem
+continuation-line reflow); netlists regenerated with the pinned
+`klt netlist` (klayout-tools 0.8.0 via `uvx`, `--rcfile design/xschemrc
+--block`), schematic edit in `design/driver/driver.sch` only.
+
+### Instrumentation: ammetered copies of the committed subckts
+
+ngspice device-current vectors (`@r.…[i]`, `@m.…[id]`) cannot be saved through
+`klt sim` today — a netlist `.save` card is dropped under the generated
+`.control`, `options.ngspice_init` is a `.spiceinit` and runs before deck load,
+and a bench-authored `.control` save is clobbered by the runner's `save all`.
+Filed as `2AMLogic/klayout-tools` **#7067**. The trace therefore uses
+bench-side instrumentation instead: `trace_i.spice` re-declares `pad_cell`,
+`drv_slice`, `driver` and `lvds_tx_analog` as `*_i` copies (committed netlists
+`.include`d verbatim; each copy inserts 0 V ammeters in series with selected
+branches and changes nothing else), `tb_unpowered_i.spice` is `tb_unpowered.spice`
+with the DUT swapped for `lvds_tx_analog_i`, and `tb_trace_{a,b}.spice` are the
+sweep benches including that file. Ammeter sign: positive = current out of the
+pad-side node into the branch. A 0 V source is a short at DC, so per-pad KCL is
+`i(vamp) = Σ i(vbr_*)`; it closes to ≤ 0.4 nA at every traced point.
+
+**One lesson worth recording.** Ammeters that split *rail* nets (slice `VCCD`
+ports, driver `VCCD`/`VDDIO` ports) changed ngspice's gmin-stepping path on
+this multistable circuit: the fs/125 °C Sweep B solve landed on a different,
+symmetric ±163 µA solution instead of the committed bench's +288/−125 µA. With
+pad-branch ammeters only (no rail-node renames), the instrumented bench
+reproduces the committed bench's max/min to every reported digit. The trace
+files keep the pad-branch set only, and the header of `trace_i.spice` documents
+why. Rail attribution comes from the committed top-level rail ammeters.
+
+### Provenance
+
+| Field | Value |
+|---|---|
+| Repo base commit | `45ebd2d3db8579d3f9ca1d825d7224bc2f4891d7` (pre-change) / `45ebd2d3` + this change |
+| PDK | sky130A, pinned install (`~/.ciel`), model library sha256 `17c208a6…5f64` (unchanged from every prior addendum) |
+| Design netlist sha256 | pre `1885eec5…26032` (= the #175 pin) / post `cfd5ce9c6d876273…` |
+| Testbench sha256s | `tb_unpowered.spice` `5a5923ef…` (unchanged, #175 pin); trace: `tb_unpowered_i` `ac799d8d…`, `trace_i` pre `f6e62673…` / post `eea236fc…`, `tb_trace_a` `054dde1e…`, `tb_trace_b` `bd8fdeb2…` |
+| Client / engine | klt 0.9.3.dev2575; ngspice-47 on the batch fleet (same engine build family as every prior addendum) |
+| Jobs (batch) | pre-change trace: `klt-sim-0752ccf66942` (A), `klt-sim-51845e2489dc` (B); re-runs: `klt-sim-e8ceb178f9c5` (Sweep A), `klt-sim-232404813da0` (Sweep B), `klt-sim-74322253f5db` (trace A), `klt-sim-ca5045ebdbdd` (trace B) |
+| Jobs (powered) | `klt-sim-8a92b777cd0e` (`sim/driver-dc`, 75 G75 conditions) |
+| Artifacts | `results/issue-177/{sweep-a,sweep-b,trace-a,trace-b}/` (post-change) and `results/issue-177/trace/request-trace-{a,b}/` (pre-change trace); each directory carries `summary-*.json`, `report-*.json.gz` and the batch receipt with the job identity. The #175 baseline `results/issue-167-f3/` is untouched |
+
+### A/B anchors — instrumented trace benches vs the committed benches
+
+Anchors compared per corner: max/min of each pad current over the identical
+sweep, plus `vcms`. At every **converged** corner and every anchor above the
+1 nA numerical floor, the trace bench reproduces the committed bench to the
+committed run's printed digits, before the change (vs `issue-167-f3`) and
+after (vs `issue-177/sweep-*`). Differences appear only at inconclusive
+(gmin-failed) corners and at pA-scale numerical zeros, where neither run's
+solve is trusted — the same rule the base record uses to exclude values.
+
+- before sweep A: 12 trusted anchors compared, mismatches: 0
+- before sweep B: 40 trusted anchors compared, mismatches: 0
+- after sweep A: 12 trusted anchors compared, mismatches: 0
+- after sweep B: 40 trusted anchors compared, mismatches: 0
+
+### The trace, before the change — three mechanisms, one dead end
+
+Branch currents at the traced points, out-of-pad positive; KCL closes at each
+(`Σ i(vbr_*) = i(vamp)` to ≤ 0.4 nA).
+
+**Sweep B, worst unit fs/125 °C, endpoints (1.595 V / 0.905 V):**
+
+| branch (per pad P) | @1.595 V | @0.905 V |
+|---|---|---|
+| `i(vamp)` (into pad) | +281.44 µA | −123.24 µA |
+| XRS1 (sense, pad→VCMS) | +87.99 µA | −87.99 µA |
+| XMSPA drains (4 slices) | +158.03 µA | +0.001 µA |
+| XMWPA sources (4 slices) | +35.38 µA | −35.38 µA |
+| pad-cell XD1 / XMESD | +0.0001 / +0.001 µA | ≈ 0 |
+| rail returns | VDDIO +158.01, VSSIO 0.003, VCCD 0.18 µA | (pair totals, symmetric) |
+
+**Sweep A, fs/125 °C, 2.395 V (the 40.93 µA hot residual), per pad:**
+`i(vamp)` +40.60 µA = XMSPA drains +40.59 µA (main slice 31.90, four e-slices
+2.90 each — sum 31.90 + 4×2.90 = 43.5 across both pads' mspa+mspb), XMWPA
++0.002 µA, XRS 0.000 µA (both pads equal, no divider drop), XD1 +0.0001 µA,
+XMESD +0.001 µA. Rail return: VDDIO +81.19 µA = both pads' XMSPA currents
+exactly. **Attribution: 100 % of the hot residual is the XMSPA/XMSPB
+pad-facing switch stack conducting to VDDIO** (pad → XMSPA channel/junction →
+TOP → XMPS → VDDIO), corner- and temperature-scaled (fs 40.93, ff 18.03,
+tt 2.29, ss 0.12, sf 0.20 µA). Ruled out, by measured branch current at the
+same point: the sense network (0.000 µA — no common-mode drop in Sweep A), the
+pad-cell ESD diode and XMESD (≤ 1 nA), the well-switch sources XMWPA/XMWPB
+(≤ 2 nA), XMSNA/XMSNB (0.000 µA), the predriver and muxes (not pad-connected).
+
+**Sweep B, ff/−40 °C (frozen leakage), @1.595 V:** `i(vamp)` +129.22 µA =
+XRS1 +95.60 + XMWPA stack +33.49 (4 × 8.37) + XMSPA +0.13 + ESD ≈ 0. At
+−40 °C the miss is **two pad-to-pad paths only**: the sense divider (95.60 µA
+through 7.22 kΩ effective) and the well-switch pair XMWPA/XMWPB, whose gates
+sit on VCCD = 0 V while their sources sit on the pads (VSG ≈ 1.25 V > |Vth|:
+the DR-008 §1 well-tracking clamp is *on* unpowered and conducts pad → WELL →
+pad, 8.4 µA per slice at −40 °C, 8.8 µA at 125 °C).
+
+**Sense-network contribution (measured, not estimated):** 95.60 µA at ff/−40 °C
+and 87.99 µA at fs/125 °C per pad at the 0.7 V differential endpoints — the
+issue's ~95 µA arithmetic confirmed at −40 °C and measured 8 % lower at 125 °C
+(poly TC1 +514 ppm/°C raises R, and the divider's Thevenin offset shifts VCMS
+a few mV off 1.25 V). Residual after the sense term: the XMWPA stack (every
+corner) plus the hot-corner XMSPA→VDDIO path (125 °C units only, up to
+158 µA at fs/125 °C, asymmetric: it appears at the high pad only).
+
+### The change, and why the series switch lost
+
+**Higher-impedance sense (taken):** one parameter per resistor, no new devices
+to leak, no new floating nodes for F7 to feed on, and the powered CM loop's DC
+regulation is provably insensitive to it (driver-dc below). The sense path's
+unpowered contribution drops 9.4×: measured 87.99 → 9.35 µA at fs/125 °C and
+95.60 → 10.22 µA at ff/−40 °C.
+
+- *Series switch that opens when VCCD is low (rejected):* no gate drive exists
+  in the unpowered state — a VCCD-referenced pfet gate is *on* exactly when it
+  must be off (VSG = V_pad), a pad-referenced gate is never on when powered,
+  and an nfet gate on VCCD leaves only ≈ 0.6 V of overdrive at VCMS ≈ 1.2 V,
+  under a thick-oxide threshold. Building the DR-010 floating-well gate
+  machinery into the sense path to solve this would add ~10 devices whose own
+  125 °C leakage lands in the very path being protected, for a 9 µA residual
+  benefit the impedance change achieves for free.
+
+### Re-run verdicts (final schematic, committed benches and requests unchanged)
+
+Per-pad P4 verdicts computed as |i_pad| ≤ 20 µA on all four extrema; the
+"baseline" column quotes the #175 worst |i_pad| and that run's *aggregate*
+corner status (P4a/P4b rows included). Branch columns from the post-change
+trace re-runs at the graded worst endpoint.
+
+#### Sweep B — 0 pass, 8 fail, 2 inconclusive (baseline: 0 pass, 8 fail, 2 inconclusive)
+
+Limit: |i_pad| ≤ 20 µA per pad (row P4, proposed). Branch currents read at
+the graded worst endpoint of the limiting pad, out-of-pad positive (µA). At
+−40 °C the current is pad-to-pad (it returns through the partner pad's
+ammeter), which is why the dominant-rail column reads ~0 there.
+
+| Unit | P4 verdict | worst \|i_pad\| | baseline | limiting pad | XRS / XMSPA / XMWPA / ESD (µA) | dominant rail |
+|---|---|---|---|---|---|---|
+| `tt/-40C` | INC | 32.16 µA | 118.78 (inconclusive) | P@1.6 V | 10.22 / 0.00 / 21.44 / 0.0000 | VDDIO (0.00 µA) |
+| `tt/125C` | FAIL | 59.43 µA | 139.21 (fail) | P@1.6 V | 9.35 / 24.77 / 23.83 / 0.0014 | VDDIO (24.74 µA) |
+| `sf/-40C` | INC | 20.90 µA | 107.52 (inconclusive) | P@1.6 V | 10.22 / 0.00 / 10.32 / 0.0000 | VSSIO (0.00 µA) |
+| `sf/125C` | FAIL | 25.06 µA | 104.83 (fail) | P@1.6 V | 9.35 / 1.10 / 14.21 / 0.0022 | VDDIO (1.08 µA) |
+| `ff/-40C` | FAIL | 44.47 µA | 131.09 (fail) | P@1.6 V | 10.22 / 0.12 / 33.49 / 0.0000 | VDDIO (0.12 µA) |
+| `ff/125C` | FAIL | 145.22 µA | 225.00 (fail) | P@1.6 V | 9.35 / 98.58 / 33.37 / 0.0018 | VDDIO (98.55 µA) |
+| `ss/-40C` | FAIL | 22.84 µA | 109.46 (fail) | P@1.6 V | 10.22 / 0.00 / 12.24 / 0.0000 | VSSIO (0.00 µA) |
+| `ss/125C` | FAIL | 29.00 µA | 108.78 (fail) | P@1.6 V | 9.35 / 3.52 / 15.61 / 0.0011 | VDDIO (3.51 µA) |
+| `fs/-40C` | FAIL | 48.42 µA | 135.04 (fail) | P@1.6 V | 10.22 / 0.45 / 37.06 / 0.0000 | VDDIO (0.45 µA) |
+| `fs/125C` | FAIL | 208.16 µA | 287.94 (fail) | P@1.6 V | 9.35 / 158.03 / 35.41 / 0.0010 | VDDIO (158.01 µA) |
+
+Every unit improves (worst 287.94 → 208.16 µA; −40 °C units 107–135 → 21–48
+µA; the change removes exactly the measured sense term, e.g. tt/125 °C
+139.21 − 88.0 + 9.4 ≈ 60.6 vs measured 59.43), and **the row still fails at
+every graded unit**: the sense network is no longer a dominant term, and the
+remaining miss is owned by the two mechanisms below.
+
+#### Sweep A — 3 pass, 1 fail, 6 inconclusive (baseline: identical; the change does not move Sweep A)
+
+| Unit | P4 verdict | worst \|i_pad\| | baseline | per pad at 2.395 V: XRS / XMSPA / XMWPA / ESD (µA) | dominant rail |
+|---|---|---|---|---|---|
+| `tt/-40C` | INC (val ≤ 20) | 0.59 µA | 0.54 (inconclusive) | 0.000 / 0.00 / 0.000 / 0.0000 | VDDIO (0.00 µA) |
+| `tt/125C` | PASS | 2.29 µA | 2.29 (fail) | 0.000 / 2.27 / 0.003 / 0.0015 | VDDIO (4.54 µA) |
+| `sf/-40C` | INC (val ≤ 20) | 0.03 µA | 0.14 (inconclusive) | 0.000 / 0.00 / 0.000 / 0.0000 | VDDIO (0.00 µA) |
+| `sf/125C` | INC (val ≤ 20) | 0.20 µA | 0.20 (inconclusive) | 0.000 / 0.01 / 0.006 / 0.0025 | VDDIO (0.02 µA) |
+| `ff/-40C` | INC (val ≤ 20) | 0.09 µA | 0.12 (inconclusive) | 0.000 / 0.02 / 0.000 / 0.0000 | VDDIO (0.04 µA) |
+| `ff/125C` | PASS | 18.03 µA | 18.03 (fail) | 0.000 / 17.88 / 0.007 / 0.0021 | VDDIO (35.75 µA) |
+| `ss/-40C` | INC (val ≤ 20) | 0.31 µA | 0.35 (inconclusive) | 0.000 / 0.00 / 0.000 / 0.0000 | VDDIO (0.00 µA) |
+| `ss/125C` | PASS | 0.12 µA | 0.12 (fail) | 0.000 / 0.12 / 0.001 / 0.0012 | VDDIO (0.24 µA) |
+| `fs/-40C` | INC (val ≤ 20) | 0.10 µA | 0.10 (inconclusive) | 0.000 / 0.10 / 0.000 / 0.0000 | VDDIO (0.20 µA) |
+| `fs/125C` | FAIL | 40.93 µA | 40.93 (fail) | 0.000 / 40.59 / 0.004 / 0.0011 | VDDIO (81.19 µA) |
+
+(The ten units are tt/sf/ff/ss/fs × −40/125 °C; `INC (val ≤ 20)` marks the
+F7 gmin-inconclusive corners whose pad currents — excluded from trusted
+ranges, as ever — are in family and below the limit. Per-pad values are
+≤ 20 µA at every converged unit except fs/125 °C.) As the pre-change trace predicted — Sweep A's pads sit at the same
+potential, so the sense divider carries no current — the numbers reproduce the
+baseline to the reported digits. The hot-corner miss is the XMSPA stack (see
+below), not the sense network, and is out of this change's reach.
+
+### Explicitly unresolved after this change (not claimed fixed)
+
+- **The hot-corner XMSPA/XMSPB stack (Sweep A fs/125 °C 40.93 µA; Sweep B
+  125 °C up to 158 µA into the high pad).** Mechanism per the trace: pad →
+  XMSPA → TOP → XMPS → VDDIO, temperature- and corner-scaled like a
+  subthreshold path through the DR-008 gate-tracking arrangement's residual
+  conduction. This is #174 item 2 territory (gate-tracking deadband and P4b
+  residuals) → **#178**.
+- **The XMWPA/XMWPB well-switch pad-to-pad path** (8.4–8.9 µA per slice, four
+  slices, every corner including −40 °C). Unpowered conduction is the DR-008
+  §1 well clamp doing its job with VCCD = 0 V; removing it means re-working the
+  ratified tracking arrangement, which this issue does not touch → **#178**
+  (with the deadband), flagged for the DR-008 owner.
+- **F7 nonconvergence, unchanged** (`tt`, `sf` at −40 °C in both sweeps here;
+  the same F7 pattern as #175) → **#176**. The two inconclusive Sweep B units'
+  values are in family with their converged neighbours (32.16 and 20.90 µA,
+  inside the converged −40 °C range 21–48 µA) but stay excluded and graded
+  inconclusive. The pre-change trace additionally showed a *fourth* corner
+  (`ss/-40C` Sweep B) gmin-failing where the committed bench converged —
+  node-splitting sensitivity, consistent with F7's floating-node cause and
+  worth #176's attention.
+- **Powered timing/eye** (#179) and **layout** (#180): not re-run, not
+  refreshed. The 10× longer resistors add ~0.01 fF per pad of poly-to-substrate
+  capacitance (crpf_precision ≈ 1.06e-4 fF/µm², negligible against row P1's
+  budget), but they are not in any layout yet, exactly as #175 left it.
+
+### Powered-mode regression: `sim/driver-dc`, 75 G75 conditions, batch
+
+Same 24 conditions miss as the pre-change record (`results/issue-167-regression/`),
+**identical miss set** — no new misses, no misses fixed at corner level.
+E1 measurement-level misses improve slightly (30 → 28: two V_OD readings cross
+their limit, consistent with the 10× weaker divider loading the pads'
+differential less); E2 stays 52 measurement-misses over the same 7 conditions.
+V_OS moves ≤ 1.22 mV anywhere on the grid (worst `v_os_0` at
+fs/1.62 V/2.97 V/27 °C: 1.96726 → 1.96604 V), V_OD ≤ 4.52 mV. **The limiting
+condition is unchanged: `fs`/VCCD 1.62 V/VDDIO 3.63 V/125 °C, `v_os_1`
+2.5928 V** (was 2.5929 V) against the 1.375 V window top — the #166 V_OS
+sizing miss, untouched by this change, as expected: a DC common-mode loop's
+regulation does not depend on the sense divider's impedance, only the pads'
+loading and the loop gain do, and both move it by ≤ 1.2 mV here.
+
+**Coordination with #166** (open, driver V_OD/V_OS sizing): **this change lands
+first** — #166 was unclaimed when this addendum was written. The powered
+V_OS/V_OD numbers above are therefore the post-#177 baseline that #166 must
+re-run against after its own sizing change, per its own acceptance criteria.
+
+### Ramp — not re-run, and why
+
+The ramp deck's graded condition (pads held at 1.25 V while the rails ramp)
+has zero sense-divider current by symmetry — the pre-change trace shows XRS
+carrying 0.000 µA at equal pads — so the change cannot move the ramp's static
+or excursion readings through the sense path. The resistor model's substrate
+tie is capacitors only (`res_high_po_1p41`: `c1`/`c2` to node `b`; no DC
+element), so no rail path changed either. The AC test plan's condition ("if
+the change touches the rail path") is not met.

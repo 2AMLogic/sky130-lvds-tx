@@ -67,7 +67,7 @@ jobs:
         run: |
           klt signoff --attest 1 \
               --inventory verification/signoff/item-1-analog-inventory.json \
-              --check verification/signoff/evidence/item-1-analog-design-sources-r3.json
+              --check verification/signoff/evidence/item-1-analog-design-sources-r4.json
 
       # The item 9 cold start is `local_only` (it needs the sky130A PDK, iverilog
       # and the batch fleet), so it is skipped here, visibly; the inventoried
