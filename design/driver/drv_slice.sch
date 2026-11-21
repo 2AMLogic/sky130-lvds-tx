@@ -19,7 +19,7 @@ C {iopin.sym} 60 -100 0 0 {name=p8 lab=OUTN}
 C {iopin.sym} 60 -140 0 0 {name=p9 lab=VCCD}
 C {iopin.sym} 60 -180 0 0 {name=p10 lab=VDDIO}
 C {iopin.sym} 60 -220 0 0 {name=p11 lab=VSSIO}
-C {pfet_g5v0d10v5.sym} 200 100 0 0 {name=MPS L=1 W=12.8 nf=2 mult="\{SCALE\}" ad=1.856 as=3.712 pd=13.38 ps=26.76 nrd=0.0227 nrs=0.0227 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 200 100 0 0 {name=MPS L=1 W=124 nf=2 mult="\{SCALE\}" ad=17.98 as=35.96 pd=124.58 ps=249.16 nrd=0.00234 nrs=0.00234 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 220 130 0 0 {name=l1 lab=TOP}
 C {lab_pin.sym} 180 100 2 0 {name=l2 lab=PG}
 C {lab_pin.sym} 220 70 0 0 {name=l3 lab=VDDIO}
@@ -34,17 +34,17 @@ C {lab_pin.sym} 660 130 0 0 {name=l9 lab=OUTN}
 C {lab_pin.sym} 620 100 2 0 {name=l10 lab=GPB}
 C {lab_pin.sym} 660 70 0 0 {name=l11 lab=TOP}
 C {lab_pin.sym} 660 100 0 0 {name=l12 lab=WELL}
-C {nfet_01v8.sym} 860 100 0 0 {name=MSNA L=0.15 W=2.7 nf=3 mult="\{SCALE\}" ad=0.522 as=0.522 pd=4.76 ps=4.76 nrd=0.1074 nrs=0.1074 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
+C {nfet_01v8.sym} 860 100 0 0 {name=MSNA L=0.15 W=4.5 nf=3 mult="\{SCALE\}" ad=0.87 as=0.87 pd=7.16 ps=7.16 nrd=0.06444 nrs=0.06444 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
 C {lab_pin.sym} 880 70 0 0 {name=l13 lab=OUTP}
 C {lab_pin.sym} 840 100 2 0 {name=l14 lab=GNA}
 C {lab_pin.sym} 880 130 0 0 {name=l15 lab=BOT}
 C {lab_pin.sym} 880 100 0 0 {name=l16 lab=VSSIO}
-C {nfet_01v8.sym} 1080 100 0 0 {name=MSNB L=0.15 W=2.7 nf=3 mult="\{SCALE\}" ad=0.522 as=0.522 pd=4.76 ps=4.76 nrd=0.1074 nrs=0.1074 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
+C {nfet_01v8.sym} 1080 100 0 0 {name=MSNB L=0.15 W=4.5 nf=3 mult="\{SCALE\}" ad=0.87 as=0.87 pd=7.16 ps=7.16 nrd=0.06444 nrs=0.06444 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
 C {lab_pin.sym} 1100 70 0 0 {name=l17 lab=OUTN}
 C {lab_pin.sym} 1060 100 2 0 {name=l18 lab=GNB}
 C {lab_pin.sym} 1100 130 0 0 {name=l19 lab=BOT}
 C {lab_pin.sym} 1100 100 0 0 {name=l20 lab=VSSIO}
-C {nfet_g5v0d10v5.sym} 1300 100 0 0 {name=MNS L=1 W=6 nf=1 mult="\{SCALE\}" ad=1.74 as=1.74 pd=12.58 ps=12.58 nrd=0.0483 nrs=0.0483 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 1300 100 0 0 {name=MNS L=1 W=30 nf=1 mult="\{SCALE\}" ad=8.7 as=8.7 pd=60.58 ps=60.58 nrd=0.00967 nrs=0.00967 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 1320 70 0 0 {name=l21 lab=BOT}
 C {lab_pin.sym} 1280 100 2 0 {name=l22 lab=NG}
 C {lab_pin.sym} 1320 130 0 0 {name=l23 lab=VSSIO}

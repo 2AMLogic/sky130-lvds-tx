@@ -26,42 +26,42 @@ C {iopin.sym} 60 -100 0 0 {name=p15 lab=OUTN}
 C {iopin.sym} 60 -140 0 0 {name=p16 lab=VCCD}
 C {iopin.sym} 60 -180 0 0 {name=p17 lab=VDDIO}
 C {iopin.sym} 60 -220 0 0 {name=p18 lab=VSSIO}
-C {nfet_g5v0d10v5.sym} 200 100 0 0 {name=MNB1 L=1 W=2 nf=1 mult=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 200 100 0 0 {name=MNB1 L=1 W=32 nf=1 mult=1 ad=9.28 as=9.28 pd=64.58 ps=64.58 nrd=0.00906 nrs=0.00906 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 220 70 0 0 {name=l1 lab=IREF}
 C {lab_pin.sym} 180 100 2 0 {name=l2 lab=IREF}
 C {lab_pin.sym} 220 130 0 0 {name=l3 lab=VSSIO}
 C {lab_pin.sym} 220 100 0 0 {name=l4 lab=VSSIO}
-C {nfet_g5v0d10v5.sym} 420 100 0 0 {name=MNB2 L=1 W=2 nf=1 mult=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 420 100 0 0 {name=MNB2 L=1 W=32 nf=1 mult=1 ad=9.28 as=9.28 pd=64.58 ps=64.58 nrd=0.00906 nrs=0.00906 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 440 70 0 0 {name=l5 lab=BIASP}
 C {lab_pin.sym} 400 100 2 0 {name=l6 lab=IREF}
 C {lab_pin.sym} 440 130 0 0 {name=l7 lab=VSSIO}
 C {lab_pin.sym} 440 100 0 0 {name=l8 lab=VSSIO}
-C {pfet_g5v0d10v5.sym} 640 100 0 0 {name=MPB L=1 W=2 nf=1 mult=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 640 100 0 0 {name=MPB L=1 W=22 nf=1 mult=1 ad=6.38 as=6.38 pd=44.58 ps=44.58 nrd=0.01318 nrs=0.01318 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 660 130 0 0 {name=l9 lab=BIASP}
 C {lab_pin.sym} 620 100 2 0 {name=l10 lab=BIASP}
 C {lab_pin.sym} 660 70 0 0 {name=l11 lab=VDDIO}
 C {lab_pin.sym} 660 100 0 0 {name=l12 lab=VDDIO}
-C {nfet_g5v0d10v5.sym} 860 100 0 0 {name=MT L=1 W=4 nf=1 mult=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 860 100 0 0 {name=MT L=1 W=64 nf=1 mult=1 ad=18.56 as=18.56 pd=128.58 ps=128.58 nrd=0.00453 nrs=0.00453 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 880 70 0 0 {name=l13 lab=TAIL}
 C {lab_pin.sym} 840 100 2 0 {name=l14 lab=IREF}
 C {lab_pin.sym} 880 130 0 0 {name=l15 lab=VSSIO}
 C {lab_pin.sym} 880 100 0 0 {name=l16 lab=VSSIO}
-C {nfet_g5v0d10v5.sym} 1080 100 0 0 {name=M1 L=1 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 1080 100 0 0 {name=M1 L=1 W=40 nf=1 mult=1 ad=11.6 as=11.6 pd=80.58 ps=80.58 nrd=0.00725 nrs=0.00725 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 1100 70 0 0 {name=l17 lab=N1}
 C {lab_pin.sym} 1060 100 2 0 {name=l18 lab=VCMS}
 C {lab_pin.sym} 1100 130 0 0 {name=l19 lab=TAIL}
 C {lab_pin.sym} 1100 100 0 0 {name=l20 lab=VSSIO}
-C {nfet_g5v0d10v5.sym} 1300 100 0 0 {name=M2 L=1 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {nfet_g5v0d10v5.sym} 1300 100 0 0 {name=M2 L=1 W=40 nf=1 mult=1 ad=11.6 as=11.6 pd=80.58 ps=80.58 nrd=0.00725 nrs=0.00725 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 1320 70 0 0 {name=l21 lab=VCMFB}
 C {lab_pin.sym} 1280 100 2 0 {name=l22 lab=VCMREF}
 C {lab_pin.sym} 1320 130 0 0 {name=l23 lab=TAIL}
 C {lab_pin.sym} 1320 100 0 0 {name=l24 lab=VSSIO}
-C {pfet_g5v0d10v5.sym} 200 270 0 0 {name=ML1 L=1 W=4 nf=1 mult=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 200 270 0 0 {name=ML1 L=1 W=12 nf=1 mult=1 ad=3.48 as=3.48 pd=24.58 ps=24.58 nrd=0.02417 nrs=0.02417 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 220 300 0 0 {name=l25 lab=N1}
 C {lab_pin.sym} 180 270 2 0 {name=l26 lab=N1}
 C {lab_pin.sym} 220 240 0 0 {name=l27 lab=VDDIO}
 C {lab_pin.sym} 220 270 0 0 {name=l28 lab=VDDIO}
-C {pfet_g5v0d10v5.sym} 420 270 0 0 {name=ML2 L=1 W=4 nf=1 mult=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 420 270 0 0 {name=ML2 L=1 W=12 nf=1 mult=1 ad=3.48 as=3.48 pd=24.58 ps=24.58 nrd=0.02417 nrs=0.02417 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 440 300 0 0 {name=l29 lab=VCMFB}
 C {lab_pin.sym} 400 270 2 0 {name=l30 lab=N1}
 C {lab_pin.sym} 440 240 0 0 {name=l31 lab=VDDIO}

@@ -642,3 +642,207 @@ remain statistical rows owing the local-mismatch Monte Carlo, and E4's
 question at the three conditions where V_OS exceeds 1.98 V is re-observed here
 under the same numbers and remains unresolved. Sizing closure starts from this
 record plus that Monte Carlo.
+
+## Addendum — 2026-11-21: sizing closure against E1/E2/D2 (#166)
+
+**Nothing above this section has been rewritten.** This addendum records the
+sizing iteration issue #166 asked for: the per-miss-group diagnosis, the device
+changes it justified, and the re-run of the **unchanged** bench over the full
+G75 grid. The design this addendum starts from is the post-#177 tree (sense
+resistors `XRS1`/`XRS2` L=150, PR #183), whose powered re-run is committed at
+`results/issue-177-sense/` — that is the *before* column everywhere below.
+
+### Headline: 75 of 75 conditions pass every graded row
+
+| Spec row | Before (post-#177) | This run |
+|---|---:|---:|
+| E1 (V_OD 247–454 mV) | 61 / 75 | **75 / 75** |
+| E2 window (1.125–1.375 V) | 62 / 75 | **75 / 75** |
+| E2/D2 regulation band (1.175–1.325 V) | 62 / 75 | **75 / 75** |
+| E3 (ΔV_OD ≤ 50 mV) | 75 / 75 | **75 / 75** |
+| E4 DC half (ΔV_OS ≤ 50 mV) | 75 / 75 | **75 / 75** |
+| any-miss | 24 / 75 | **0 / 75** |
+
+0 errored, 0 inconclusive. Observed ranges: V_OD **329.7 – 368.2 mV**, V_OS
+**1.2395 – 1.2492 V** (the entire grid now sits inside the ±75 mV regulation
+band, worst deviation from 1.25 V: 10.5 mV), |ΔV_OD| ≤ 138 nV, |ΔV_OS| ≤ 0.5 nV
+(the E3/E4 structural caveat above applies unchanged). Nominal
+`tt`/27 °C/1.80 V/3.30 V: V_OD **349.5 mV** — on E1's 350 mV design nominal —
+V_OS 1.2454 V. `IREF` stays 54.3 µA, frozen, exactly as the bench forces it.
+
+### What did NOT change
+
+`sim/driver-dc/request.json` and `sim/driver-dc/driver_dc.spice` are
+byte-identical to the #116 run (`request.json` sha256 `ae71cd45…`, deck sha256
+`c522327d…` — same values as that addendum's provenance), `VCMREF` stays 1.25 V,
+the pad cells, loads and gate-drive pattern are untouched, and no spec row,
+corner grid or limit moved. `design/predriver/` is untouched. Every change is a
+device size inside `design/driver/` (plus the two regenerated netlists that
+embed it).
+
+### Diagnosis — one root, two miss groups
+
+All numbers below are measured operating points from the *old* sizing, at the
+old grid's miss conditions (probe method at the end of this addendum).
+
+**The root: the bias branch's geometry.** `XMNB1`/`XMNB2` (W=2, L=1) carry the
+54.3 µA reference at V_IREF ≈ 1.54–1.73 V over PVT, and the diode `XMPB`
+(W=2, L=1) sits at V_SG ≈ 2.21–2.26 V nominal-to-cold. Two consequences:
+
+1. **`BIASP` = VDDIO − V_SG lands at 0.67–0.71 V** at the cold slow corners
+   with VDDIO = 2.97 V — *below* |V_th(XMPP)| ≈ 1.1 V, the threshold of the
+   enable-path pfet pass that must conduct `BIASP` to the tail gates. `XMPP`
+   falls subthreshold and drops ~0.42 V (measured `ss`/−40 °C/1.62 V/2.97 V:
+   `biasp` 0.708 V, `XMPS` |V_gs| 1.843 V). With V_th(pfet_g5v0d10v5) = 1.185 V
+   at that corner, `XMPS` is left with V_ov = 0.66 V and delivers 1.49 mA
+   instead of the 3.5 mA mirror current — **V_OD 148.5 mV while V_OS stays
+   regulated at 1.252 V**. This is the entire E1 miss group at VDDIO = 2.97 V
+   (12 of 14 conditions) and the `sf`/−40 °C/1.80 V/3.30 V miss (BIASP 0.67 V,
+   same strangle, milder). The same overdrive also puts `XMPS`'s V_dsat near
+   1.2–1.4 V everywhere, leaving no saturation margin on a 2.97 V rail once the
+   common mode rides high.
+2. **The N-side steering switch starves at VCCD = 1.62 V.** `XMSNB`
+   (nfet_01v8, gate = VCCD) shows V_th = 0.839 V (`fs`/125 °C) to 0.951 V
+   (`ss`/−40 °C); with BOT ≈ 0.4 V its V_ov is 0.20–0.40 V and its *saturation*
+   current (3.0–1.5 mA) falls below the tail's offer. The surplus piles up on
+   OUTN as V_ds (measured 2.15 V at `fs`/125 °C — also the E8 stress
+   observation above, now explained), and V_OS runs away to 1.77–2.59 V.
+   Above V_OS ≈ 1.9 V three secondary effects lock in: the CMFB diff pair's
+   input range is exceeded (XM1 hogs the tail, TAIL rises to 0.95 V, XM2 cuts
+   off with 23 pA, mirror load XML2 at 0.5 nA), so `VCMFB` rails at VDDIO — the
+   loop's corrective action is already maximal, not absent; the `XMNP` pass
+   threshold caps NG at VDDIO − 0.71 V; and TOP − VCCD exceeds |V_th(p)|, so
+   the *off* P switch conducts too (both P switches measured on: 1.47 mA /
+   1.60 mA). `XMNS` was separately undersized — W = 66 µm total needed
+   NG = 2.04 V at nominal to sink 3.5 mA, leaving no authority margin under a
+   2.97 V rail (NG_max ≈ 2.26 V).
+
+### The change (all in `design/driver/`; DR-002 flavours, DR-005 SCALE sharing and the DR-008 well network untouched)
+
+| Device | Role | Old (W/L, nf) | New (W/L, nf) | Why |
+|---|---|---|---|---|
+| `XMPB` | bias diode | 2/1, 1 | **22/1**, 1 | V_SG 2.21 → 1.33 V nominal; BIASP ≥ 1.46 V at every corner of the grid, always above the `XMPP` pass threshold |
+| `XMPS` (per slice, `m=SCALE`) | tail source | 12.8/1, 2 | **124/1**, 2 | keeps the ~62:1 mirror ratio at the lower overdrive; nominal 3.495 mA, saturated at VDDIO = 2.97 V with ≥ 1 V of V_sd margin |
+| `XMNB1`/`XMNB2` | IREF diode + mirror | 2/1, 1 | **32/1**, 1 | V_IREF 1.54 → 0.95 V nominal, so the CMFB tail device is no longer 0.6 V past its saturation edge |
+| `XMT` | CMFB tail | 4/1, 1 | **64/1**, 1 | same 2×IREF design ratio against the widened diode |
+| `XM1`/`XM2` | CMFB diff pair | 10/1, 1 | **40/1**, 1 | V_gs 0.99 → 0.93 V, TAIL 0.19 → 0.24–0.32 V ≥ V_ov(XMT): the amplifier's tail is (at worst marginally) saturated instead of deep in triode |
+| `XML1`/`XML2` | CMFB mirror load | 4/1, 1 | **12/1**, 1 | pull-up range: sources the branch current down to V_sd ≈ 0.6 V, so VCMFB can reach ≈ VDDIO − 0.65 V while regulating |
+| `XMNS` (per slice) | sink | 6/1, 1 | **30/1**, 1 | sinks 3.5 mA (worst corner) at NG ≤ 1.36 V — measured over the grid — instead of 2.04 V |
+| `XMSNA`/`XMSNB` (per slice) | N steering switches | 2.7/0.15, 3 | **4.5/0.15**, 3 | saturation current ≥ ~4.4 mA at VCCD = 1.62 V with V_th up to 0.95 V, so the switch is a switch again at every G75 corner |
+
+`XMSPA`/`XMSPB` (P steering switches) are unchanged: gate 0 V drive leaves them
+≥ 10× over-margined. ad/as/pd/ps/nrd/nrs follow the same sky130 xschem
+conventions as before on every edited card.
+
+### Before/after at all 24 previously-missing conditions
+
+V_OD/V_OS of data state 1, mV and V; *before* = `results/issue-177-sense/`,
+*after* = `results/issue-166-sizing/`:
+
+| Condition | V_OD before | V_OD after | V_OS before | V_OS after |
+|---|---:|---:|---:|---:|
+| tt/1.62 V/2.97 V/−40 °C | 230.6 | 336.0 | 1.2527 | 1.2484 |
+| tt/1.62 V/2.97 V/125 °C | 303.2 | 344.6 | 1.5278 | 1.2456 |
+| tt/1.62 V/3.63 V/125 °C | 361.8 | 363.7 | 1.4228 | 1.2408 |
+| tt/1.98 V/2.97 V/−40 °C | 229.9 | 335.1 | 1.2524 | 1.2484 |
+| ss/1.62 V/2.97 V/−40 °C | 148.5 | 331.5 | 1.2520 | 1.2492 |
+| ss/1.62 V/2.97 V/27 °C | 214.8 | 334.3 | 1.2564 | 1.2485 |
+| ss/1.62 V/2.97 V/125 °C | 249.4 | 339.1 | 1.7716 | 1.2471 |
+| ss/1.80 V/3.30 V/125 °C | 331.7 | 349.7 | 1.5377 | 1.2443 |
+| ss/1.62 V/3.63 V/27 °C | 368.6 | 354.1 | 1.4332 | 1.2446 |
+| ss/1.62 V/3.63 V/125 °C | 219.2 | 358.7 | 2.3417 | 1.2422 |
+| ss/1.98 V/2.97 V/−40 °C | 147.9 | 329.7 | 1.2517 | 1.2491 |
+| ss/1.98 V/2.97 V/27 °C | 214.1 | 333.2 | 1.2546 | 1.2484 |
+| sf/1.62 V/2.97 V/−40 °C | 119.0 | 332.2 | 1.2513 | 1.2487 |
+| sf/1.62 V/2.97 V/27 °C | 184.0 | 335.1 | 1.2539 | 1.2479 |
+| sf/1.80 V/3.30 V/−40 °C | 231.4 | 342.8 | 1.2500 | 1.2470 |
+| sf/1.98 V/2.97 V/−40 °C | 118.6 | 330.6 | 1.2512 | 1.2487 |
+| sf/1.98 V/2.97 V/27 °C | 183.3 | 334.1 | 1.2536 | 1.2478 |
+| fs/1.62 V/2.97 V/−40 °C | 312.9 | 339.4 | 1.7690 | 1.2481 |
+| fs/1.62 V/2.97 V/27 °C | 265.0 | 342.9 | 1.9661 | 1.2471 |
+| fs/1.62 V/2.97 V/125 °C | 166.6 | 347.8 | 2.1615 | 1.2452 |
+| fs/1.80 V/3.30 V/125 °C | 304.3 | 358.3 | 1.8816 | 1.2423 |
+| fs/1.62 V/3.63 V/27 °C | 342.9 | 361.6 | 1.7881 | 1.2432 |
+| fs/1.62 V/3.63 V/125 °C | 128.4 | 366.0 | 2.5928 | 1.2403 |
+| fs/1.98 V/2.97 V/125 °C | 318.9 | 348.3 | 1.4263 | 1.2449 |
+
+The two worst corners the issue named: **condition 72** (`fs`/125 °C/1.62 V/
+3.63 V) moves V_OD 128.4 → 366.0 mV and V_OS 2.5928 → 1.2403 V; the E1-worst
+**`sf`/−40 °C/1.98 V/2.97 V** moves 118.6 → 330.6 mV. The worst *passing*
+margin anywhere in the new grid is 79 mV of E1 (low edge, `ss`/1.98 V/2.97 V/
+−40 °C, 329.7 mV) and 85.8 mV of E1 (high edge, `fs`/1.62 V/3.63 V/125 °C,
+368.2 mV).
+
+### The E8 observation is resolved as a side effect
+
+The three conditions whose V_OS exceeded the 1.98 V thin-oxide ceiling
+(2.593/2.342/2.162 V) no longer exist: the new V_OS maximum over the grid is
+**1.2492 V** and the maximum single-ended pad node is **1.4244 V**. The
+>1.98 V question this record carried is closed by the sizing change; a
+per-device E8 verdict is still its own bench and is not claimed here.
+
+### Negative control — re-run, still fails as designed
+
+`VCMREF` 1.25 → 1.35 V at `tt`/27 °C/1.80 V/3.30 V, everything else unchanged
+(`diag/request-negctl.json`): V_OS tracks to **1.3453 V** (+95.9 mV for
++100 mV), outside the 1.325 V regulation-band edge — the tighter band still
+grades it a miss, so `v_os_*` is still reading the regulated common mode.
+
+### Provenance
+
+| Field | Value |
+|---|---|
+| DUT netlist sha256 | `12ea39c7c8c9eda9bdd07d28a05915403e0734a23acee4de02c7a12d7c7904b9` (`design/driver/driver.spice`, regenerated with the pinned netlister, klt 0.8.0 / xschem per `docs/environment.md`) |
+| Top-level netlist sha256 | `dfd3dfb201de5efa168da0b8dc96b6880ef6ce0b825084a1ea273125ed85b1a8` (`design/lvds_tx_analog.spice`, regenerated same) |
+| Testbench + request | byte-identical to the #116 addendum's run (deck `c522327d…`, request `ae71cd45…`) |
+| Model library sha256 | `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64` (unchanged) |
+| Client | `klt 0.9.3.dev2575+g6bd18bbc8637`, klayout 0.30.13 |
+| Engine | ngspice 47 on the batch worker (`env.engine_host: worker`), `options.ngspice_init` `wnflag=1`/`num_threads=1` unchanged — still load-bearing |
+| Backend | `batch`, job `klt-sim-e46a2e558897`, 75 units, us-east-1 |
+
+Reproduce (fleet; single-corner debug probes may run locally):
+
+```console
+PDK_ROOT=<pinned ciel root> klt sim sim/driver-dc/request.json \
+    --backend batch --wait-for-capacity 600 \
+    --report-out sim/driver-dc/results/issue-166-sizing/report.json
+```
+
+Results: `results/issue-166-sizing/summary.json` (per-condition values and
+per-row pass flags) and `report.json`/`report.json.gz` (the full `klt sim`
+report, committed verbatim).
+
+### Probe method (the diagnosis evidence)
+
+Internal nodes and device operating points are not `klt sim` measurements
+(device-current probing through `klt sim` is
+[klayout-tools#7067](https://github.com/2AMLogic/klayout-tools/issues/7067));
+they were taken with two kinds of single-corner local probe, each committed
+under `sim/driver-dc/diag/`:
+
+- `request-diag.json` — the bench deck with ungraded observers on
+  `xdrv1`'s internal nodes (`biasp`, `vcmfb`, `n1`, `tail`, `vcms`, `pgm`,
+  `ngm`, the main slice's `top`/`bot`/`well`, `xsel_en.enh`, `v(iref1)`),
+  corners pinned per probe (one condition per run, `--backend local`).
+- `probe-fs125.cir`, `probe-ssm40.cir` — raw `ngspice -b` decks (one operating
+  point each, at `fs`/125 °C/1.62 V/3.63 V and `ss`/−40 °C/1.62 V/2.97 V on the
+  *old* sizing) printing `@m…[id/vth/vgs/vds]` for the nine devices named in
+  the diagnosis. Every number quoted above comes from one of these two probes
+  or from `request-diag.json`.
+
+### Stated limitations of this run
+
+- **No Monte Carlo, no transient** — E1–E4's statistical halves, E4's V_OS(PP),
+  E5/E9 and D2's ≥ 45° phase margin are all still open benches. D2's DC
+  regulation half now passes at every G75 condition; the loop-gain/phase
+  evidence is #168's to re-run **after** this change (its device sizes are
+  invalidated by it, per #168's cross-reference).
+- **The analog layout now lags the schematic.** `XMPS` ≈ ×9.7, `XMNS` ×5,
+  `XMSNA/B` ×1.67 total width: the committed layout evidence (T1 items 2, 3,
+  4, 11 analog) predates this change and LVS against the new netlist will not
+  hold until the layout is reworked. That rework is filed as #185 and must be coordinated with the open analog-layout work
+  #77 / PR #79, which already carries a layout delta. The item 1 analog
+  attestation is re-made against the new sources (r5); items 2/3/4/11 analog
+  are cited as *predating* this change, not as fresh.
+- The poly sense resistors remain typical at all 75 conditions (unchanged
+  limitation from the main record).

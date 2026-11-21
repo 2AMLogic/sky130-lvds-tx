@@ -1,4 +1,4 @@
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/lvds_tx_analog.sch
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/lvds_tx_analog.sch
 .subckt lvds_tx_analog D0 D0B D1 D1B CLK EN EM0 EM1 IREF VCMREF PADP PADN VCCD VDDIO VSSIO
 *.ipin D0
 *.ipin D0B
@@ -24,8 +24,8 @@ xpadn PADN VSSIO pad_cell
 .ends
 
 * expanding   symbol:  ddr_mux.sym # of pins=9
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/ddr_mux/ddr_mux.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/ddr_mux/ddr_mux.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/ddr_mux/ddr_mux.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/ddr_mux/ddr_mux.sch
 .subckt ddr_mux D0 D0B D1 D1B CLK Q QB VCCD VSSIO
 *.ipin D0
 *.ipin D0B
@@ -76,8 +76,8 @@ XMND_b1 nm_b1 D1B VSSIO VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as
 
 
 * expanding   symbol:  predriver.sym # of pins=15
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/predriver/predriver.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/predriver/predriver.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/predriver/predriver.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/predriver/predriver.sch
 .subckt predriver Q QB PQ PQB EN GPA GNA GPB GNB XPA XNA XPB XNB VCCD VSSIO
 *.ipin Q
 *.ipin QB
@@ -238,8 +238,8 @@ XMGI_N_GIE GIE VCCD VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0
 
 
 * expanding   symbol:  driver.sym # of pins=18
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/driver.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/driver.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/driver.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/driver.sch
 .subckt driver GPA GPB GNA GNB XPA XPB XNA XNB EN EM0 EM1 IREF VCMREF OUTP OUTN VCCD VDDIO VSSIO
 *.ipin GPA
 *.ipin GPB
@@ -259,22 +259,22 @@ XMGI_N_GIE GIE VCCD VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=1 nf=1 ad=0
 *.iopin VCCD
 *.iopin VDDIO
 *.iopin VSSIO
-XMNB1 IREF IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0
+XMNB1 IREF IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=32 nf=1 ad=9.28 as=9.28 pd=64.58 ps=64.58 nrd=0.00906 nrs=0.00906
++ sa=0 sb=0 sd=0 mult=1 m=1
+XMNB2 BIASP IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=32 nf=1 ad=9.28 as=9.28 pd=64.58 ps=64.58 nrd=0.00906 nrs=0.00906
++ sa=0 sb=0 sd=0 mult=1 m=1
+XMPB BIASP BIASP VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=22 nf=1 ad=6.38 as=6.38 pd=44.58 ps=44.58 nrd=0.01318 nrs=0.01318
++ sa=0 sb=0 sd=0 mult=1 m=1
+XMT TAIL IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=64 nf=1 ad=18.56 as=18.56 pd=128.58 ps=128.58 nrd=0.00453 nrs=0.00453
++ sa=0 sb=0 sd=0 mult=1 m=1
+XM1 N1 VCMS TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=40 nf=1 ad=11.6 as=11.6 pd=80.58 ps=80.58 nrd=0.00725 nrs=0.00725 sa=0
 + sb=0 sd=0 mult=1 m=1
-XMNB2 BIASP IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0
+XM2 VCMFB VCMREF TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=40 nf=1 ad=11.6 as=11.6 pd=80.58 ps=80.58 nrd=0.00725 nrs=0.00725
++ sa=0 sb=0 sd=0 mult=1 m=1
+XML1 N1 N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12 nf=1 ad=3.48 as=3.48 pd=24.58 ps=24.58 nrd=0.02417 nrs=0.02417 sa=0
 + sb=0 sd=0 mult=1 m=1
-XMPB BIASP BIASP VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0
-+ sb=0 sd=0 mult=1 m=1
-XMT TAIL IREF VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0
-+ sb=0 sd=0 mult=1 m=1
-XM1 N1 VCMS TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=10 nf=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0
-+ sd=0 mult=1 m=1
-XM2 VCMFB VCMREF TAIL VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=10 nf=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0
-+ sb=0 sd=0 mult=1 m=1
-XML1 N1 N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0 sb=0
-+ sd=0 mult=1 m=1
-XML2 VCMFB N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=4 nf=1 ad=1.16 as=1.16 pd=8.58 ps=8.58 nrd=0.0725 nrs=0.0725 sa=0
-+ sb=0 sd=0 mult=1 m=1
+XML2 VCMFB N1 VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12 nf=1 ad=3.48 as=3.48 pd=24.58 ps=24.58 nrd=0.02417 nrs=0.02417
++ sa=0 sb=0 sd=0 mult=1 m=1
 XCC VSSIO VCMFB VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=2 W=20 nf=1 ad=5.8 as=5.8 pd=40.58 ps=40.58 nrd=0.0145 nrs=0.0145 sa=0
 + sb=0 sd=0 mult=1 m=1
 XRS1 VCMS OUTP VSSIO sky130_fd_pr__res_high_po_1p41 L=150 mult=1 m=1
@@ -290,8 +290,8 @@ xsl_e1b XPA XPB XNA XNB PGE1 NGE1 OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=1
 
 
 * expanding   symbol:  pad_cell.sym # of pins=2
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/pad_cell/pad_cell.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/pad_cell/pad_cell.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/pad_cell/pad_cell.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/pad_cell/pad_cell.sch
 .subckt pad_cell PAD VSSIO
 *.iopin PAD
 *.iopin VSSIO
@@ -302,8 +302,8 @@ XMESD PAD VSSIO VSSIO VSSIO sky130_fd_pr__esd_nfet_g5v0d10v5 L=0.55 W=21.5 nf=1 
 
 
 * expanding   symbol:  drv_sel.sym # of pins=8
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/drv_sel.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/drv_sel.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/drv_sel.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/drv_sel.sch
 .subckt drv_sel SEL BIASP VCMFB PG NG VCCD VDDIO VSSIO
 *.ipin SEL
 *.iopin BIASP
@@ -337,8 +337,8 @@ XMNP NG ENH VCMFB VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1
 
 
 * expanding   symbol:  drv_slice.sym # of pins=11
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/drv_slice.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-177/design/driver/drv_slice.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/drv_slice.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-166/design/driver/drv_slice.sch
 .subckt drv_slice GPA GPB GNA GNB PG NG OUTP OUTN VCCD VDDIO VSSIO  SCALE=1
 *.ipin GPA
 *.ipin GPB
@@ -351,17 +351,17 @@ XMNP NG ENH VCMFB VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1
 *.iopin VCCD
 *.iopin VDDIO
 *.iopin VSSIO
-XMPS TOP PG VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12.8 nf=2 ad=1.856 as=3.712 pd=13.38 ps=26.76 nrd=0.0227 nrs=0.0227 sa=0
+XMPS TOP PG VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=124 nf=2 ad=17.98 as=35.96 pd=124.58 ps=249.16 nrd=0.00234 nrs=0.00234 sa=0
 + sb=0 sd=0 mult={SCALE} m={SCALE}
 XMSPA OUTP GPA TOP WELL sky130_fd_pr__pfet_01v8 L=0.15 W=3.6 nf=4 ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806 nrs=0.0806 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
 XMSPB OUTN GPB TOP WELL sky130_fd_pr__pfet_01v8 L=0.15 W=3.6 nf=4 ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806 nrs=0.0806 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
-XMSNA OUTP GNA BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=2.7 nf=3 ad=0.522 as=0.522 pd=4.76 ps=4.76 nrd=0.1074 nrs=0.1074 sa=0 sb=0
+XMSNA OUTP GNA BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=4.5 nf=3 ad=0.87 as=0.87 pd=7.16 ps=7.16 nrd=0.06444 nrs=0.06444 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
-XMSNB OUTN GNB BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=2.7 nf=3 ad=0.522 as=0.522 pd=4.76 ps=4.76 nrd=0.1074 nrs=0.1074 sa=0 sb=0
+XMSNB OUTN GNB BOT VSSIO sky130_fd_pr__nfet_01v8 L=0.15 W=4.5 nf=3 ad=0.87 as=0.87 pd=7.16 ps=7.16 nrd=0.06444 nrs=0.06444 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
-XMNS BOT NG VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=6 nf=1 ad=1.74 as=1.74 pd=12.58 ps=12.58 nrd=0.0483 nrs=0.0483 sa=0 sb=0
+XMNS BOT NG VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=1 W=30 nf=1 ad=8.7 as=8.7 pd=60.58 ps=60.58 nrd=0.00967 nrs=0.00967 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
 XMWVA WELL OUTP VCCD WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0
 + sb=0 sd=0 mult=1 m=1
