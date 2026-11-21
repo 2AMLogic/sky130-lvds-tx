@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 9,
-  "description": "Testbenches shipped for sky130-lvds-tx, both partitions: the committed PDK-smoke benches (analog ngspice via klt sim, digital cocotb/Icarus serializer bench with a negative control, synthesis and P&R requests, the serializer klt functional-verification requests -- RTL good leg plus negative control -- and the post-route SDF corner request), one cold-start command, and the pinned PDK and tool versions.",
+  "description": "Testbenches shipped for sky130-lvds-tx, both partitions: the committed PDK-smoke benches (analog ngspice via klt sim, digital cocotb/Icarus serializer bench with a negative control, synthesis and P&R requests, the serializer klt functional-verification requests -- RTL good leg plus negative control -- and the post-route SDF corner request, and the powered driver transient bench: PRBS-7 G75 grids at two rates plus an E5 negative-control fixture, analog ngspice via klt sim), one cold-start command, and the pinned PDK and tool versions.",
   "testbenches": [
     "sim/pdk-smoke/inverters.spice",
     "sim/pdk-smoke/request.json",
@@ -13,7 +13,19 @@
     "verification/serializer/negative-control.request.json",
     "flow/serializer/synth.request.json",
     "flow/serializer/pnr.request.json",
-    "flow/serializer/sdf.request.json"
+    "flow/serializer/sdf.request.json",
+    "sim/driver-tran/driver_tran_1g.spice",
+    "sim/driver-tran/driver_tran_400m.spice",
+    "sim/driver-tran/prbs7_stim_1g.spice",
+    "sim/driver-tran/prbs7_stim_400m.spice",
+    "sim/driver-tran/request-1g.json",
+    "sim/driver-tran/request-400m.json",
+    "sim/driver-tran/request-control.json",
+    "sim/driver-tran/gen_bench.py",
+    "sim/driver-tran/summarize.py",
+    "sim/driver-tran/stim_meta_1g.json",
+    "sim/driver-tran/stim_meta_400m.json",
+    "sim/driver-tran/test_summarize.py"
   ],
   "cold_start": {
     "argv": ["sh", "verification/signoff/cold-start.sh"],
