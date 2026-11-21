@@ -811,7 +811,7 @@
     },
     {
       "name": "ja_main_mgna_d",
-      "spice": ".meas dc ja_main_mgna_d MAX par('v(xtb.xdrv.xsl_main.bot) - v(xtb.GNA)')",
+      "spice": ".meas dc ja_main_mgna_d MAX par('v(xtb.GNA) - v(xtb.xdrv.xsl_main.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -820,7 +820,7 @@
     },
     {
       "name": "ja_main_mgnb_d",
-      "spice": ".meas dc ja_main_mgnb_d MAX par('v(xtb.xdrv.xsl_main.bot) - v(xtb.GNB)')",
+      "spice": ".meas dc ja_main_mgnb_d MAX par('v(xtb.GNB) - v(xtb.xdrv.xsl_main.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -829,7 +829,7 @@
     },
     {
       "name": "ja_main_mbta_d",
-      "spice": ".meas dc ja_main_mbta_d MAX par('v(xtb.xdrv.xsl_main.well) - v(xtb.xdrv.xsl_main.bot)')",
+      "spice": ".meas dc ja_main_mbta_d MAX par('v(xtb.xdrv.xsl_main.bot) - v(xtb.xdrv.xsl_main.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -866,7 +866,7 @@
     },
     {
       "name": "ja_e0_mgna_d",
-      "spice": ".meas dc ja_e0_mgna_d MAX par('v(xtb.xdrv.xsl_e0.bot) - v(xtb.XNA)')",
+      "spice": ".meas dc ja_e0_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e0.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -875,7 +875,7 @@
     },
     {
       "name": "ja_e0_mgnb_d",
-      "spice": ".meas dc ja_e0_mgnb_d MAX par('v(xtb.xdrv.xsl_e0.bot) - v(xtb.XNB)')",
+      "spice": ".meas dc ja_e0_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e0.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -884,7 +884,7 @@
     },
     {
       "name": "ja_e0_mbta_d",
-      "spice": ".meas dc ja_e0_mbta_d MAX par('v(xtb.xdrv.xsl_e0.well) - v(xtb.xdrv.xsl_e0.bot)')",
+      "spice": ".meas dc ja_e0_mbta_d MAX par('v(xtb.xdrv.xsl_e0.bot) - v(xtb.xdrv.xsl_e0.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -921,7 +921,7 @@
     },
     {
       "name": "ja_e1a_mgna_d",
-      "spice": ".meas dc ja_e1a_mgna_d MAX par('v(xtb.xdrv.xsl_e1a.bot) - v(xtb.XNA)')",
+      "spice": ".meas dc ja_e1a_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1a.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -930,7 +930,7 @@
     },
     {
       "name": "ja_e1a_mgnb_d",
-      "spice": ".meas dc ja_e1a_mgnb_d MAX par('v(xtb.xdrv.xsl_e1a.bot) - v(xtb.XNB)')",
+      "spice": ".meas dc ja_e1a_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1a.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -939,7 +939,7 @@
     },
     {
       "name": "ja_e1a_mbta_d",
-      "spice": ".meas dc ja_e1a_mbta_d MAX par('v(xtb.xdrv.xsl_e1a.well) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "spice": ".meas dc ja_e1a_mbta_d MAX par('v(xtb.xdrv.xsl_e1a.bot) - v(xtb.xdrv.xsl_e1a.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -976,7 +976,7 @@
     },
     {
       "name": "ja_e1b_mgna_d",
-      "spice": ".meas dc ja_e1b_mgna_d MAX par('v(xtb.xdrv.xsl_e1b.bot) - v(xtb.XNA)')",
+      "spice": ".meas dc ja_e1b_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1b.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -985,7 +985,7 @@
     },
     {
       "name": "ja_e1b_mgnb_d",
-      "spice": ".meas dc ja_e1b_mgnb_d MAX par('v(xtb.xdrv.xsl_e1b.bot) - v(xtb.XNB)')",
+      "spice": ".meas dc ja_e1b_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1b.bot)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -994,7 +994,7 @@
     },
     {
       "name": "ja_e1b_mbta_d",
-      "spice": ".meas dc ja_e1b_mbta_d MAX par('v(xtb.xdrv.xsl_e1b.well) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "spice": ".meas dc ja_e1b_mbta_d MAX par('v(xtb.xdrv.xsl_e1b.bot) - v(xtb.xdrv.xsl_e1b.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3

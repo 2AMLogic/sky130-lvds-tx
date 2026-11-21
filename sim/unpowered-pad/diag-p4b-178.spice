@@ -1,0 +1,70 @@
+* Diagnostic bench for the P4b gate-tracking arrangement (issue #178).
+*
+* Circuit body only; run under ngspice directly with the pinned library and
+* a .spiceinit that sets `wnflag=1` (finding F6 of RECORD.md). Local
+* single-corner debug probe per the host rules, tt and ss at -40 C:
+*
+*   HOME=<scratch> ngspice -b diag-p4b-178.spice
+*
+* What it records, and why this deck exists: the graded benches reduce the
+* sweep to maxima, so they cannot show WHICH terminal pair limits or what
+* the branch currents are at the limiting bias. This deck sweeps both pads
+* together (Sweep A shape) and prints the gate/well/BOT nodes at every
+* point, then solves the two limiting biases as fresh operating points and
+* prints the branch currents of the tracking devices there. ngspice device
+* currents are only available through `show` on the wrapper's inner MOSFET
+* (`m<instance>.msky130_fd_pr__<flavour>`), which is why this is a hand-run
+* deck and not a klt sim request.
+
+.include ../../design/lvds_tx_analog.spice
+
+* --- core inputs: the unpowered state (all 0 V) ---------------------------
+VD0     D0     0 DC 0
+VD0B    D0B    0 DC 0
+VD1     D1     0 DC 0
+VD1B    D1B    0 DC 0
+VCLK    CLK    0 DC 0
+VEN     EN     0 DC 0
+VEM0    EM0    0 DC 0
+VEM1    EM1    0 DC 0
+VIREF   IREF   0 DC 0
+VVCMREF VCMREF 0 DC 0
+
+* --- the DUT, rails unpowered, per-pad ammeters (tb_unpowered shape) ------
+xtb D0 D0B D1 D1B CLK EN EM0 EM1 IREF VCMREF PADP PADN VCCD VDDIO VSSIO
++ lvds_tx_analog
+VVCCD  VCCD  0 DC 0
+VVDDIO VDDIO 0 DC 0
+VVSSIO VSSIO 0 DC 0
+VAMP PSRC PADP 0
+VAMN NSRC PADN 0
+BNSRC NSRC 0 V = v(PSRC)
+VPSRC PSRC 0 DC 0
+
+* --- the corner under test is chosen by the runner (tt/ss at -40 C);
+* .lib line points at the pinned install ($PDK_ROOT, docs/environment.md) ---
+.lib /home/ubuntu/.ciel/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.temp -40
+
+.control
+* 1) the sweep: gate, well, BOT and the reduced errors at 0.05 V steps.
+dc VPSRC 0 2.4 0.05
+print v(PADP) v(xtb.xdrv.xsl_main.well) v(xtb.xdrv.xsl_main.top) v(xtb.GPA) v(xtb.xdrv.xsl_main.bot) v(xtb.GNA) v(xtb.xdrv.vcms)
+* 2) limiting bias of the gate-to-well pair (worst-corner deadband window):
+*    fresh operating points, then the branch currents of every tracking
+*    device. XMGTA = well-referenced tracker, XMGT2A = pad-referenced
+*    helper, XMBTA/XMBN1 = BOT pull-up/clamp, XMGNA = N-gate pass.
+foreach bp 0.35 0.50 0.55 1.28 2.40
+  alter VPSRC dc = $bp
+  op
+  echo === limiting bias VPSRC = $bp V ===
+  show m.xtb.xdrv.xsl_main.xmgta.msky130_fd_pr__pfet_g5v0d10v5
+  show m.xtb.xdrv.xsl_main.xmgt2a.msky130_fd_pr__pfet_g5v0d10v5
+  show m.xtb.xdrv.xsl_main.xmbta.msky130_fd_pr__pfet_g5v0d10v5
+  show m.xtb.xdrv.xsl_main.xmbn1.msky130_fd_pr__nfet_g5v0d10v5
+  show m.xtb.xdrv.xsl_main.xmgna.msky130_fd_pr__pfet_g5v0d10v5
+  print v(PADP) v(xtb.xdrv.xsl_main.well) v(xtb.GPA) v(xtb.xdrv.xsl_main.bot) v(xtb.GNA) i(vamp)
+end
+quit
+.endc
+.end
