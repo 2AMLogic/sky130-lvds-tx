@@ -84,12 +84,12 @@ C {lab_pin.sym} 1280 270 2 0 {name=l46 lab=s2_ma}
 C {lab_pin.sym} 1320 300 0 0 {name=l47 lab=VSSIO}
 C {lab_pin.sym} 1320 270 0 0 {name=l48 lab=VSSIO}
 C {pfet_01v8.sym} 200 440 0 0 {name=MP_3nma L=0.15 W=11 nf=2 mult=1 ad=1.595 as=3.19 pd=11.58 ps=23.16 nrd=0.0264 nrs=0.0264 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 220 470 0 0 {name=l49 lab=GNA}
+C {lab_pin.sym} 220 470 0 0 {name=l49 lab=IN_3NMA}
 C {lab_pin.sym} 180 440 2 0 {name=l50 lab=s2_ma}
 C {lab_pin.sym} 220 410 0 0 {name=l51 lab=VCCD}
 C {lab_pin.sym} 220 440 0 0 {name=l52 lab=VCCD}
 C {nfet_01v8.sym} 420 440 0 0 {name=MN_3nma L=0.15 W=5.5 nf=1 mult=1 ad=1.595 as=1.595 pd=11.58 ps=11.58 nrd=0.0527 nrs=0.0527 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 440 410 0 0 {name=l53 lab=GNA}
+C {lab_pin.sym} 440 410 0 0 {name=l53 lab=IN_3NMA}
 C {lab_pin.sym} 400 440 2 0 {name=l54 lab=s2_ma}
 C {lab_pin.sym} 440 470 0 0 {name=l55 lab=VSSIO}
 C {lab_pin.sym} 440 440 0 0 {name=l56 lab=VSSIO}
@@ -144,12 +144,12 @@ C {lab_pin.sym} 1280 610 2 0 {name=l94 lab=s2_mb}
 C {lab_pin.sym} 1320 640 0 0 {name=l95 lab=VSSIO}
 C {lab_pin.sym} 1320 610 0 0 {name=l96 lab=VSSIO}
 C {pfet_01v8.sym} 200 780 0 0 {name=MP_3nmb L=0.15 W=11 nf=2 mult=1 ad=1.595 as=3.19 pd=11.58 ps=23.16 nrd=0.0264 nrs=0.0264 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 220 810 0 0 {name=l97 lab=GNB}
+C {lab_pin.sym} 220 810 0 0 {name=l97 lab=IN_3NMB}
 C {lab_pin.sym} 180 780 2 0 {name=l98 lab=s2_mb}
 C {lab_pin.sym} 220 750 0 0 {name=l99 lab=VCCD}
 C {lab_pin.sym} 220 780 0 0 {name=l100 lab=VCCD}
 C {nfet_01v8.sym} 420 780 0 0 {name=MN_3nmb L=0.15 W=5.5 nf=1 mult=1 ad=1.595 as=1.595 pd=11.58 ps=11.58 nrd=0.0527 nrs=0.0527 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 440 750 0 0 {name=l101 lab=GNB}
+C {lab_pin.sym} 440 750 0 0 {name=l101 lab=IN_3NMB}
 C {lab_pin.sym} 400 780 2 0 {name=l102 lab=s2_mb}
 C {lab_pin.sym} 440 810 0 0 {name=l103 lab=VSSIO}
 C {lab_pin.sym} 440 780 0 0 {name=l104 lab=VSSIO}
@@ -204,12 +204,12 @@ C {lab_pin.sym} 1280 950 2 0 {name=l142 lab=s2_ea}
 C {lab_pin.sym} 1320 980 0 0 {name=l143 lab=VSSIO}
 C {lab_pin.sym} 1320 950 0 0 {name=l144 lab=VSSIO}
 C {pfet_01v8.sym} 200 1120 0 0 {name=MP_3nea L=0.15 W=1 nf=1 mult=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 220 1150 0 0 {name=l145 lab=XNA}
+C {lab_pin.sym} 220 1150 0 0 {name=l145 lab=IN_3NEA}
 C {lab_pin.sym} 180 1120 2 0 {name=l146 lab=s2_ea}
 C {lab_pin.sym} 220 1090 0 0 {name=l147 lab=VCCD}
 C {lab_pin.sym} 220 1120 0 0 {name=l148 lab=VCCD}
 C {nfet_01v8.sym} 420 1120 0 0 {name=MN_3nea L=0.15 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 440 1090 0 0 {name=l149 lab=XNA}
+C {lab_pin.sym} 440 1090 0 0 {name=l149 lab=IN_3NEA}
 C {lab_pin.sym} 400 1120 2 0 {name=l150 lab=s2_ea}
 C {lab_pin.sym} 440 1150 0 0 {name=l151 lab=VSSIO}
 C {lab_pin.sym} 440 1120 0 0 {name=l152 lab=VSSIO}
@@ -264,12 +264,12 @@ C {lab_pin.sym} 1280 1290 2 0 {name=l190 lab=s2_eb}
 C {lab_pin.sym} 1320 1320 0 0 {name=l191 lab=VSSIO}
 C {lab_pin.sym} 1320 1290 0 0 {name=l192 lab=VSSIO}
 C {pfet_01v8.sym} 200 1460 0 0 {name=MP_3neb L=0.15 W=1 nf=1 mult=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 220 1490 0 0 {name=l193 lab=XNB}
+C {lab_pin.sym} 220 1490 0 0 {name=l193 lab=IN_3NEB}
 C {lab_pin.sym} 180 1460 2 0 {name=l194 lab=s2_eb}
 C {lab_pin.sym} 220 1430 0 0 {name=l195 lab=VCCD}
 C {lab_pin.sym} 220 1460 0 0 {name=l196 lab=VCCD}
 C {nfet_01v8.sym} 420 1460 0 0 {name=MN_3neb L=0.15 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=nfet_01v8 spiceprefix=X}
-C {lab_pin.sym} 440 1430 0 0 {name=l197 lab=XNB}
+C {lab_pin.sym} 440 1430 0 0 {name=l197 lab=IN_3NEB}
 C {lab_pin.sym} 400 1460 2 0 {name=l198 lab=s2_eb}
 C {lab_pin.sym} 440 1490 0 0 {name=l199 lab=VSSIO}
 C {lab_pin.sym} 440 1460 0 0 {name=l200 lab=VSSIO}
@@ -373,3 +373,103 @@ C {lab_pin.sym} 1840 1370 0 0 {name=l1077 lab=GIE}
 C {lab_pin.sym} 1800 1400 2 0 {name=l1078 lab=VCCD}
 C {lab_pin.sym} 1840 1430 0 0 {name=l1079 lab=VSSIO}
 C {lab_pin.sym} 1840 1400 0 0 {name=l1080 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 1600 0 0 {name=MTP_3nma L=0.5 W=20 nf=1 mult=1 ad=5.8 as=5.8 pd=40.58 ps=40.58 nrd=0.0145 nrs=0.0145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 1630 0 0 {name=l1081 lab=GNA}
+C {lab_pin.sym} 1580 1600 0 0 {name=l1082 lab=GIN}
+C {lab_pin.sym} 1620 1570 0 0 {name=l1083 lab=IN_3NMA}
+C {lab_pin.sym} 1620 1600 0 0 {name=l1084 lab=PWN}
+C {nfet_g5v0d10v5.sym} 1820 1600 0 0 {name=MTN_3nma L=0.5 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 1570 0 0 {name=l1085 lab=GNA}
+C {lab_pin.sym} 1800 1600 0 0 {name=l1086 lab=VCCD}
+C {lab_pin.sym} 1840 1630 0 0 {name=l1087 lab=IN_3NMA}
+C {lab_pin.sym} 1840 1600 0 0 {name=l1088 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 1740 0 0 {name=MTP_3nmb L=0.5 W=20 nf=1 mult=1 ad=5.8 as=5.8 pd=40.58 ps=40.58 nrd=0.0145 nrs=0.0145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 1770 0 0 {name=l1089 lab=GNB}
+C {lab_pin.sym} 1580 1740 0 0 {name=l1090 lab=GIN}
+C {lab_pin.sym} 1620 1710 0 0 {name=l1091 lab=IN_3NMB}
+C {lab_pin.sym} 1620 1740 0 0 {name=l1092 lab=PWN}
+C {nfet_g5v0d10v5.sym} 1820 1740 0 0 {name=MTN_3nmb L=0.5 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 1710 0 0 {name=l1093 lab=GNB}
+C {lab_pin.sym} 1800 1740 0 0 {name=l1094 lab=VCCD}
+C {lab_pin.sym} 1840 1770 0 0 {name=l1095 lab=IN_3NMB}
+C {lab_pin.sym} 1840 1740 0 0 {name=l1096 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 1880 0 0 {name=MTP_3nea L=0.5 W=20 nf=1 mult=1 ad=5.8 as=5.8 pd=40.58 ps=40.58 nrd=0.0145 nrs=0.0145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 1910 0 0 {name=l1097 lab=XNA}
+C {lab_pin.sym} 1580 1880 0 0 {name=l1098 lab=GIX}
+C {lab_pin.sym} 1620 1850 0 0 {name=l1099 lab=IN_3NEA}
+C {lab_pin.sym} 1620 1880 0 0 {name=l1100 lab=PWX}
+C {nfet_g5v0d10v5.sym} 1820 1880 0 0 {name=MTN_3nea L=0.5 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 1850 0 0 {name=l1101 lab=XNA}
+C {lab_pin.sym} 1800 1880 0 0 {name=l1102 lab=VCCD}
+C {lab_pin.sym} 1840 1910 0 0 {name=l1103 lab=IN_3NEA}
+C {lab_pin.sym} 1840 1880 0 0 {name=l1104 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 2020 0 0 {name=MTP_3neb L=0.5 W=20 nf=1 mult=1 ad=5.8 as=5.8 pd=40.58 ps=40.58 nrd=0.0145 nrs=0.0145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2050 0 0 {name=l1105 lab=XNB}
+C {lab_pin.sym} 1580 2020 0 0 {name=l1106 lab=GIX}
+C {lab_pin.sym} 1620 1990 0 0 {name=l1107 lab=IN_3NEB}
+C {lab_pin.sym} 1620 2020 0 0 {name=l1108 lab=PWX}
+C {nfet_g5v0d10v5.sym} 1820 2020 0 0 {name=MTN_3neb L=0.5 W=10 nf=1 mult=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 1990 0 0 {name=l1109 lab=XNB}
+C {lab_pin.sym} 1800 2020 0 0 {name=l1110 lab=VCCD}
+C {lab_pin.sym} 1840 2050 0 0 {name=l1111 lab=IN_3NEB}
+C {lab_pin.sym} 1840 2020 0 0 {name=l1112 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 2200 0 0 {name=MWV_PWN_GNA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2230 0 0 {name=l1113 lab=PWN}
+C {lab_pin.sym} 1580 2200 0 0 {name=l1114 lab=GNA}
+C {lab_pin.sym} 1620 2170 0 0 {name=l1115 lab=VCCD}
+C {lab_pin.sym} 1620 2200 0 0 {name=l1116 lab=PWN}
+C {pfet_g5v0d10v5.sym} 1820 2200 0 0 {name=MWP_PWN_GNA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2230 0 0 {name=l1117 lab=PWN}
+C {lab_pin.sym} 1800 2200 0 0 {name=l1118 lab=VCCD}
+C {lab_pin.sym} 1840 2170 0 0 {name=l1119 lab=GNA}
+C {lab_pin.sym} 1840 2200 0 0 {name=l1120 lab=PWN}
+C {pfet_g5v0d10v5.sym} 1600 2340 0 0 {name=MWV_PWN_GNB L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2370 0 0 {name=l1121 lab=PWN}
+C {lab_pin.sym} 1580 2340 0 0 {name=l1122 lab=GNB}
+C {lab_pin.sym} 1620 2310 0 0 {name=l1123 lab=VCCD}
+C {lab_pin.sym} 1620 2340 0 0 {name=l1124 lab=PWN}
+C {pfet_g5v0d10v5.sym} 1820 2340 0 0 {name=MWP_PWN_GNB L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2370 0 0 {name=l1125 lab=PWN}
+C {lab_pin.sym} 1800 2340 0 0 {name=l1126 lab=VCCD}
+C {lab_pin.sym} 1840 2310 0 0 {name=l1127 lab=GNB}
+C {lab_pin.sym} 1840 2340 0 0 {name=l1128 lab=PWN}
+C {pfet_g5v0d10v5.sym} 1600 2480 0 0 {name=MWV_PWX_XNA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2510 0 0 {name=l1129 lab=PWX}
+C {lab_pin.sym} 1580 2480 0 0 {name=l1130 lab=XNA}
+C {lab_pin.sym} 1620 2450 0 0 {name=l1131 lab=VCCD}
+C {lab_pin.sym} 1620 2480 0 0 {name=l1132 lab=PWX}
+C {pfet_g5v0d10v5.sym} 1820 2480 0 0 {name=MWP_PWX_XNA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2510 0 0 {name=l1133 lab=PWX}
+C {lab_pin.sym} 1800 2480 0 0 {name=l1134 lab=VCCD}
+C {lab_pin.sym} 1840 2450 0 0 {name=l1135 lab=XNA}
+C {lab_pin.sym} 1840 2480 0 0 {name=l1136 lab=PWX}
+C {pfet_g5v0d10v5.sym} 1600 2620 0 0 {name=MWV_PWX_XNB L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2650 0 0 {name=l1137 lab=PWX}
+C {lab_pin.sym} 1580 2620 0 0 {name=l1138 lab=XNB}
+C {lab_pin.sym} 1620 2590 0 0 {name=l1139 lab=VCCD}
+C {lab_pin.sym} 1620 2620 0 0 {name=l1140 lab=PWX}
+C {pfet_g5v0d10v5.sym} 1820 2620 0 0 {name=MWP_PWX_XNB L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2650 0 0 {name=l1141 lab=PWX}
+C {lab_pin.sym} 1800 2620 0 0 {name=l1142 lab=VCCD}
+C {lab_pin.sym} 1840 2590 0 0 {name=l1143 lab=XNB}
+C {lab_pin.sym} 1840 2620 0 0 {name=l1144 lab=PWX}
+C {pfet_g5v0d10v5.sym} 1600 2800 0 0 {name=MGI_P_GIN L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2830 0 0 {name=l1145 lab=GIN}
+C {lab_pin.sym} 1580 2800 0 0 {name=l1146 lab=VCCD}
+C {lab_pin.sym} 1620 2770 0 0 {name=l1147 lab=PWN}
+C {lab_pin.sym} 1620 2800 0 0 {name=l1148 lab=PWN}
+C {nfet_g5v0d10v5.sym} 1820 2800 0 0 {name=MGI_N_GIN L=0.5 W=1 nf=1 mult=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2770 0 0 {name=l1149 lab=GIN}
+C {lab_pin.sym} 1800 2800 0 0 {name=l1150 lab=VCCD}
+C {lab_pin.sym} 1840 2830 0 0 {name=l1151 lab=VSSIO}
+C {lab_pin.sym} 1840 2800 0 0 {name=l1152 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1600 2940 0 0 {name=MGI_P_GIX L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1620 2970 0 0 {name=l1153 lab=GIX}
+C {lab_pin.sym} 1580 2940 0 0 {name=l1154 lab=VCCD}
+C {lab_pin.sym} 1620 2910 0 0 {name=l1155 lab=PWX}
+C {lab_pin.sym} 1620 2940 0 0 {name=l1156 lab=PWX}
+C {nfet_g5v0d10v5.sym} 1820 2940 0 0 {name=MGI_N_GIX L=0.5 W=1 nf=1 mult=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1840 2910 0 0 {name=l1157 lab=GIX}
+C {lab_pin.sym} 1800 2940 0 0 {name=l1158 lab=VCCD}
+C {lab_pin.sym} 1840 2970 0 0 {name=l1159 lab=VSSIO}
+C {lab_pin.sym} 1840 2940 0 0 {name=l1160 lab=VSSIO}

@@ -174,7 +174,10 @@ BTOXE1BDS TOX_E1B_DS 0 V =
 * (DR-010 amendment of DR-008: issue #167), so the thin-oxide drains of the
 * P-side stages are the INNER nodes xtb.xpre.in_3pma / in_3pmb / in_3pea /
 * in_3peb, and those -- not the lifted switch-gate nets -- are what is
-* graded here. Gate node per net:
+* graded here. Since issue #178 the N-side stages are isolated the same way
+* (their lifted gates ride BOT-tracking), so their thin-oxide drains are the
+* inner nodes xtb.xpre.in_3nma / in_3nmb / in_3nea / in_3neb. Gate node per
+* net:
 *   GPA, GNA <- s2_ma      GPB, GNB <- s2_mb
 *   XPA, XNA <- s2_ea      XPB, XNB <- s2_eb
 * TOX_PRE_OX is the worst gate-referenced pair of that stage (g-d, and g-s
@@ -182,13 +185,13 @@ BTOXE1BDS TOX_E1B_DS 0 V =
 * which is also the p+/n-well junction reported under P4a.
 BTOXPREOX TOX_PRE_OX 0 V =
 + max(max(max(abs(v(xtb.xpre.s2_ma) - v(xtb.xpre.in_3pma)),
-+              abs(v(xtb.xpre.s2_ma) - v(xtb.GNA))),
++              abs(v(xtb.xpre.s2_ma) - v(xtb.xpre.in_3nma))),
 +          max(abs(v(xtb.xpre.s2_mb) - v(xtb.xpre.in_3pmb)),
-+              abs(v(xtb.xpre.s2_mb) - v(xtb.GNB)))),
++              abs(v(xtb.xpre.s2_mb) - v(xtb.xpre.in_3nmb)))),
 +      max(max(max(abs(v(xtb.xpre.s2_ea) - v(xtb.xpre.in_3pea)),
-+                  abs(v(xtb.xpre.s2_ea) - v(xtb.XNA))),
++                  abs(v(xtb.xpre.s2_ea) - v(xtb.xpre.in_3nea))),
 +              max(abs(v(xtb.xpre.s2_eb) - v(xtb.xpre.in_3peb)),
-+                  abs(v(xtb.xpre.s2_eb) - v(xtb.XNB)))),
++                  abs(v(xtb.xpre.s2_eb) - v(xtb.xpre.in_3neb)))),
 +          max(max(abs(v(xtb.xpre.s2_ma) - v(VCCD)),
 +                  abs(v(xtb.xpre.s2_mb) - v(VCCD))),
 +              max(abs(v(xtb.xpre.s2_ea) - v(VCCD)),
@@ -196,8 +199,8 @@ BTOXPREOX TOX_PRE_OX 0 V =
 BTOXPREDS TOX_PRE_DS 0 V =
 + max(max(max(abs(v(xtb.xpre.in_3pma) - v(VCCD)), abs(v(xtb.xpre.in_3pmb) - v(VCCD))),
 +          max(abs(v(xtb.xpre.in_3pea) - v(VCCD)), abs(v(xtb.xpre.in_3peb) - v(VCCD)))),
-+      max(max(abs(v(xtb.GNA) - v(VSSIO)), abs(v(xtb.GNB) - v(VSSIO))),
-+          max(abs(v(xtb.XNA) - v(VSSIO)), abs(v(xtb.XNB) - v(VSSIO)))))
++      max(max(abs(v(xtb.xpre.in_3nma) - v(VCCD)), abs(v(xtb.xpre.in_3nmb) - v(VCCD))),
++          max(abs(v(xtb.xpre.in_3nea) - v(VCCD)), abs(v(xtb.xpre.in_3neb) - v(VCCD)))))
 
 * --- row P4b: the second reading of "every thin-oxide terminal pair" ----
 * "Every thin-oxide terminal pair <= 1.98 V" taken literally also counts
@@ -228,6 +231,31 @@ BTOXE1BDB TOX_E1B_DB 0 V =
 +          abs(v(PADN) - v(xtb.xdrv.xsl_e1b.well))),
 +      max(abs(v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.well)),
 +          abs(v(xtb.xdrv.xsl_e1b.bot) - v(VSSIO))))
+
+* --- row P4a: the source switch's floating well XMPW (issue #178) --------
+* XMPS's p+ drain (TOP) sat in the grounded VDDIO well, so defining TOP
+* (the XMQTA/XMQTB pull-up) forward-biased that drain-bulk junction; the
+* bulk therefore moved to a floating well XMPW per slice that tracks
+* max(VDDIO, TOP) through the DR-008 §1 well-switch pair XMPWA/XMPVA --
+* powered it rests at VDDIO exactly as before, unpowered at TOP. These
+* observers reduce the three XMPW-referenced junction readings (TOP p+,
+* VDDIO p+, p-substrate) over the four slices as forward bias
+* (anode minus cathode) for row P4a.
+BJAMPXT JAMPX_T 0 V =
++ max(max(v(xtb.xdrv.xsl_main.top) - v(xtb.xdrv.xsl_main.xmpw),
++         v(xtb.xdrv.xsl_e0.top) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(xtb.xdrv.xsl_e1a.top) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.xmpw)))
+BJAMPXV JAMPX_V 0 V =
++ max(max(v(VDDIO) - v(xtb.xdrv.xsl_main.xmpw),
++         v(VDDIO) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(VDDIO) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(VDDIO) - v(xtb.xdrv.xsl_e1b.xmpw)))
+BJAMPXN JAMPX_N 0 V =
++ max(max(v(VSSIO) - v(xtb.xdrv.xsl_main.xmpw),
++         v(VSSIO) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(VSSIO) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(VSSIO) - v(xtb.xdrv.xsl_e1b.xmpw)))
 
 * --- scope control for the "every thin-oxide terminal pair" reading ------
 * The claim the record makes is that the thin-oxide devices able to see a
