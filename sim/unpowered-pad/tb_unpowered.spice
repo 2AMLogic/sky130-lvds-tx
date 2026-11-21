@@ -232,6 +232,31 @@ BTOXE1BDB TOX_E1B_DB 0 V =
 +      max(abs(v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.well)),
 +          abs(v(xtb.xdrv.xsl_e1b.bot) - v(VSSIO))))
 
+* --- row P4a: the source switch's floating well XMPW (issue #178) --------
+* XMPS's p+ drain (TOP) sat in the grounded VDDIO well, so defining TOP
+* (the XMQTA/XMQTB pull-up) forward-biased that drain-bulk junction; the
+* bulk therefore moved to a floating well XMPW per slice that tracks
+* max(VDDIO, TOP) through the DR-008 §1 well-switch pair XMPWA/XMPVA --
+* powered it rests at VDDIO exactly as before, unpowered at TOP. These
+* observers reduce the three XMPW-referenced junction readings (TOP p+,
+* VDDIO p+, p-substrate) over the four slices as forward bias
+* (anode minus cathode) for row P4a.
+BJAMPXT JAMPX_T 0 V =
++ max(max(v(xtb.xdrv.xsl_main.top) - v(xtb.xdrv.xsl_main.xmpw),
++         v(xtb.xdrv.xsl_e0.top) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(xtb.xdrv.xsl_e1a.top) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.xmpw)))
+BJAMPXV JAMPX_V 0 V =
++ max(max(v(VDDIO) - v(xtb.xdrv.xsl_main.xmpw),
++         v(VDDIO) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(VDDIO) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(VDDIO) - v(xtb.xdrv.xsl_e1b.xmpw)))
+BJAMPXN JAMPX_N 0 V =
++ max(max(v(VSSIO) - v(xtb.xdrv.xsl_main.xmpw),
++         v(VSSIO) - v(xtb.xdrv.xsl_e0.xmpw)),
++      max(v(VSSIO) - v(xtb.xdrv.xsl_e1a.xmpw),
++          v(VSSIO) - v(xtb.xdrv.xsl_e1b.xmpw)))
+
 * --- scope control for the "every thin-oxide terminal pair" reading ------
 * The claim the record makes is that the thin-oxide devices able to see a
 * nonzero terminal voltage in the unpowered state are exactly the

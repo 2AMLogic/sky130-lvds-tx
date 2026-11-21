@@ -423,13 +423,21 @@ XMBN1 BOT BOT NBR VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 a
 + sb=0 sd=0 mult=1 m=1
 XMBN2 NBR NBR VSSIO VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0
 + sb=0 sd=0 mult=1 m=1
-XMGNA GNA VCCD BOT BOT sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
+XMGNA GNA VCCD BOT WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=2 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
 + sd=0 mult=1 m=1
-XMGNB GNB VCCD BOT BOT sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
+XMGNB GNB VCCD BOT WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=2 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
 + sd=0 mult=1 m=1
 XMGT2A GPA VCCD OUTP WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=4 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0
 + sb=0 sd=0 mult=1 m=1
 XMGT2B GPB VCCD OUTN WELL sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=4 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0
++ sb=0 sd=0 mult=1 m=1
+XMQTA TOP TOP OUTP WELL sky130_fd_pr__pfet_g5v0d10v5 L=8 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XMQTB TOP TOP OUTN WELL sky130_fd_pr__pfet_g5v0d10v5 L=8 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XMPWA XMPW VDDIO TOP XMPW sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0
++ sb=0 sd=0 mult=1 m=1
+XMPVA XMPW TOP VDDIO XMPW sky130_fd_pr__pfet_g5v0d10v5 L=0.5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0
 + sb=0 sd=0 mult=1 m=1
 .ends
 

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "requests": [
+    {
+      "index": 0,
+      "request": "request-sweep-a.json",
+      "dir": "results/issue-178/request-sweep-a",
+      "status": "inconclusive",
+      "job_id": "klt-sim-c05c05a3e845",
+      "job_ids": [
+        "klt-sim-c05c05a3e845"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 1,
+      "request": "request-sweep-b.json",
+      "dir": "results/issue-178/request-sweep-b",
+      "status": "inconclusive",
+      "job_id": "klt-sim-ad693c83a944",
+      "job_ids": [
+        "klt-sim-ad693c83a944"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 2,
+      "request": "request-ramp.json",
+      "dir": "results/issue-178/request-ramp",
+      "status": "error",
+      "job_id": "klt-sim-c649c2565fb9",
+      "job_ids": [
+        "klt-sim-c649c2565fb9"
+      ],
+      "attempts": 1,
+      "error_code": "not_launched"
+    }
+  ]
+}

@@ -810,8 +810,18 @@
       "unit": "V"
     },
     {
+      "name": "top_main_max",
+      "spice": ".meas dc top_main_max MAX v(xtb.xdrv.xsl_main.top)",
+      "unit": "V"
+    },
+    {
+      "name": "top_main_min",
+      "spice": ".meas dc top_main_min MIN v(xtb.xdrv.xsl_main.top)",
+      "unit": "V"
+    },
+    {
       "name": "ja_main_mgna_d",
-      "spice": ".meas dc ja_main_mgna_d MAX par('v(xtb.GNA) - v(xtb.xdrv.xsl_main.bot)')",
+      "spice": ".meas dc ja_main_mgna_d MAX par('v(xtb.GNA) - v(xtb.xdrv.xsl_main.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -820,7 +830,7 @@
     },
     {
       "name": "ja_main_mgnb_d",
-      "spice": ".meas dc ja_main_mgnb_d MAX par('v(xtb.GNB) - v(xtb.xdrv.xsl_main.bot)')",
+      "spice": ".meas dc ja_main_mgnb_d MAX par('v(xtb.GNB) - v(xtb.xdrv.xsl_main.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -839,6 +849,15 @@
     {
       "name": "ja_main_mbn",
       "spice": ".meas dc ja_main_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_main.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_main_mqt_d",
+      "spice": ".meas dc ja_main_mqt_d MAX par('v(xtb.xdrv.xsl_main.top) - v(xtb.xdrv.xsl_main.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -865,8 +884,18 @@
       "unit": "V"
     },
     {
+      "name": "top_e0_max",
+      "spice": ".meas dc top_e0_max MAX v(xtb.xdrv.xsl_e0.top)",
+      "unit": "V"
+    },
+    {
+      "name": "top_e0_min",
+      "spice": ".meas dc top_e0_min MIN v(xtb.xdrv.xsl_e0.top)",
+      "unit": "V"
+    },
+    {
       "name": "ja_e0_mgna_d",
-      "spice": ".meas dc ja_e0_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e0.bot)')",
+      "spice": ".meas dc ja_e0_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e0.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -875,7 +904,7 @@
     },
     {
       "name": "ja_e0_mgnb_d",
-      "spice": ".meas dc ja_e0_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e0.bot)')",
+      "spice": ".meas dc ja_e0_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e0.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -894,6 +923,15 @@
     {
       "name": "ja_e0_mbn",
       "spice": ".meas dc ja_e0_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e0.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e0_mqt_d",
+      "spice": ".meas dc ja_e0_mqt_d MAX par('v(xtb.xdrv.xsl_e0.top) - v(xtb.xdrv.xsl_e0.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -920,8 +958,18 @@
       "unit": "V"
     },
     {
+      "name": "top_e1a_max",
+      "spice": ".meas dc top_e1a_max MAX v(xtb.xdrv.xsl_e1a.top)",
+      "unit": "V"
+    },
+    {
+      "name": "top_e1a_min",
+      "spice": ".meas dc top_e1a_min MIN v(xtb.xdrv.xsl_e1a.top)",
+      "unit": "V"
+    },
+    {
       "name": "ja_e1a_mgna_d",
-      "spice": ".meas dc ja_e1a_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "spice": ".meas dc ja_e1a_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1a.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -930,7 +978,7 @@
     },
     {
       "name": "ja_e1a_mgnb_d",
-      "spice": ".meas dc ja_e1a_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "spice": ".meas dc ja_e1a_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1a.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -949,6 +997,15 @@
     {
       "name": "ja_e1a_mbn",
       "spice": ".meas dc ja_e1a_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1a.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1a_mqt_d",
+      "spice": ".meas dc ja_e1a_mqt_d MAX par('v(xtb.xdrv.xsl_e1a.top) - v(xtb.xdrv.xsl_e1a.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -975,8 +1032,18 @@
       "unit": "V"
     },
     {
+      "name": "top_e1b_max",
+      "spice": ".meas dc top_e1b_max MAX v(xtb.xdrv.xsl_e1b.top)",
+      "unit": "V"
+    },
+    {
+      "name": "top_e1b_min",
+      "spice": ".meas dc top_e1b_min MIN v(xtb.xdrv.xsl_e1b.top)",
+      "unit": "V"
+    },
+    {
       "name": "ja_e1b_mgna_d",
-      "spice": ".meas dc ja_e1b_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "spice": ".meas dc ja_e1b_mgna_d MAX par('v(xtb.XNA) - v(xtb.xdrv.xsl_e1b.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -985,7 +1052,7 @@
     },
     {
       "name": "ja_e1b_mgnb_d",
-      "spice": ".meas dc ja_e1b_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "spice": ".meas dc ja_e1b_mgnb_d MAX par('v(xtb.XNB) - v(xtb.xdrv.xsl_e1b.well)')",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -1004,6 +1071,42 @@
     {
       "name": "ja_e1b_mbn",
       "spice": ".meas dc ja_e1b_mbn MAX par('v(VSSIO) - v(xtb.xdrv.xsl_e1b.bot)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_e1b_mqt_d",
+      "spice": ".meas dc ja_e1b_mqt_d MAX par('v(xtb.xdrv.xsl_e1b.top) - v(xtb.xdrv.xsl_e1b.well)')",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_mpx_t",
+      "spice": ".meas dc ja_mpx_t MAX v(JAMPX_T)",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_mpx_v",
+      "spice": ".meas dc ja_mpx_v MAX v(JAMPX_V)",
+      "unit": "V",
+      "limits": {
+        "max": 0.3
+      },
+      "spec_row": "P4a"
+    },
+    {
+      "name": "ja_mpx_n",
+      "spice": ".meas dc ja_mpx_n MAX v(JAMPX_N)",
       "unit": "V",
       "limits": {
         "max": 0.3
@@ -1092,7 +1195,7 @@
     }
   ],
   "options": {
-    "timeout_s": 120,
+    "timeout_s": 600,
     "stage_model_inputs": true,
     "ngspice_init": [
       "set wnflag=1"

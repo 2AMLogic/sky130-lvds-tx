@@ -119,3 +119,23 @@ C {lab_pin.sym} 440 610 0 0 {name=l77 lab=GPB}
 C {lab_pin.sym} 400 580 2 0 {name=l78 lab=VCCD}
 C {lab_pin.sym} 440 550 0 0 {name=l79 lab=OUTN}
 C {lab_pin.sym} 440 580 0 0 {name=l80 lab=WELL}
+C {pfet_g5v0d10v5.sym} 200 840 0 0 {name=MQTA L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 220 870 0 0 {name=l81 lab=TOP}
+C {lab_pin.sym} 180 840 2 0 {name=l82 lab=TOP}
+C {lab_pin.sym} 220 810 0 0 {name=l83 lab=OUTP}
+C {lab_pin.sym} 220 840 0 0 {name=l84 lab=WELL}
+C {pfet_g5v0d10v5.sym} 420 840 0 0 {name=MQTB L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 440 870 0 0 {name=l85 lab=TOP}
+C {lab_pin.sym} 400 840 2 0 {name=l86 lab=TOP}
+C {lab_pin.sym} 440 810 0 0 {name=l87 lab=OUTN}
+C {lab_pin.sym} 440 840 0 0 {name=l88 lab=WELL}
+C {pfet_g5v0d10v5.sym} 1080 840 0 0 {name=MPWA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1100 870 0 0 {name=l89 lab=XMPW}
+C {lab_pin.sym} 1060 840 2 0 {name=l90 lab=VDDIO}
+C {lab_pin.sym} 1100 810 0 0 {name=l91 lab=TOP}
+C {lab_pin.sym} 1100 840 0 0 {name=l92 lab=XMPW}
+C {pfet_g5v0d10v5.sym} 1300 840 0 0 {name=MPVA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1320 870 0 0 {name=l93 lab=XMPW}
+C {lab_pin.sym} 1280 840 2 0 {name=l94 lab=TOP}
+C {lab_pin.sym} 1320 810 0 0 {name=l95 lab=VDDIO}
+C {lab_pin.sym} 1320 840 0 0 {name=l96 lab=XMPW}
