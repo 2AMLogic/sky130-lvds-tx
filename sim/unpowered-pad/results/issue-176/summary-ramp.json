@@ -1,0 +1,1673 @@
+{
+ "status": "inconclusive",
+ "corner_count": 10,
+ "passed": 6,
+ "failed": 0,
+ "inconclusive": 4,
+ "corners": [
+  {
+   "corner_id": "tt/novdd/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 4.29085e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999570915
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.83937e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999816063
+    },
+    {
+     "name": "ipadn_max",
+     "value": 2.24302e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999775698
+    },
+    {
+     "name": "ipadn_min",
+     "value": -6.83755e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999999316245
+    },
+    {
+     "name": "ivccd_max",
+     "value": 3.0051e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -2.03702e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 2.33315e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.84279e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 3.95784e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -4.06051e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.56989,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.15471,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.73019,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.21064,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.73019,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.21064,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.73019,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.21064,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 5.04201e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 5.0365e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.53096,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -5.74403e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "tt/novdd/125C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 2.13903e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009786097
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.21062e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999878938
+    },
+    {
+     "name": "ipadn_max",
+     "value": 2.17165e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009782835
+    },
+    {
+     "name": "ipadn_min",
+     "value": 3.25923e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00100000325923
+    },
+    {
+     "name": "ivccd_max",
+     "value": 4.54197e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -5.01091e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 4.15853e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -3.01998e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 5.08237e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 3.87974e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.79895,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.15492,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79988,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.16517,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79988,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.16517,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79988,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.16517,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 4.04698e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 4.04698e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.79894,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": 6.63249e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 2.21769e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.000999778231
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.25374e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999874626
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.90505e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999980949500001
+    },
+    {
+     "name": "ipadn_min",
+     "value": -2.46501e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.000999999753499
+    },
+    {
+     "name": "ivccd_max",
+     "value": 2.23533e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -1.85202e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 2.21436e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.30578e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 5.28881e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -3.97342e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.37784,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.11716,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.48209,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.06824,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.4819,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.06819,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.4819,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.06818,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 4.8658e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 4.87432e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.3765,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -1.29603e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.03838e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009896162
+    },
+    {
+     "name": "ipadp_min",
+     "value": -5.26616e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999473384
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.11357e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009888643
+    },
+    {
+     "name": "ipadn_min",
+     "value": 1.99535e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00100000199535
+    },
+    {
+     "name": "ivccd_max",
+     "value": 3.4443e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -2.32342e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 1.93695e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -6.46605e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 4.20944e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 1.19582e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.78785,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.15688,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79889,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.16655,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79889,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.16655,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79889,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.16655,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 8.37917e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 8.37912e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.78785,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": 1.33734e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 3.40986e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009996590140000001
+    },
+    {
+     "name": "ipadp_min",
+     "value": -7.45007e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999254993
+    },
+    {
+     "name": "ipadn_max",
+     "value": 3.4383e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099965617
+    },
+    {
+     "name": "ipadn_min",
+     "value": -7.32954e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999267046
+    },
+    {
+     "name": "ivccd_max",
+     "value": 6.35127e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -5.50955e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 4.84665e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.09943e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 2.73177e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -8.12518e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.7908,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.2154,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79845,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.21709,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79845,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.21709,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79845,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.21709,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 8.61728e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 8.61672e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.77442,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -5.11564e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 3.77656e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009622344
+    },
+    {
+     "name": "ipadp_min",
+     "value": -2.79477e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999720523
+    },
+    {
+     "name": "ipadn_max",
+     "value": 3.80125e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009619875
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.47774e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999852226
+    },
+    {
+     "name": "ivccd_max",
+     "value": 9.37973e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -3.05569e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 7.2574e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.30504e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 3.03876e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -5.16552e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.79968,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.13004,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79991,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.14361,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79991,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.14361,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79991,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.14361,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 2.84559e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 2.84559e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.79967,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": 9.17765e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 3.96673e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999603327
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.93049e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999806951
+    },
+    {
+     "name": "ipadn_max",
+     "value": 3.10544e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999689456
+    },
+    {
+     "name": "ipadn_min",
+     "value": -5.4294e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999945706
+    },
+    {
+     "name": "ivccd_max",
+     "value": 1.91034e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -5.24682e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 3.9266e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -2.68248e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 6.68135e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -4.37968e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.38207,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.06917,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.50513,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.08111,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.50513,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.08117,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.50513,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.08117,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 4.83737e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 4.82885e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.35844,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -3.80851e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.12983e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009887017
+    },
+    {
+     "name": "ipadp_min",
+     "value": -2.21777e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999778223
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.20323e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009879677
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.99972e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999800028
+    },
+    {
+     "name": "ivccd_max",
+     "value": 1.926e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -5.05683e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 2.27374e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -3.28805e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.36068e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 2.39661e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.7945,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.17453,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79949,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.18296,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79949,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.18296,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79949,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.18296,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 1.49795e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 1.49794e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.79449,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": 4.27661e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 6.75536e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.0009999932446400001
+    },
+    {
+     "name": "ipadp_min",
+     "value": -9.75039e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.000999999024961
+    },
+    {
+     "name": "ipadn_max",
+     "value": 6.78534e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999321466
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.9765e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999980235
+    },
+    {
+     "name": "ivccd_max",
+     "value": 7.42277e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -7.2788e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 8.01424e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -7.86982e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 7.71188e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -2.86208e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.79766,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.20089,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79956,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.21659,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79956,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.21659,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79956,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.21659,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 4.0058e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 4.00574e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.79766,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -3.06075e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 5.62928e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099437072
+    },
+    {
+     "name": "ipadp_min",
+     "value": -5.38282e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099999461718
+    },
+    {
+     "name": "ipadn_max",
+     "value": 5.62928e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.00099437072
+    },
+    {
+     "name": "ipadn_min",
+     "value": -6.46594e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": 0.000999999353406
+    },
+    {
+     "name": "ivccd_max",
+     "value": 4.38576e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -6.64053e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 1.12517e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.95405e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 6.64506e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -6.3683e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_max",
+     "value": 1.79973,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.15344,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_max",
+     "value": 1.79989,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.16894,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 1.79989,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.16894,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 1.79989,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.16894,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_t0",
+     "value": 5.62928e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadn_t0",
+     "value": 5.62928e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_hold",
+     "value": 1.79973,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ipadp_hold",
+     "value": -4.68532e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  }
+ ]
+}
