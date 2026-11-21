@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 1,
+  "summary": "T1 item 1 (Design sources): 24/24 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-1-analog-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 24,
+    "passed_count": 24,
+    "checks": [
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/ddr_mux/ddr_mux.sch",
+        "passed": true,
+        "content_hash": "sha256:13bdbdaf8e54a77a43af819a3f5d4c950e43ea026be9dcc27d7ea120e6889a3d"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/ddr_mux/ddr_mux.sym",
+        "passed": true,
+        "content_hash": "sha256:44d2186b616be2bf021e6cd8944416fb5c48e1cef5349f0768759ff49cb0fa81"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/driver.sch",
+        "passed": true,
+        "content_hash": "sha256:363c7262cf22299eb8b02d8090cec1bff7bb8c1b72ce786c82760198042269ad"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/driver.sym",
+        "passed": true,
+        "content_hash": "sha256:1a27f8a31f7bcd530b93ed0c7472495ecc2b30bd54e3981839dbee5f90039c8f"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/drv_sel.sch",
+        "passed": true,
+        "content_hash": "sha256:994b8ddc113e836dd7395d2fe62b0041823335b9c2de56489d8414f9e8e4c593"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/drv_sel.sym",
+        "passed": true,
+        "content_hash": "sha256:0807087b19bda2e88cb0d331e78402689530616018e27ebf0498623eeaf01991"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/drv_slice.sch",
+        "passed": true,
+        "content_hash": "sha256:fa68ed211ff08c804507624762dea846149d370b9fd65e201bd6b7d7bb4b6da6"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/driver/drv_slice.sym",
+        "passed": true,
+        "content_hash": "sha256:3fc4edd03bc7eb500c77f76fc56323dfc6fd2eddf16d2f3e48f07f3009d55a3f"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/lvds_tx_analog.sch",
+        "passed": true,
+        "content_hash": "sha256:56a9dff307d6aafac9c95f17c5547e32fa0d1cb528005a2fd967a1ba1b28960b"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/pad_cell/pad_cell.sch",
+        "passed": true,
+        "content_hash": "sha256:9cf100705de5e6e816773663a463d5d7bc3d71261897a77e644e5aa1a45b1aaa"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/pad_cell/pad_cell.sym",
+        "passed": true,
+        "content_hash": "sha256:8f3668bf92d526ee533c13e6f37f4e7264905c1ae7820b28d5dbed0ad66b879a"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/predriver/predriver.sch",
+        "passed": true,
+        "content_hash": "sha256:b1ff7a174db1152239bd7a7b05cd8756dbffabd8a5a7217c1e2cb11052e08bc2"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/predriver/predriver.sym",
+        "passed": true,
+        "content_hash": "sha256:c3c077319ee70504bf43a9f6ad75d1c56230e658430e4d3f12c28fcd59c9bbe5"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "design/xschemrc",
+        "passed": true,
+        "content_hash": "sha256:696656176c09226107b74d891cb45681b6574390691f4a5c8543b4aa01cd049b"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "design/ddr_mux/ddr_mux.spice",
+        "passed": true,
+        "content_hash": "sha256:8ca584c8d54bf321e50e8ead4dd6798ccc947fc8f0cd533aa2557ad186e73408"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "design/driver/driver.spice",
+        "passed": true,
+        "content_hash": "sha256:12ea39c7c8c9eda9bdd07d28a05915403e0734a23acee4de02c7a12d7c7904b9"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "design/lvds_tx_analog.spice",
+        "passed": true,
+        "content_hash": "sha256:dfd3dfb201de5efa168da0b8dc96b6880ef6ce0b825084a1ea273125ed85b1a8"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "design/pad_cell/pad_cell.spice",
+        "passed": true,
+        "content_hash": "sha256:11be4ca2e27e2f1fa4968792dd61a3af6a8bad9f7f755e344a306ff54f18e116"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "design/predriver/predriver.spice",
+        "passed": true,
+        "content_hash": "sha256:7b295174d37dec9ab5868d58567562ca5177831713e75270ace0c9f89d065986"
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "design/ddr_mux/ddr_mux.spice",
+        "generator": "klt netlist",
+        "argv": [
+          "klt",
+          "netlist",
+          "design/ddr_mux/ddr_mux.sch",
+          "-o",
+          "design/ddr_mux/ddr_mux.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "design/driver/driver.spice",
+        "generator": "klt netlist",
+        "argv": [
+          "klt",
+          "netlist",
+          "design/driver/driver.sch",
+          "-o",
+          "design/driver/driver.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "design/lvds_tx_analog.spice",
+        "generator": "klt netlist",
+        "argv": [
+          "klt",
+          "netlist",
+          "design/lvds_tx_analog.sch",
+          "-o",
+          "design/lvds_tx_analog.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "design/pad_cell/pad_cell.spice",
+        "generator": "klt netlist",
+        "argv": [
+          "klt",
+          "netlist",
+          "design/pad_cell/pad_cell.sch",
+          "-o",
+          "design/pad_cell/pad_cell.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "design/predriver/predriver.spice",
+        "generator": "klt netlist",
+        "argv": [
+          "klt",
+          "netlist",
+          "design/predriver/predriver.sch",
+          "-o",
+          "design/predriver/predriver.spice",
+          "--rcfile",
+          "design/xschemrc",
+          "--block",
+          "--backend",
+          "local",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.1",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "paths": [
+        {
+          "path": {
+            "path": "design/ddr_mux/ddr_mux.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:13bdbdaf8e54a77a43af819a3f5d4c950e43ea026be9dcc27d7ea120e6889a3d"
+        },
+        {
+          "path": {
+            "path": "design/ddr_mux/ddr_mux.spice",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:8ca584c8d54bf321e50e8ead4dd6798ccc947fc8f0cd533aa2557ad186e73408"
+        },
+        {
+          "path": {
+            "path": "design/ddr_mux/ddr_mux.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:44d2186b616be2bf021e6cd8944416fb5c48e1cef5349f0768759ff49cb0fa81"
+        },
+        {
+          "path": {
+            "path": "design/driver/driver.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:363c7262cf22299eb8b02d8090cec1bff7bb8c1b72ce786c82760198042269ad"
+        },
+        {
+          "path": {
+            "path": "design/driver/driver.spice",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:12ea39c7c8c9eda9bdd07d28a05915403e0734a23acee4de02c7a12d7c7904b9"
+        },
+        {
+          "path": {
+            "path": "design/driver/driver.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:1a27f8a31f7bcd530b93ed0c7472495ecc2b30bd54e3981839dbee5f90039c8f"
+        },
+        {
+          "path": {
+            "path": "design/driver/drv_sel.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:994b8ddc113e836dd7395d2fe62b0041823335b9c2de56489d8414f9e8e4c593"
+        },
+        {
+          "path": {
+            "path": "design/driver/drv_sel.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:0807087b19bda2e88cb0d331e78402689530616018e27ebf0498623eeaf01991"
+        },
+        {
+          "path": {
+            "path": "design/driver/drv_slice.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:fa68ed211ff08c804507624762dea846149d370b9fd65e201bd6b7d7bb4b6da6"
+        },
+        {
+          "path": {
+            "path": "design/driver/drv_slice.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:3fc4edd03bc7eb500c77f76fc56323dfc6fd2eddf16d2f3e48f07f3009d55a3f"
+        },
+        {
+          "path": {
+            "path": "design/lvds_tx_analog.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:56a9dff307d6aafac9c95f17c5547e32fa0d1cb528005a2fd967a1ba1b28960b"
+        },
+        {
+          "path": {
+            "path": "design/lvds_tx_analog.spice",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:dfd3dfb201de5efa168da0b8dc96b6880ef6ce0b825084a1ea273125ed85b1a8"
+        },
+        {
+          "path": {
+            "path": "design/pad_cell/pad_cell.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:9cf100705de5e6e816773663a463d5d7bc3d71261897a77e644e5aa1a45b1aaa"
+        },
+        {
+          "path": {
+            "path": "design/pad_cell/pad_cell.spice",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:11be4ca2e27e2f1fa4968792dd61a3af6a8bad9f7f755e344a306ff54f18e116"
+        },
+        {
+          "path": {
+            "path": "design/pad_cell/pad_cell.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:8f3668bf92d526ee533c13e6f37f4e7264905c1ae7820b28d5dbed0ad66b879a"
+        },
+        {
+          "path": {
+            "path": "design/predriver/predriver.sch",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:b1ff7a174db1152239bd7a7b05cd8756dbffabd8a5a7217c1e2cb11052e08bc2"
+        },
+        {
+          "path": {
+            "path": "design/predriver/predriver.spice",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:7b295174d37dec9ab5868d58567562ca5177831713e75270ace0c9f89d065986"
+        },
+        {
+          "path": {
+            "path": "design/predriver/predriver.sym",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:c3c077319ee70504bf43a9f6ad75d1c56230e658430e4d3f12c28fcd59c9bbe5"
+        },
+        {
+          "path": {
+            "path": "design/xschemrc",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:696656176c09226107b74d891cb45681b6574390691f4a5c8543b4aa01cd049b"
+        },
+        {
+          "path": {
+            "path": "verification/signoff/item-1-analog-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:7b0b4cb72004da74db302f27add2ebfb63a9d163baf13aa41ddc0dfd78538a3b"
+        }
+      ],
+      "content_hash": "sha256:766eb925f0ba376bc4cb36d8246624b294075518e585cd5ee9a4728df0bca2a1"
+    }
+  }
+}
