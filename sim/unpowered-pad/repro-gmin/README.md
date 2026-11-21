@@ -12,7 +12,7 @@ the `.meas` set.
 | `deck-sweepb-tt-m40-nomeas.cir` | none | no stepping attempted, clean solve |
 
 Logs from the committed decks (same ngspice build as the addendum's
-provenance table) are the accompanying `*.log` files.
+provenance table) are the accompanying `*.cir.log.txt` files.
 
 ## Run
 
