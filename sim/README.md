@@ -22,11 +22,9 @@ ngspice testbenches and PVT corner results.
 - `driver-tran/` — powered transient bench: PRBS-7 through one
   `lvds_tx_analog` into the 100 Ω ‖ 1 pF-per-side pad load, at 1 Gb/s and
   the 400 Mb/s fallback, over G75 (spec rows E5 edges, E9 eye, E4 dynamic
-  V_OS(PP), W1 analog subtotal). Simulated, against the PROPOSED spec; the
-  headline findings — E4's dynamic half fails at all 75 conditions on a
-  CMFB limit cycle, E5 mostly under the 100 ps lower bound, W1's analog
-  subtotal fits every cap — plus the open serializer share are in
-  `driver-tran/RECORD.md`.
+  V_OS(PP), W1 analog subtotal). The record gives per-pad slew times, folded
+  differential eye openings, dynamic common-mode misses and the applicable
+  power margins against the proposed spec. [Transient record](driver-tran/RECORD.md).
 
 **Provenance convention:** a `RECORD.md` provenance block's `Client` row
 klayout figure is the run's own `provenance.klayout_version` — the `klayout`

@@ -1,253 +1,214 @@
 #!/usr/bin/env python3
-"""Distil a driver-tran fleet report into a committed summary.
+"""Grade a klt sim report against the cards requested for each corner and step.
 
-  python3 summarize.py <report.json> <stim_meta.json> <rate-label> <out.json>
-
-Reads the klt sim report envelope, reconciles the grid against the 75
-distinct G75 tuples, and emits per-row pass counts, binding corners, worst
-margins, per-corner compact rows, and the bench self-checks (bit-order
-observers vs the expected PRBS bits, latency, negative-control reconciliation
-when the report carries ref/ctl steps). Records misses as misses; an errored
-measurement is a missing measurement and never a pass.
+Usage: summarize.py REPORT[.gz] STIM_META RATE_LABEL OUTPUT
+Use 1g, 400m or 400m-control. The request sits beside the stimulus metadata.
 """
 
+from collections import Counter
+import gzip
 import json
+import math
+from pathlib import Path
+import re
 import sys
 
 NOMINAL = ("tt", 27, 1.8, 3.3)
-G75_PAIRS = [(1.62, 2.97), (1.8, 3.3), (1.98, 3.63), (1.62, 3.63),
-             (1.98, 2.97)]
+EDGE = re.compile(r"m_e5_([pn])([rf])(\d+)")
+
+
+def read_json(path):
+    opener = gzip.open if str(path).endswith(".gz") else open
+    with opener(path, "rt") as stream:
+        return json.load(stream)
 
 
 def corner_key(c):
-    sup = c.get("supply_v", {})
-    return (c.get("process"), c.get("temperature_c"),
-            sup.get("VVCCD"), sup.get("VVDDIO"))
+    return (c["process"], c["temperature_c"], c["supply_v"]["VVCCD"],
+            c["supply_v"]["VVDDIO"])
 
 
 def fmt_c(k):
-    return (f"{k[0]}/{k[1]}C/{k[2]:.2f}/{k[3]:.2f}")
+    return f"{k[0]}/{k[1]}C/{k[2]:.2f}/{k[3]:.2f}"
+
+
+def measure_value(card):
+    if card.get("status") in ("pass", "fail"):
+        value = card.get("value")
+        if isinstance(value, (int, float)) and math.isfinite(value):
+            return value
+    return None
+
+
+def verdict(counts):
+    if counts["fail"]:
+        return "fail"
+    return "missing" if counts["missing"] or not counts["pass"] else "pass"
+
+
+def compare(value, limit, side):
+    margin = None
+    if value is not None:
+        margin = value - limit if side == "min" else limit - value
+    return {"value": value, "limit": limit, "margin": margin,
+            "status": "missing" if margin is None else
+                      "pass" if margin >= 0 else "fail"}
+
+
+def record_binding(binding, key, result, condition, name, unit):
+    margin = result["margin"]
+    if margin is not None and (key not in binding or margin < binding[key]["margin"]):
+        binding[key] = {**result, "condition": condition, "measurement": name,
+                        "unit": unit}
+
+
+def pad_duration(name, values, ui):
+    _, direction, bit_label = EDGE.fullmatch(name).groups()
+    bit = int(bit_label)
+    start, end = values[name+"_start"], values[name+"_end"]
+    t20, t80 = values[name+"_t20"], values[name+"_t80"]
+    if None in (start, end, t20, t80):
+        return None
+    if (direction == "r" and end <= start) or (direction == "f" and end >= start):
+        return None
+    if (bit+1)*ui <= t20 < t80 <= (bit+2)*ui:
+        return values[name]
+    return None
+
+
+def grade_step(corner, step, key, meta, binding):
+    prefix = step["name"] + "."
+    expected = [m for m in step["measurements"] if not m.get("intermediate")]
+    ran = any(s["name"] == step["name"] and s["status"] == "ok"
+              for s in corner.get("steps", []))
+    returned = {m["name"]: m for m in corner.get("measurements", [])} if ran else {}
+    values = {m["name"]: measure_value(returned.get(prefix + m["name"], {}))
+              for m in expected}
+    missing = [name for name, value in values.items() if value is None]
+    condition = fmt_c(key)
+    ui = meta["ui_s"]
+    counts = {row: Counter({"pass": 0, "fail": 0, "missing": 0})
+              for row in ("E5", "E9", "E4")}
+    metrics = {}
+    edges = {}
+    bits = Counter()
+    zeroes = [f"m_z{i}" for i in meta["crossings"]]
+    for m in expected:
+        name = m["name"]
+        value = values[name]
+        if name.startswith("m_bit"):
+            bit = meta["bits"][int(name[5:])]
+            bits["missing" if value is None else
+                 "ok" if (value > 0 if bit else value < 0) else "bad"] += 1
+        row = m.get("spec_row")
+        if row not in counts:
+            continue
+        if row == "E5":
+            value = pad_duration(name, values, ui)
+        elif name == "m_eye_h_v" and None in (values["m_eh"], values["m_el"]):
+            value = None
+        elif name == "m_eye_w_s" and any(values[n] is None for n in
+                                         ["m_phase_first", "m_phase_last", *zeroes]):
+            value = None
+        statuses = []
+        for side, limit in m["limits"].items():
+            result = compare(value, limit, side)
+            statuses.append(result["status"])
+            metric = {"m_eye_w_s": "E9.width", "m_eye_h_v": "E9.height"}.get(name, row)
+            record_binding(binding, f"{prefix}{metric}.{side}", result,
+                           condition, name, m["unit"])
+            if row != "E5":
+                metrics[metric] = {**result, "unit": m["unit"]}
+        status = "missing" if value is None else "fail" if "fail" in statuses else "pass"
+        counts[row][status] += 1
+        if row == "E5":
+            edges[name] = ("fast" if status == "fail" and value < m["limits"]["min"]
+                           else "slow" if status == "fail" else status)
+
+    power = values["m_pw_analog_mw"]
+    limits = meta["limits"]
+    power_checks = {}
+    for leg, limit in (("any", limits["w1_any_max"]),
+                       ("nominal", limits["w1_nom_max"] if key == NOMINAL else None)):
+        if limit is not None:
+            result = compare(power, limit, "max")
+            power_checks[leg] = result
+            record_binding(binding, f"{prefix}W1.subtotal.{leg}.max", result,
+                           condition, "m_pw_analog_mw", "mW")
+
+    rows = {row: verdict(count) for row, count in counts.items()}
+    rows["W1"] = "unverified"
+    return {
+        "condition": condition, "step": step["name"], "rows": rows,
+        "measurement_counts": counts, "e5_edges": dict(Counter(edges.values())),
+        "e5_unmeasurable": [n for n, st in edges.items() if st == "missing"],
+        "metrics": metrics, "crossing_phase_ui": [values["m_phase_first"], values["m_phase_last"]],
+        "analog_subtotal_mw": power, "subtotal_comparisons_mw": power_checks,
+        "bit_order": bits, "missing_measurements": missing,
+    }, edges
+
+
+def summarize(report, request, meta, rate):
+    corners = request["corners"]
+    rails = list(zip(corners["supply_v"]["VVCCD"], corners["supply_v"]["VVDDIO"], strict=True))
+    grid = [(p, t, *pair) for p in corners["process"] for t in corners["temperature_c"]
+            for pair in rails]
+    by_key = {corner_key(c): c for c in report["corners"]}
+    if len(by_key) != len(report["corners"]) or set(by_key).difference(grid):
+        raise ValueError("duplicate or unexpected condition in report")
+    binding = {}
+    conditions = []
+    step_totals = {}
+    control = []
+    steps = request["analysis_steps"]
+    for key in grid:
+        corner = by_key.get(key, {})
+        edge_results = {}
+        for step in steps:
+            entry, edges = grade_step(corner, step, key, meta, binding)
+            conditions.append(entry)
+            step_name = step["name"]
+            edge_results[step_name] = edges
+            totals = step_totals.setdefault(step_name, {
+                "rows": {}, "measurements": {}, "e5_edges": Counter(), "bit_order": Counter(),
+            })
+            for row, status in entry["rows"].items():
+                totals["rows"].setdefault(row, Counter())[status] += 1
+            for row, counts in entry["measurement_counts"].items():
+                totals["measurements"].setdefault(row, Counter()).update(counts)
+            totals["e5_edges"].update(entry["e5_edges"])
+            totals["bit_order"].update(entry["bit_order"])
+        if "ref" in edge_results:
+            # The reference may have independent fast, slow or missing edges.
+            # Only a same-pad, same-bit pass -> slow pair demonstrates detection.
+            paired = [n for n, status in edge_results["ref"].items()
+                      if status == "pass" and edge_results["ctl"][n] == "slow"]
+            control.append({"condition": fmt_c(key), "ref_pass_ctl_slow": paired,
+                            "detected_on_both_pads": {EDGE.fullmatch(n)[1] for n in paired}
+                            == {"p", "n"}})
+    summary = {
+        "bench": "sim/driver-tran", "rate": rate, "simulated": True,
+        "spec_status": "PROPOSED", "closes_no_spec_row": True,
+        "backend": report["environment"]["backend"]["resolved"],
+        "ui_s": meta["ui_s"], "window_bits": meta["window_bits"],
+        "sample_phase_s": meta["sample_phase_s"],
+        "grid": {"expected_conditions": len(grid), "distinct_tuples": len(by_key),
+                 "missing": [fmt_c(k) for k in grid if k not in by_key], "rail_pairs": rails},
+        "steps": step_totals, "binding_corners": binding,
+        "w1_total": {"status": "unverified", "missing_contribution": "serializer share "
+                     "at matching rate, activity and core corner"}, "conditions": conditions,
+    }
+    if control:
+        summary["negative_control"] = control
+    return summary
 
 
 def main():
-    report_path, meta_path, rate, out_path = sys.argv[1:5]
-    d = json.load(open(report_path))
-    meta = json.load(open(meta_path))
-    bits = meta["bits"]
-    ui = meta["ui_s"]
-    row_map = meta.get("row_map", {})
-    row_limits = {
-        "E5": {"min": meta["limits"]["e5_min"],
-               "max": meta["limits"]["e5_max"]},
-        "E9": {"min": meta["limits"]["e9_h_min"]},
-        "E4": {"max": 0.15},
-        "W1": {"max": meta["limits"]["w1_any_max"]},
-    }
-    rows = ("E5", "E9", "E4", "W1")
-
-    is_control = False
-    steps = ["seq"]
-    for c in d.get("corners", []):
-        prefixes = {m["name"].split(".", 1)[0]
-                    for m in c.get("measurements", []) if "." in m["name"]}
-        if prefixes & {"ref", "ctl"}:
-            is_control = True
-            steps = sorted(prefixes)
-        break
-
-    res = {r: {"pass": 0, "fail": 0, "error": 0} for r in rows}
-    binding = {}
-    conditions = []
-    tuples = set()
-    rail_pairs = set()
-    bit_checks = {"ok": 0, "bad": 0, "detail": []}
-    for c in d.get("corners", []):
-        k = corner_key(c)
-        tuples.add(k)
-        rail_pairs.add((k[2], k[3]))
-        row_flag = {r: None for r in rows}
-        rowval = {}
-        cond = {"condition": fmt_c(k), "status": c.get("status")}
-        for m in c.get("measurements", []):
-            n = m["name"]
-            base = n.split(".", 1)[1] if "." in n else n
-            step = n.split(".", 1)[0] if "." in n else steps[0]
-            sr = row_map.get(base)
-            st = m.get("status")
-            if sr in rows:
-                if st == "pass":
-                    res[sr]["pass"] += 1
-                elif st == "fail":
-                    res[sr]["fail"] += 1
-                else:
-                    res[sr]["error"] += 1
-                if st == "pass" and row_flag[sr] in (None, "pass"):
-                    row_flag[sr] = "pass"
-                elif st == "error" and row_flag[sr] != "fail":
-                    row_flag[sr] = "error"
-                else:
-                    row_flag[sr] = "fail"
-                mg = m.get("margin")
-                v = m.get("value")
-                lim = row_limits.get(sr, {})
-                # E5 binding: anomalous pairings (different physical features)
-                # are classified, never "binding" -- the binding corner is
-                # the worst in-class miss.
-                if sr == "E5" and v is not None and (v <= 0 or v > 2 * ui):
-                    continue
-                if v is not None and lim:
-                    span = None
-                    if lim.get("min") is not None and lim.get("max") is not None:
-                        span = lim["max"] - lim["min"]
-                    elif lim.get("min") is not None:
-                        span = lim["min"]
-                    elif lim.get("max") is not None:
-                        span = lim["max"]
-                    if span:
-                        frac = abs(mg) / abs(span)
-                        cur = binding.get((step, sr))
-                        if cur is None or frac > cur[0]:
-                            binding[(step, sr)] = (
-                                frac, fmt_c(k), base, v, mg, lim)
-            if base.startswith("m_bit"):
-                idx = int(base[5:])
-                exp = bits[idx]
-                got = m.get("value")
-                if got is None:
-                    continue
-                ok = (got > 0) == (exp == 1)
-                bit_checks["ok" if ok else "bad"] += 1
-                if not ok:
-                    bit_checks["detail"].append(
-                        {"bit": idx, "expected": exp, "vd": got,
-                         "condition": fmt_c(k)})
-            if base in ("m_eye_h_v", "m_vos_pp", "m_pw_analog_mv", "m_xlat"):
-                rowval[base] = m.get("value")
-            if base.startswith("m_e5") and "t2" not in base and "t8" not in base:
-                rowval.setdefault("e5", []).append(m.get("value"))
-        cond["rows"] = row_flag
-        cond["eye_h_v"] = rowval.get("m_eye_h_v")
-        cond["vos_pp_v"] = rowval.get("m_vos_pp")
-        cond["pw_analog_mv"] = rowval.get("m_pw_analog_mv")
-        e5v = [v for v in rowval.get("e5", []) if v is not None]
-        if e5v:
-            cond["e5_ps"] = {
-                "n": len(e5v),
-                "min": min(e5v) * 1e12,
-                "max": max(e5v) * 1e12,
-            }
-        conditions.append(cond)
-
-    # W1 nominal leg: the tt/27C/1.80/3.30 row's analog subtotal against the
-    # nominal-only limit (the envelope grades only the any-G75 cap).
-    nom_row = next((c for c in conditions
-                    if c["condition"] == fmt_c(NOMINAL)), None)
-    w1_nom = None
-    if nom_row and nom_row.get("pw_analog_mv") is not None:
-        lim = meta["limits"]["w1_nom_max"]
-        w1_nom = {"condition": fmt_c(NOMINAL),
-                  "pw_analog_mv": nom_row["pw_analog_mv"],
-                  "limit_mv": lim,
-                  "verdict": "pass" if nom_row["pw_analog_mv"] <= lim
-                  else "fail"}
-
-    lat = meta.get("latency_observer") or {}
-    # E5 edge classification: an edge time <= 0 or > 2*UI means the two
-    # td-scoped WHEN cards caught different physical features (level
-    # recrossings at a CMFB-corrupted corner) -- an anomalous pairing,
-    # recorded as such and never counted as an in-band or out-of-band edge.
-    e5_lo = meta["limits"]["e5_min"]
-    e5_hi = meta["limits"]["e5_max"]
-    e5_all = []
-    for c in d.get("corners", []):
-        for m in c.get("measurements", []):
-            base = m["name"].split(".", 1)[-1]
-            if base.startswith("m_e5") and "t2" not in base \
-                    and "t8" not in base:
-                e5_all.append((c, m))
-    e5_stats = {"in_band": 0, "fast": 0, "slow": 0, "anomalous": 0,
-                "missing": 0, "anomalous_corners": sorted({
-                    fmt_c(corner_key(c)) for c, m in e5_all
-                    if m.get("value") is not None and
-                    (m["value"] <= 0 or m["value"] > 2 * ui)})}
-    for c, m in e5_all:
-        v = m.get("value")
-        if v is None:
-            e5_stats["missing"] += 1
-        elif v <= 0 or v > 2 * ui:
-            e5_stats["anomalous"] += 1
-        elif v < e5_lo:
-            e5_stats["fast"] += 1
-        elif v > e5_hi:
-            e5_stats["slow"] += 1
-        else:
-            e5_stats["in_band"] += 1
-    summary = {
-        "bench": "sim/driver-tran",
-        "rate": rate,
-        "what": ("Powered driver transient bench: PRBS-7 into 100 ohm with "
-                 "1.0 pF per side, both DDR muxes + predriver + driver + "
-                 "CMFB + pad cells via one lvds_tx_analog instance. E5 "
-                 "(differential 20-80 % edges), E9 (eye height at the "
-                 "stated sampling phase, isolated-bit crossing-gap width), "
-                 "E4 dynamic (V_OS peak-to-peak), W1 (analog rail-power "
-                 "subtotal)."),
-        "simulated": True,
-        "measured_in_silicon": False,
-        "spec_status": "PROPOSED",
-        "closes_no_spec_row": True,
-        "closes_no_spec_row_reason": (
-            "The spec is PROPOSED, not ratified; E4 is statistical and this "
-            "bench supplies only its deterministic G75 transient half (the "
-            "Monte Carlo remains); W1's serializer share is not measured, "
-            "so total lane power is not graded here. Baseline, not a pass "
-            "claim."),
-        "grid": {
-            "expected_conditions": 75,
-            "seen_conditions": len(tuples),
-            "distinct_tuples": len(tuples),
-            "includes_crossed_pairs": all(
-                p in rail_pairs for p in [(1.62, 3.63), (1.98, 2.97)]),
-            "rail_pairs": sorted(rail_pairs),
-        },
-        "stimulus": {
-            "prbs": meta["prbs"],
-            "seed": meta["seed_hex"],
-            "period_bits": meta["period_bits"],
-            "ui_s": ui,
-            "window_bits": meta["window_bits"],
-            "window_s": meta["window_s"],
-            "sample_phase_s": meta["sample_phase_s"],
-            "input_edge_s": meta["input_edge_s"],
-        },
-        "rows": {
-            r: {"measurements_pass": res[r]["pass"],
-                "measurements_fail": res[r]["fail"],
-                "measurements_error_or_missing": res[r]["error"]}
-            for r in rows
-        },
-        "e5_edge_classification": e5_stats,
-        "binding_corners": {
-            f"{step}.{sr}": {"condition": b[1], "measurement": b[2],
-                             "value": b[3], "margin": b[4], "limits": b[5]}
-            for (step, sr), b in binding.items()},
-        "w1_nominal_leg": w1_nom,
-        "w1_serializer_share": {
-            "included": False,
-            "reason": ("flow/serializer/sta.response.json carries "
-                       "engine_default-activity estimates only; the "
-                       "gate-level serializer SPICE contribution at "
-                       "matching rate/activity/core corner is future work. "
-                       "Total lane power acceptance stays OPEN; "
-                       "pw_analog_mv is the analog subtotal."),
-        },
-        "bit_order_observers": bit_checks,
-        "latency_observer": lat,
-        "conditions": conditions,
-    }
-    json.dump(summary, open(out_path, "w"), indent=1)
-    print(f"wrote {out_path}: {len(conditions)} conditions, "
-          f"tuples={len(tuples)}, rows={ {r: (res[r]['pass'], res[r]['fail'], res[r]['error']) for r in rows} }")
+    report_path, meta_path, rate, out_path = sys.argv[1:]
+    request_label = "control" if rate.endswith("-control") else rate
+    request = read_json(Path(meta_path).with_name(f"request-{request_label}.json"))
+    summary = summarize(read_json(report_path), request, read_json(meta_path), rate)
+    Path(out_path).write_text(json.dumps(summary, indent=1, allow_nan=False) + "\n")
 
 
 if __name__ == "__main__":

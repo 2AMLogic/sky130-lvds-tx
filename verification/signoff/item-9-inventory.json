@@ -22,7 +22,10 @@
     "sim/driver-tran/request-400m.json",
     "sim/driver-tran/request-control.json",
     "sim/driver-tran/gen_bench.py",
-    "sim/driver-tran/summarize.py"
+    "sim/driver-tran/summarize.py",
+    "sim/driver-tran/stim_meta_1g.json",
+    "sim/driver-tran/stim_meta_400m.json",
+    "sim/driver-tran/test_summarize.py"
   ],
   "cold_start": {
     "argv": ["sh", "verification/signoff/cold-start.sh"],

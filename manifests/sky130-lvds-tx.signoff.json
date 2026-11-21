@@ -787,11 +787,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r6.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r7.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
+        "content_hash": "sha256:515581aa0b47d933b909b1f84044535a0ecf9fe7c6092a601aa212fa7fc31b21",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -800,15 +800,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
+          "content_hash": "sha256:515581aa0b47d933b909b1f84044535a0ecf9fe7c6092a601aa212fa7fc31b21",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 22/22 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 25/25 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 22,
-            "passed_count": 22
+            "check_count": 25,
+            "passed_count": 25
           }
         }
       }
@@ -825,11 +825,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-9-testbenches-r6.json",
+        "file": "verification/signoff/evidence/item-9-testbenches-r7.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
+        "content_hash": "sha256:515581aa0b47d933b909b1f84044535a0ecf9fe7c6092a601aa212fa7fc31b21",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -838,15 +838,15 @@
             "path": "verification/signoff/item-9-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:90c38bd95620aaa4a5b483d1e1ac99e054e4079b36a5a8bcb9ace2831eec4b59",
+          "content_hash": "sha256:515581aa0b47d933b909b1f84044535a0ecf9fe7c6092a601aa212fa7fc31b21",
           "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 22/22 attestation checks passed (klt signoff --attest)",
+          "summary": "T1 item 9 (Testbenches shipped): 25/25 attestation checks passed (klt signoff --attest)",
           "source": "verification/signoff/item-9-inventory.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 22,
-            "passed_count": 22
+            "check_count": 25,
+            "passed_count": 25
           }
         }
       }
@@ -863,7 +863,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r13.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r14.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -901,7 +901,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r13.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r14.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
