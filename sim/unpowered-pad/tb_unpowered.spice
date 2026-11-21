@@ -167,32 +167,35 @@ BTOXE1BDS TOX_E1B_DS 0 V =
 +          abs(v(PADN) - v(xtb.xdrv.xsl_e1b.bot))))
 
 * --- row P4b: the predriver's own thin-oxide output stage ----------------
-* The eight switch-gate nets are the DRAINS of thin-oxide predriver
+* The four N-side switch-gate nets are the DRAINS of thin-oxide predriver
 * inverters whose sources and bulks sit on VCCD (pfet_01v8) and VSSIO
-* (nfet_01v8). When DR-008's gate-tracking device lifts a P-side gate, that
-* stage is the thin-oxide device the lifted node is applied to, so it is in
-* the pad-reachable set and belongs in this check. Gate node per net:
+* (nfet_01v8). The four P-side switch-gate nets (GPA, GPB, XPA, XPB) are
+* isolated from their output stages by thick-oxide transmission gates
+* (DR-010 amendment of DR-008: issue #167), so the thin-oxide drains of the
+* P-side stages are the INNER nodes xtb.xpre.in_3pma / in_3pmb / in_3pea /
+* in_3peb, and those -- not the lifted switch-gate nets -- are what is
+* graded here. Gate node per net:
 *   GPA, GNA <- s2_ma      GPB, GNB <- s2_mb
 *   XPA, XNA <- s2_ea      XPB, XNB <- s2_eb
 * TOX_PRE_OX is the worst gate-referenced pair of that stage (g-d, and g-s
 * / g-b against both rails); TOX_PRE_DS is the worst drain-to-rail pair,
 * which is also the p+/n-well junction reported under P4a.
 BTOXPREOX TOX_PRE_OX 0 V =
-+ max(max(max(abs(v(xtb.xpre.s2_ma) - v(xtb.GPA)),
++ max(max(max(abs(v(xtb.xpre.s2_ma) - v(xtb.xpre.in_3pma)),
 +              abs(v(xtb.xpre.s2_ma) - v(xtb.GNA))),
-+          max(abs(v(xtb.xpre.s2_mb) - v(xtb.GPB)),
++          max(abs(v(xtb.xpre.s2_mb) - v(xtb.xpre.in_3pmb)),
 +              abs(v(xtb.xpre.s2_mb) - v(xtb.GNB)))),
-+      max(max(max(abs(v(xtb.xpre.s2_ea) - v(xtb.XPA)),
++      max(max(max(abs(v(xtb.xpre.s2_ea) - v(xtb.xpre.in_3pea)),
 +                  abs(v(xtb.xpre.s2_ea) - v(xtb.XNA))),
-+              max(abs(v(xtb.xpre.s2_eb) - v(xtb.XPB)),
++              max(abs(v(xtb.xpre.s2_eb) - v(xtb.xpre.in_3peb)),
 +                  abs(v(xtb.xpre.s2_eb) - v(xtb.XNB)))),
 +          max(max(abs(v(xtb.xpre.s2_ma) - v(VCCD)),
 +                  abs(v(xtb.xpre.s2_mb) - v(VCCD))),
 +              max(abs(v(xtb.xpre.s2_ea) - v(VCCD)),
 +                  abs(v(xtb.xpre.s2_eb) - v(VCCD))))))
 BTOXPREDS TOX_PRE_DS 0 V =
-+ max(max(max(abs(v(xtb.GPA) - v(VCCD)), abs(v(xtb.GPB) - v(VCCD))),
-+          max(abs(v(xtb.XPA) - v(VCCD)), abs(v(xtb.XPB) - v(VCCD)))),
++ max(max(max(abs(v(xtb.xpre.in_3pma) - v(VCCD)), abs(v(xtb.xpre.in_3pmb) - v(VCCD))),
++          max(abs(v(xtb.xpre.in_3pea) - v(VCCD)), abs(v(xtb.xpre.in_3peb) - v(VCCD)))),
 +      max(max(abs(v(xtb.GNA) - v(VSSIO)), abs(v(xtb.GNB) - v(VSSIO))),
 +          max(abs(v(xtb.XNA) - v(VSSIO)), abs(v(xtb.XNB) - v(VSSIO)))))
 

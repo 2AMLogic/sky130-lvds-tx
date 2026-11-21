@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "requests": [
+    {
+      "index": 0,
+      "request": "request-sweep-a.json",
+      "dir": "results/issue-177/unpowered-envelope.json.tmp/request-sweep-a",
+      "status": "inconclusive",
+      "job_id": "klt-sim-e8ceb178f9c5",
+      "job_ids": [
+        "klt-sim-e8ceb178f9c5"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 1,
+      "request": "request-sweep-b.json",
+      "dir": "results/issue-177/unpowered-envelope.json.tmp/request-sweep-b",
+      "status": "inconclusive",
+      "job_id": "klt-sim-232404813da0",
+      "job_ids": [
+        "klt-sim-232404813da0"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 2,
+      "request": "request-trace-a.json",
+      "dir": "results/issue-177/unpowered-envelope.json.tmp/request-trace-a",
+      "status": "inconclusive",
+      "job_id": "klt-sim-74322253f5db",
+      "job_ids": [
+        "klt-sim-74322253f5db"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 3,
+      "request": "request-trace-b.json",
+      "dir": "results/issue-177/unpowered-envelope.json.tmp/request-trace-b",
+      "status": "inconclusive",
+      "job_id": "klt-sim-ca5045ebdbdd",
+      "job_ids": [
+        "klt-sim-ca5045ebdbdd"
+      ],
+      "attempts": 1
+    }
+  ]
+}

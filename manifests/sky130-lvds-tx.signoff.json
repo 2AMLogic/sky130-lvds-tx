@@ -34,17 +34,17 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-1-analog-design-sources-r2.json",
+        "file": "verification/signoff/evidence/item-1-analog-design-sources-r5.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f",
+        "content_hash": "sha256:766eb925f0ba376bc4cb36d8246624b294075518e585cd5ee9a4728df0bca2a1",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
           "path": null,
-          "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f",
+          "content_hash": "sha256:766eb925f0ba376bc4cb36d8246624b294075518e585cd5ee9a4728df0bca2a1",
           "input_verified": true,
           "members": [
             {
@@ -76,7 +76,7 @@
                 "path": "design/driver/driver.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:6468c5407839a05f20bd1448c044c05af2476dfee5948764ad81d28d43154716",
+              "content_hash": "sha256:363c7262cf22299eb8b02d8090cec1bff7bb8c1b72ce786c82760198042269ad",
               "status": "verified"
             },
             {
@@ -84,7 +84,7 @@
                 "path": "design/driver/driver.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:5f008c909faf1fe3d3cc5dd43a9146fa5db9a7cf605634fbf37f912075959137",
+              "content_hash": "sha256:12ea39c7c8c9eda9bdd07d28a05915403e0734a23acee4de02c7a12d7c7904b9",
               "status": "verified"
             },
             {
@@ -116,7 +116,7 @@
                 "path": "design/driver/drv_slice.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:8832efcfe02c14ae48a53c3c103b871c70207e6fa82a30a71951bb06a99ec07d",
+              "content_hash": "sha256:fa68ed211ff08c804507624762dea846149d370b9fd65e201bd6b7d7bb4b6da6",
               "status": "verified"
             },
             {
@@ -140,7 +140,7 @@
                 "path": "design/lvds_tx_analog.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:b90b61fd221bb1d46e3a4aad0b670331218d43be473d03a08ab84e86af19d28f",
+              "content_hash": "sha256:dfd3dfb201de5efa168da0b8dc96b6880ef6ce0b825084a1ea273125ed85b1a8",
               "status": "verified"
             },
             {
@@ -172,7 +172,7 @@
                 "path": "design/predriver/predriver.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:c21cf99165271f3ed75c195efea9745893256d437afe9fad22b6880002828cff",
+              "content_hash": "sha256:b1ff7a174db1152239bd7a7b05cd8756dbffabd8a5a7217c1e2cb11052e08bc2",
               "status": "verified"
             },
             {
@@ -180,7 +180,7 @@
                 "path": "design/predriver/predriver.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:5397b8ae9637c1d2697c871511cf068c9ae6fb18fbed869afaa7cb4ab8bb0084",
+              "content_hash": "sha256:7b295174d37dec9ab5868d58567562ca5177831713e75270ace0c9f89d065986",
               "status": "verified"
             },
             {
@@ -863,7 +863,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r14.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -901,7 +901,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r14.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
