@@ -16,6 +16,7 @@ only on human merge approval, recorded in the header of `target-spec.md`
 | [`decision-records/DR-006-rate-lane-count-and-slow-corner-budget.md`](decision-records/DR-006-rate-lane-count-and-slow-corner-budget.md) | rate and lane targets; first-order slow-corner edge and timing budget |
 | [`decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md`](decision-records/DR-007-bit-clock-sourcing-and-pll-gap.md) | bit-clock requirement, the gap to `sky130-pll`, and the filed requirement |
 | [`decision-records/DR-008-unpowered-behaviour-fail-safe-well-biasing.md`](decision-records/DR-008-unpowered-behaviour-fail-safe-well-biasing.md) | operator ruling (2026-10-20): P4 kept as a joint pad-and-driver requirement; fail-safe floating-well biasing specified; rows P4–P4b |
+| [`decision-records/DR-010-predriver-isolation-amends-dr008.md`](decision-records/DR-010-predriver-isolation-amends-dr008.md) | proposed (issue #167): predriver P-side output stage isolated by thick-oxide transmission gates in floating wells; amends DR-008 §2/§4; rows unchanged |
 
 Placement follows what a record decides, not its date: a record that decides
 something the target spec decides goes in [`decision-records/`](decision-records/)
