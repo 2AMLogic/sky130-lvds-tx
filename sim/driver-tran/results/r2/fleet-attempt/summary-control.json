@@ -1,0 +1,449 @@
+{
+ "bench": "sim/driver-tran",
+ "rate": "400m-control",
+ "simulated": true,
+ "spec_status": "PROPOSED",
+ "closes_no_spec_row": true,
+ "backend": "batch",
+ "ui_s": 2.5e-09,
+ "window_bits": [
+  127,
+  253
+ ],
+ "sample_phase_s": 3.6e-10,
+ "grid": {
+  "expected_conditions": 1,
+  "distinct_tuples": 1,
+  "missing": [],
+  "rail_pairs": [
+   [
+    1.8,
+    3.3
+   ]
+  ]
+ },
+ "steps": {
+  "ref": {
+   "rows": {
+    "E5": {
+     "fail": 1
+    },
+    "E9": {
+     "pass": 1
+    },
+    "E4": {
+     "fail": 1
+    },
+    "W1": {
+     "unverified": 1
+    }
+   },
+   "measurements": {
+    "E5": {
+     "pass": 66,
+     "fail": 57,
+     "missing": 5
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 5,
+    "slow": 10,
+    "fast": 47,
+    "pass": 66
+   },
+   "bit_order": {
+    "ok": 9
+   }
+  },
+  "ctl": {
+   "rows": {
+    "E5": {
+     "fail": 1
+    },
+    "E9": {
+     "pass": 1
+    },
+    "E4": {
+     "fail": 1
+    },
+    "W1": {
+     "unverified": 1
+    }
+   },
+   "measurements": {
+    "E5": {
+     "pass": 12,
+     "fail": 116,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "slow": 116,
+    "pass": 12
+   },
+   "bit_order": {
+    "ok": 9
+   }
+  }
+ },
+ "binding_corners": {
+  "ref.E9.height.min": {
+   "value": 0.6050692,
+   "limit": 0.12,
+   "margin": 0.4850692,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_h_v",
+   "unit": "V"
+  },
+  "ref.E5.min": {
+   "value": 6e-13,
+   "limit": 1e-10,
+   "margin": -9.94e-11,
+   "status": "fail",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5_nf245",
+   "unit": "s"
+  },
+  "ref.E5.max": {
+   "value": 1.3909e-09,
+   "limit": 1e-09,
+   "margin": -3.9089999999999996e-10,
+   "status": "fail",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5_pr199",
+   "unit": "s"
+  },
+  "ref.E9.width.min": {
+   "value": 2.478584e-09,
+   "limit": 1.5e-09,
+   "margin": 9.78584e-10,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_w_s",
+   "unit": "s"
+  },
+  "ref.E4.max": {
+   "value": 0.6004256,
+   "limit": 0.15,
+   "margin": -0.4504256,
+   "status": "fail",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_vos_pp",
+   "unit": "V"
+  },
+  "ref.W1.subtotal.nominal.max": {
+   "value": 12.17861,
+   "limit": 18.0,
+   "margin": 5.821389999999999,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_pw_analog_mw",
+   "unit": "mW"
+  },
+  "ctl.E9.height.min": {
+   "value": 0.2342371,
+   "limit": 0.12,
+   "margin": 0.11423710000000001,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_h_v",
+   "unit": "V"
+  },
+  "ctl.E5.min": {
+   "value": 8.897e-10,
+   "limit": 1e-10,
+   "margin": 7.897000000000001e-10,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5_pf158",
+   "unit": "s"
+  },
+  "ctl.E5.max": {
+   "value": 1.1598e-09,
+   "limit": 1e-09,
+   "margin": -1.598e-10,
+   "status": "fail",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5_nr158",
+   "unit": "s"
+  },
+  "ctl.E9.width.min": {
+   "value": 2.340233e-09,
+   "limit": 1.5e-09,
+   "margin": 8.40233e-10,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_w_s",
+   "unit": "s"
+  },
+  "ctl.E4.max": {
+   "value": 0.2097084,
+   "limit": 0.15,
+   "margin": -0.059708399999999995,
+   "status": "fail",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_vos_pp",
+   "unit": "V"
+  },
+  "ctl.W1.subtotal.nominal.max": {
+   "value": 12.29653,
+   "limit": 18.0,
+   "margin": 5.703469999999999,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_pw_analog_mw",
+   "unit": "mW"
+  }
+ },
+ "w1_total": {
+  "status": "unverified",
+  "missing_contribution": "serializer share at matching rate, activity and core corner"
+ },
+ "conditions": [
+  {
+   "condition": "tt/27C/1.80/3.30",
+   "step": "ref",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 66,
+     "fail": 57,
+     "missing": 5
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 5,
+    "slow": 10,
+    "fast": 47,
+    "pass": 66
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf127",
+    "m_e5_pf134",
+    "m_e5_pf206",
+    "m_e5_nf226",
+    "m_e5_nf232"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6050692,
+     "limit": 0.12,
+     "margin": 0.4850692,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 2.478584e-09,
+     "limit": 1.5e-09,
+     "margin": 9.78584e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.6004256,
+     "limit": 0.15,
+     "margin": -0.4504256,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.1567122,
+    0.1652786
+   ],
+   "analog_subtotal_mw": 12.17861,
+   "subtotal_comparisons_mw": {
+    "nominal": {
+     "value": 12.17861,
+     "limit": 18.0,
+     "margin": 5.821389999999999,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf127",
+    "m_e5_pf134",
+    "m_e5_pf206",
+    "m_e5_nf226",
+    "m_e5_nf232"
+   ]
+  },
+  {
+   "condition": "tt/27C/1.80/3.30",
+   "step": "ctl",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 12,
+     "fail": 116,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "slow": 116,
+    "pass": 12
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2342371,
+     "limit": 0.12,
+     "margin": 0.11423710000000001,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 2.340233e-09,
+     "limit": 1.5e-09,
+     "margin": 8.40233e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2097084,
+     "limit": 0.15,
+     "margin": -0.059708399999999995,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3755341,
+    0.439441
+   ],
+   "analog_subtotal_mw": 12.29653,
+   "subtotal_comparisons_mw": {
+    "nominal": {
+     "value": 12.29653,
+     "limit": 18.0,
+     "margin": 5.703469999999999,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  }
+ ],
+ "negative_control": [
+  {
+   "condition": "tt/27C/1.80/3.30",
+   "ref_pass_ctl_slow": [
+    "m_e5_nr134",
+    "m_e5_pr139",
+    "m_e5_nf139",
+    "m_e5_nr141",
+    "m_e5_nf145",
+    "m_e5_pr147",
+    "m_e5_pf148",
+    "m_e5_nf151",
+    "m_e5_pf155",
+    "m_e5_nr158",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_pr167",
+    "m_e5_nf167",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nf176",
+    "m_e5_pf181",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_pr187",
+    "m_e5_nf187",
+    "m_e5_pr193",
+    "m_e5_pf194",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pf204",
+    "m_e5_pr205",
+    "m_e5_nf205",
+    "m_e5_pr207",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_pf214",
+    "m_e5_nr214",
+    "m_e5_nf215",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_pf222",
+    "m_e5_pf227",
+    "m_e5_nr227",
+    "m_e5_nf228",
+    "m_e5_pf231",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_pr237",
+    "m_e5_nf237",
+    "m_e5_nr239",
+    "m_e5_pf242",
+    "m_e5_nf243",
+    "m_e5_pf244",
+    "m_e5_nr244",
+    "m_e5_pf246",
+    "m_e5_nr246",
+    "m_e5_nf247"
+   ],
+   "detected_on_both_pads": true
+  }
+ ]
+}

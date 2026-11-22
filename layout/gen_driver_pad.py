@@ -529,6 +529,55 @@ def build_supplies(ly, top, bands, gateways, pair_w):
         if net == "VSSIO":
             box(ly, top, L_MET5, spine_r[0], round(ys[0] / 0.005) * 0.005 - h, spine_r[1], round(ys[-1] / 0.005) * 0.005 + h)
 
+# ---- met5 completion at the pair's two free ends (issue #165) ----
+# The stock frame carries met5 stripes on its free edges (x 0-0.965 and
+# 74.035-75 um per cell) that are 0.97-1.27 um wide against met5.width.1's
+# 1.6 um, the 0.97 um one also 3.13 um^2 against met5.area.1's 4.0 um^2.
+# Abutment closes the pair's interior edge; the two free ends keep the
+# findings (the r3 report's 26 met5 markers). The supply straps above already
+# merge the stripes inside their own bands; every other edge stripe is
+# completed here by one parent-level met5 box extending it outward past its
+# free edge, so the merged shape clears both rules. The stock cell itself
+# stays unmodified (DR-001), and one box per stripe joins nothing: stripes
+# that overlap in y are already one shape (one net), so extensions of
+# different-net stripes stay disjoint.
+MET5_MIN_W_UM = 1.6
+MET5_MIN_AREA_UM2 = 4.0
+EDGE_TARGET_W_UM = 1.8      # width rule + 0.2 um margin
+EDGE_TARGET_AREA_UM2 = 4.4  # area rule + 0.4 um^2 margin
+
+def complete_met5_edges(ly, top, frame, pair_w):
+    """Extend the stock frame's free-end met5 stripes outward to meet the
+    met5 width and area rules; parent-level boxes in `top` only. A stripe a
+    supply strap crosses only partly keeps narrow arms outside the strap
+    band, so every edge stripe narrower than the rule is extended, and an
+    extension that happens to overlap a strap of the same supply is already
+    merged with it and changes nothing."""
+    m5 = ly.layer(*L_MET5)
+    cell_w = int(round(75.0 / ly.dbu))
+    it = frame.begin_shapes_rec(m5)
+    while not it.at_end():
+        sh = it.shape()
+        if not sh.is_text():
+            b = sh.bbox()
+            if b.left <= 0 and b.right < cell_w // 2:
+                side = -1                          # PADP's left edge, global x = 0
+            elif b.right >= cell_w and b.left > cell_w // 2:
+                side = 1                           # PADN's right edge, global x = 75..150
+            else:
+                side = None
+            if side is not None:
+                w = b.width() * ly.dbu
+                hgt = b.height() * ly.dbu
+                need = max(EDGE_TARGET_W_UM - w, EDGE_TARGET_AREA_UM2 / hgt - w, 0.0)
+                if need > 0:
+                    e = snap_up(need, 0.005)
+                    if side < 0:
+                        box(ly, top, L_MET5, -e, b.bottom * ly.dbu, 0.0, b.top * ly.dbu)
+                    else:
+                        box(ly, top, L_MET5, pair_w, b.bottom * ly.dbu, pair_w + e, b.top * ly.dbu)
+        it.next()
+
 def main():
     ly = pya.Layout()
     ly.dbu = 0.001
@@ -571,6 +620,7 @@ def main():
             gateways.setdefault(n, []).append((dx + gx, gy))
         x = dx + cell.dbbox().right + BLOCK_GAP_UM
     build_supplies(ly, top, bands, gateways, 2 * PAD_PITCH_UM)
+    complete_met5_edges(ly, top, frame, 2 * PAD_PITCH_UM)
 
     opts = pya.SaveLayoutOptions()
     opts.format = "GDS2"

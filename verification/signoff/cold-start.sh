@@ -19,4 +19,8 @@ trap 'rm -rf "$scratch"' EXIT
 
 uv run --no-project --with-requirements verification/serializer/requirements.txt \
     python verification/serializer/runner.py --out "$scratch/serializer.json"
-klt sim sim/pdk-smoke/request.json --wait-for-capacity 600 -o "$scratch/sim" --report-out "$scratch/sim-report.json"
+set -- sim/pdk-smoke/request.json -o "$scratch/sim" --report-out "$scratch/sim-report.json"
+if [ "${KLT_SIM_BACKEND:-}" = batch ]; then
+    set -- "$@" --wait-for-capacity 600
+fi
+klt sim "$@"
