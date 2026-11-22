@@ -1,0 +1,1284 @@
+{
+ "status": "pass",
+ "corner_count": 75,
+ "passed": 75,
+ "failed": 0,
+ "inconclusive": 0,
+ "corners": [
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3360238,
+    "v_od_0": 0.3360238,
+    "v_os_1": 1.248422,
+    "v_os_0": 1.248422,
+    "v_os_reg_1": 1.248422,
+    "v_os_reg_0": 1.248422,
+    "dv_od": -9.95274e-09,
+    "dv_os": -5.24558e-11,
+    "ishunt_p1": 7.085916e-12,
+    "ishunt_n1": 5.405066e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3393616,
+    "v_od_0": 0.3393616,
+    "v_os_1": 1.247483,
+    "v_os_0": 1.247483,
+    "v_os_reg_1": 1.247483,
+    "v_os_reg_0": 1.247483,
+    "dv_od": 4.918181e-10,
+    "dv_os": 2.332357e-11,
+    "ishunt_p1": 8.57602e-12,
+    "ishunt_n1": 6.731878e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3446353,
+    "v_od_0": 0.3446353,
+    "v_os_1": 1.245571,
+    "v_os_0": 1.245571,
+    "v_os_reg_1": 1.245571,
+    "v_os_reg_0": 1.245571,
+    "dv_od": -1.44293e-10,
+    "dv_os": 2.940226e-11,
+    "ishunt_p1": 1.350731e-09,
+    "ishunt_n1": 1.297725e-09
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3460734,
+    "v_od_0": 0.3460734,
+    "v_os_1": 1.246707,
+    "v_os_0": 1.246707,
+    "v_os_reg_1": 1.246707,
+    "v_os_reg_0": 1.246707,
+    "dv_od": 3.099521e-12,
+    "dv_os": 2.462874e-11,
+    "ishunt_p1": 7.102474e-12,
+    "ishunt_n1": 5.371353e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3494688,
+    "v_od_0": 0.3494688,
+    "v_os_1": 1.245395,
+    "v_os_0": 1.245395,
+    "v_os_reg_1": 1.245395,
+    "v_os_reg_0": 1.245395,
+    "dv_od": 2.604563e-10,
+    "dv_os": -3.49698e-12,
+    "ishunt_p1": 8.592098e-12,
+    "ishunt_n1": 6.692967e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.354931,
+    "v_od_0": 0.354931,
+    "v_os_1": 1.242907,
+    "v_os_0": 1.242907,
+    "v_os_reg_1": 1.242907,
+    "v_os_reg_0": 1.242907,
+    "dv_od": -1.48196e-10,
+    "dv_os": 1.096456e-11,
+    "ishunt_p1": 1.351102e-09,
+    "ishunt_n1": 1.296481e-09
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3549797,
+    "v_od_0": 0.3549797,
+    "v_os_1": 1.245232,
+    "v_os_0": 1.245232,
+    "v_os_reg_1": 1.245232,
+    "v_os_reg_0": 1.245232,
+    "dv_od": 2.98982e-10,
+    "dv_os": 4.791034e-11,
+    "ishunt_p1": 7.117373e-12,
+    "ishunt_n1": 5.341702e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.358165,
+    "v_od_0": 0.358165,
+    "v_os_1": 1.243619,
+    "v_os_0": 1.243619,
+    "v_os_reg_1": 1.243619,
+    "v_os_reg_0": 1.243619,
+    "dv_od": -1.59407e-10,
+    "dv_os": 5.576872e-12,
+    "ishunt_p1": 8.606043e-12,
+    "ishunt_n1": 6.659598e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3635332,
+    "v_od_0": 0.3635332,
+    "v_os_1": 1.240684,
+    "v_os_0": 1.240684,
+    "v_os_reg_1": 1.240684,
+    "v_os_reg_0": 1.240684,
+    "dv_od": -3.10654e-10,
+    "dv_os": -1.68821e-11,
+    "ishunt_p1": 1.351412e-09,
+    "ishunt_n1": 1.2955e-09
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3556557,
+    "v_od_0": 0.3556557,
+    "v_os_1": 1.245261,
+    "v_os_0": 1.245261,
+    "v_os_reg_1": 1.245261,
+    "v_os_reg_0": 1.245261,
+    "dv_od": 1.58431e-09,
+    "dv_os": -2.46674e-11,
+    "ishunt_p1": 7.119206e-12,
+    "ishunt_n1": 5.340153e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3586478,
+    "v_od_0": 0.3586478,
+    "v_os_1": 1.243671,
+    "v_os_0": 1.243671,
+    "v_os_reg_1": 1.243671,
+    "v_os_reg_0": 1.243671,
+    "dv_od": -1.07828e-10,
+    "dv_os": -1.967e-11,
+    "ishunt_p1": 8.607632e-12,
+    "ishunt_n1": 6.658564e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.620_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3636682,
+    "v_od_0": 0.3636682,
+    "v_os_1": 1.240811,
+    "v_os_0": 1.240811,
+    "v_os_reg_1": 1.240811,
+    "v_os_reg_0": 1.240811,
+    "dv_od": 1.471734e-11,
+    "dv_os": 2.58833e-11,
+    "ishunt_p1": 1.351441e-09,
+    "ishunt_n1": 1.29551e-09
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3350755,
+    "v_od_0": 0.3350755,
+    "v_os_1": 1.24839,
+    "v_os_0": 1.24839,
+    "v_os_reg_1": 1.24839,
+    "v_os_reg_0": 1.24839,
+    "dv_od": -1.17803e-10,
+    "dv_os": -2.23965e-11,
+    "ishunt_p1": 7.083384e-12,
+    "ishunt_n1": 5.407277e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3386994,
+    "v_od_0": 0.3386994,
+    "v_os_1": 1.247427,
+    "v_os_0": 1.247427,
+    "v_os_reg_1": 1.247427,
+    "v_os_reg_0": 1.247427,
+    "dv_od": 2.558762e-10,
+    "dv_os": -2.27094e-11,
+    "ishunt_p1": 8.573918e-12,
+    "ishunt_n1": 6.733373e-12
+   }
+  },
+  {
+   "corner_id": "tt/VVCCD=1.980_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3442638,
+    "v_od_0": 0.3442638,
+    "v_os_1": 1.245437,
+    "v_os_0": 1.245437,
+    "v_os_reg_1": 1.245437,
+    "v_os_reg_0": 1.245437,
+    "dv_od": 3.365175e-11,
+    "dv_os": -2.20994e-11,
+    "ishunt_p1": 1.350683e-09,
+    "ishunt_n1": 1.297734e-09
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.340041,
+    "v_od_0": 0.340041,
+    "v_os_1": 1.247673,
+    "v_os_0": 1.247673,
+    "v_os_reg_1": 1.247673,
+    "v_os_reg_0": 1.247673,
+    "dv_od": 1.612261e-09,
+    "dv_os": 2.434031e-11,
+    "ishunt_p1": 7.092793e-12,
+    "ishunt_n1": 5.391876e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3437087,
+    "v_od_0": 0.3437087,
+    "v_os_1": 1.246483,
+    "v_os_0": 1.246483,
+    "v_os_reg_1": 1.246483,
+    "v_os_reg_0": 1.246483,
+    "dv_od": -2.40038e-10,
+    "dv_os": -1.49509e-11,
+    "ishunt_p1": 9.784478e-12,
+    "ishunt_n1": 7.7954e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3491252,
+    "v_od_0": 0.3491252,
+    "v_os_1": 1.244111,
+    "v_os_0": 1.244111,
+    "v_os_reg_1": 1.244111,
+    "v_os_reg_0": 1.244111,
+    "dv_od": -6.04539e-12,
+    "dv_os": 4.916734e-12,
+    "ishunt_p1": 1.786512e-09,
+    "ishunt_n1": 1.688727e-09
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.800_VVDDIO=3.300V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3502846,
+    "v_od_0": 0.3502846,
+    "v_os_1": 1.246024,
+    "v_os_0": 1.246024,
+    "v_os_reg_1": 1.246024,
+    "v_os_reg_0": 1.246024,
+    "dv_od": -3.7474e-11,
+    "dv_os": -7.9543e-12,
+    "ishunt_p1": 7.110161e-12,
+    "ishunt_n1": 5.358004e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.800_VVDDIO=3.300V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3537875,
+    "v_od_0": 0.3537875,
+    "v_os_1": 1.244489,
+    "v_os_0": 1.244489,
+    "v_os_reg_1": 1.244489,
+    "v_os_reg_0": 1.244489,
+    "dv_od": -3.12705e-11,
+    "dv_os": -4.86056e-12,
+    "ishunt_p1": 9.802019e-12,
+    "ishunt_n1": 7.754482e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.800_VVDDIO=3.300V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3595355,
+    "v_od_0": 0.3595355,
+    "v_os_1": 1.241604,
+    "v_os_0": 1.241604,
+    "v_os_reg_1": 1.241604,
+    "v_os_reg_0": 1.241604,
+    "dv_od": 1.969314e-10,
+    "dv_os": 4.018341e-11,
+    "ishunt_p1": 1.787229e-09,
+    "ishunt_n1": 1.686602e-09
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3592679,
+    "v_od_0": 0.3592679,
+    "v_os_1": 1.244592,
+    "v_os_0": 1.244592,
+    "v_os_reg_1": 1.244592,
+    "v_os_reg_0": 1.244592,
+    "dv_od": 5.193668e-11,
+    "dv_os": 9.681589e-12,
+    "ishunt_p1": 7.125467e-12,
+    "ishunt_n1": 5.328375e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3625236,
+    "v_od_0": 0.3625236,
+    "v_os_1": 1.242776,
+    "v_os_0": 1.242776,
+    "v_os_reg_1": 1.242776,
+    "v_os_reg_0": 1.242776,
+    "dv_od": -1.7492e-10,
+    "dv_os": 1.922662e-11,
+    "ishunt_p1": 9.817305e-12,
+    "ishunt_n1": 7.719092e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3681834,
+    "v_od_0": 0.3681834,
+    "v_os_1": 1.239478,
+    "v_os_0": 1.239478,
+    "v_os_reg_1": 1.239478,
+    "v_os_reg_0": 1.239478,
+    "dv_od": 2.682388e-10,
+    "dv_os": -2.98259e-11,
+    "ishunt_p1": 1.787894e-09,
+    "ishunt_n1": 1.684772e-09
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3595821,
+    "v_od_0": 0.3595821,
+    "v_os_1": 1.244612,
+    "v_os_0": 1.244612,
+    "v_os_reg_1": 1.244612,
+    "v_os_reg_0": 1.244612,
+    "dv_od": 3.860424e-09,
+    "dv_os": 5.765233e-11,
+    "ishunt_p1": 7.126354e-12,
+    "ishunt_n1": 5.32769e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3627865,
+    "v_od_0": 0.3627865,
+    "v_os_1": 1.242811,
+    "v_os_0": 1.242811,
+    "v_os_reg_1": 1.242811,
+    "v_os_reg_0": 1.242811,
+    "dv_od": 2.357463e-10,
+    "dv_os": 5.116596e-11,
+    "ishunt_p1": 9.818265e-12,
+    "ishunt_n1": 7.718532e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.620_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3678527,
+    "v_od_0": 0.3678527,
+    "v_os_1": 1.239557,
+    "v_os_0": 1.239557,
+    "v_os_reg_1": 1.239557,
+    "v_os_reg_0": 1.239557,
+    "dv_od": 5.178267e-10,
+    "dv_os": 1.255218e-11,
+    "ishunt_p1": 1.787871e-09,
+    "ishunt_n1": 1.684841e-09
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3396305,
+    "v_od_0": 0.3396305,
+    "v_os_1": 1.247651,
+    "v_os_0": 1.247651,
+    "v_os_reg_1": 1.247651,
+    "v_os_reg_0": 1.247651,
+    "dv_od": -2.1914e-11,
+    "dv_os": 4.495737e-12,
+    "ishunt_p1": 7.091655e-12,
+    "ishunt_n1": 5.392791e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3433508,
+    "v_od_0": 0.3433508,
+    "v_os_1": 1.246445,
+    "v_os_0": 1.246445,
+    "v_os_reg_1": 1.246445,
+    "v_os_reg_0": 1.246445,
+    "dv_od": -9.13729e-11,
+    "dv_os": -4.58522e-13,
+    "ishunt_p1": 9.783224e-12,
+    "ishunt_n1": 7.796216e-12
+   }
+  },
+  {
+   "corner_id": "ff/VVCCD=1.980_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3492263,
+    "v_od_0": 0.3492263,
+    "v_os_1": 1.244027,
+    "v_os_0": 1.244027,
+    "v_os_reg_1": 1.244027,
+    "v_os_reg_0": 1.244027,
+    "dv_od": -1.06897e-11,
+    "dv_os": -5.96552e-11,
+    "ishunt_p1": 1.786503e-09,
+    "ishunt_n1": 1.688689e-09
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3314694,
+    "v_od_0": 0.3314693,
+    "v_os_1": 1.249186,
+    "v_os_0": 1.249186,
+    "v_os_reg_1": 1.249186,
+    "v_os_reg_0": 1.249186,
+    "dv_od": 3.728391e-08,
+    "dv_os": 5.071654e-11,
+    "ishunt_p1": 7.078076e-12,
+    "ishunt_n1": 5.419999e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3343218,
+    "v_od_0": 0.3343218,
+    "v_os_1": 1.248522,
+    "v_os_0": 1.248522,
+    "v_os_reg_1": 1.248522,
+    "v_os_reg_0": 1.248522,
+    "dv_od": 3.555487e-09,
+    "dv_os": 2.013589e-11,
+    "ishunt_p1": 7.911192e-12,
+    "ishunt_n1": 6.165174e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3390749,
+    "v_od_0": 0.3390749,
+    "v_os_1": 1.247143,
+    "v_os_0": 1.247143,
+    "v_os_reg_1": 1.247143,
+    "v_os_reg_0": 1.247143,
+    "dv_od": 5.888623e-12,
+    "dv_os": 6.539658e-12,
+    "ishunt_p1": 1.111473e-09,
+    "ishunt_n1": 1.081293e-09
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.800_VVDDIO=3.300V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3414977,
+    "v_od_0": 0.3414977,
+    "v_os_1": 1.247398,
+    "v_os_0": 1.247398,
+    "v_os_reg_1": 1.247398,
+    "v_os_reg_0": 1.247398,
+    "dv_od": 9.751066e-09,
+    "dv_os": 3.795741e-11,
+    "ishunt_p1": 7.094213e-12,
+    "ishunt_n1": 5.385972e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.800_VVDDIO=3.300V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3446051,
+    "v_od_0": 0.3446051,
+    "v_os_1": 1.246318,
+    "v_os_0": 1.246318,
+    "v_os_reg_1": 1.246318,
+    "v_os_reg_0": 1.246318,
+    "dv_od": 1.615912e-10,
+    "dv_os": 5.578338e-11,
+    "ishunt_p1": 7.926517e-12,
+    "ishunt_n1": 6.12676e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.800_VVDDIO=3.300V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3497021,
+    "v_od_0": 0.3497021,
+    "v_os_1": 1.244253,
+    "v_os_0": 1.244253,
+    "v_os_reg_1": 1.244253,
+    "v_os_reg_0": 1.244253,
+    "dv_od": 2.128748e-10,
+    "dv_os": -1.75433e-11,
+    "ishunt_p1": 1.111687e-09,
+    "ishunt_n1": 1.080583e-09
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3502207,
+    "v_od_0": 0.3502207,
+    "v_os_1": 1.245876,
+    "v_os_0": 1.245876,
+    "v_os_reg_1": 1.245876,
+    "v_os_reg_0": 1.245876,
+    "dv_od": -1.40841e-10,
+    "dv_os": 1.323164e-11,
+    "ishunt_p1": 7.10842e-12,
+    "ishunt_n1": 5.356544e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3533125,
+    "v_od_0": 0.3533125,
+    "v_os_1": 1.244472,
+    "v_os_0": 1.244472,
+    "v_os_reg_1": 1.244472,
+    "v_os_reg_0": 1.244472,
+    "dv_od": 2.127889e-10,
+    "dv_os": -1.71196e-12,
+    "ishunt_p1": 7.939594e-12,
+    "ishunt_n1": 6.094332e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3583631,
+    "v_od_0": 0.3583631,
+    "v_os_1": 1.24191,
+    "v_os_0": 1.24191,
+    "v_os_reg_1": 1.24191,
+    "v_os_reg_0": 1.24191,
+    "dv_od": 3.411915e-11,
+    "dv_os": 7.112089e-12,
+    "ishunt_p1": 1.111861e-09,
+    "ishunt_n1": 1.079955e-09
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3514585,
+    "v_od_0": 0.3514585,
+    "v_os_1": 1.245919,
+    "v_os_0": 1.245919,
+    "v_os_reg_1": 1.245919,
+    "v_os_reg_0": 1.245919,
+    "dv_od": 1.89035e-08,
+    "dv_os": 3.851697e-11,
+    "ishunt_p1": 7.111728e-12,
+    "ishunt_n1": 5.35366e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3540951,
+    "v_od_0": 0.3540951,
+    "v_os_1": 1.244556,
+    "v_os_0": 1.244556,
+    "v_os_reg_1": 1.244556,
+    "v_os_reg_0": 1.244556,
+    "dv_od": 8.766236e-09,
+    "dv_os": 1.015517e-10,
+    "ishunt_p1": 7.942075e-12,
+    "ishunt_n1": 6.092727e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.620_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.358742,
+    "v_od_0": 0.358742,
+    "v_os_1": 1.242154,
+    "v_os_0": 1.242154,
+    "v_os_reg_1": 1.242154,
+    "v_os_reg_0": 1.242154,
+    "dv_od": 3.7359e-12,
+    "dv_os": -2.28253e-11,
+    "ishunt_p1": 1.111899e-09,
+    "ishunt_n1": 1.07996e-09
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3296973,
+    "v_od_0": 0.3296973,
+    "v_os_1": 1.249138,
+    "v_os_0": 1.249138,
+    "v_os_reg_1": 1.249138,
+    "v_os_reg_0": 1.249138,
+    "dv_od": 1.234914e-10,
+    "dv_os": 2.09941e-11,
+    "ishunt_p1": 7.073403e-12,
+    "ishunt_n1": 5.42419e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3331912,
+    "v_od_0": 0.3331912,
+    "v_os_1": 1.248431,
+    "v_os_0": 1.248431,
+    "v_os_reg_1": 1.248431,
+    "v_os_reg_0": 1.248431,
+    "dv_od": 8.185586e-11,
+    "dv_os": -2.88138e-11,
+    "ishunt_p1": 7.907766e-12,
+    "ishunt_n1": 6.167653e-12
+   }
+  },
+  {
+   "corner_id": "ss/VVCCD=1.980_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3383887,
+    "v_od_0": 0.3383887,
+    "v_os_1": 1.246893,
+    "v_os_0": 1.246893,
+    "v_os_reg_1": 1.246893,
+    "v_os_reg_0": 1.246893,
+    "dv_od": 2.619793e-11,
+    "dv_os": 1.817746e-11,
+    "ishunt_p1": 1.111421e-09,
+    "ishunt_n1": 1.081302e-09
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3322353,
+    "v_od_0": 0.3322354,
+    "v_os_1": 1.248713,
+    "v_os_0": 1.248713,
+    "v_os_reg_1": 1.248713,
+    "v_os_reg_0": 1.248713,
+    "dv_od": -5.10824e-08,
+    "dv_os": -1.35998e-10,
+    "ishunt_p1": 7.079041e-12,
+    "ishunt_n1": 5.4172e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3351247,
+    "v_od_0": 0.3351247,
+    "v_os_1": 1.24786,
+    "v_os_0": 1.24786,
+    "v_os_reg_1": 1.24786,
+    "v_os_reg_0": 1.24786,
+    "dv_od": 1.441339e-08,
+    "dv_os": 1.383924e-10,
+    "ishunt_p1": 1.087115e-11,
+    "ishunt_n1": 8.752212e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.340103,
+    "v_od_0": 0.340103,
+    "v_os_1": 1.246082,
+    "v_os_0": 1.246082,
+    "v_os_reg_1": 1.246082,
+    "v_os_reg_0": 1.246082,
+    "dv_od": -8.25167e-11,
+    "dv_os": 1.010148e-11,
+    "ishunt_p1": 2.109054e-09,
+    "ishunt_n1": 1.980766e-09
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.800_VVDDIO=3.300V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.342826,
+    "v_od_0": 0.342826,
+    "v_os_1": 1.247018,
+    "v_os_0": 1.247018,
+    "v_os_reg_1": 1.247018,
+    "v_os_reg_0": 1.247018,
+    "dv_od": -2.29189e-08,
+    "dv_os": -6.96698e-11,
+    "ishunt_p1": 7.097049e-12,
+    "ishunt_n1": 5.382233e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.800_VVDDIO=3.300V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3457133,
+    "v_od_0": 0.3457133,
+    "v_os_1": 1.245803,
+    "v_os_0": 1.245803,
+    "v_os_reg_1": 1.245803,
+    "v_os_reg_0": 1.245803,
+    "dv_od": 7.429251e-10,
+    "dv_os": 1.246747e-10,
+    "ishunt_p1": 1.089089e-11,
+    "ishunt_n1": 8.70717e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.800_VVDDIO=3.300V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3509375,
+    "v_od_0": 0.3509375,
+    "v_os_1": 1.243488,
+    "v_os_0": 1.243488,
+    "v_os_reg_1": 1.243488,
+    "v_os_reg_0": 1.243488,
+    "dv_od": -6.3755e-11,
+    "dv_os": 1.341149e-12,
+    "ishunt_p1": 2.110136e-09,
+    "ishunt_n1": 1.97775e-09
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3515807,
+    "v_od_0": 0.3515807,
+    "v_os_1": 1.245567,
+    "v_os_0": 1.245567,
+    "v_os_reg_1": 1.245567,
+    "v_os_reg_0": 1.245567,
+    "dv_od": 6.656409e-11,
+    "dv_os": -7.68829e-12,
+    "ishunt_p1": 7.111684e-12,
+    "ishunt_n1": 5.353077e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3546508,
+    "v_od_0": 0.3546508,
+    "v_os_1": 1.24406,
+    "v_os_0": 1.24406,
+    "v_os_reg_1": 1.24406,
+    "v_os_reg_0": 1.24406,
+    "dv_od": -1.10942e-11,
+    "dv_os": 1.310818e-11,
+    "ishunt_p1": 1.090751e-11,
+    "ishunt_n1": 8.669096e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3597943,
+    "v_od_0": 0.3597943,
+    "v_os_1": 1.241316,
+    "v_os_0": 1.241316,
+    "v_os_reg_1": 1.241316,
+    "v_os_reg_0": 1.241316,
+    "dv_od": 1.503841e-11,
+    "dv_os": -1.18234e-11,
+    "ishunt_p1": 2.110935e-09,
+    "ishunt_n1": 1.97526e-09
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3527323,
+    "v_od_0": 0.3527322,
+    "v_os_1": 1.245588,
+    "v_os_0": 1.245588,
+    "v_os_reg_1": 1.245588,
+    "v_os_reg_0": 1.245588,
+    "dv_od": 1.379139e-07,
+    "dv_os": 4.436926e-10,
+    "ishunt_p1": 7.11467e-12,
+    "ishunt_n1": 5.350302e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3553488,
+    "v_od_0": 0.3553488,
+    "v_os_1": 1.244094,
+    "v_os_0": 1.244094,
+    "v_os_reg_1": 1.244094,
+    "v_os_reg_0": 1.244094,
+    "dv_od": -4.02901e-10,
+    "dv_os": -5.41993e-11,
+    "ishunt_p1": 1.090985e-11,
+    "ishunt_n1": 8.667164e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.620_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3602124,
+    "v_od_0": 0.3602124,
+    "v_os_1": 1.241387,
+    "v_os_0": 1.241387,
+    "v_os_reg_1": 1.241387,
+    "v_os_reg_0": 1.241387,
+    "dv_od": -7.49401e-13,
+    "dv_os": -2.49516e-11,
+    "ishunt_p1": 2.111034e-09,
+    "ishunt_n1": 1.975208e-09
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3305678,
+    "v_od_0": 0.3305678,
+    "v_os_1": 1.248689,
+    "v_os_0": 1.248689,
+    "v_os_reg_1": 1.248689,
+    "v_os_reg_0": 1.248689,
+    "dv_od": -7.67691e-10,
+    "dv_os": -6.10489e-12,
+    "ishunt_p1": 7.074746e-12,
+    "ishunt_n1": 5.421245e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3340912,
+    "v_od_0": 0.3340912,
+    "v_os_1": 1.247822,
+    "v_os_0": 1.247822,
+    "v_os_reg_1": 1.247822,
+    "v_os_reg_0": 1.247822,
+    "dv_od": 3.78912e-10,
+    "dv_os": -2.73717e-11,
+    "ishunt_p1": 1.086776e-11,
+    "ishunt_n1": 8.75514e-12
+   }
+  },
+  {
+   "corner_id": "sf/VVCCD=1.980_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.339432,
+    "v_od_0": 0.339432,
+    "v_os_1": 1.246005,
+    "v_os_0": 1.246005,
+    "v_os_reg_1": 1.246005,
+    "v_os_reg_0": 1.246005,
+    "dv_od": 1.000799e-10,
+    "dv_os": 2.777956e-11,
+    "ishunt_p1": 2.108908e-09,
+    "ishunt_n1": 1.980863e-09
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3393539,
+    "v_od_0": 0.3393539,
+    "v_os_1": 1.248136,
+    "v_os_0": 1.248136,
+    "v_os_reg_1": 1.248136,
+    "v_os_reg_0": 1.248136,
+    "dv_od": 3.701011e-10,
+    "dv_os": -5.8451e-12,
+    "ishunt_p1": 7.092444e-12,
+    "ishunt_n1": 5.394924e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3429155,
+    "v_od_0": 0.3429155,
+    "v_os_1": 1.247135,
+    "v_os_0": 1.247135,
+    "v_os_reg_1": 1.247135,
+    "v_os_reg_0": 1.247135,
+    "dv_od": -6.18077e-11,
+    "dv_os": -4.34985e-12,
+    "ishunt_p1": 7.723863e-12,
+    "ishunt_n1": 5.951282e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3477828,
+    "v_od_0": 0.3477828,
+    "v_os_1": 1.245196,
+    "v_os_0": 1.245196,
+    "v_os_reg_1": 1.245196,
+    "v_os_reg_0": 1.245196,
+    "dv_od": 6.265122e-11,
+    "dv_os": -2.1688e-11,
+    "ishunt_p1": 1.031569e-09,
+    "ishunt_n1": 1.007699e-09
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.800_VVDDIO=3.300V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3493795,
+    "v_od_0": 0.3493795,
+    "v_os_1": 1.246379,
+    "v_os_0": 1.246379,
+    "v_os_reg_1": 1.246379,
+    "v_os_reg_0": 1.246379,
+    "dv_od": 3.304164e-10,
+    "dv_os": 7.969847e-12,
+    "ishunt_p1": 7.108728e-12,
+    "ishunt_n1": 5.361057e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.800_VVDDIO=3.300V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3528127,
+    "v_od_0": 0.3528127,
+    "v_os_1": 1.244965,
+    "v_os_0": 1.244965,
+    "v_os_reg_1": 1.244965,
+    "v_os_reg_0": 1.244965,
+    "dv_od": -6.49609e-11,
+    "dv_os": 6.520118e-12,
+    "ishunt_p1": 7.738212e-12,
+    "ishunt_n1": 5.914447e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.800_VVDDIO=3.300V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3583314,
+    "v_od_0": 0.3583314,
+    "v_os_1": 1.242311,
+    "v_os_0": 1.242311,
+    "v_os_reg_1": 1.242311,
+    "v_os_reg_0": 1.242311,
+    "dv_od": 1.718858e-10,
+    "dv_os": -1.02762e-12,
+    "ishunt_p1": 1.031732e-09,
+    "ishunt_n1": 1.0071e-09
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3581466,
+    "v_od_0": 0.3581466,
+    "v_os_1": 1.244869,
+    "v_os_0": 1.244869,
+    "v_os_reg_1": 1.244869,
+    "v_os_reg_0": 1.244869,
+    "dv_od": -2.08182e-11,
+    "dv_os": 1.64011e-11,
+    "ishunt_p1": 7.123106e-12,
+    "ishunt_n1": 5.33158e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3613633,
+    "v_od_0": 0.3613633,
+    "v_os_1": 1.243136,
+    "v_os_0": 1.243136,
+    "v_os_reg_1": 1.243136,
+    "v_os_reg_0": 1.243136,
+    "dv_od": -2.24599e-10,
+    "dv_os": -3.30318e-11,
+    "ishunt_p1": 7.75085e-12,
+    "ishunt_n1": 5.882863e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3668699,
+    "v_od_0": 0.3668699,
+    "v_os_1": 1.239991,
+    "v_os_0": 1.239991,
+    "v_os_reg_1": 1.239991,
+    "v_os_reg_0": 1.239991,
+    "dv_od": 1.838818e-10,
+    "dv_os": 3.614908e-11,
+    "ishunt_p1": 1.031947e-09,
+    "ishunt_n1": 1.006676e-09
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=3.630V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3584063,
+    "v_od_0": 0.3584063,
+    "v_os_1": 1.244916,
+    "v_os_0": 1.244916,
+    "v_os_reg_1": 1.244916,
+    "v_os_reg_0": 1.244916,
+    "dv_od": -8.77438e-11,
+    "dv_os": -4.7411e-12,
+    "ishunt_p1": 7.123988e-12,
+    "ishunt_n1": 5.331164e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=3.630V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3615628,
+    "v_od_0": 0.3615628,
+    "v_os_1": 1.243238,
+    "v_os_0": 1.243238,
+    "v_os_reg_1": 1.243238,
+    "v_os_reg_0": 1.243238,
+    "dv_od": 3.441181e-11,
+    "dv_os": 2.234968e-11,
+    "ishunt_p1": 7.75189e-12,
+    "ishunt_n1": 5.882873e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.620_VVDDIO=3.630V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3660458,
+    "v_od_0": 0.3660458,
+    "v_os_1": 1.240311,
+    "v_os_0": 1.240311,
+    "v_os_reg_1": 1.240311,
+    "v_os_reg_0": 1.240311,
+    "dv_od": 1.794234e-10,
+    "dv_os": -1.13753e-11,
+    "ishunt_p1": 1.03194e-09,
+    "ishunt_n1": 1.00673e-09
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=2.970V/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3390196,
+    "v_od_0": 0.3390196,
+    "v_os_1": 1.248086,
+    "v_os_0": 1.248086,
+    "v_os_reg_1": 1.248086,
+    "v_os_reg_0": 1.248086,
+    "dv_od": -8.33753e-11,
+    "dv_os": 2.667599e-11,
+    "ishunt_p1": 7.091356e-12,
+    "ishunt_n1": 5.395508e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=2.970V/27C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3426296,
+    "v_od_0": 0.3426296,
+    "v_os_1": 1.247027,
+    "v_os_0": 1.247027,
+    "v_os_reg_1": 1.247027,
+    "v_os_reg_0": 1.247027,
+    "dv_od": -4.7667e-11,
+    "dv_os": 1.158629e-12,
+    "ishunt_p1": 7.72257e-12,
+    "ishunt_n1": 5.951466e-12
+   }
+  },
+  {
+   "corner_id": "fs/VVCCD=1.980_VVDDIO=2.970V/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "v_od_1": 0.3482807,
+    "v_od_0": 0.3482807,
+    "v_os_1": 1.244869,
+    "v_os_0": 1.244869,
+    "v_os_reg_1": 1.244869,
+    "v_os_reg_0": 1.244869,
+    "dv_od": 1.431297e-10,
+    "dv_os": -1.14388e-11,
+    "ishunt_p1": 1.031564e-09,
+    "ishunt_n1": 1.007657e-09
+   }
+  }
+ ]
+}

@@ -7,8 +7,8 @@
   },
   "evidence": {
     "1.analog": {
-      "file": "verification/signoff/evidence/item-1-analog-design-sources-r2.json",
-      "content_hash": "sha256:74a994788a5946aa3a4088f031f0c8d23f4c3e61a37f41ea9d210f98c6f8c23f"
+      "file": "verification/signoff/evidence/item-1-analog-design-sources-r5.json",
+      "content_hash": "sha256:766eb925f0ba376bc4cb36d8246624b294075518e585cd5ee9a4728df0bca2a1"
     },
     "1.digital": {
       "file": "verification/signoff/evidence/item-1-design-sources-digital-r2.json",
@@ -19,7 +19,7 @@
       "content_hash": "sha256:b33cb4d451082a2544081105dac42c183a841be2b2d4e8f08d6738416de55088"
     },
     "10": {
-      "file": "verification/signoff/evidence/item-10-repo-hygiene-r12.json",
+      "file": "verification/signoff/evidence/item-10-repo-hygiene-r14.json",
       "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
     },
     "2.analog": {
@@ -55,16 +55,12 @@
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
     },
     "4.analog": {
-      "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+      "file": "verification/signoff/evidence/item-4-lvs-analog-r4-scale-expanded.json",
       "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
     },
     "4.digital": {
       "file": "verification/signoff/evidence/item-4-lvs-digital-r4.json",
       "content_hash": "sha256:f5de09887d17301b9e8fe89fbdf97f84ec97d78ce362900790783e058d158f25"
-    },
-    "5.digital": {
-      "file": "verification/serializer/rtl.report.json",
-      "content_hash": "sha256:54a5186f0b3dc4bbb60138a05ab0670fb06c6d770c8536e348fd2ad8c4ec8571"
     },
     "11.analog": [
       {
@@ -72,7 +68,7 @@
         "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
       },
       {
-        "file": "verification/signoff/evidence/item-4-lvs-analog-r3-scale-expanded.json",
+        "file": "verification/signoff/evidence/item-4-lvs-analog-r4-scale-expanded.json",
         "content_hash": "sha256:32ef46268d7243f6284fd466c884820dfd317f416826d5304189050fc67f7e45"
       }
     ],
@@ -89,6 +85,10 @@
         "file": "flow/serializer/pnr.response.json",
         "content_hash": "sha256:c9760e742c2d3979b42795345cce86394152de8d4a1bb0dd17c5328a79025353"
       }
-    ]
+    ],
+    "5.digital": {
+      "file": "verification/serializer/rtl.report.json",
+      "content_hash": "sha256:54a5186f0b3dc4bbb60138a05ab0670fb06c6d770c8536e348fd2ad8c4ec8571"
+    }
   }
 }

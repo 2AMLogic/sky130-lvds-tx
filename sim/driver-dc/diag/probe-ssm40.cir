@@ -1,0 +1,30 @@
+* raw one-corner probe: ss / -40C / VCCD=1.62 / VDDIO=2.97 (worst E1 condition on the old sizing)
+.lib __SKY130_LIB__ ss
+.temp -40
+.include __DRIVER_SPICE__
+VVDDIO vddio 0 DC 2.97
+VVCCD  vccd  0 DC 1.62
+VVCMREF vcmref 0 DC 1.25
+IIREF1  0 iref1 DC 54.3u
+xdrv1 0 vccd 0 vccd  0 vccd 0 vccd  vccd 0 0  iref1 vcmref
++ outp1 outn1  vccd vddio 0  driver
+RL1 outp1 outn1 100
+.control
+set wnflag=1
+op
+print v(outp1) v(outn1) v(xdrv1.vcmfb) v(xdrv1.ngm) v(xdrv1.xsl_main.top) v(xdrv1.xsl_main.bot) v(xdrv1.biasp) v(iref1) v(xdrv1.tail)
+* XMSNB n-switch
+print @m.xdrv1.xsl_main.xmsnb.msky130_fd_pr__nfet_01v8[id] @m.xdrv1.xsl_main.xmsnb.msky130_fd_pr__nfet_01v8[vth] @m.xdrv1.xsl_main.xmsnb.msky130_fd_pr__nfet_01v8[vgs] @m.xdrv1.xsl_main.xmsnb.msky130_fd_pr__nfet_01v8[vds]
+* XMNS sink
+print @m.xdrv1.xsl_main.xmns.msky130_fd_pr__nfet_g5v0d10v5[id] @m.xdrv1.xsl_main.xmns.msky130_fd_pr__nfet_g5v0d10v5[vth] @m.xdrv1.xsl_main.xmns.msky130_fd_pr__nfet_g5v0d10v5[vgs] @m.xdrv1.xsl_main.xmns.msky130_fd_pr__nfet_g5v0d10v5[vds]
+* XMPS tail source
+print @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[id] @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[vth] @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[vgs] @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[vds]
+* XMSPA p-switch
+print @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[id] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vth] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vgs] @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[vds]
+* bias mirror
+print @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[id] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vth] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vgs] @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[vds]
+* XMT amp tail
+print @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[id] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vth] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vgs] @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[vds]
+quit
+.endc
+.end

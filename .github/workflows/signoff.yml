@@ -56,7 +56,7 @@ jobs:
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene-r12.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r14.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
@@ -67,7 +67,7 @@ jobs:
         run: |
           klt signoff --attest 1 \
               --inventory verification/signoff/item-1-analog-inventory.json \
-              --check verification/signoff/evidence/item-1-analog-design-sources-r2.json
+              --check verification/signoff/evidence/item-1-analog-design-sources-r5.json
 
       # The item 9 cold start is `local_only` (it needs the sky130A PDK, iverilog
       # and the batch fleet), so it is skipped here, visibly; the inventoried

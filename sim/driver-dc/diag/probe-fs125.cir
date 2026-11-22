@@ -1,0 +1,44 @@
+* raw one-corner probe: fs / 125C / VCCD=1.62 / VDDIO=3.63 (worst E2 condition)
+.lib __SKY130_LIB__ fs
+.temp 125
+.include __DRIVER_SPICE__
+.include __PAD_CELL_SPICE__
+VVCCD  vccd  0 DC 1.62
+VVDDIO vddio 0 DC 3.63
+VVCMREF vcmref 0 DC 1.25
+IIREF1  0 iref1 DC 54.3u
+IIREF0  0 iref0 DC 54.3u
+xdrv1 0 vccd 0 vccd  0 vccd 0 vccd  vccd 0 0  iref1 vcmref
++ outp1 outn1  vccd vddio 0  driver
+RL1 outp1 outn1 100
+xdrv0 vccd 0 vccd 0  vccd 0 vccd 0  vccd 0 0  iref0 vcmref
++ outp0 outn0  vccd vddio 0  driver
+RL0 outp0 outn0 100
+VPCP1 outp1 pcp1 DC 0
+XPADP1 pcp1 0 pad_cell
+VPCN1 outn1 pcn1 DC 0
+XPADN1 pcn1 0 pad_cell
+VPCP0 outp0 pcp0 DC 0
+XPADP0 pcp0 0 pad_cell
+VPCN0 outn0 pcn0 DC 0
+XPADN0 pcn0 0 pad_cell
+.control
+set wnflag=1
+set num_threads=1
+op
+print v(outp1) v(outn1) v(xdrv1.vcmfb) v(xdrv1.ngm) v(xdrv1.xsl_main.top) v(xdrv1.xsl_main.bot) v(xdrv1.xsl_main.well) v(xdrv1.biasp)
+print @m.xdrv1.xsl_main.xmspa.msky130_fd_pr__pfet_01v8[id]
+print @m.xdrv1.xsl_main.xmspb.msky130_fd_pr__pfet_01v8[id]
+print @m.xdrv1.xsl_main.xmsna.msky130_fd_pr__nfet_01v8[id]
+print @m.xdrv1.xsl_main.xmsnb.msky130_fd_pr__nfet_01v8[id]
+print @m.xdrv1.xsl_main.xmps.msky130_fd_pr__pfet_g5v0d10v5[id]
+print @m.xdrv1.xsl_main.xmns.msky130_fd_pr__nfet_g5v0d10v5[id]
+print @m.xdrv1.xmt.msky130_fd_pr__nfet_g5v0d10v5[id]
+print @m.xdrv1.xm1.msky130_fd_pr__nfet_g5v0d10v5[id]
+print @m.xdrv1.xm2.msky130_fd_pr__nfet_g5v0d10v5[id]
+print @m.xdrv1.xml1.msky130_fd_pr__pfet_g5v0d10v5[id]
+print @m.xdrv1.xml2.msky130_fd_pr__pfet_g5v0d10v5[id]
+print @m.xdrv1.xmpb.msky130_fd_pr__pfet_g5v0d10v5[id]
+quit
+.endc
+.end

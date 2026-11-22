@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "requests": [
+    {
+      "index": 0,
+      "request": "request-trace-a.json",
+      "dir": "results/issue-177/trace/request-trace-a",
+      "status": "inconclusive",
+      "job_id": "klt-sim-0752ccf66942",
+      "job_ids": [
+        "klt-sim-0752ccf66942"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 1,
+      "request": "request-trace-b.json",
+      "dir": "results/issue-177/trace/request-trace-b",
+      "status": "inconclusive",
+      "job_id": "klt-sim-51845e2489dc",
+      "job_ids": [
+        "klt-sim-51845e2489dc"
+      ],
+      "attempts": 1
+    }
+  ]
+}

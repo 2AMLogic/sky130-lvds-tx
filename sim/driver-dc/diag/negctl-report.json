@@ -1,0 +1,214 @@
+{
+  "schema_version": 3,
+  "netlist": {
+    "path": "sim/driver-dc/diag-deck-negctl.spice",
+    "scope": "repo"
+  },
+  "status": "fail",
+  "corner_count": 1,
+  "passed": 0,
+  "failed": 1,
+  "errored": 0,
+  "inconclusive": 0,
+  "diagnostic_counts": {
+    "by_code": {},
+    "by_severity": {},
+    "corners_with_diagnostics": 0
+  },
+  "metrics": {
+    "sim__corner__count": 1,
+    "sim__corner__passed_count": 0,
+    "sim__corner__failed_count": 1,
+    "sim__corner__errored_count": 0,
+    "sim__corner__inconclusive_count": 0
+  },
+  "environment": {
+    "engine": "ngspice",
+    "engine_version": "47",
+    "ngspice_binary": "/home/ubuntu/.local/bin/ngspice",
+    "engine_build": {
+      "version_banner": "******\n** ngspice-47 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2026, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Nov 13 23:19:32 UTC 2026\n******",
+      "binary_sha256": "39ca1adb826660324c3626f72bd946ec40704f0f3fc8e243c623f76e24b3eee2",
+      "probe": "ok",
+      "reason": null
+    },
+    "ngspice_init": {
+      "source": "request",
+      "lines": [
+        "set wnflag=1",
+        "set num_threads=1"
+      ],
+      "sha256": "sha256:794f0b1361aa1fab1fabf4be62c984d24c060a98e52cdedb8793a893ab7ab474"
+    },
+    "models_lib": {
+      "path": null,
+      "scope": "external"
+    },
+    "models_lib_sha256": "17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64",
+    "models_lib_sha256_scope": "local",
+    "netlist_sha256": "d3de8c64fd3a6f8e1ed86de9efb576dc6a54d6c04b447fb18e74e466a905c8c6",
+    "netlist_sha256_scope": "staged",
+    "netlist_closure": [
+      {
+        "path": "sim/driver-dc/diag-deck-negctl.spice",
+        "scope": "repo",
+        "sha256": "d3de8c64fd3a6f8e1ed86de9efb576dc6a54d6c04b447fb18e74e466a905c8c6"
+      },
+      {
+        "path": "design/driver/driver.spice",
+        "scope": "repo",
+        "sha256": "12ea39c7c8c9eda9bdd07d28a05915403e0734a23acee4de02c7a12d7c7904b9"
+      },
+      {
+        "path": "design/pad_cell/pad_cell.spice",
+        "scope": "repo",
+        "sha256": "11be4ca2e27e2f1fa4968792dd61a3af6a8bad9f7f755e344a306ff54f18e116"
+      }
+    ],
+    "netlist_identity": "sha256:5b22e9f4304640f843e970c43790bd2928fabd5423a459cfbfbd9b900cf72b9e",
+    "engine_host": "local",
+    "backend": {
+      "resolved": "local",
+      "source": "flag",
+      "requested": "local"
+    }
+  },
+  "coverage": {
+    "corners_simulated": 1,
+    "measurements_declared": 2,
+    "measurements_with_limits": 1,
+    "unrecognized_limit_keys": [],
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "limit:[0,\"tt/VVCCD=1.800_VVDDIO=3.300V/27C\",\"v_os_1\",\"max\"]",
+      "limit:[0,\"tt/VVCCD=1.800_VVDDIO=3.300V/27C\",\"v_os_1\",\"min\"]",
+      "measurement:[0,\"tt/VVCCD=1.800_VVDDIO=3.300V/27C\",\"v_od_1\"]/observation"
+    ],
+    "skipped": [],
+    "inapplicable": [
+      {
+        "id": "measurement:[0,\"tt/VVCCD=1.800_VVDDIO=3.300V/27C\",\"v_od_1\"]/limits",
+        "reason": "characterization_without_limits"
+      }
+    ],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": []
+  },
+  "provenance": {
+    "klt_version": "0.9.3.dev2586+g9bac82596e2f",
+    "klt_git_commit": "9bac82596e2f093424f94112aad2a9c046de1946",
+    "klt_reinstall_spec": "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@9bac82596e2f093424f94112aad2a9c046de1946",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sky130.lib.spice",
+      "content_hash": "sha256:17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:d3de8c64fd3a6f8e1ed86de9efb576dc6a54d6c04b447fb18e74e466a905c8c6",
+      "role": "netlist"
+    }
+  },
+  "measurements": [
+    {
+      "name": "v_od_1",
+      "unit": "V",
+      "limits": null,
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 0.3479503,
+        "margin": null
+      },
+      "min": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 0.3479503
+      },
+      "max": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 0.3479503
+      },
+      "plausible_range": {
+        "min": -0.5,
+        "max": 4.0
+      }
+    },
+    {
+      "name": "v_os_1",
+      "unit": "V",
+      "limits": {
+        "min": 1.175,
+        "max": 1.325
+      },
+      "status": "fail",
+      "worst_case": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 1.345311,
+        "margin": -0.020310999999999968
+      },
+      "min": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 1.345311
+      },
+      "max": {
+        "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+        "value": 1.345311
+      },
+      "plausible_range": {
+        "min": -0.5,
+        "max": 4.0
+      },
+      "spec_row": "E2"
+    }
+  ],
+  "corners": [
+    {
+      "corner_id": "tt/VVCCD=1.800_VVDDIO=3.300V/27C",
+      "process": "tt",
+      "supply_v": {
+        "VVCCD": 1.8,
+        "VVDDIO": 3.3
+      },
+      "temperature_c": 27,
+      "status": "fail",
+      "runtime_s": 11.089,
+      "peak_rss_bytes": 381521920,
+      "engine_exit_code": 0,
+      "engine_killed_by_signal": null,
+      "measurements": [
+        {
+          "name": "v_od_1",
+          "value": 0.3479503,
+          "unit": "V",
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "v_os_1",
+          "value": 1.345311,
+          "unit": "V",
+          "status": "fail",
+          "margin": -0.020310999999999968
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": null,
+        "raw": null,
+        "waveform": null,
+        "deck": null
+      },
+      "monte_carlo": null
+    }
+  ]
+}
