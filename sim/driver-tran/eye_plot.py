@@ -4,11 +4,12 @@
 Usage: eye_plot.py WAVEFORM.raw.json STIM_META.json OUT.svg OUT.json
 
 SIMULATED data (ngspice, nominal TT, 27 C, 1.8 V / 3.3 V). Dependency-free.
-Besides the plot, OUT.json records the sign of PADP - PADN at the sample
-point of every bit 126..254 against the seeded PRBS-7 value, so the check
+Besides the pad eye, OUT.json compares the mux Q - QB and pad PADP - PADN
+samples for every bit 126..254 with the seeded PRBS-7 value, so the check
 covers both sides of the sequence wrap (bits 253/254 and 126/127).
 """
 
+from bisect import bisect_left
 import json
 import sys
 
@@ -18,23 +19,33 @@ def main(wave_path, meta_path, svg_path, json_path):
     meta = json.load(open(meta_path))
     names = [v["name"] for v in wave["variables"]]
     ip, in_ = names.index("v(padp)"), names.index("v(padn)")
+    iq, iqb = names.index("v(xtx.q)"), names.index("v(xtx.qb)")
     pts = [(p[0], p[ip] - p[in_]) for p in wave["points"]]
+    times = [p[0] for p in pts]
+    pad = [p[1] for p in pts]
+    mux = [p[iq] - p[iqb] for p in wave["points"]]
     ui, tsamp, bits = meta["ui_s"], meta["sample_phase_s"], meta["bits"]
     first, last = meta["window_bits"]
 
-    def at(t):
-        lo, hi = 0, len(pts) - 1
-        while hi - lo > 1:
-            mid = (lo + hi) // 2
-            lo, hi = (mid, hi) if pts[mid][0] <= t else (lo, mid)
-        (t0, v0), (t1, v1) = pts[lo], pts[hi]
-        return v0 + (v1 - v0) * (t - t0) / (t1 - t0)
+    def at(signal, t):
+        if not times[0] <= t <= times[-1]:
+            raise ValueError(f"sample time {t} falls outside the capture")
+        hi = bisect_left(times, t)
+        if times[hi] == t:
+            return signal[hi]
+        lo = hi - 1
+        return signal[lo] + (signal[hi] - signal[lo]) * (t - times[lo]) / (times[hi] - times[lo])
 
     order = []
     for i in range(first - 1, last + 2):
-        v = at((i + 1.5) * ui + tsamp)
-        order.append({"bit": i, "expected": bits[i], "vd_v": round(v, 6),
-                      "ok": (v > 0) == bool(bits[i]) and v != 0})
+        t = (i + 1.5) * ui + tsamp
+        pad_v, mux_v = at(pad, t), at(mux, t)
+        polarity = 1 if bits[i] else -1
+        pad_ok = polarity * pad_v > 0
+        mux_ok = polarity * mux_v > 0
+        order.append({"bit": i, "expected": bits[i], "vd_v": round(pad_v, 6),
+                      "mux_q_minus_qb_v": round(mux_v, 6), "pad_ok": pad_ok,
+                      "mux_ok": mux_ok, "ok": pad_ok and mux_ok})
     result = {
         "corner": "tt/27C/1.8/3.3", "simulated": True, "ui_s": ui,
         "sample_phase_after_launch_s": 0.5 * ui + tsamp,

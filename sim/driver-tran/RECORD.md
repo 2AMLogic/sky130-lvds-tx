@@ -4,7 +4,7 @@ The schematic misses the proposed 1 Gb/s target and the 400 Mb/s fallback. These
 
 ## Results
 
-The current reports use the corrected per-pad and folded-eye graders. Each rate covers the 75 process, temperature and paired-rail tuples in the DC request, including both crossed supplies. The control runs at a separate corner outside those totals. [1 Gb/s summary](results/r2/summary-1g.json) · [400 Mb/s summary](results/r2/summary-400m.json) · [Control summary](results/r2/control/summary.json)
+The results below come from grading the corrected batch reports for per-pad E5 and folded E9. Each rate covers the 75 process, temperature and paired-rail tuples in the DC request, including both crossed supplies. The control runs at a separate corner outside those totals. [1 Gb/s fleet summary](results/r2/fleet-attempt/summary-1g.json) · [400 Mb/s fleet summary](results/r2/fleet-attempt/summary-400m.json) · [Control fleet summary](results/r2/fleet-attempt/summary-control.json)
 
 | Binding limit | 1 Gb/s value (signed margin), corner | 400 Mb/s value (signed margin), corner |
 |---|---|---|
@@ -54,11 +54,11 @@ At nominal TT and 400 Mb/s the reference uses 2 pF per pad. The control increase
 | Reference, 2 pF | 66 | 47 | 10 | 5 |
 | Control, 22 pF | 12 | 0 | 116 | 0 |
 
-**58 paired edges detect the load change**, 30 on PADP and 28 on PADN. For bit 139, PADP rise goes from 163.9 to 1084.8 ps and PADN fall goes from 112.2 to 1002.1 ps. The control summary lists all 58 edge IDs. [Control report](results/r2/control/report.json.gz)
+**58 paired edges detect the load change**, 30 on PADP and 28 on PADN. For bit 139, PADP rise goes from 163.9 to 1084.8 ps and PADN fall goes from 112.2 to 1002.1 ps. The control summary lists all 58 edge IDs. [Fleet control report](results/r2/fleet-attempt/report-control.json.gz)
 
 ## Reproduction
 
-The r2 reports were produced with ngspice 47, klt `0.9.3.dev2575+g6bd18bbc8637` and klayout `0.30.12`. The pinned sky130A PDK is open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`. Its `sky130.lib.spice` has SHA-256 `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64`. The requests use `set wnflag=1` and one ngspice thread. The sense-resistor models remain typical across G75. [Target spec](../../spec/target-spec.md)
+The fleet and local r2 reports use ngspice 47 and record client klayout `0.30.12`. The fleet reports identify klt client `0.9.3.dev2586+g9bac82596e2f` and runner `0.9.0`. The local comparison reports identify klt `0.9.3.dev2575+g6bd18bbc8637`. The pinned sky130A PDK is open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`. Its `sky130.lib.spice` has SHA-256 `17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64`. The requests use `set wnflag=1` and one ngspice thread. The sense-resistor models remain typical across G75. [Target spec](../../spec/target-spec.md)
 
 Run from the repository root in Bash with `PDK_ROOT` pointing to the pinned ciel root. The generator writes to its current directory. The commands below keep simulation outputs in a fresh directory. The two grids use the local-parallel backend and the control uses local. Klt exits 3 for a spec miss and can exit 4 when a required measurement is unavailable. Both outcomes produce a report for inspection.
 
@@ -88,20 +88,43 @@ python3 -m unittest discover
 
 For a fleet rerun, use `--backend batch --wait-for-capacity 600` in place of the local options. First dry-run each request with `--backend batch --dry-run` and check the expansions of 75, 75 and 1 units.
 
-**Fleet attempt on the corrected requests.** The three corrected requests were submitted with `klt sim --batch-set` on a host with the `batch-runner-submit` profile. The jobs were `klt-sim-4df82c75d805` (1 Gb/s), `klt-sim-1f98a90710b4` (400 Mb/s) and `klt-sim-3c3a4015e044` (control). All three ended `failed` with status `error`. The runner reports `runner_klt_version` 0.9.0 and `runner_compatibility: match`, but it predates `measurements[].expr`. Every `expr` card produced no value (diagnostic `expr_runner_may_predate`), so no per-pad E5 or folded E9 result exists from the fleet. The tool gap is filed as [klayout-tools #7113](https://github.com/2AMLogic/klayout-tools/issues/7113). The receipts and failed reports are kept under `results/r2/fleet-attempt/` as evidence of the attempt only; they are **not** graded and are not substitutes for r2. The r2 reports remain the only graded evidence, with local backends, until the runner image accepts `expr`. Rerun the commands above with the batch options once it does.
+### Fleet evidence for the corrected requests
 
-The bit-order and eye capture below ran on the local backend, one corner per request.
+All three receipts record `failed` and the reports record `error` (runner exit 4). Within those reports each of the 152 analysis steps records `ok`. The grader uses the returned values and lists each missing measurement by corner and step. The runner diagnostic `expr_runner_may_predate` names expressions with missing values. The two design reports still provide 8,986 and 8,245 measurable pad edges respectively and a folded width at every corner. The control provides 58 matched pass-to-slow edges. [Runner diagnostic report](https://github.com/2AMLogic/klayout-tools/issues/7113)
+
+| Request | Fleet job and receipt | Report | Request SHA-256 prefix | Steps with status `ok` | Missing measurements |
+|---|---|---|---|---:|---:|
+| 1 Gb/s | [`klt-sim-4df82c75d805`](results/r2/fleet-attempt/batch-receipt-1g.json) | [report](results/r2/fleet-attempt/report-1g.json.gz) | `eb705e41` | 75 | 621 |
+| 400 Mb/s | [`klt-sim-1f98a90710b4`](results/r2/fleet-attempt/batch-receipt-400m.json) | [report](results/r2/fleet-attempt/report-400m.json.gz) | `63890e5d` | 75 | 1,373 |
+| Control | [`klt-sim-3c3a4015e044`](results/r2/fleet-attempt/batch-receipt-control.json) | [report](results/r2/fleet-attempt/report-control.json.gz) | `3b267611` | 2 | 5 |
+
+Each receipt's job ID matches `environment.remote.job_id` in its report. Its full SHA-256 matches the current request after dropping the top-level `batch` object and serializing sorted keys with compact JSON separators. Both rate reports cover the exact 75 tuples in the DC request. Running the grader on the three fleet reports reproduces every field of the corresponding local summary except `backend`. [1 Gb/s local summary](results/r2/summary-1g.json) · [400 Mb/s local summary](results/r2/summary-400m.json) · [Local control summary](results/r2/control/summary.json)
+
+Run the following in `sim/driver-tran/` to reproduce the fleet summaries from the committed reports.
+
+```bash
+fleet=results/r2/fleet-attempt
+out=$(mktemp -d)
+for run in 1g 400m control; do
+    rate=$run
+    label=$run
+    if [[ $run == control ]]; then rate=400m; label=400m-control; fi
+    python3 summarize.py "$fleet/report-$run.json.gz" "stim_meta_$rate.json" \
+        "$label" "$out/summary-$run.json"
+    cmp "$out/summary-$run.json" "$fleet/summary-$run.json" || exit 1
+done
+```
 
 ## Nominal waveform check and eye
 
-At nominal TT, 27 °C, 1.8 V and 3.3 V, with the same netlist and stimulus, two single-corner requests cover both rates. Waveforms are refused alongside `analysis_steps`, and `intermediate` cards need steps, so `request-nominal-{1g,400m}.json` carries the bit-order observers and `request-wave-{1g,400m}.json` is a scalar-analysis request that only retains the raw waveform. The first adds the bit 126 and bit 254 observers to the nine used at G75. All `m_bit*` cards read PADP − PADN at the sample point of the named bit. Bits 126/127 straddle the start of the measured period. Bits 253/254 straddle the wrap, since bit 254 repeats bit 127.
+Both nominal captures use TT, 27 °C, 1.8 V and 3.3 V, with the same netlist, stimulus and pinned models as the grids. At each rate, `request-wave-{1g,400m}.json` saves the mux outputs `v(xtx.q)` and `v(xtx.qb)` along with the pads. The committed waveforms were produced locally with ngspice 47 and klt `0.9.2.dev111+g978f7464fae1`. The separate `request-nominal-{1g,400m}.json` observer requests read PADP − PADN through 11 measurement cards, adding bits 126 and 254 to the nine observed across G75.
 
-`eye_plot.py` checks the sign of PADP − PADN at the sample point of every bit 126 to 254 in the raw waveform against the seeded sequence, and folds bits 127–252 into a two-UI eye with the sampling phase marked. All 129 signs match at both rates, including 126/127 and 253/254. This confirms bit order only; it does not change any E5, E9 or W1 verdict.
+`eye_plot.py` interpolates Q − QB at the specified sample time for each of bits 126–254 and compares its sign with the seeded PRBS-7 bit. It records the mux voltage and match alongside the downstream PADP − PADN voltage and match. Both signals match all 129 expected bits at each rate, including the word boundary at bits 127/128 and the sequence wrap at bits 253/254. The two-UI eye folds PADP − PADN over bits 127–252 and marks the sampling phase.
 
 | Rate | Bit-order check | Folded eye (**simulated**) | Raw waveform |
 |---|---|---|---|
-| 1 Gb/s | [11 observers](results/r2/nominal/bit-order-report-1g.json.gz), [129 samples](results/r2/nominal/bit-order-1g.json) | [eye-1g.svg](results/r2/nominal/eye-1g.svg) | [waveform](results/r2/nominal/waveform-1g.json.gz) |
-| 400 Mb/s | [11 observers](results/r2/nominal/bit-order-report-400m.json.gz), [129 samples](results/r2/nominal/bit-order-400m.json) | [eye-400m.svg](results/r2/nominal/eye-400m.svg) | [waveform](results/r2/nominal/waveform-400m.json.gz) |
+| 1 Gb/s | [11 observers](results/r2/nominal/bit-order-report-1g.json.gz), [129 mux and pad samples](results/r2/nominal/bit-order-1g.json) | [eye-1g.svg](results/r2/nominal/eye-1g.svg) | [waveform](results/r2/nominal/waveform-1g.json.gz) |
+| 400 Mb/s | [11 observers](results/r2/nominal/bit-order-report-400m.json.gz), [129 mux and pad samples](results/r2/nominal/bit-order-400m.json) | [eye-400m.svg](results/r2/nominal/eye-400m.svg) | [waveform](results/r2/nominal/waveform-400m.json.gz) |
 
 ```bash
 cd sim/driver-tran

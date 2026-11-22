@@ -500,6 +500,7 @@ def write_requests(rate, bits, ui, tsamp, p, control_corner, control_cap,
     wave["analysis"] = tran
     wave["measurements"] = []
     wave["options"] = dict(base_options(), waveforms=True, keep_artifacts=True)
+    wave["options"]["save_vectors"].extend(["v(xtx.q)", "v(xtx.qb)"])
     with open(f"request-wave-{rate}.json", "w") as f:
         json.dump(wave, f, indent=1)
         f.write("\n")

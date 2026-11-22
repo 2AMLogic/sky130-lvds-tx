@@ -46,7 +46,9 @@
    "v(s0)",
    "v(sw)",
    "i(vvccd)",
-   "i(vvddio)"
+   "i(vvddio)",
+   "v(xtx.q)",
+   "v(xtx.qb)"
   ],
   "waveforms": true,
   "keep_artifacts": true

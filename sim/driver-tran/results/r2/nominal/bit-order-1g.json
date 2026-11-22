@@ -13,774 +13,1161 @@
    "bit": 126,
    "expected": 1,
    "vd_v": 0.352587,
+   "mux_q_minus_qb_v": 1.799993,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 127,
    "expected": 0,
    "vd_v": -0.356817,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 128,
    "expected": 0,
    "vd_v": -0.36066,
+   "mux_q_minus_qb_v": -1.799539,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 129,
    "expected": 0,
    "vd_v": -0.361834,
+   "mux_q_minus_qb_v": -1.799802,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 130,
    "expected": 0,
    "vd_v": -0.362352,
+   "mux_q_minus_qb_v": -1.799809,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 131,
    "expected": 0,
    "vd_v": -0.361639,
+   "mux_q_minus_qb_v": -1.799879,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 132,
    "expected": 0,
    "vd_v": -0.345688,
+   "mux_q_minus_qb_v": -1.799945,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 133,
    "expected": 1,
    "vd_v": 0.331536,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 134,
    "expected": 0,
    "vd_v": -0.318029,
+   "mux_q_minus_qb_v": -1.79943,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 135,
    "expected": 0,
    "vd_v": -0.332091,
+   "mux_q_minus_qb_v": -1.79952,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 136,
    "expected": 0,
    "vd_v": -0.344436,
+   "mux_q_minus_qb_v": -1.799864,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 137,
    "expected": 0,
    "vd_v": -0.35198,
+   "mux_q_minus_qb_v": -1.799806,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 138,
    "expected": 0,
    "vd_v": -0.353895,
+   "mux_q_minus_qb_v": -1.799974,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 139,
    "expected": 1,
    "vd_v": 0.359667,
+   "mux_q_minus_qb_v": 1.799204,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 140,
    "expected": 1,
    "vd_v": 0.359775,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 141,
    "expected": 0,
    "vd_v": -0.360958,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 142,
    "expected": 0,
    "vd_v": -0.363016,
+   "mux_q_minus_qb_v": -1.799539,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 143,
    "expected": 0,
    "vd_v": -0.362839,
+   "mux_q_minus_qb_v": -1.799802,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 144,
    "expected": 0,
    "vd_v": -0.349215,
+   "mux_q_minus_qb_v": -1.799872,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 145,
    "expected": 1,
    "vd_v": 0.33539,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 146,
    "expected": 0,
    "vd_v": -0.317631,
+   "mux_q_minus_qb_v": -1.799673,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 147,
    "expected": 1,
    "vd_v": 0.325961,
+   "mux_q_minus_qb_v": 1.799628,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 148,
    "expected": 0,
    "vd_v": -0.336429,
+   "mux_q_minus_qb_v": -1.799429,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 149,
    "expected": 0,
    "vd_v": -0.35016,
+   "mux_q_minus_qb_v": -1.79952,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 150,
    "expected": 0,
    "vd_v": -0.353043,
+   "mux_q_minus_qb_v": -1.799927,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 151,
    "expected": 1,
    "vd_v": 0.35941,
+   "mux_q_minus_qb_v": 1.799204,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 152,
    "expected": 1,
    "vd_v": 0.362155,
+   "mux_q_minus_qb_v": 1.799526,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 153,
    "expected": 1,
    "vd_v": 0.363424,
+   "mux_q_minus_qb_v": 1.799793,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 154,
    "expected": 1,
    "vd_v": 0.360701,
+   "mux_q_minus_qb_v": 1.799867,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 155,
    "expected": 0,
    "vd_v": -0.360541,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 156,
    "expected": 0,
    "vd_v": -0.356407,
+   "mux_q_minus_qb_v": -1.799604,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 157,
    "expected": 1,
    "vd_v": 0.350201,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 158,
    "expected": 0,
    "vd_v": -0.328777,
+   "mux_q_minus_qb_v": -1.799378,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 159,
    "expected": 0,
    "vd_v": -0.319378,
+   "mux_q_minus_qb_v": -1.79952,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 160,
    "expected": 0,
    "vd_v": -0.327578,
+   "mux_q_minus_qb_v": -1.799902,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 161,
    "expected": 1,
    "vd_v": 0.344182,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 162,
    "expected": 0,
    "vd_v": -0.35255,
+   "mux_q_minus_qb_v": -1.79969,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 163,
    "expected": 1,
    "vd_v": 0.357068,
+   "mux_q_minus_qb_v": 1.799367,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 164,
    "expected": 1,
    "vd_v": 0.358536,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 165,
    "expected": 0,
    "vd_v": -0.361129,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 166,
    "expected": 0,
    "vd_v": -0.359605,
+   "mux_q_minus_qb_v": -1.799604,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 167,
    "expected": 1,
    "vd_v": 0.361956,
+   "mux_q_minus_qb_v": 1.799203,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 168,
    "expected": 1,
    "vd_v": 0.363547,
+   "mux_q_minus_qb_v": 1.799526,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 169,
    "expected": 1,
    "vd_v": 0.354716,
+   "mux_q_minus_qb_v": 1.799858,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 170,
    "expected": 0,
    "vd_v": -0.342799,
+   "mux_q_minus_qb_v": -1.799502,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 171,
    "expected": 1,
    "vd_v": 0.325689,
+   "mux_q_minus_qb_v": 1.79967,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 172,
    "expected": 0,
    "vd_v": -0.325559,
+   "mux_q_minus_qb_v": -1.799637,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 173,
    "expected": 1,
    "vd_v": 0.339731,
+   "mux_q_minus_qb_v": 1.799688,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 174,
    "expected": 0,
    "vd_v": -0.345081,
+   "mux_q_minus_qb_v": -1.799413,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 175,
    "expected": 0,
    "vd_v": -0.352398,
+   "mux_q_minus_qb_v": -1.799588,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 176,
    "expected": 1,
    "vd_v": 0.359913,
+   "mux_q_minus_qb_v": 1.799206,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 177,
    "expected": 1,
    "vd_v": 0.363309,
+   "mux_q_minus_qb_v": 1.799507,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 178,
    "expected": 1,
    "vd_v": 0.364939,
+   "mux_q_minus_qb_v": 1.799794,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 179,
    "expected": 1,
    "vd_v": 0.365571,
+   "mux_q_minus_qb_v": 1.7998,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 180,
    "expected": 1,
    "vd_v": 0.361756,
+   "mux_q_minus_qb_v": 1.799938,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 181,
    "expected": 0,
    "vd_v": -0.363269,
+   "mux_q_minus_qb_v": -1.79949,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 182,
    "expected": 1,
    "vd_v": 0.366887,
+   "mux_q_minus_qb_v": 1.799654,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 183,
    "expected": 0,
    "vd_v": -0.352801,
+   "mux_q_minus_qb_v": -1.799399,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 184,
    "expected": 0,
    "vd_v": -0.336126,
+   "mux_q_minus_qb_v": -1.799539,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 185,
    "expected": 0,
    "vd_v": -0.318814,
+   "mux_q_minus_qb_v": -1.799842,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 186,
    "expected": 0,
    "vd_v": -0.319362,
+   "mux_q_minus_qb_v": -1.799872,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 187,
    "expected": 1,
    "vd_v": 0.338332,
+   "mux_q_minus_qb_v": 1.799204,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 188,
    "expected": 1,
    "vd_v": 0.34852,
+   "mux_q_minus_qb_v": 1.799526,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 189,
    "expected": 1,
    "vd_v": 0.352269,
+   "mux_q_minus_qb_v": 1.799858,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 190,
    "expected": 0,
    "vd_v": -0.356687,
+   "mux_q_minus_qb_v": -1.799244,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 191,
    "expected": 0,
    "vd_v": -0.362115,
+   "mux_q_minus_qb_v": -1.79952,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 192,
    "expected": 0,
    "vd_v": -0.360442,
+   "mux_q_minus_qb_v": -1.799866,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 193,
    "expected": 1,
    "vd_v": 0.364432,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 194,
    "expected": 0,
    "vd_v": -0.364272,
+   "mux_q_minus_qb_v": -1.799413,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 195,
    "expected": 0,
    "vd_v": -0.360989,
+   "mux_q_minus_qb_v": -1.799588,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 196,
    "expected": 1,
    "vd_v": 0.36641,
+   "mux_q_minus_qb_v": 1.799467,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 197,
    "expected": 0,
    "vd_v": -0.35492,
+   "mux_q_minus_qb_v": -1.7994,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 198,
    "expected": 0,
    "vd_v": -0.336568,
+   "mux_q_minus_qb_v": -1.799604,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 199,
    "expected": 1,
    "vd_v": 0.324815,
+   "mux_q_minus_qb_v": 1.799203,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 200,
    "expected": 1,
    "vd_v": 0.322268,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 201,
    "expected": 0,
    "vd_v": -0.339115,
+   "mux_q_minus_qb_v": -1.79949,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 202,
    "expected": 1,
    "vd_v": 0.348681,
+   "mux_q_minus_qb_v": 1.799341,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 203,
    "expected": 1,
    "vd_v": 0.352563,
+   "mux_q_minus_qb_v": 1.799576,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 204,
    "expected": 0,
    "vd_v": -0.360163,
+   "mux_q_minus_qb_v": -1.799502,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 205,
    "expected": 1,
    "vd_v": 0.362978,
+   "mux_q_minus_qb_v": 1.799629,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 206,
    "expected": 0,
    "vd_v": -0.365227,
+   "mux_q_minus_qb_v": -1.799637,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 207,
    "expected": 1,
    "vd_v": 0.365111,
+   "mux_q_minus_qb_v": 1.799408,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 208,
    "expected": 1,
    "vd_v": 0.362901,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 209,
    "expected": 0,
    "vd_v": -0.364191,
+   "mux_q_minus_qb_v": -1.79949,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 210,
    "expected": 1,
    "vd_v": 0.366423,
+   "mux_q_minus_qb_v": 1.799341,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 211,
    "expected": 1,
    "vd_v": 0.360681,
+   "mux_q_minus_qb_v": 1.799507,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 212,
    "expected": 1,
    "vd_v": 0.343531,
+   "mux_q_minus_qb_v": 1.79983,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 213,
    "expected": 1,
    "vd_v": 0.322425,
+   "mux_q_minus_qb_v": 1.799865,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 214,
    "expected": 0,
    "vd_v": -0.322115,
+   "mux_q_minus_qb_v": -1.799502,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 215,
    "expected": 1,
    "vd_v": 0.336954,
+   "mux_q_minus_qb_v": 1.799408,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 216,
    "expected": 1,
    "vd_v": 0.344668,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 217,
    "expected": 0,
    "vd_v": -0.352037,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 218,
    "expected": 0,
    "vd_v": -0.358608,
+   "mux_q_minus_qb_v": -1.799539,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 219,
    "expected": 0,
    "vd_v": -0.357973,
+   "mux_q_minus_qb_v": -1.799865,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 220,
    "expected": 1,
    "vd_v": 0.363734,
+   "mux_q_minus_qb_v": 1.799206,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 221,
    "expected": 1,
    "vd_v": 0.363082,
+   "mux_q_minus_qb_v": 1.799576,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 222,
    "expected": 0,
    "vd_v": -0.366754,
+   "mux_q_minus_qb_v": -1.799502,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 223,
    "expected": 1,
    "vd_v": 0.366599,
+   "mux_q_minus_qb_v": 1.799629,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 224,
    "expected": 0,
    "vd_v": -0.365727,
+   "mux_q_minus_qb_v": -1.799377,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 225,
    "expected": 0,
    "vd_v": -0.358889,
+   "mux_q_minus_qb_v": -1.799588,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 226,
    "expected": 1,
    "vd_v": 0.350173,
+   "mux_q_minus_qb_v": 1.799467,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 227,
    "expected": 0,
    "vd_v": -0.337427,
+   "mux_q_minus_qb_v": -1.79966,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 228,
    "expected": 1,
    "vd_v": 0.33328,
+   "mux_q_minus_qb_v": 1.79934,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 229,
    "expected": 1,
    "vd_v": 0.342561,
+   "mux_q_minus_qb_v": 1.799507,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 230,
    "expected": 1,
    "vd_v": 0.347615,
+   "mux_q_minus_qb_v": 1.799893,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 231,
    "expected": 0,
    "vd_v": -0.355858,
+   "mux_q_minus_qb_v": -1.79949,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 232,
    "expected": 1,
    "vd_v": 0.359795,
+   "mux_q_minus_qb_v": 1.799392,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 233,
    "expected": 1,
    "vd_v": 0.362601,
+   "mux_q_minus_qb_v": 1.799507,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 234,
    "expected": 1,
    "vd_v": 0.361687,
+   "mux_q_minus_qb_v": 1.799919,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 235,
    "expected": 0,
    "vd_v": -0.362324,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 236,
    "expected": 0,
    "vd_v": -0.359064,
+   "mux_q_minus_qb_v": -1.799604,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 237,
    "expected": 1,
    "vd_v": 0.361212,
+   "mux_q_minus_qb_v": 1.799203,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 238,
    "expected": 1,
    "vd_v": 0.348422,
+   "mux_q_minus_qb_v": 1.799592,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 239,
    "expected": 0,
    "vd_v": -0.330936,
+   "mux_q_minus_qb_v": -1.799236,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 240,
    "expected": 0,
    "vd_v": -0.309839,
+   "mux_q_minus_qb_v": -1.799604,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 241,
    "expected": 1,
    "vd_v": 0.319314,
+   "mux_q_minus_qb_v": 1.799459,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 242,
    "expected": 0,
    "vd_v": -0.338045,
+   "mux_q_minus_qb_v": -1.799638,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 243,
    "expected": 1,
    "vd_v": 0.348754,
+   "mux_q_minus_qb_v": 1.799628,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 244,
    "expected": 0,
    "vd_v": -0.355887,
+   "mux_q_minus_qb_v": -1.799673,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 245,
    "expected": 1,
    "vd_v": 0.360335,
+   "mux_q_minus_qb_v": 1.799669,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 246,
    "expected": 0,
    "vd_v": -0.363565,
+   "mux_q_minus_qb_v": -1.799689,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 247,
    "expected": 1,
    "vd_v": 0.364442,
+   "mux_q_minus_qb_v": 1.799425,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 248,
    "expected": 1,
    "vd_v": 0.365903,
+   "mux_q_minus_qb_v": 1.799526,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 249,
    "expected": 1,
    "vd_v": 0.365918,
+   "mux_q_minus_qb_v": 1.799862,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 250,
    "expected": 1,
    "vd_v": 0.365442,
+   "mux_q_minus_qb_v": 1.799803,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 251,
    "expected": 1,
    "vd_v": 0.364717,
+   "mux_q_minus_qb_v": 1.799909,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 252,
    "expected": 1,
    "vd_v": 0.356508,
+   "mux_q_minus_qb_v": 1.799878,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 253,
    "expected": 1,
    "vd_v": 0.333974,
+   "mux_q_minus_qb_v": 1.799995,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   },
   {
    "bit": 254,
    "expected": 0,
    "vd_v": -0.31615,
+   "mux_q_minus_qb_v": -1.799243,
+   "pad_ok": true,
+   "mux_ok": true,
    "ok": true
   }
  ]
