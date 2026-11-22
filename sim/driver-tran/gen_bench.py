@@ -61,6 +61,9 @@ N_BITS = 256          # bits 0..255 on the wire
 SETTLE_LAST = 126     # bits 0..126 settle (127 bits)
 WIN_FIRST = 127       # measured bits 127..253 (127 bits = one PRBS period)
 WIN_LAST = 253
+# Adjacent pairs 126/127 and 253/254 straddle the PRBS wrap (bit 254 repeats bit 127).
+BIT_OBSERVERS = [127, 128, 133, 135, 136, 137, 190, 252, 253]
+BIT_OBSERVERS_NOMINAL = [126] + BIT_OBSERVERS + [254]
 TAIL_UI = 2.5         # extend the sequence to (N_BITS + TAIL_UI)*UI
 
 RATES = {
@@ -255,7 +258,7 @@ def write_deck(rate):
     return path
 
 
-def measurements(bits, ui, tsamp, p):
+def measurements(bits, ui, tsamp, p, bit_observers=BIT_OBSERVERS):
     """The ordered measurement list for one tran step."""
     w0 = 128 * ui
     w1 = 255 * ui
@@ -403,7 +406,7 @@ def measurements(bits, ui, tsamp, p):
         "in the summary. Total W1 requires the serializer share.")
 
     # 9. Bit-order observers: the differential at declared sample points.
-    for i in [127, 128, 133, 135, 136, 137, 190, 252, 253]:
+    for i in bit_observers:
         t = (i + 1.5) * ui + tsamp
         add(f"m_bit{i}", "spice",
             f".meas tran m_bit{i} find m_vd at={fmt_t(t)}", "V",
@@ -479,6 +482,28 @@ def write_requests(rate, bits, ui, tsamp, p, control_corner, control_cap,
         "options": base_options(),
         "batch": {"capacity_wait_s": 600},
     }
+    # Nominal TT capture. Waveforms are refused with analysis_steps and
+    # `intermediate` cards need steps, so it takes two requests over one corner:
+    # the bit-order check (steps, extended observers) and a scalar-analysis
+    # request that only retains the raw waveforms for eye_plot.py.
+    nominal = dict(main)
+    nominal["corners"] = {"process": ["tt"], "temperature_c": [27],
+                          "supply_v": {"VVCCD": [1.8], "VVDDIO": [3.3]}}
+    nominal["analysis_steps"] = [{"name": "seq", "analysis": tran,
+                                  "measurements": measurements(
+                                      bits, ui, tsamp, p, BIT_OBSERVERS_NOMINAL)}]
+    nominal.pop("batch")
+    with open(f"request-nominal-{rate}.json", "w") as f:
+        json.dump(nominal, f, indent=1)
+        f.write("\n")
+    wave = {k: nominal[k] for k in ("netlist", "netlist_source", "models", "corners")}
+    wave["analysis"] = tran
+    wave["measurements"] = []
+    wave["options"] = dict(base_options(), waveforms=True, keep_artifacts=True)
+    with open(f"request-wave-{rate}.json", "w") as f:
+        json.dump(wave, f, indent=1)
+        f.write("\n")
+
     if rate == "400m":
         with open("request-control.json", "w") as f:
             json.dump(control, f, indent=1)

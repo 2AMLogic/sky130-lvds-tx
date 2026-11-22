@@ -86,7 +86,35 @@ done
 python3 -m unittest discover
 ```
 
-For a fleet rerun, use `--backend batch --wait-for-capacity 600` in place of the local options. First dry-run each request with `--backend batch --dry-run` and check the expansions of 75, 75 and 1 units. Then retain each collected job's receipt and report. On the host that produced r2, submission stopped before upload because the AWS profile `batch-runner-submit` was unavailable. The corrected runs have local provenance. [1 Gb/s report](results/r2/report-1g.json.gz) · [400 Mb/s report](results/r2/report-400m.json.gz)
+For a fleet rerun, use `--backend batch --wait-for-capacity 600` in place of the local options. First dry-run each request with `--backend batch --dry-run` and check the expansions of 75, 75 and 1 units.
+
+**Fleet attempt on the corrected requests.** The three corrected requests were submitted with `klt sim --batch-set` on a host with the `batch-runner-submit` profile. The jobs were `klt-sim-4df82c75d805` (1 Gb/s), `klt-sim-1f98a90710b4` (400 Mb/s) and `klt-sim-3c3a4015e044` (control). All three ended `failed` with status `error`. The runner reports `runner_klt_version` 0.9.0 and `runner_compatibility: match`, but it predates `measurements[].expr`. Every `expr` card produced no value (diagnostic `expr_runner_may_predate`), so no per-pad E5 or folded E9 result exists from the fleet. The tool gap is filed as [klayout-tools #7113](https://github.com/2AMLogic/klayout-tools/issues/7113). The receipts and failed reports are kept under `results/r2/fleet-attempt/` as evidence of the attempt only; they are **not** graded and are not substitutes for r2. The r2 reports remain the only graded evidence, with local backends, until the runner image accepts `expr`. Rerun the commands above with the batch options once it does.
+
+The bit-order and eye capture below ran on the local backend, one corner per request.
+
+## Nominal waveform check and eye
+
+At nominal TT, 27 °C, 1.8 V and 3.3 V, with the same netlist and stimulus, two single-corner requests cover both rates. Waveforms are refused alongside `analysis_steps`, and `intermediate` cards need steps, so `request-nominal-{1g,400m}.json` carries the bit-order observers and `request-wave-{1g,400m}.json` is a scalar-analysis request that only retains the raw waveform. The first adds the bit 126 and bit 254 observers to the nine used at G75. All `m_bit*` cards read PADP − PADN at the sample point of the named bit. Bits 126/127 straddle the start of the measured period. Bits 253/254 straddle the wrap, since bit 254 repeats bit 127.
+
+`eye_plot.py` checks the sign of PADP − PADN at the sample point of every bit 126 to 254 in the raw waveform against the seeded sequence, and folds bits 127–252 into a two-UI eye with the sampling phase marked. All 129 signs match at both rates, including 126/127 and 253/254. This confirms bit order only; it does not change any E5, E9 or W1 verdict.
+
+| Rate | Bit-order check | Folded eye (**simulated**) | Raw waveform |
+|---|---|---|---|
+| 1 Gb/s | [11 observers](results/r2/nominal/bit-order-report-1g.json.gz), [129 samples](results/r2/nominal/bit-order-1g.json) | [eye-1g.svg](results/r2/nominal/eye-1g.svg) | [waveform](results/r2/nominal/waveform-1g.json.gz) |
+| 400 Mb/s | [11 observers](results/r2/nominal/bit-order-report-400m.json.gz), [129 samples](results/r2/nominal/bit-order-400m.json) | [eye-400m.svg](results/r2/nominal/eye-400m.svg) | [waveform](results/r2/nominal/waveform-400m.json.gz) |
+
+```bash
+cd sim/driver-tran
+for r in 1g 400m; do
+    klt sim request-wave-$r.json --backend local -o "$out/wave-$r" --format json > /dev/null || true
+    klt sim request-nominal-$r.json --backend local -o "$out/nom-$r" \
+        --report-out "$out/nom-$r/report.json.gz" --format json > /dev/null || true
+    python3 eye_plot.py "$out"/wave-$r/tt_*/waveform.raw.json "stim_meta_$r.json" \
+        "$out/eye-$r.svg" "$out/bit-order-$r.json"
+done
+```
+
+(Klt exits 4 for the measurement-less waveform request and 3 or 4 for a spec miss; each still writes its output.)
 
 ## Earlier fleet evidence
 

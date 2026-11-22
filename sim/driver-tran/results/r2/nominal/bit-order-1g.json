@@ -1,0 +1,787 @@
+{
+ "corner": "tt/27C/1.8/3.3",
+ "simulated": true,
+ "ui_s": 1e-09,
+ "sample_phase_after_launch_s": 8.6e-10,
+ "bits_checked": [
+  126,
+  254
+ ],
+ "bit_order_ok": true,
+ "samples": [
+  {
+   "bit": 126,
+   "expected": 1,
+   "vd_v": 0.352587,
+   "ok": true
+  },
+  {
+   "bit": 127,
+   "expected": 0,
+   "vd_v": -0.356817,
+   "ok": true
+  },
+  {
+   "bit": 128,
+   "expected": 0,
+   "vd_v": -0.36066,
+   "ok": true
+  },
+  {
+   "bit": 129,
+   "expected": 0,
+   "vd_v": -0.361834,
+   "ok": true
+  },
+  {
+   "bit": 130,
+   "expected": 0,
+   "vd_v": -0.362352,
+   "ok": true
+  },
+  {
+   "bit": 131,
+   "expected": 0,
+   "vd_v": -0.361639,
+   "ok": true
+  },
+  {
+   "bit": 132,
+   "expected": 0,
+   "vd_v": -0.345688,
+   "ok": true
+  },
+  {
+   "bit": 133,
+   "expected": 1,
+   "vd_v": 0.331536,
+   "ok": true
+  },
+  {
+   "bit": 134,
+   "expected": 0,
+   "vd_v": -0.318029,
+   "ok": true
+  },
+  {
+   "bit": 135,
+   "expected": 0,
+   "vd_v": -0.332091,
+   "ok": true
+  },
+  {
+   "bit": 136,
+   "expected": 0,
+   "vd_v": -0.344436,
+   "ok": true
+  },
+  {
+   "bit": 137,
+   "expected": 0,
+   "vd_v": -0.35198,
+   "ok": true
+  },
+  {
+   "bit": 138,
+   "expected": 0,
+   "vd_v": -0.353895,
+   "ok": true
+  },
+  {
+   "bit": 139,
+   "expected": 1,
+   "vd_v": 0.359667,
+   "ok": true
+  },
+  {
+   "bit": 140,
+   "expected": 1,
+   "vd_v": 0.359775,
+   "ok": true
+  },
+  {
+   "bit": 141,
+   "expected": 0,
+   "vd_v": -0.360958,
+   "ok": true
+  },
+  {
+   "bit": 142,
+   "expected": 0,
+   "vd_v": -0.363016,
+   "ok": true
+  },
+  {
+   "bit": 143,
+   "expected": 0,
+   "vd_v": -0.362839,
+   "ok": true
+  },
+  {
+   "bit": 144,
+   "expected": 0,
+   "vd_v": -0.349215,
+   "ok": true
+  },
+  {
+   "bit": 145,
+   "expected": 1,
+   "vd_v": 0.33539,
+   "ok": true
+  },
+  {
+   "bit": 146,
+   "expected": 0,
+   "vd_v": -0.317631,
+   "ok": true
+  },
+  {
+   "bit": 147,
+   "expected": 1,
+   "vd_v": 0.325961,
+   "ok": true
+  },
+  {
+   "bit": 148,
+   "expected": 0,
+   "vd_v": -0.336429,
+   "ok": true
+  },
+  {
+   "bit": 149,
+   "expected": 0,
+   "vd_v": -0.35016,
+   "ok": true
+  },
+  {
+   "bit": 150,
+   "expected": 0,
+   "vd_v": -0.353043,
+   "ok": true
+  },
+  {
+   "bit": 151,
+   "expected": 1,
+   "vd_v": 0.35941,
+   "ok": true
+  },
+  {
+   "bit": 152,
+   "expected": 1,
+   "vd_v": 0.362155,
+   "ok": true
+  },
+  {
+   "bit": 153,
+   "expected": 1,
+   "vd_v": 0.363424,
+   "ok": true
+  },
+  {
+   "bit": 154,
+   "expected": 1,
+   "vd_v": 0.360701,
+   "ok": true
+  },
+  {
+   "bit": 155,
+   "expected": 0,
+   "vd_v": -0.360541,
+   "ok": true
+  },
+  {
+   "bit": 156,
+   "expected": 0,
+   "vd_v": -0.356407,
+   "ok": true
+  },
+  {
+   "bit": 157,
+   "expected": 1,
+   "vd_v": 0.350201,
+   "ok": true
+  },
+  {
+   "bit": 158,
+   "expected": 0,
+   "vd_v": -0.328777,
+   "ok": true
+  },
+  {
+   "bit": 159,
+   "expected": 0,
+   "vd_v": -0.319378,
+   "ok": true
+  },
+  {
+   "bit": 160,
+   "expected": 0,
+   "vd_v": -0.327578,
+   "ok": true
+  },
+  {
+   "bit": 161,
+   "expected": 1,
+   "vd_v": 0.344182,
+   "ok": true
+  },
+  {
+   "bit": 162,
+   "expected": 0,
+   "vd_v": -0.35255,
+   "ok": true
+  },
+  {
+   "bit": 163,
+   "expected": 1,
+   "vd_v": 0.357068,
+   "ok": true
+  },
+  {
+   "bit": 164,
+   "expected": 1,
+   "vd_v": 0.358536,
+   "ok": true
+  },
+  {
+   "bit": 165,
+   "expected": 0,
+   "vd_v": -0.361129,
+   "ok": true
+  },
+  {
+   "bit": 166,
+   "expected": 0,
+   "vd_v": -0.359605,
+   "ok": true
+  },
+  {
+   "bit": 167,
+   "expected": 1,
+   "vd_v": 0.361956,
+   "ok": true
+  },
+  {
+   "bit": 168,
+   "expected": 1,
+   "vd_v": 0.363547,
+   "ok": true
+  },
+  {
+   "bit": 169,
+   "expected": 1,
+   "vd_v": 0.354716,
+   "ok": true
+  },
+  {
+   "bit": 170,
+   "expected": 0,
+   "vd_v": -0.342799,
+   "ok": true
+  },
+  {
+   "bit": 171,
+   "expected": 1,
+   "vd_v": 0.325689,
+   "ok": true
+  },
+  {
+   "bit": 172,
+   "expected": 0,
+   "vd_v": -0.325559,
+   "ok": true
+  },
+  {
+   "bit": 173,
+   "expected": 1,
+   "vd_v": 0.339731,
+   "ok": true
+  },
+  {
+   "bit": 174,
+   "expected": 0,
+   "vd_v": -0.345081,
+   "ok": true
+  },
+  {
+   "bit": 175,
+   "expected": 0,
+   "vd_v": -0.352398,
+   "ok": true
+  },
+  {
+   "bit": 176,
+   "expected": 1,
+   "vd_v": 0.359913,
+   "ok": true
+  },
+  {
+   "bit": 177,
+   "expected": 1,
+   "vd_v": 0.363309,
+   "ok": true
+  },
+  {
+   "bit": 178,
+   "expected": 1,
+   "vd_v": 0.364939,
+   "ok": true
+  },
+  {
+   "bit": 179,
+   "expected": 1,
+   "vd_v": 0.365571,
+   "ok": true
+  },
+  {
+   "bit": 180,
+   "expected": 1,
+   "vd_v": 0.361756,
+   "ok": true
+  },
+  {
+   "bit": 181,
+   "expected": 0,
+   "vd_v": -0.363269,
+   "ok": true
+  },
+  {
+   "bit": 182,
+   "expected": 1,
+   "vd_v": 0.366887,
+   "ok": true
+  },
+  {
+   "bit": 183,
+   "expected": 0,
+   "vd_v": -0.352801,
+   "ok": true
+  },
+  {
+   "bit": 184,
+   "expected": 0,
+   "vd_v": -0.336126,
+   "ok": true
+  },
+  {
+   "bit": 185,
+   "expected": 0,
+   "vd_v": -0.318814,
+   "ok": true
+  },
+  {
+   "bit": 186,
+   "expected": 0,
+   "vd_v": -0.319362,
+   "ok": true
+  },
+  {
+   "bit": 187,
+   "expected": 1,
+   "vd_v": 0.338332,
+   "ok": true
+  },
+  {
+   "bit": 188,
+   "expected": 1,
+   "vd_v": 0.34852,
+   "ok": true
+  },
+  {
+   "bit": 189,
+   "expected": 1,
+   "vd_v": 0.352269,
+   "ok": true
+  },
+  {
+   "bit": 190,
+   "expected": 0,
+   "vd_v": -0.356687,
+   "ok": true
+  },
+  {
+   "bit": 191,
+   "expected": 0,
+   "vd_v": -0.362115,
+   "ok": true
+  },
+  {
+   "bit": 192,
+   "expected": 0,
+   "vd_v": -0.360442,
+   "ok": true
+  },
+  {
+   "bit": 193,
+   "expected": 1,
+   "vd_v": 0.364432,
+   "ok": true
+  },
+  {
+   "bit": 194,
+   "expected": 0,
+   "vd_v": -0.364272,
+   "ok": true
+  },
+  {
+   "bit": 195,
+   "expected": 0,
+   "vd_v": -0.360989,
+   "ok": true
+  },
+  {
+   "bit": 196,
+   "expected": 1,
+   "vd_v": 0.36641,
+   "ok": true
+  },
+  {
+   "bit": 197,
+   "expected": 0,
+   "vd_v": -0.35492,
+   "ok": true
+  },
+  {
+   "bit": 198,
+   "expected": 0,
+   "vd_v": -0.336568,
+   "ok": true
+  },
+  {
+   "bit": 199,
+   "expected": 1,
+   "vd_v": 0.324815,
+   "ok": true
+  },
+  {
+   "bit": 200,
+   "expected": 1,
+   "vd_v": 0.322268,
+   "ok": true
+  },
+  {
+   "bit": 201,
+   "expected": 0,
+   "vd_v": -0.339115,
+   "ok": true
+  },
+  {
+   "bit": 202,
+   "expected": 1,
+   "vd_v": 0.348681,
+   "ok": true
+  },
+  {
+   "bit": 203,
+   "expected": 1,
+   "vd_v": 0.352563,
+   "ok": true
+  },
+  {
+   "bit": 204,
+   "expected": 0,
+   "vd_v": -0.360163,
+   "ok": true
+  },
+  {
+   "bit": 205,
+   "expected": 1,
+   "vd_v": 0.362978,
+   "ok": true
+  },
+  {
+   "bit": 206,
+   "expected": 0,
+   "vd_v": -0.365227,
+   "ok": true
+  },
+  {
+   "bit": 207,
+   "expected": 1,
+   "vd_v": 0.365111,
+   "ok": true
+  },
+  {
+   "bit": 208,
+   "expected": 1,
+   "vd_v": 0.362901,
+   "ok": true
+  },
+  {
+   "bit": 209,
+   "expected": 0,
+   "vd_v": -0.364191,
+   "ok": true
+  },
+  {
+   "bit": 210,
+   "expected": 1,
+   "vd_v": 0.366423,
+   "ok": true
+  },
+  {
+   "bit": 211,
+   "expected": 1,
+   "vd_v": 0.360681,
+   "ok": true
+  },
+  {
+   "bit": 212,
+   "expected": 1,
+   "vd_v": 0.343531,
+   "ok": true
+  },
+  {
+   "bit": 213,
+   "expected": 1,
+   "vd_v": 0.322425,
+   "ok": true
+  },
+  {
+   "bit": 214,
+   "expected": 0,
+   "vd_v": -0.322115,
+   "ok": true
+  },
+  {
+   "bit": 215,
+   "expected": 1,
+   "vd_v": 0.336954,
+   "ok": true
+  },
+  {
+   "bit": 216,
+   "expected": 1,
+   "vd_v": 0.344668,
+   "ok": true
+  },
+  {
+   "bit": 217,
+   "expected": 0,
+   "vd_v": -0.352037,
+   "ok": true
+  },
+  {
+   "bit": 218,
+   "expected": 0,
+   "vd_v": -0.358608,
+   "ok": true
+  },
+  {
+   "bit": 219,
+   "expected": 0,
+   "vd_v": -0.357973,
+   "ok": true
+  },
+  {
+   "bit": 220,
+   "expected": 1,
+   "vd_v": 0.363734,
+   "ok": true
+  },
+  {
+   "bit": 221,
+   "expected": 1,
+   "vd_v": 0.363082,
+   "ok": true
+  },
+  {
+   "bit": 222,
+   "expected": 0,
+   "vd_v": -0.366754,
+   "ok": true
+  },
+  {
+   "bit": 223,
+   "expected": 1,
+   "vd_v": 0.366599,
+   "ok": true
+  },
+  {
+   "bit": 224,
+   "expected": 0,
+   "vd_v": -0.365727,
+   "ok": true
+  },
+  {
+   "bit": 225,
+   "expected": 0,
+   "vd_v": -0.358889,
+   "ok": true
+  },
+  {
+   "bit": 226,
+   "expected": 1,
+   "vd_v": 0.350173,
+   "ok": true
+  },
+  {
+   "bit": 227,
+   "expected": 0,
+   "vd_v": -0.337427,
+   "ok": true
+  },
+  {
+   "bit": 228,
+   "expected": 1,
+   "vd_v": 0.33328,
+   "ok": true
+  },
+  {
+   "bit": 229,
+   "expected": 1,
+   "vd_v": 0.342561,
+   "ok": true
+  },
+  {
+   "bit": 230,
+   "expected": 1,
+   "vd_v": 0.347615,
+   "ok": true
+  },
+  {
+   "bit": 231,
+   "expected": 0,
+   "vd_v": -0.355858,
+   "ok": true
+  },
+  {
+   "bit": 232,
+   "expected": 1,
+   "vd_v": 0.359795,
+   "ok": true
+  },
+  {
+   "bit": 233,
+   "expected": 1,
+   "vd_v": 0.362601,
+   "ok": true
+  },
+  {
+   "bit": 234,
+   "expected": 1,
+   "vd_v": 0.361687,
+   "ok": true
+  },
+  {
+   "bit": 235,
+   "expected": 0,
+   "vd_v": -0.362324,
+   "ok": true
+  },
+  {
+   "bit": 236,
+   "expected": 0,
+   "vd_v": -0.359064,
+   "ok": true
+  },
+  {
+   "bit": 237,
+   "expected": 1,
+   "vd_v": 0.361212,
+   "ok": true
+  },
+  {
+   "bit": 238,
+   "expected": 1,
+   "vd_v": 0.348422,
+   "ok": true
+  },
+  {
+   "bit": 239,
+   "expected": 0,
+   "vd_v": -0.330936,
+   "ok": true
+  },
+  {
+   "bit": 240,
+   "expected": 0,
+   "vd_v": -0.309839,
+   "ok": true
+  },
+  {
+   "bit": 241,
+   "expected": 1,
+   "vd_v": 0.319314,
+   "ok": true
+  },
+  {
+   "bit": 242,
+   "expected": 0,
+   "vd_v": -0.338045,
+   "ok": true
+  },
+  {
+   "bit": 243,
+   "expected": 1,
+   "vd_v": 0.348754,
+   "ok": true
+  },
+  {
+   "bit": 244,
+   "expected": 0,
+   "vd_v": -0.355887,
+   "ok": true
+  },
+  {
+   "bit": 245,
+   "expected": 1,
+   "vd_v": 0.360335,
+   "ok": true
+  },
+  {
+   "bit": 246,
+   "expected": 0,
+   "vd_v": -0.363565,
+   "ok": true
+  },
+  {
+   "bit": 247,
+   "expected": 1,
+   "vd_v": 0.364442,
+   "ok": true
+  },
+  {
+   "bit": 248,
+   "expected": 1,
+   "vd_v": 0.365903,
+   "ok": true
+  },
+  {
+   "bit": 249,
+   "expected": 1,
+   "vd_v": 0.365918,
+   "ok": true
+  },
+  {
+   "bit": 250,
+   "expected": 1,
+   "vd_v": 0.365442,
+   "ok": true
+  },
+  {
+   "bit": 251,
+   "expected": 1,
+   "vd_v": 0.364717,
+   "ok": true
+  },
+  {
+   "bit": 252,
+   "expected": 1,
+   "vd_v": 0.356508,
+   "ok": true
+  },
+  {
+   "bit": 253,
+   "expected": 1,
+   "vd_v": 0.333974,
+   "ok": true
+  },
+  {
+   "bit": 254,
+   "expected": 0,
+   "vd_v": -0.31615,
+   "ok": true
+  }
+ ]
+}

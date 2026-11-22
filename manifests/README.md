@@ -115,7 +115,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r14.json`](../verification/signoff/evidence/item-10-repo-hygiene-r14.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r15.json`](../verification/signoff/evidence/item-10-repo-hygiene-r15.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
     (append-only; r2-r13 are kept as history, bound to earlier workflow and
@@ -123,11 +123,11 @@ record**, produced by the regeneration command below. Never hand-edit it.
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
-    [`verification/signoff/evidence/item-9-testbenches-r7.json`](../verification/signoff/evidence/item-9-testbenches-r7.json),
+    [`verification/signoff/evidence/item-9-testbenches-r8.json`](../verification/signoff/evidence/item-9-testbenches-r8.json),
     produced by `klt signoff --attest 9` from
     [`verification/signoff/item-9-inventory.json`](../verification/signoff/item-9-inventory.json)
     for the corrected transient measurements, stimulus metadata and grading
-    regression test. Revisions 2 through 6 remain available.
+    regression test. Revisions 2 through 7 remain available.
     Item 9 is kind-independent: the bare key `"9"` serves both partitions, so
     one inventory lists the analog and digital benches together. The
     `content_hash` is the sha256 of the inventory file. Its `cold_start` is
@@ -180,9 +180,9 @@ GDS's 237 cells, so it could not regenerate the artifact at all (issue #104).
 ```console
 KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
-             -o verification/signoff/evidence/item-9-testbenches-r7.json   # runs the cold start using KLT_SIM_BACKEND
+             -o verification/signoff/evidence/item-9-testbenches-r8.json   # runs the cold start using KLT_SIM_BACKEND
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r14.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r15.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json

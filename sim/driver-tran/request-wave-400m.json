@@ -1,0 +1,54 @@
+{
+ "netlist": "driver_tran_400m.spice",
+ "netlist_source": "schematic",
+ "models": {
+  "pdk": "sky130A",
+  "lib": "libs.tech/ngspice/sky130.lib.spice"
+ },
+ "corners": {
+  "process": [
+   "tt"
+  ],
+  "temperature_c": [
+   27
+  ],
+  "supply_v": {
+   "VVCCD": [
+    1.8
+   ],
+   "VVDDIO": [
+    3.3
+   ]
+  }
+ },
+ "analysis": {
+  "kind": "tran",
+  "args": "5.000000e-12 6.462500e-07 0 2.500000e-11"
+ },
+ "measurements": [],
+ "options": {
+  "timeout_s": 900,
+  "stage_model_inputs": true,
+  "ngspice_init": [
+   "set wnflag=1",
+   "set num_threads=1"
+  ],
+  "node_voltage_bounds": {
+   "min": -0.5,
+   "max": 4.0
+  },
+  "save_vectors": [
+   "v(padp)",
+   "v(padn)",
+   "v(vccd)",
+   "v(vddio)",
+   "v(s1)",
+   "v(s0)",
+   "v(sw)",
+   "i(vvccd)",
+   "i(vvddio)"
+  ],
+  "waveforms": true,
+  "keep_artifacts": true
+ }
+}
