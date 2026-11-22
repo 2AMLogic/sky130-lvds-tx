@@ -721,14 +721,14 @@ old grid's miss conditions (probe method at the end of this addendum).
 
 | Device | Role | Old (W/L, nf) | New (W/L, nf) | Why |
 |---|---|---|---|---|
-| `XMPB` | bias diode | 2/1, 1 | **22/1**, 1 | V_SG 2.21 → 1.33 V nominal; BIASP ≥ 1.46 V at every corner of the grid, always above the `XMPP` pass threshold |
-| `XMPS` (per slice, `m=SCALE`) | tail source | 12.8/1, 2 | **124/1**, 2 | keeps the ~62:1 mirror ratio at the lower overdrive; nominal 3.495 mA, saturated at VDDIO = 2.97 V with ≥ 1 V of V_sd margin |
+| `XMPB` | bias diode | 2/1, 1 | **22/1**, 1 | V_SG 2.21 → 1.33 V nominal; BIASP ≥ 1.46 V as probed at single conditions (`diag/` decks, one corner per run; not swept — no grid-wide BIASP observer report is committed), above the `XMPP` pass threshold there. Grid-wide, the effect is evidenced only through the graded V_OD (75/75) |
+| `XMPS` (per slice, `m=SCALE`) | tail source | 12.8/1, 2 | **124/1**, 2 | main-slice W ratio to `XMPB` reduced from 70.4:1 to 62.0:1 (all four slices: 89.6:1 → 78.9:1) to trade against the lower overdrive; simulated nominal 3.495 mA. Saturation margin at VDDIO = 2.97 V (≥ 1 V V_sd) is a single-condition probe, not swept |
 | `XMNB1`/`XMNB2` | IREF diode + mirror | 2/1, 1 | **32/1**, 1 | V_IREF 1.54 → 0.95 V nominal, so the CMFB tail device is no longer 0.6 V past its saturation edge |
 | `XMT` | CMFB tail | 4/1, 1 | **64/1**, 1 | same 2×IREF design ratio against the widened diode |
 | `XM1`/`XM2` | CMFB diff pair | 10/1, 1 | **40/1**, 1 | V_gs 0.99 → 0.93 V, TAIL 0.19 → 0.24–0.32 V ≥ V_ov(XMT): the amplifier's tail is (at worst marginally) saturated instead of deep in triode |
 | `XML1`/`XML2` | CMFB mirror load | 4/1, 1 | **12/1**, 1 | pull-up range: sources the branch current down to V_sd ≈ 0.6 V, so VCMFB can reach ≈ VDDIO − 0.65 V while regulating |
-| `XMNS` (per slice) | sink | 6/1, 1 | **30/1**, 1 | sinks 3.5 mA (worst corner) at NG ≤ 1.36 V — measured over the grid — instead of 2.04 V |
-| `XMSNA`/`XMSNB` (per slice) | N steering switches | 2.7/0.15, 3 | **4.5/0.15**, 3 | saturation current ≥ ~4.4 mA at VCCD = 1.62 V with V_th up to 0.95 V, so the switch is a switch again at every G75 corner |
+| `XMNS` (per slice) | sink | 6/1, 1 | **30/1**, 1 | sinks 3.5 mA at NG ≤ 1.36 V at the probed conditions (not swept; no grid-wide NG report is committed) instead of 2.04 V at nominal before |
+| `XMSNA`/`XMSNB` (per slice) | N steering switches | 2.7/0.15, 3 | **4.5/0.15**, 3 | design estimate: saturation current ≥ ~4.4 mA at VCCD = 1.62 V with V_th up to 0.95 V (hand estimate, not a committed grid measurement); the grid-wide evidence that the switch conducts is the graded V_OS (75/75) |
 
 `XMSPA`/`XMSPB` (P steering switches) are unchanged: gate 0 V drive leaves them
 ≥ 10× over-margined. ad/as/pd/ps/nrd/nrs follow the same sky130 xschem
