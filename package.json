@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "worktree:return": "./.loom/scripts/worktree-return.sh",
-    "check:signoff": "sh verification/signoff/check-hygiene.sh && klt signoff --manifest manifests/sky130-lvds-tx.json --check manifests/sky130-lvds-tx.signoff.json",
+    "check:signoff": "sh verification/signoff/check-hygiene.sh && sh verification/signoff/check-verdict-record.sh",
     "check:ci": "pnpm lint && pnpm test",
     "test": "python3 verification/serializer/runner.py",
     "lint": "verification/lint_rtl.sh"
