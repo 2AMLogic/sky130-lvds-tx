@@ -25,21 +25,12 @@ import hashlib
 import json
 from pathlib import Path
 
-from summarize import measure_value, pad_duration, read_json
+from summarize import corner_key, fmt_c, measure_value, pad_duration, read_json
 
 E5_CATS = ("pass", "fast", "slow", "missing")
 CAT_LABEL = {"pass": "in band", "fast": "below 100 ps", "slow": "above 400 ps",
              "missing": "unmeasurable"}
 PS = 1e-12
-
-
-def corner_key(c):
-    return (c["process"], c["temperature_c"], c["supply_v"]["VVCCD"],
-            c["supply_v"]["VVDDIO"])
-
-
-def fmt_c(k):
-    return f"{k[0]}/{k[1]}C/{k[2]:.2f}/{k[3]:.2f}"
 
 
 def load_report(path):
