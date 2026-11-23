@@ -294,8 +294,8 @@ Specs: `verification/signoff/erc/{analog,digital}.supply-spec.json`. Reports: `v
 
 ### Item 11 spec coverage: layers in the stream without a declaration
 
-`erc_coverage.layers_in_stream_without_declaration` is non-empty in both reports, so it is stated here (the item 11 text in
-`manifests/design-evidence-tiers.md` requires it). Both reports have `provenance.deck: null`: no curated routing-stack deck was
+`erc_coverage.layers_in_stream_without_declaration` is non-empty in both reports, so it is stated here (the item 11 text in the
+pinned `klayout-tools==0.9.1` checklist, [`docs/design-evidence-tiers.md`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.1/docs/design-evidence-tiers.md), requires it). Both reports have `provenance.deck: null`: no curated routing-stack deck was
 used. The stackup is the hand-written one in each spec (`poly`, `li1`, `met1`-`met5`, `licon1`..`via4`), not a narrowed deck.
 Layer names are from `sky130A.lyp` in the pinned PDK.
 
