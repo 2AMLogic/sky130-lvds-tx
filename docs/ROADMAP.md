@@ -17,7 +17,7 @@ are drafted and reviewed (#2), with one operator ruling recorded (`DR-008`,
 unpowered behaviour). The ratification record in the spec header is still
 "not yet".
 
-**T1 checklist (`manifests/design-evidence-tiers.md`): 14 of 22 rows met**, per
+**T1 checklist ([`docs/design-evidence-tiers.md`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.1/docs/design-evidence-tiers.md) bundled in pinned `klayout-tools==0.9.1`): 14 of 22 rows met**, per
 the committed `klt signoff` record (klt 0.9.1).
 
 | Item | Analog | Digital | Evidence / note |
