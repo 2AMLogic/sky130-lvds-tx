@@ -8,8 +8,15 @@
    "before": "results/r2/fleet-attempt/report-1g.json.gz (#168 fleet run, netlist e27999f)",
    "after": "results/r3-isolation/report-1g.json.gz (isolation commit 45ebd2d3)"
   },
-  "shared_request_sha256_prefix": "eb705e41",
-  "sample_phase_s": 3.6e-10
+  "request_sha256": {
+   "before": "eb705e4106dac2be625524f349035897c002fb7f429bf59e1324671953a33df0",
+   "after": "eb705e4106dac2be625524f349035897c002fb7f429bf59e1324671953a33df0"
+  },
+  "shared_request": true,
+  "sample_phase_s": {
+   "before": 3.6e-10,
+   "after": 3.6e-10
+  }
  },
  "per_leg": {
   "before": {
