@@ -166,3 +166,37 @@ PY
 ```
 
 The matching prefixes are `7da33cac`, `8a20385a` and `0b97ead6`. The upstream issue records the klt eye-measurement and step-card limitations observed while developing this bench. [klayout-tools #7068](https://github.com/2AMLogic/klayout-tools/issues/7068)
+
+## Isolation-gate paired run (r3, issue #179)
+
+These are **simulated** paired results measuring the DR-010 floating-well transmission gates' effect on the loaded pad eye at 1 Gb/s over the same 75 G75 conditions. The **before** leg is the #168 fleet run above unchanged: netlist `e27999f`, SHA-256 `b90b61fd221bb1d46e3a4aad0b670331218d43be473d03a08ab84e86af19d28f`. The **after** leg is commit `45ebd2d3` (branch `feature/issue-167`, PR #175), whose `design/lvds_tx_analog.spice` has SHA-256 `1885eec576235f7be805b403ae0d6ff5b3bd8d0aa50ba89a4c579e122c601032`. Both legs share one bench: request `eb705e41…` (hash-verified against the #168 receipt), the same PRBS-7 stimulus, 100 Ω across the pads, 1.0 pF per side, IREF 54.3 µA, VCMREF 1.25 V and the 360 ps sample phase. The #166 driver sizing is **not** applied to either leg; both stay at the pre-#166 sizing, as the issue's dependencies require. Each rate has 9,600 expected E5 pad edges; the nine PRBS observers matched the expected bits at all 675 corner/sample combinations in the after leg too. No simulation failed, so no condition is inconclusive; unmeasurable edges (614 before, 629 after) leave their per-edge delta unreported by design.
+
+| Measure (1 Gb/s, fixed 360 ps phase) | Before, `e27999f` | After, `45ebd2d3` | Signed change |
+|---|---:|---:|---:|
+| E5 conditions passing all 128 pad edges | 0 / 75 | 17 / 75 | +17 |
+| E5 edges in band (100–400 ps) | 3331 | 7285 | +3954 |
+| E5 edges below 100 ps | 5180 | 1212 | −3968 |
+| E5 edges above 400 ps | 475 | 474 | −1 |
+| E5 edges unmeasurable | 614 | 629 | +15 |
+| E9 height passes (≥ 150 mV) | 73 / 75 | 72 / 75 | −1 |
+| E9 height minimum | 101.16 mV at `sf/-40C/1.62/2.97` | −7.29 mV at `ss/-40C/1.62/2.97` | worst −493.06 mV at `ss/-40C/1.62/3.63` |
+| E9 width passes (≥ 750 ps) | 75 / 75 | 75 / 75 | 0 |
+| E9 width minimum | 908.3 ps at `sf/-40C/1.62/2.97` | 774.9 ps at `sf/-40C/1.62/2.97` | −133.4 ps at `sf/-40C/1.62/2.97` |
+| Median E5 edge delta (8746 edges in both) | — | — | +53.2 ps (7611 slower, 1134 faster) |
+
+The isolation gates turn most of the before leg's sub-100 ps near-flat excursions into in-band edges: 4338 edges recover into the band against 384 new out-of-band misses (158 too fast, 136 too slow, 90 becoming unmeasurable), and 240 previously measurable edges became unmeasurable while 225 newly resolved. The remaining 1264 out-of-band edges already missed before isolation. The slowest new edge is `m_e5_pr151` at `ss/-40C/1.62/2.97`, +619.7 ps; the fastest change is `m_e5_pf183` at `ff/-40C/1.98/3.63`, −535.9 ps. The before leg's E5 misses at every condition were an absolute failure of the 100 ps floor; isolation converts that row from 0/75 to 17/75 passing and shifts the binding edge from 0.10 ps to 0.20 ps (`ff/-40C/1.62/3.63`, `m_e5_nf139`), while the 400 ps ceiling is essentially unchanged (723.2 ps at `ss/125C/1.62/3.63`, `m_e5_pf222`, was 662.5 ps before).
+
+**Eye height is the penalty.** The folded-eye nominal centre moves from 854.5 ps to 908.6 ps after the launch edge (+54.1 ps of chain latency), so the frozen 360 ps convention samples the after netlist off-centre at slow corners. A second after run at the re-centred 409 ps phase ([re-phased leg](results/r3-isolation/rephase-409ps/), labelled separately) reopens the worst corner from −7.29 mV to +88.96 mV, confirming the fixed-phase closure at `ss/-40C/1.62/2.97` is mostly sampling phase — but the re-centred value still misses the 150 mV floor where the before leg passed with 168.66 mV. That one corner is therefore a **measured penalty that became an absolute miss**: even sampled at its own eye centre the isolated driver loses more than half its eye at `ss` with low core and I/O rails at −40 °C (before 168.66 mV → after 88.96 mV). The other two height misses (`sf/-40C/1.62/2.97` at 102.77 mV and `sf/-40C/1.98/2.97` at 106.19 mV, re-phased values) already missed before isolation (101.16 and 108.57 mV) and are pre-existing. E9 width passes at every condition in both legs, but its margin at `sf/-40C/1.62/2.97` shrinks from +158.3 to +24.9 ps; width is crossing-based, independent of sample phase, and identical in the re-phased run, as are all E5 edges.
+
+Per-condition absolute values, signed deltas, edge transitions and both legs' binding corners are enumerated in the [paired comparison](results/r3-isolation/comparison.json) ([re-phased](results/r3-isolation/rephase-409ps/comparison.json)); [after summary](results/r3-isolation/summary-1g.json); [fleet receipts](results/r3-isolation/batch-receipt-1g.json) job `klt-sim-23c387e2a2b9` and `klt-sim-a9eacf891cfa`, 75 units each, request hashes `eb705e41…` (fixed phase) and `37ef1864…` (re-phased). The runner again records `error` overall (runner exit 4) with all 150 analysis steps `ok`, exactly as the #168 fleet runs do.
+
+```bash
+# after leg, fixed 360 ps phase (design/ at 45ebd2d3, bench at this revision)
+klt sim request-1g.json --backend batch --wait-for-capacity 600 \
+    -o out-1g --report-out out-1g/report-1g.json.gz --format json || rc=$?
+[[ $rc == 0 || $rc == 3 || $rc == 4 ]] || exit $rc
+python3 summarize.py out-1g/report-1g.json.gz stim_meta_1g.json 1g summary-1g.json
+# re-phased leg: python3 gen_bench.py --rate 1g --sample-phase-ps 409, then the same run
+python3 compare_isolation.py results/r2/fleet-attempt/report-1g.json.gz \
+    results/r3-isolation/report-1g.json.gz results/r3-isolation/comparison.json
+```

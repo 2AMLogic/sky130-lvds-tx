@@ -1,0 +1,6940 @@
+{
+ "bench": "sim/driver-tran",
+ "rate": "1g",
+ "simulated": true,
+ "spec_status": "PROPOSED",
+ "closes_no_spec_row": true,
+ "backend": "batch",
+ "ui_s": 1e-09,
+ "window_bits": [
+  127,
+  253
+ ],
+ "sample_phase_s": 4.09e-10,
+ "grid": {
+  "expected_conditions": 75,
+  "distinct_tuples": 75,
+  "missing": [],
+  "rail_pairs": [
+   [
+    1.62,
+    2.97
+   ],
+   [
+    1.8,
+    3.3
+   ],
+   [
+    1.98,
+    3.63
+   ],
+   [
+    1.62,
+    3.63
+   ],
+   [
+    1.98,
+    2.97
+   ]
+  ]
+ },
+ "steps": {
+  "seq": {
+   "rows": {
+    "E5": {
+     "fail": 58,
+     "pass": 17
+    },
+    "E9": {
+     "pass": 72,
+     "fail": 3
+    },
+    "E4": {
+     "fail": 75
+    },
+    "W1": {
+     "unverified": 75
+    }
+   },
+   "measurements": {
+    "E5": {
+     "pass": 7285,
+     "fail": 1686,
+     "missing": 629
+    },
+    "E9": {
+     "pass": 147,
+     "fail": 3,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 75,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 7285,
+    "fast": 1212,
+    "missing": 629,
+    "slow": 474
+   },
+   "bit_order": {
+    "ok": 675
+   }
+  }
+ },
+ "binding_corners": {
+  "seq.E9.height.min": {
+   "value": 0.08896363,
+   "limit": 0.15,
+   "margin": -0.06103636999999999,
+   "status": "fail",
+   "condition": "ss/-40C/1.62/2.97",
+   "measurement": "m_eye_h_v",
+   "unit": "V"
+  },
+  "seq.E5.min": {
+   "value": 2e-13,
+   "limit": 1e-10,
+   "margin": -9.980000000000001e-11,
+   "status": "fail",
+   "condition": "ff/-40C/1.62/3.63",
+   "measurement": "m_e5_nf139",
+   "unit": "s"
+  },
+  "seq.E5.max": {
+   "value": 7.232e-10,
+   "limit": 4e-10,
+   "margin": -3.2320000000000003e-10,
+   "status": "fail",
+   "condition": "ss/125C/1.62/3.63",
+   "measurement": "m_e5_pf222",
+   "unit": "s"
+  },
+  "seq.E9.width.min": {
+   "value": 7.748772e-10,
+   "limit": 7.500000000000001e-10,
+   "margin": 2.4877199999999853e-11,
+   "status": "pass",
+   "condition": "sf/-40C/1.62/2.97",
+   "measurement": "m_eye_w_s",
+   "unit": "s"
+  },
+  "seq.E4.max": {
+   "value": 1.652516,
+   "limit": 0.15,
+   "margin": -1.5025160000000002,
+   "status": "fail",
+   "condition": "sf/-40C/1.62/2.97",
+   "measurement": "m_vos_pp",
+   "unit": "V"
+  },
+  "seq.W1.subtotal.any.max": {
+   "value": 14.68833,
+   "limit": 30.0,
+   "margin": 15.31167,
+   "status": "pass",
+   "condition": "ff/125C/1.98/3.63",
+   "measurement": "m_pw_analog_mw",
+   "unit": "mW"
+  },
+  "seq.W1.subtotal.nominal.max": {
+   "value": 12.63128,
+   "limit": 20.0,
+   "margin": 7.36872,
+   "status": "pass",
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_pw_analog_mw",
+   "unit": "mW"
+  }
+ },
+ "w1_total": {
+  "status": "unverified",
+  "missing_contribution": "serializer share at matching rate, activity and core corner"
+ },
+ "conditions": [
+  {
+   "condition": "tt/-40C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 70,
+     "fail": 40,
+     "missing": 18
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 70,
+    "fast": 30,
+    "missing": 18,
+    "slow": 10
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr163",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_pf194",
+    "m_e5_nf196",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf217",
+    "m_e5_pr223",
+    "m_e5_pf231",
+    "m_e5_nf241",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.3174972,
+     "limit": 0.15,
+     "margin": 0.16749719999999998,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.128358e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.6283579999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.353715,
+     "limit": 0.15,
+     "margin": -1.203715,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4522712,
+    0.5394355
+   ],
+   "analog_subtotal_mw": 7.576593,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 7.576593,
+     "limit": 30.0,
+     "margin": 22.423407,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr163",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_pf194",
+    "m_e5_nf196",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf217",
+    "m_e5_pr223",
+    "m_e5_pf231",
+    "m_e5_nf241",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "tt/-40C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 75,
+     "fail": 47,
+     "missing": 6
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 75,
+    "fast": 47,
+    "missing": 6
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf134",
+    "m_e5_nf151",
+    "m_e5_nf187",
+    "m_e5_nf196",
+    "m_e5_pf204",
+    "m_e5_pf239"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5674162,
+     "limit": 0.15,
+     "margin": 0.4174162,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.52532e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0253199999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.036062,
+     "limit": 0.15,
+     "margin": -0.886062,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3782629,
+    0.4257309
+   ],
+   "analog_subtotal_mw": 12.59598,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.59598,
+     "limit": 30.0,
+     "margin": 17.40402,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf134",
+    "m_e5_nf151",
+    "m_e5_nf187",
+    "m_e5_nf196",
+    "m_e5_pf204",
+    "m_e5_pf239"
+   ]
+  },
+  {
+   "condition": "tt/-40C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 61,
+     "fail": 53,
+     "missing": 14
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 61,
+    "fast": 46,
+    "slow": 7,
+    "missing": 14
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf139",
+    "m_e5_pf146",
+    "m_e5_nr155",
+    "m_e5_nf167",
+    "m_e5_nf173",
+    "m_e5_nr183",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_nf202",
+    "m_e5_nr204",
+    "m_e5_pf209",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6139784,
+     "limit": 0.15,
+     "margin": 0.4639784,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.625895e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1258949999999983e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.048675,
+     "limit": 0.15,
+     "margin": -0.898675,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3251298,
+    0.3625403
+   ],
+   "analog_subtotal_mw": 14.62085,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.62085,
+     "limit": 30.0,
+     "margin": 15.37915,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf139",
+    "m_e5_pf146",
+    "m_e5_nr155",
+    "m_e5_nf167",
+    "m_e5_nf173",
+    "m_e5_nr183",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_nf202",
+    "m_e5_nr204",
+    "m_e5_pf209",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "tt/-40C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 112,
+     "fail": 14,
+     "missing": 2
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 112,
+    "fast": 14,
+    "missing": 2
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf202",
+    "m_e5_nf210"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6408296,
+     "limit": 0.15,
+     "margin": 0.4908296,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.365736e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.865735999999998e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8257736,
+     "limit": 0.15,
+     "margin": -0.6757736,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4615085,
+    0.5249349
+   ],
+   "analog_subtotal_mw": 14.33357,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.33357,
+     "limit": 30.0,
+     "margin": 15.66643,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf202",
+    "m_e5_nf210"
+   ]
+  },
+  {
+   "condition": "tt/-40C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 48,
+     "fail": 45,
+     "missing": 35
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 35,
+    "slow": 18,
+    "pass": 48,
+    "fast": 27
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf127",
+    "m_e5_pr133",
+    "m_e5_nf139",
+    "m_e5_nr141",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_pr173",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_pf190",
+    "m_e5_pr193",
+    "m_e5_nf199",
+    "m_e5_pr202",
+    "m_e5_nr204",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf231",
+    "m_e5_nr235",
+    "m_e5_pf239",
+    "m_e5_nf241",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.3146608,
+     "limit": 0.15,
+     "margin": 0.16466080000000002,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.534665e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0346649999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.324714,
+     "limit": 0.15,
+     "margin": -1.174714,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.319655,
+    0.3661885
+   ],
+   "analog_subtotal_mw": 7.85661,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 7.85661,
+     "limit": 30.0,
+     "margin": 22.14339,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf127",
+    "m_e5_pr133",
+    "m_e5_nf139",
+    "m_e5_nr141",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_pr173",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_pf190",
+    "m_e5_pr193",
+    "m_e5_nf199",
+    "m_e5_pr202",
+    "m_e5_nr204",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf231",
+    "m_e5_nr235",
+    "m_e5_pf239",
+    "m_e5_nf241",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "tt/27C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5683925,
+     "limit": 0.15,
+     "margin": 0.41839249999999995,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.621648e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.121647999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3051764,
+     "limit": 0.15,
+     "margin": -0.15517640000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4671326,
+    0.5049679
+   ],
+   "analog_subtotal_mw": 9.612079,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.612079,
+     "limit": 30.0,
+     "margin": 20.387921,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/27C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 116,
+     "fail": 12,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 116,
+    "fast": 12
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6277354,
+     "limit": 0.15,
+     "margin": 0.47773540000000003,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.635464e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1354639999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.7233997,
+     "limit": 0.15,
+     "margin": -0.5733997,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3903974,
+    0.4268509
+   ],
+   "analog_subtotal_mw": 12.63128,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.63128,
+     "limit": 30.0,
+     "margin": 17.36872,
+     "status": "pass"
+    },
+    "nominal": {
+     "value": 12.63128,
+     "limit": 20.0,
+     "margin": 7.36872,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/27C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 82,
+     "fail": 46,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 82,
+    "fast": 46
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6608463,
+     "limit": 0.15,
+     "margin": 0.5108463,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.6897e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1896999999999992e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.7406245,
+     "limit": 0.15,
+     "margin": -0.5906245,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3408709,
+    0.3719009
+   ],
+   "analog_subtotal_mw": 14.65622,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.65622,
+     "limit": 30.0,
+     "margin": 15.34378,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/27C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 126,
+     "fail": 2,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 126,
+    "fast": 2
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6882396,
+     "limit": 0.15,
+     "margin": 0.5382395999999999,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.566559e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0665589999999992e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.5965786,
+     "limit": 0.15,
+     "margin": -0.44657859999999994,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4633533,
+    0.5066974
+   ],
+   "analog_subtotal_mw": 14.36922,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.36922,
+     "limit": 30.0,
+     "margin": 15.63078,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/27C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 107,
+     "fail": 16,
+     "missing": 5
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 107,
+    "missing": 5,
+    "slow": 2,
+    "fast": 14
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf139",
+    "m_e5_pf155",
+    "m_e5_nf171",
+    "m_e5_nf202",
+    "m_e5_pf235"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4850449,
+     "limit": 0.15,
+     "margin": 0.3350449,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.658732e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1587319999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8396036,
+     "limit": 0.15,
+     "margin": -0.6896036,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3413389,
+    0.3754657
+   ],
+   "analog_subtotal_mw": 9.755763,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.755763,
+     "limit": 30.0,
+     "margin": 20.244237,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf139",
+    "m_e5_pf155",
+    "m_e5_nf171",
+    "m_e5_nf202",
+    "m_e5_pf235"
+   ]
+  },
+  {
+   "condition": "tt/125C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5321561,
+     "limit": 0.15,
+     "margin": 0.3821561,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.559694e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0596939999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2610866,
+     "limit": 0.15,
+     "margin": -0.11108660000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4549505,
+    0.4989811
+   ],
+   "analog_subtotal_mw": 9.82167,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.82167,
+     "limit": 30.0,
+     "margin": 20.178330000000003,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/125C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6612633,
+     "limit": 0.15,
+     "margin": 0.5112633,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.710652e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2106519999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3911697,
+     "limit": 0.15,
+     "margin": -0.24116970000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4032614,
+    0.4321962
+   ],
+   "analog_subtotal_mw": 12.3902,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.3902,
+     "limit": 30.0,
+     "margin": 17.6098,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/125C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 125,
+     "fail": 3,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 125,
+    "fast": 3
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.7062903,
+     "limit": 0.15,
+     "margin": 0.5562903,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.753396e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2533959999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3684267,
+     "limit": 0.15,
+     "margin": -0.2184267,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3622619,
+    0.3869223
+   ],
+   "analog_subtotal_mw": 14.56262,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.56262,
+     "limit": 30.0,
+     "margin": 15.43738,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/125C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6314581,
+     "limit": 0.15,
+     "margin": 0.4814581,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.565087e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0650869999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.375016,
+     "limit": 0.15,
+     "margin": -0.22501600000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4539995,
+    0.4974909
+   ],
+   "analog_subtotal_mw": 14.09742,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.09742,
+     "limit": 30.0,
+     "margin": 15.90258,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "tt/125C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 127,
+     "fail": 1,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 127,
+    "fast": 1
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.608168,
+     "limit": 0.15,
+     "margin": 0.458168,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.766008e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2660079999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3166662,
+     "limit": 0.15,
+     "margin": -0.16666620000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3626941,
+    0.3860932
+   ],
+   "analog_subtotal_mw": 10.50614,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.50614,
+     "limit": 30.0,
+     "margin": 19.493859999999998,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/-40C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 66,
+     "fail": 50,
+     "missing": 12
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 12,
+    "pass": 66,
+    "fast": 44,
+    "slow": 6
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf127",
+    "m_e5_nf145",
+    "m_e5_nf163",
+    "m_e5_pf172",
+    "m_e5_pf181",
+    "m_e5_nf182",
+    "m_e5_pf190",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf228",
+    "m_e5_nf247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.483605,
+     "limit": 0.15,
+     "margin": 0.33360500000000004,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.490727e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.9907269999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.061426,
+     "limit": 0.15,
+     "margin": -0.911426,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3218506,
+    0.3727779
+   ],
+   "analog_subtotal_mw": 10.43162,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.43162,
+     "limit": 30.0,
+     "margin": 19.568379999999998,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf127",
+    "m_e5_nf145",
+    "m_e5_nf163",
+    "m_e5_pf172",
+    "m_e5_pf181",
+    "m_e5_nf182",
+    "m_e5_pf190",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf228",
+    "m_e5_nf247"
+   ]
+  },
+  {
+   "condition": "ff/-40C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 40,
+     "fail": 64,
+     "missing": 24
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "fast": 36,
+    "pass": 40,
+    "missing": 24,
+    "slow": 28
+   },
+   "e5_unmeasurable": [
+    "m_e5_pr145",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_pr157",
+    "m_e5_nf161",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pf174",
+    "m_e5_pf181",
+    "m_e5_nr183",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nr204",
+    "m_e5_pf214",
+    "m_e5_nf215",
+    "m_e5_nr217",
+    "m_e5_pr223",
+    "m_e5_pf227",
+    "m_e5_nr242",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5646276,
+     "limit": 0.15,
+     "margin": 0.4146276,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.670129e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1701289999999995e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.061578,
+     "limit": 0.15,
+     "margin": -0.9115779999999999,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2783669,
+    0.311354
+   ],
+   "analog_subtotal_mw": 12.7531,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.7531,
+     "limit": 30.0,
+     "margin": 17.2469,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pr145",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_pr157",
+    "m_e5_nf161",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pf174",
+    "m_e5_pf181",
+    "m_e5_nr183",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nr204",
+    "m_e5_pf214",
+    "m_e5_nf215",
+    "m_e5_nr217",
+    "m_e5_pr223",
+    "m_e5_pf227",
+    "m_e5_nr242",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ]
+  },
+  {
+   "condition": "ff/-40C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 36,
+     "fail": 69,
+     "missing": 23
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 36,
+    "missing": 23,
+    "fast": 45,
+    "slow": 24
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_pf148",
+    "m_e5_pf165",
+    "m_e5_pr167",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nf182",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pr215",
+    "m_e5_pf224",
+    "m_e5_nr227",
+    "m_e5_pf231",
+    "m_e5_nf237",
+    "m_e5_nr239",
+    "m_e5_pf242",
+    "m_e5_nf243",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6001944,
+     "limit": 0.15,
+     "margin": 0.4501944,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.713377e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2133769999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.020955,
+     "limit": 0.15,
+     "margin": -0.870955,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2460045,
+    0.2746668
+   ],
+   "analog_subtotal_mw": 14.56792,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.56792,
+     "limit": 30.0,
+     "margin": 15.43208,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_pf148",
+    "m_e5_pf165",
+    "m_e5_pr167",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nf182",
+    "m_e5_nr190",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pr215",
+    "m_e5_pf224",
+    "m_e5_nr227",
+    "m_e5_pf231",
+    "m_e5_nf237",
+    "m_e5_nr239",
+    "m_e5_pf242",
+    "m_e5_nf243",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "ff/-40C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 72,
+     "fail": 52,
+     "missing": 4
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "fast": 51,
+    "pass": 72,
+    "missing": 4,
+    "slow": 1
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf146",
+    "m_e5_pf194",
+    "m_e5_pf201",
+    "m_e5_nf215"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6147728,
+     "limit": 0.15,
+     "margin": 0.4647728,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.568871e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.068871e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8885606,
+     "limit": 0.15,
+     "margin": -0.7385606,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3251549,
+    0.3682678
+   ],
+   "analog_subtotal_mw": 14.28805,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.28805,
+     "limit": 30.0,
+     "margin": 15.71195,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf146",
+    "m_e5_pf194",
+    "m_e5_pf201",
+    "m_e5_nf215"
+   ]
+  },
+  {
+   "condition": "ff/-40C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 34,
+     "fail": 81,
+     "missing": 13
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 34,
+    "fast": 50,
+    "missing": 13,
+    "slow": 31
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf133",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pf155",
+    "m_e5_nf163",
+    "m_e5_nf171",
+    "m_e5_nf187",
+    "m_e5_pf194",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf226",
+    "m_e5_nf241",
+    "m_e5_pf242"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4897675,
+     "limit": 0.15,
+     "margin": 0.3397675,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.702956e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.202956e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.108212,
+     "limit": 0.15,
+     "margin": -0.958212,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2465409,
+    0.2762452
+   ],
+   "analog_subtotal_mw": 10.713,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.713,
+     "limit": 30.0,
+     "margin": 19.287,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf133",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pf155",
+    "m_e5_nf163",
+    "m_e5_nf171",
+    "m_e5_nf187",
+    "m_e5_pf194",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf226",
+    "m_e5_nf241",
+    "m_e5_pf242"
+   ]
+  },
+  {
+   "condition": "ff/27C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 120,
+     "fail": 8,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 120,
+    "fast": 8
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6057796,
+     "limit": 0.15,
+     "margin": 0.45577959999999995,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.677401e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1774009999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4884779,
+     "limit": 0.15,
+     "margin": -0.3384779,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3396928,
+    0.3719527
+   ],
+   "analog_subtotal_mw": 10.76259,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.76259,
+     "limit": 30.0,
+     "margin": 19.23741,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/27C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 69,
+     "fail": 58,
+     "missing": 1
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 69,
+    "fast": 58,
+    "missing": 1
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf162"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6056196,
+     "limit": 0.15,
+     "margin": 0.4556196,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.709409e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2094089999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8347954,
+     "limit": 0.15,
+     "margin": -0.6847953999999999,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2934899,
+    0.322549
+   ],
+   "analog_subtotal_mw": 12.79197,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.79197,
+     "limit": 30.0,
+     "margin": 17.20803,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf162"
+   ]
+  },
+  {
+   "condition": "ff/27C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 66,
+     "fail": 62,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "fast": 59,
+    "pass": 66,
+    "slow": 3
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6441554,
+     "limit": 0.15,
+     "margin": 0.4941554,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.768343e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2683429999999985e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.7063484,
+     "limit": 0.15,
+     "margin": -0.5563484,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2631837,
+    0.2863495
+   ],
+   "analog_subtotal_mw": 14.68109,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.68109,
+     "limit": 30.0,
+     "margin": 15.31891,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/27C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 115,
+     "fail": 13,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 115,
+    "fast": 13
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6853116,
+     "limit": 0.15,
+     "margin": 0.5353116,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.686849e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1868489999999982e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4246301,
+     "limit": 0.15,
+     "margin": -0.2746301,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3400497,
+    0.3713648
+   ],
+   "analog_subtotal_mw": 14.39964,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.39964,
+     "limit": 30.0,
+     "margin": 15.60036,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/27C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 57,
+     "fail": 64,
+     "missing": 7
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 57,
+    "fast": 59,
+    "missing": 7,
+    "slow": 5
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf134",
+    "m_e5_nf163",
+    "m_e5_pf172",
+    "m_e5_nf182",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_nf220"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5501459,
+     "limit": 0.15,
+     "margin": 0.40014589999999994,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.7511e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2510999999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8625305,
+     "limit": 0.15,
+     "margin": -0.7125305,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2636206,
+    0.2885107
+   ],
+   "analog_subtotal_mw": 11.03173,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 11.03173,
+     "limit": 30.0,
+     "margin": 18.96827,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf134",
+    "m_e5_nf163",
+    "m_e5_pf172",
+    "m_e5_nf182",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_nf220"
+   ]
+  },
+  {
+   "condition": "ff/125C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6205816,
+     "limit": 0.15,
+     "margin": 0.47058159999999993,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.712858e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2128579999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2190572,
+     "limit": 0.15,
+     "margin": -0.06905720000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.358333,
+    0.3870471
+   ],
+   "analog_subtotal_mw": 10.58927,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.58927,
+     "limit": 30.0,
+     "margin": 19.41073,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/125C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 118,
+     "fail": 10,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 118,
+    "fast": 10
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.656684,
+     "limit": 0.15,
+     "margin": 0.506684,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.780429e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2804289999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.434869,
+     "limit": 0.15,
+     "margin": -0.28486900000000004,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3196617,
+    0.3416188
+   ],
+   "analog_subtotal_mw": 12.70035,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.70035,
+     "limit": 30.0,
+     "margin": 17.29965,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/125C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 117,
+     "fail": 11,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 117,
+    "fast": 11
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.7154856,
+     "limit": 0.15,
+     "margin": 0.5654856,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.82406e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.32406e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2750408,
+     "limit": 0.15,
+     "margin": -0.12504079999999998,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2915817,
+    0.3091757
+   ],
+   "analog_subtotal_mw": 14.68833,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.68833,
+     "limit": 30.0,
+     "margin": 15.31167,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/125C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6967841,
+     "limit": 0.15,
+     "margin": 0.5467841,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.715612e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2156119999999998e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3837378,
+     "limit": 0.15,
+     "margin": -0.23373780000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3593572,
+    0.387796
+   ],
+   "analog_subtotal_mw": 14.36499,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.36499,
+     "limit": 30.0,
+     "margin": 15.63501,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ff/125C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 111,
+     "fail": 17,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 111,
+    "fast": 17
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.602242,
+     "limit": 0.15,
+     "margin": 0.45224200000000003,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.799014e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2990139999999983e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4078321,
+     "limit": 0.15,
+     "margin": -0.2578321,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.2915626,
+    0.3116612
+   ],
+   "analog_subtotal_mw": 10.9121,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.9121,
+     "limit": 30.0,
+     "margin": 19.087899999999998,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/-40C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "fail",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 32,
+     "fail": 56,
+     "missing": 40
+    },
+    "E9": {
+     "pass": 1,
+     "fail": 1,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "slow": 42,
+    "missing": 40,
+    "fast": 14,
+    "pass": 32
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_pf134",
+    "m_e5_pr139",
+    "m_e5_nr141",
+    "m_e5_pf148",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pr157",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_pf165",
+    "m_e5_pr167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_nr183",
+    "m_e5_pr187",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pr199",
+    "m_e5_nr201",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf209",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_pf222",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_nr227",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_nf237",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.08896363,
+     "limit": 0.15,
+     "margin": -0.06103636999999999,
+     "status": "fail",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 7.914393e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 4.1439299999999894e-11,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.539285,
+     "limit": 0.15,
+     "margin": -1.389285,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.666594,
+    0.8751548
+   ],
+   "analog_subtotal_mw": 5.051867,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 5.051867,
+     "limit": 30.0,
+     "margin": 24.948133,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_pf134",
+    "m_e5_pr139",
+    "m_e5_nr141",
+    "m_e5_pf148",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pr157",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_pf165",
+    "m_e5_pr167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_nr183",
+    "m_e5_pr187",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_nr197",
+    "m_e5_pr199",
+    "m_e5_nr201",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf209",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_pf222",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_nr227",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_nf237",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "ss/-40C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 76,
+     "fail": 35,
+     "missing": 17
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 17,
+    "slow": 12,
+    "fast": 23,
+    "pass": 76
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf127",
+    "m_e5_nf139",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_pf174",
+    "m_e5_nf187",
+    "m_e5_nf199",
+    "m_e5_nf210",
+    "m_e5_pf222",
+    "m_e5_nf223",
+    "m_e5_nr227",
+    "m_e5_pf235",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4080555,
+     "limit": 0.15,
+     "margin": 0.2580555,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.040745e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.5407449999999995e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.353378,
+     "limit": 0.15,
+     "margin": -1.203378,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5510302,
+    0.6469557
+   ],
+   "analog_subtotal_mw": 9.727914,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.727914,
+     "limit": 30.0,
+     "margin": 20.272086,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf127",
+    "m_e5_nf139",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_pf174",
+    "m_e5_nf187",
+    "m_e5_nf199",
+    "m_e5_nf210",
+    "m_e5_pf222",
+    "m_e5_nf223",
+    "m_e5_nr227",
+    "m_e5_pf235",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ]
+  },
+  {
+   "condition": "ss/-40C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 83,
+     "fail": 41,
+     "missing": 4
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 83,
+    "fast": 41,
+    "missing": 4
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf146",
+    "m_e5_nf196",
+    "m_e5_nf220",
+    "m_e5_nf228"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6288593,
+     "limit": 0.15,
+     "margin": 0.4788593,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.36314e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.8631399999999998e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.046732,
+     "limit": 0.15,
+     "margin": -0.896732,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4659512,
+    0.5296371
+   ],
+   "analog_subtotal_mw": 14.50643,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.50643,
+     "limit": 30.0,
+     "margin": 15.49357,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf146",
+    "m_e5_nf196",
+    "m_e5_nf220",
+    "m_e5_nf228"
+   ]
+  },
+  {
+   "condition": "ss/-40C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 126,
+     "fail": 2,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 126,
+    "slow": 1,
+    "fast": 1
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.3743721,
+     "limit": 0.15,
+     "margin": 0.2243721,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.995964e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.4959639999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.5806779,
+     "limit": 0.15,
+     "margin": -0.43067789999999995,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.7077831,
+    0.8081867
+   ],
+   "analog_subtotal_mw": 14.24929,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.24929,
+     "limit": 30.0,
+     "margin": 15.75071,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/-40C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 53,
+     "fail": 32,
+     "missing": 43
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 53,
+    "fast": 11,
+    "slow": 21,
+    "missing": 43
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf133",
+    "m_e5_pr139",
+    "m_e5_nf145",
+    "m_e5_pf146",
+    "m_e5_nr148",
+    "m_e5_pr151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172",
+    "m_e5_nf173",
+    "m_e5_pr176",
+    "m_e5_pf183",
+    "m_e5_nr190",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nr204",
+    "m_e5_pr205",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nr217",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_nr227",
+    "m_e5_pr228",
+    "m_e5_nr231",
+    "m_e5_nf237",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.1693389,
+     "limit": 0.15,
+     "margin": 0.019338899999999992,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.879935e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.3799349999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.510204,
+     "limit": 0.15,
+     "margin": -1.3602040000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4365278,
+    0.5485343
+   ],
+   "analog_subtotal_mw": 5.355558,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 5.355558,
+     "limit": 30.0,
+     "margin": 24.644441999999998,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf133",
+    "m_e5_pr139",
+    "m_e5_nf145",
+    "m_e5_pf146",
+    "m_e5_nr148",
+    "m_e5_pr151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172",
+    "m_e5_nf173",
+    "m_e5_pr176",
+    "m_e5_pf183",
+    "m_e5_nr190",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nr204",
+    "m_e5_pr205",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nr217",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_nr227",
+    "m_e5_pr228",
+    "m_e5_nr231",
+    "m_e5_nf237",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "ss/27C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 123,
+     "fail": 5,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 123,
+    "fast": 2,
+    "slow": 3
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2936543,
+     "limit": 0.15,
+     "margin": 0.14365429999999998,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.256349e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.7563489999999995e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.6079285,
+     "limit": 0.15,
+     "margin": -0.45792849999999996,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.6701238,
+    0.7444889
+   ],
+   "analog_subtotal_mw": 7.018752,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 7.018752,
+     "limit": 30.0,
+     "margin": 22.981248,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/27C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.610648,
+     "limit": 0.15,
+     "margin": 0.46064799999999995,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.56035e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.060349999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.493831,
+     "limit": 0.15,
+     "margin": -0.343831,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5523708,
+    0.5963358
+   ],
+   "analog_subtotal_mw": 11.61395,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 11.61395,
+     "limit": 30.0,
+     "margin": 18.386049999999997,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/27C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 118,
+     "fail": 9,
+     "missing": 1
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 118,
+    "fast": 9,
+    "missing": 1
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf182"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6624247,
+     "limit": 0.15,
+     "margin": 0.5124247,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.554572e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0545719999999997e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8651805,
+     "limit": 0.15,
+     "margin": -0.7151805,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4712854,
+    0.5158282
+   ],
+   "analog_subtotal_mw": 14.55629,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.55629,
+     "limit": 30.0,
+     "margin": 15.44371,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf182"
+   ]
+  },
+  {
+   "condition": "ss/27C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 120,
+     "fail": 8,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 120,
+    "slow": 5,
+    "fast": 3
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4457409,
+     "limit": 0.15,
+     "margin": 0.2957409,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.262707e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.7627069999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.5177907,
+     "limit": 0.15,
+     "margin": -0.3677907,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.6636753,
+    0.7374045
+   ],
+   "analog_subtotal_mw": 14.17248,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.17248,
+     "limit": 30.0,
+     "margin": 15.82752,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/27C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 109,
+     "fail": 9,
+     "missing": 10
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 109,
+    "slow": 4,
+    "missing": 10,
+    "fast": 5
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf139",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pf174",
+    "m_e5_nf176",
+    "m_e5_nf193",
+    "m_e5_nf210",
+    "m_e5_nf228",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.3169858,
+     "limit": 0.15,
+     "margin": 0.1669858,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.353226e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.8532259999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.9877296,
+     "limit": 0.15,
+     "margin": -0.8377296,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4628098,
+    0.5274872
+   ],
+   "analog_subtotal_mw": 7.244331,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 7.244331,
+     "limit": 30.0,
+     "margin": 22.755669,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf139",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pf174",
+    "m_e5_nf176",
+    "m_e5_nf193",
+    "m_e5_nf210",
+    "m_e5_nf228",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ]
+  },
+  {
+   "condition": "ss/125C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 121,
+     "fail": 2,
+     "missing": 5
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 121,
+    "missing": 5,
+    "slow": 2
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf182",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2563323,
+     "limit": 0.15,
+     "margin": 0.10633230000000002,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.306011e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.8060109999999991e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3380348,
+     "limit": 0.15,
+     "margin": -0.18803480000000003,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.6082975,
+    0.6776964
+   ],
+   "analog_subtotal_mw": 8.172415,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 8.172415,
+     "limit": 30.0,
+     "margin": 21.827585,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf182",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ]
+  },
+  {
+   "condition": "ss/125C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 124,
+     "fail": 4,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 124,
+    "slow": 4
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5605494,
+     "limit": 0.15,
+     "margin": 0.41054939999999995,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.434215e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.934215e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4237829,
+     "limit": 0.15,
+     "margin": -0.27378290000000005,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.527848,
+    0.5844265
+   ],
+   "analog_subtotal_mw": 11.79396,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 11.79396,
+     "limit": 30.0,
+     "margin": 18.20604,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/125C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.7212915,
+     "limit": 0.15,
+     "margin": 0.5712915,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.638887e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1388869999999997e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.436721,
+     "limit": 0.15,
+     "margin": -0.286721,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4768979,
+    0.5130092
+   ],
+   "analog_subtotal_mw": 14.45032,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.45032,
+     "limit": 30.0,
+     "margin": 15.54968,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "ss/125C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 83,
+     "fail": 34,
+     "missing": 11
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 83,
+    "fast": 22,
+    "slow": 12,
+    "missing": 11
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_nf196",
+    "m_e5_nr197",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf226",
+    "m_e5_nr227",
+    "m_e5_nf228",
+    "m_e5_nf232"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2159213,
+     "limit": 0.15,
+     "margin": 0.06592130000000002,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.337254e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.8372539999999992e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3838109,
+     "limit": 0.15,
+     "margin": -0.23381090000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5840343,
+    0.6503088
+   ],
+   "analog_subtotal_mw": 12.29067,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.29067,
+     "limit": 30.0,
+     "margin": 17.70933,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_nf196",
+    "m_e5_nr197",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf226",
+    "m_e5_nr227",
+    "m_e5_nf228",
+    "m_e5_nf232"
+   ]
+  },
+  {
+   "condition": "ss/125C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5539208,
+     "limit": 0.15,
+     "margin": 0.40392079999999997,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.648961e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1489609999999995e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3435337,
+     "limit": 0.15,
+     "margin": -0.1935337,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.476173,
+    0.5112768
+   ],
+   "analog_subtotal_mw": 9.460163,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.460163,
+     "limit": 30.0,
+     "margin": 20.539837,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "sf/-40C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "fail",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 31,
+     "fail": 47,
+     "missing": 50
+    },
+    "E9": {
+     "pass": 1,
+     "fail": 1,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 31,
+    "missing": 50,
+    "slow": 42,
+    "fast": 5
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pr157",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_pf181",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_pf190",
+    "m_e5_pr193",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf209",
+    "m_e5_pr210",
+    "m_e5_nf215",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_nr222",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_nf237",
+    "m_e5_nr239",
+    "m_e5_nf243",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.1027731,
+     "limit": 0.15,
+     "margin": -0.04722689999999999,
+     "status": "fail",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 7.748772e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.4877199999999853e-11,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.652516,
+     "limit": 0.15,
+     "margin": -1.5025160000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5156978,
+    0.7408206
+   ],
+   "analog_subtotal_mw": 4.177216,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 4.177216,
+     "limit": 30.0,
+     "margin": 25.822784,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_pr157",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pf172_t80",
+    "m_e5_pf172",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_pf181",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_pf190",
+    "m_e5_pr193",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_pf209",
+    "m_e5_pr210",
+    "m_e5_nf215",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_nr222",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_nf237",
+    "m_e5_nr239",
+    "m_e5_nf243",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ]
+  },
+  {
+   "condition": "sf/-40C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 49,
+     "fail": 33,
+     "missing": 46
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 49,
+    "slow": 25,
+    "missing": 46,
+    "fast": 8
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf133",
+    "m_e5_nf139",
+    "m_e5_pf141",
+    "m_e5_pf146",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_pr157",
+    "m_e5_nr158",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nr172",
+    "m_e5_pr173",
+    "m_e5_nf176",
+    "m_e5_pf183",
+    "m_e5_pr187",
+    "m_e5_pf190",
+    "m_e5_nr194",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pf214",
+    "m_e5_pr215",
+    "m_e5_nr217",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_nf226",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_pr237",
+    "m_e5_nf241",
+    "m_e5_pf242",
+    "m_e5_nf243",
+    "m_e5_pr245",
+    "m_e5_nr246"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2957789,
+     "limit": 0.15,
+     "margin": 0.14577890000000002,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.688493e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.1884929999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.401601,
+     "limit": 0.15,
+     "margin": -1.2516010000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4282575,
+    0.5594083
+   ],
+   "analog_subtotal_mw": 8.40996,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 8.40996,
+     "limit": 30.0,
+     "margin": 21.590040000000002,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf133",
+    "m_e5_nf139",
+    "m_e5_pf141",
+    "m_e5_pf146",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_pr157",
+    "m_e5_nr158",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nf163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nr172",
+    "m_e5_pr173",
+    "m_e5_nf176",
+    "m_e5_pf183",
+    "m_e5_pr187",
+    "m_e5_pf190",
+    "m_e5_nr194",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pf214",
+    "m_e5_pr215",
+    "m_e5_nr217",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_nf226",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pf235",
+    "m_e5_pr237",
+    "m_e5_nf241",
+    "m_e5_pf242",
+    "m_e5_nf243",
+    "m_e5_pr245",
+    "m_e5_nr246"
+   ]
+  },
+  {
+   "condition": "sf/-40C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 57,
+     "fail": 42,
+     "missing": 29
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "missing": 29,
+    "pass": 57,
+    "fast": 24,
+    "slow": 18
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf127",
+    "m_e5_nf133",
+    "m_e5_nf139",
+    "m_e5_nr141",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nr158",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pr171",
+    "m_e5_pf174",
+    "m_e5_pf181",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_nf193",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_nf205",
+    "m_e5_pr207",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_pr226",
+    "m_e5_pr232",
+    "m_e5_nr239",
+    "m_e5_pf242",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5628017,
+     "limit": 0.15,
+     "margin": 0.41280169999999994,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.253123e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.753122999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.154844,
+     "limit": 0.15,
+     "margin": -1.004844,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3775038,
+    0.4521915
+   ],
+   "analog_subtotal_mw": 14.10418,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.10418,
+     "limit": 30.0,
+     "margin": 15.89582,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf127",
+    "m_e5_nf133",
+    "m_e5_nf139",
+    "m_e5_nr141",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nr158",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pr171",
+    "m_e5_pf174",
+    "m_e5_pf181",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_nf193",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_nf205",
+    "m_e5_pr207",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_nf223",
+    "m_e5_pf224",
+    "m_e5_pr226",
+    "m_e5_pr232",
+    "m_e5_nr239",
+    "m_e5_pf242",
+    "m_e5_nr244",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "sf/-40C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 88,
+     "fail": 25,
+     "missing": 15
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 88,
+    "missing": 15,
+    "fast": 16,
+    "slow": 9
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_nf163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_nf196",
+    "m_e5_pr199",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_pf209",
+    "m_e5_nf223",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5531485,
+     "limit": 0.15,
+     "margin": 0.4031485,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.506965e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.0069649999999989e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.012917,
+     "limit": 0.15,
+     "margin": -0.862917,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5601577,
+    0.7094612
+   ],
+   "analog_subtotal_mw": 13.9364,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 13.9364,
+     "limit": 30.0,
+     "margin": 16.0636,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_nf163",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_nf196",
+    "m_e5_pr199",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_pf209",
+    "m_e5_nf223",
+    "m_e5_pf242",
+    "m_e5_pr245"
+   ]
+  },
+  {
+   "condition": "sf/-40C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "fail",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 20,
+     "fail": 55,
+     "missing": 53
+    },
+    "E9": {
+     "pass": 1,
+     "fail": 1,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 20,
+    "slow": 51,
+    "missing": 53,
+    "fast": 4
+   },
+   "e5_unmeasurable": [
+    "m_e5_pr133",
+    "m_e5_nr134",
+    "m_e5_nf139",
+    "m_e5_pf141",
+    "m_e5_pf146",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pf165",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nf173",
+    "m_e5_pf174",
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_pr187",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_pr196",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pf204",
+    "m_e5_pr205",
+    "m_e5_nr206",
+    "m_e5_pr207",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_pf222",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_pf231",
+    "m_e5_pr232",
+    "m_e5_nf237",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nf245",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.106194,
+     "limit": 0.15,
+     "margin": -0.043806,
+     "status": "fail",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.743221e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.2432209999999988e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.625951,
+     "limit": 0.15,
+     "margin": -1.475951,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3473916,
+    0.4730696
+   ],
+   "analog_subtotal_mw": 4.480579,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 4.480579,
+     "limit": 30.0,
+     "margin": 25.519421,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pr133",
+    "m_e5_nr134",
+    "m_e5_nf139",
+    "m_e5_pf141",
+    "m_e5_pf146",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pf165",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nf173",
+    "m_e5_pf174",
+    "m_e5_nf176",
+    "m_e5_nf182",
+    "m_e5_pf183",
+    "m_e5_pr187",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_pr196",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pf204",
+    "m_e5_pr205",
+    "m_e5_nr206",
+    "m_e5_pr207",
+    "m_e5_pf209",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_pf222",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_pf231",
+    "m_e5_pr232",
+    "m_e5_nf237",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nr242",
+    "m_e5_pr243",
+    "m_e5_nf245",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ]
+  },
+  {
+   "condition": "sf/27C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 46,
+     "fail": 40,
+     "missing": 42
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 46,
+    "missing": 42,
+    "slow": 27,
+    "fast": 13
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_pr193",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pr210",
+    "m_e5_nf215",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_pr228",
+    "m_e5_pf235",
+    "m_e5_nr239",
+    "m_e5_nf243",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pr247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2244773,
+     "limit": 0.15,
+     "margin": 0.0744773,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 8.439017e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 9.390169999999988e-11,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.442463,
+     "limit": 0.15,
+     "margin": -1.2924630000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.5020169,
+    0.6581151
+   ],
+   "analog_subtotal_mw": 6.173536,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 6.173536,
+     "limit": 30.0,
+     "margin": 23.826464,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_pr147",
+    "m_e5_nf151",
+    "m_e5_nr155",
+    "m_e5_nf161",
+    "m_e5_pf162",
+    "m_e5_nr165",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_pr182",
+    "m_e5_nr183",
+    "m_e5_nf187",
+    "m_e5_pr193",
+    "m_e5_nf196",
+    "m_e5_pf197",
+    "m_e5_nf199",
+    "m_e5_nr201",
+    "m_e5_pr202",
+    "m_e5_nf205",
+    "m_e5_pf206",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_pr210",
+    "m_e5_nf215",
+    "m_e5_pf217",
+    "m_e5_pr220",
+    "m_e5_pf224",
+    "m_e5_nf226",
+    "m_e5_pr228",
+    "m_e5_pf235",
+    "m_e5_nr239",
+    "m_e5_nf243",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pr247"
+   ]
+  },
+  {
+   "condition": "sf/27C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 77,
+     "fail": 26,
+     "missing": 25
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 77,
+    "missing": 25,
+    "fast": 23,
+    "slow": 3
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf133",
+    "m_e5_pf141",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_nr158",
+    "m_e5_nf163",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_nr181",
+    "m_e5_pr187",
+    "m_e5_nf199",
+    "m_e5_nf207",
+    "m_e5_nf215",
+    "m_e5_nf223",
+    "m_e5_pr226",
+    "m_e5_nr227",
+    "m_e5_pf231",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4409962,
+     "limit": 0.15,
+     "margin": 0.29099620000000004,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.140097e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.6400969999999994e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.090403,
+     "limit": 0.15,
+     "margin": -0.940403,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4312621,
+    0.5172524
+   ],
+   "analog_subtotal_mw": 10.52284,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.52284,
+     "limit": 30.0,
+     "margin": 19.477159999999998,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf133",
+    "m_e5_pf141",
+    "m_e5_nf147",
+    "m_e5_pf148",
+    "m_e5_pr151",
+    "m_e5_pf155",
+    "m_e5_nr158",
+    "m_e5_nf163",
+    "m_e5_pf170",
+    "m_e5_nf171",
+    "m_e5_pr173",
+    "m_e5_nr174",
+    "m_e5_nr181",
+    "m_e5_pr187",
+    "m_e5_nf199",
+    "m_e5_nf207",
+    "m_e5_nf215",
+    "m_e5_nf223",
+    "m_e5_pr226",
+    "m_e5_nr227",
+    "m_e5_pf231",
+    "m_e5_pf239",
+    "m_e5_pr241",
+    "m_e5_nf245",
+    "m_e5_pf246"
+   ]
+  },
+  {
+   "condition": "sf/27C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 79,
+     "fail": 42,
+     "missing": 7
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 79,
+    "fast": 42,
+    "missing": 7
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf148",
+    "m_e5_nr183",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_nf226",
+    "m_e5_nf232",
+    "m_e5_nr235"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6124196,
+     "limit": 0.15,
+     "margin": 0.46241959999999993,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.441271e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.9412709999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8180592,
+     "limit": 0.15,
+     "margin": -0.6680592,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3812098,
+    0.4370827
+   ],
+   "analog_subtotal_mw": 14.38802,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.38802,
+     "limit": 30.0,
+     "margin": 15.61198,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf148",
+    "m_e5_nr183",
+    "m_e5_nf207",
+    "m_e5_nr209",
+    "m_e5_nf226",
+    "m_e5_nf232",
+    "m_e5_nr235"
+   ]
+  },
+  {
+   "condition": "sf/27C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 123,
+     "fail": 5,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 123,
+    "fast": 5
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6423275,
+     "limit": 0.15,
+     "margin": 0.49232750000000003,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.087085e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.587084999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.6945539,
+     "limit": 0.15,
+     "margin": -0.5445538999999999,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.525629,
+    0.6169205
+   ],
+   "analog_subtotal_mw": 14.1761,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.1761,
+     "limit": 30.0,
+     "margin": 15.8239,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "sf/27C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 31,
+     "fail": 53,
+     "missing": 44
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "slow": 37,
+    "missing": 44,
+    "pass": 31,
+    "fast": 16
+   },
+   "e5_unmeasurable": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_nf151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_nf176",
+    "m_e5_nr181",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_pr196",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_nr206",
+    "m_e5_pr207",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_nr222",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pr232",
+    "m_e5_nf237",
+    "m_e5_pr241",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2284056,
+     "limit": 0.15,
+     "margin": 0.07840559999999999,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.147261e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.647260999999999e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 1.400006,
+     "limit": 0.15,
+     "margin": -1.2500060000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3613968,
+    0.4466707
+   ],
+   "analog_subtotal_mw": 6.451017,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 6.451017,
+     "limit": 30.0,
+     "margin": 23.548983,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nr127",
+    "m_e5_nf133",
+    "m_e5_pf134",
+    "m_e5_pf141",
+    "m_e5_pr145",
+    "m_e5_nr146",
+    "m_e5_nf151",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_pr161",
+    "m_e5_nr162",
+    "m_e5_pr163",
+    "m_e5_nf167",
+    "m_e5_nr170",
+    "m_e5_pr171",
+    "m_e5_nr172",
+    "m_e5_nf176",
+    "m_e5_nr181",
+    "m_e5_nf193",
+    "m_e5_pf194",
+    "m_e5_pr196",
+    "m_e5_nr197",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_nr206",
+    "m_e5_pr207",
+    "m_e5_nf210",
+    "m_e5_nr214",
+    "m_e5_pr215",
+    "m_e5_nf220",
+    "m_e5_nr222",
+    "m_e5_pr223",
+    "m_e5_nr224",
+    "m_e5_pf227",
+    "m_e5_nf228",
+    "m_e5_nr231",
+    "m_e5_pr232",
+    "m_e5_nf237",
+    "m_e5_pr241",
+    "m_e5_pf244",
+    "m_e5_nf245",
+    "m_e5_pf246",
+    "m_e5_nf247"
+   ]
+  },
+  {
+   "condition": "sf/125C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 120,
+     "fail": 5,
+     "missing": 3
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 120,
+    "fast": 5,
+    "missing": 3
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4408075,
+     "limit": 0.15,
+     "margin": 0.2908075,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.243854e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.7438539999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.6079745,
+     "limit": 0.15,
+     "margin": -0.45797449999999995,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4913656,
+    0.5669801
+   ],
+   "analog_subtotal_mw": 8.49343,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 8.49343,
+     "limit": 30.0,
+     "margin": 21.50657,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ]
+  },
+  {
+   "condition": "sf/125C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 122,
+     "fail": 6,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 122,
+    "fast": 6
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6126479,
+     "limit": 0.15,
+     "margin": 0.4626479,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.544546e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0445459999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4998491,
+     "limit": 0.15,
+     "margin": -0.3498491,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4297592,
+    0.4753046
+   ],
+   "analog_subtotal_mw": 12.10766,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.10766,
+     "limit": 30.0,
+     "margin": 17.89234,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "sf/125C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 123,
+     "fail": 5,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 123,
+    "fast": 5
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6839903,
+     "limit": 0.15,
+     "margin": 0.5339903,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.651365e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1513649999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4332936,
+     "limit": 0.15,
+     "margin": -0.28329360000000003,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3868873,
+    0.4217508
+   ],
+   "analog_subtotal_mw": 14.33325,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.33325,
+     "limit": 30.0,
+     "margin": 15.66675,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "sf/125C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6714042,
+     "limit": 0.15,
+     "margin": 0.5214042,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.416348e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.9163479999999997e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4068782,
+     "limit": 0.15,
+     "margin": -0.25687820000000006,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4945943,
+    0.5529596
+   ],
+   "analog_subtotal_mw": 14.05271,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.05271,
+     "limit": 30.0,
+     "margin": 15.94729,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "sf/125C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 73,
+     "fail": 42,
+     "missing": 13
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 73,
+    "fast": 41,
+    "missing": 13,
+    "slow": 1
+   },
+   "e5_unmeasurable": [
+    "m_e5_pf148",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_nf176",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nf228",
+    "m_e5_nf237",
+    "m_e5_pf246"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4132827,
+     "limit": 0.15,
+     "margin": 0.2632827,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.48702e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.9870199999999996e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.8647257,
+     "limit": 0.15,
+     "margin": -0.7147257,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3805511,
+    0.4318492
+   ],
+   "analog_subtotal_mw": 8.72587,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 8.72587,
+     "limit": 30.0,
+     "margin": 21.27413,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_pf148",
+    "m_e5_nf157",
+    "m_e5_pf158",
+    "m_e5_nf176",
+    "m_e5_pf201",
+    "m_e5_nf202",
+    "m_e5_pr205",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_pr223",
+    "m_e5_nf228",
+    "m_e5_nf237",
+    "m_e5_pf246"
+   ]
+  },
+  {
+   "condition": "fs/-40C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.5306737,
+     "limit": 0.15,
+     "margin": 0.3806737,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.56176e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0617599999999997e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2834302,
+     "limit": 0.15,
+     "margin": -0.13343020000000003,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.40766,
+    0.451484
+   ],
+   "analog_subtotal_mw": 10.08224,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.08224,
+     "limit": 30.0,
+     "margin": 19.91776,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/-40C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 126,
+     "fail": 2,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 126,
+    "fast": 2
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.662987,
+     "limit": 0.15,
+     "margin": 0.512987,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.756104e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2561039999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.5673352,
+     "limit": 0.15,
+     "margin": -0.4173352,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3510052,
+    0.3753947
+   ],
+   "analog_subtotal_mw": 12.57525,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.57525,
+     "limit": 30.0,
+     "margin": 17.42475,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/-40C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 69,
+     "fail": 57,
+     "missing": 2
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 69,
+    "fast": 57,
+    "missing": 2
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf210",
+    "m_e5_nf220"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6247116,
+     "limit": 0.15,
+     "margin": 0.4747116,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.766475e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2664749999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.9913295,
+     "limit": 0.15,
+     "margin": -0.8413295,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3044151,
+    0.3277676
+   ],
+   "analog_subtotal_mw": 14.46476,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.46476,
+     "limit": 30.0,
+     "margin": 15.53524,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf210",
+    "m_e5_nf220"
+   ]
+  },
+  {
+   "condition": "fs/-40C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.7150321,
+     "limit": 0.15,
+     "margin": 0.5650320999999999,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.744917e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2449169999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4416102,
+     "limit": 0.15,
+     "margin": -0.29161020000000004,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4259998,
+    0.4515081
+   ],
+   "analog_subtotal_mw": 14.12194,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.12194,
+     "limit": 30.0,
+     "margin": 15.87806,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/-40C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 125,
+     "fail": 3,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 125,
+    "fast": 3
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6579155,
+     "limit": 0.15,
+     "margin": 0.5079155,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.836985e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.3369849999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2568217,
+     "limit": 0.15,
+     "margin": -0.10682169999999999,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3067156,
+    0.3230171
+   ],
+   "analog_subtotal_mw": 10.94297,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.94297,
+     "limit": 30.0,
+     "margin": 19.057029999999997,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/27C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 122,
+     "fail": 6,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 122,
+    "fast": 5,
+    "slow": 1
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4036871,
+     "limit": 0.15,
+     "margin": 0.25368710000000005,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.592481e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0924809999999989e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2483418,
+     "limit": 0.15,
+     "margin": -0.09834180000000001,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4163665,
+    0.4571184
+   ],
+   "analog_subtotal_mw": 9.30081,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 9.30081,
+     "limit": 30.0,
+     "margin": 20.69919,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/27C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6940644,
+     "limit": 0.15,
+     "margin": 0.5440644,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.774506e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2745059999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.3618066,
+     "limit": 0.15,
+     "margin": -0.21180659999999998,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.37503,
+    0.3975794
+   ],
+   "analog_subtotal_mw": 12.59033,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 12.59033,
+     "limit": 30.0,
+     "margin": 17.40967,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/27C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 100,
+     "fail": 28,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "fast": 28,
+    "pass": 100
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6712444,
+     "limit": 0.15,
+     "margin": 0.5212443999999999,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.768868e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2688679999999984e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.7029873,
+     "limit": 0.15,
+     "margin": -0.5529873,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3281128,
+    0.351226
+   ],
+   "analog_subtotal_mw": 14.55246,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.55246,
+     "limit": 30.0,
+     "margin": 15.44754,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/27C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 122,
+     "fail": 6,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 122,
+    "slow": 5,
+    "fast": 1
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4714244,
+     "limit": 0.15,
+     "margin": 0.32142440000000005,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.578946e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.078945999999998e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.4684272,
+     "limit": 0.15,
+     "margin": -0.3184272,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4159099,
+    0.4580152
+   ],
+   "analog_subtotal_mw": 13.84321,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 13.84321,
+     "limit": 30.0,
+     "margin": 16.15679,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/27C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6543561,
+     "limit": 0.15,
+     "margin": 0.5043561,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.824483e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.3244829999999983e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2713632,
+     "limit": 0.15,
+     "margin": -0.12136320000000003,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3301433,
+    0.347695
+   ],
+   "analog_subtotal_mw": 10.91781,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.91781,
+     "limit": 30.0,
+     "margin": 19.08219,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/125C/1.62/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 103,
+     "fail": 25,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 103,
+    "fast": 18,
+    "slow": 7
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2584761,
+     "limit": 0.15,
+     "margin": 0.10847609999999999,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.596953e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.0969529999999996e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.1870682,
+     "limit": 0.15,
+     "margin": -0.037068199999999996,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4397143,
+    0.480019
+   ],
+   "analog_subtotal_mw": 8.040262,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 8.040262,
+     "limit": 30.0,
+     "margin": 21.959738,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/125C/1.80/3.30",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.4859616,
+     "limit": 0.15,
+     "margin": 0.33596159999999997,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.679671e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.1796709999999993e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2955063,
+     "limit": 0.15,
+     "margin": -0.1455063,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3878602,
+    0.4198931
+   ],
+   "analog_subtotal_mw": 11.68483,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 11.68483,
+     "limit": 30.0,
+     "margin": 18.315170000000002,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/125C/1.98/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.7234766,
+     "limit": 0.15,
+     "margin": 0.5734766,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.806469e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.3064689999999986e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.348662,
+     "limit": 0.15,
+     "margin": -0.19866200000000003,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3664468,
+    0.3857998
+   ],
+   "analog_subtotal_mw": 14.50868,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 14.50868,
+     "limit": 30.0,
+     "margin": 15.49132,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  },
+  {
+   "condition": "fs/125C/1.62/3.63",
+   "step": "seq",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 65,
+     "fail": 58,
+     "missing": 5
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 65,
+    "fast": 51,
+    "slow": 7,
+    "missing": 5
+   },
+   "e5_unmeasurable": [
+    "m_e5_nf182",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ],
+   "metrics": {
+    "E9.height": {
+     "value": 0.2074303,
+     "limit": 0.15,
+     "margin": 0.05743030000000002,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.472432e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 1.9724319999999981e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2382932,
+     "limit": 0.15,
+     "margin": -0.08829320000000002,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.4175017,
+    0.4702585
+   ],
+   "analog_subtotal_mw": 11.99335,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 11.99335,
+     "limit": 30.0,
+     "margin": 18.00665,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": [
+    "m_e5_nf182",
+    "m_e5_nf202",
+    "m_e5_nf210",
+    "m_e5_nf220",
+    "m_e5_nf232"
+   ]
+  },
+  {
+   "condition": "fs/125C/1.98/2.97",
+   "step": "seq",
+   "rows": {
+    "E5": "pass",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "unverified"
+   },
+   "measurement_counts": {
+    "E5": {
+     "pass": 128,
+     "fail": 0,
+     "missing": 0
+    },
+    "E9": {
+     "pass": 2,
+     "fail": 0,
+     "missing": 0
+    },
+    "E4": {
+     "pass": 0,
+     "fail": 1,
+     "missing": 0
+    }
+   },
+   "e5_edges": {
+    "pass": 128
+   },
+   "e5_unmeasurable": [],
+   "metrics": {
+    "E9.height": {
+     "value": 0.6163137,
+     "limit": 0.15,
+     "margin": 0.46631369999999994,
+     "status": "pass",
+     "unit": "V"
+    },
+    "E9.width": {
+     "value": 9.780663e-10,
+     "limit": 7.500000000000001e-10,
+     "margin": 2.2806629999999987e-10,
+     "status": "pass",
+     "unit": "s"
+    },
+    "E4": {
+     "value": 0.2536848,
+     "limit": 0.15,
+     "margin": -0.1036848,
+     "status": "fail",
+     "unit": "V"
+    }
+   },
+   "crossing_phase_ui": [
+    0.3645301,
+    0.3864638
+   ],
+   "analog_subtotal_mw": 10.55811,
+   "subtotal_comparisons_mw": {
+    "any": {
+     "value": 10.55811,
+     "limit": 30.0,
+     "margin": 19.44189,
+     "status": "pass"
+    }
+   },
+   "bit_order": {
+    "ok": 9
+   },
+   "missing_measurements": []
+  }
+ ]
+}
