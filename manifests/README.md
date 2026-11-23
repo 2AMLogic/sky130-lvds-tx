@@ -115,10 +115,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r17.json`](../verification/signoff/evidence/item-10-repo-hygiene-r17.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r18.json`](../verification/signoff/evidence/item-10-repo-hygiene-r18.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (append-only; r2-r16 are kept as history, bound to earlier workflow and
+    (append-only; r2-r17 are kept as history, bound to earlier workflow and
     spec revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
@@ -178,7 +178,7 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r9.json   # runs the cold start using KLT_SIM_BACKEND
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r17.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r18.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r2.json
@@ -232,6 +232,12 @@ analog regeneration claim is backed by the `local_only` PDK gate, and the
 digital one by the `local_only` PnP check; the producer itself exists since
 0.9.1 (klayout-tools#4188) and produced the analog r5 record. Both item 2
 envelopes are hash-bound by that full-record comparison.
+
+That comparison is `verification/signoff/check-verdict-record.sh`, shared by the CI
+step and the local `pnpm check:signoff`: it renders `klt signoff` and requires the
+bytes to equal the committed record (render exit 0 or 3 only). The local check is
+therefore as strict as CI; klt's semantic `--check` is no longer used, so even a
+whitespace or checklist-wording change needs a regenerated record.
 
 ## Repo-local disclosure notes (items 2 and 11)
 
