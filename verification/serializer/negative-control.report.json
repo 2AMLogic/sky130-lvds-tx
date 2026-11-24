@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "engine": "icarus",
+  "hdl_toplevel": "serializer",
+  "testbench": "test_serializer",
+  "status": "fail",
+  "test_count": 4,
+  "passed_count": 1,
+  "failed_count": 3,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_word_clock_is_div4_50pct",
+      "status": "failed",
+      "sim_time_ns": 69.0,
+      "real_time_s": 0.0024137496948242188,
+      "error_type": "AssertionError",
+      "error_message": "word_clk rise spacing not 4 cycles: [1, 6, 11, 16, 21, 26, 31]"
+    },
+    {
+      "name": "test_bit_order_walking_ones",
+      "status": "failed",
+      "sim_time_ns": 125.0,
+      "real_time_s": 0.0034308433532714844,
+      "error_type": "AssertionError",
+      "error_message": "expected ['0x1', '0x2', '0x4', '0x8', '0x10', '0x20', '0x40', '0x80', '0xff', '0x0', '0xa5', '0x5a'], got ['0x1', '0x2', '0x4', '0x8', '0x10', '0x20', '0x40', '0x80', '0xff', '0x0', '0xa5']"
+    },
+    {
+      "name": "test_no_dropped_or_repeated_bit_back_to_back",
+      "status": "failed",
+      "sim_time_ns": 1629.0,
+      "real_time_s": 0.0389864444732666,
+      "error_type": "AssertionError",
+      "error_message": null
+    },
+    {
+      "name": "test_reset_clears_outputs_and_restarts_count",
+      "status": "passed",
+      "sim_time_ns": 51.0,
+      "real_time_s": 0.0012416839599609375
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "tools": [],
+    "cocotb_version": "2.0.1",
+    "results_xml": {
+      "path": "verification/serializer/.klt/negative-control/results_icarus.xml",
+      "scope": "repo",
+      "sha256": "sha256:98578190ab350490b80484a15a525230eeb33b85e262303025ccec67e1075051"
+    },
+    "test_log": {
+      "path": "verification/serializer/.klt/negative-control/test_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:890da70a8e1b9e3a31b2175a2e604efb9b804636a1d70f274e62375b1b34c856"
+    },
+    "build_log": {
+      "path": "verification/serializer/.klt/negative-control/build_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "random_seed": 21,
+    "source_defines": {},
+    "env": {},
+    "initial_state": null,
+    "sdf": null
+  }
+}

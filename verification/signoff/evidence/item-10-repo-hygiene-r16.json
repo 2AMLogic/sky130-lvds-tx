@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 10,
+  "summary": "T1 item 10 (Repo hygiene): 5/5 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-10-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 5,
+    "passed_count": 5,
+    "checks": [
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": ".github/workflows/signoff.yml",
+        "passed": true,
+        "content_hash": "sha256:33ee76be1927efbcda7c7e28ab79dd162c92467aec1b43e801407af33530c381"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "LICENSE",
+        "passed": true,
+        "content_hash": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "README.md",
+        "passed": true,
+        "content_hash": "sha256:49179ed9d7bdcd5412c04c6eba60900f802e78900655ce91eb77814b16783467"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "spec/README.md",
+        "passed": true,
+        "content_hash": "sha256:36f1f1af969adf176d2c820712e3da21dd4ca7d9c53b60c48db12c38c77d9707"
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "readme-spec-pointer",
+        "argv": [
+          "sh",
+          "verification/signoff/check-hygiene.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.1",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "verification/signoff/item-10-inventory.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
+    }
+  }
+}
