@@ -1087,6 +1087,8 @@ inside the 20 µA limit)**, fs/125 °C 44 → **31.1 µA (still a miss)**, tt/12
 therefore not entirely this junction; its source is still untraced (#167).
 Ramp: 7 pass / 3 inconclusive, as before; converged `ipadp_max` ≈ 11 µA.
 
-Housekeeping: the item 10 evidence sequence goes r17 → r19 → r20; there is
-no committed r18 and this PR has no record of why (it predates this
-addendum); r19 and r20 are the committed successors. The earlier revisions remain in `verification/signoff/evidence/` as history.
+Housekeeping: item 10 evidence revisions r18 (landed on `main` from another
+PR) and r19/r20 (this branch, before the `main` merge) were numbered
+independently. This branch's committed item 10 envelope is **r21**, attested
+after merging `main`; r18-r20 and earlier stay in
+`verification/signoff/evidence/` as history.
