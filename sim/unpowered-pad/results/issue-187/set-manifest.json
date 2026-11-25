@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "requests": [
+    {
+      "index": 0,
+      "request": "sim/unpowered-pad/request-sweep-a.json",
+      "dir": "sim/unpowered-pad/results/issue-187/request-sweep-a",
+      "status": "inconclusive",
+      "job_id": "klt-sim-482f711d4cb1",
+      "job_ids": [
+        "klt-sim-482f711d4cb1"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 1,
+      "request": "sim/unpowered-pad/request-sweep-b.json",
+      "dir": "sim/unpowered-pad/results/issue-187/request-sweep-b",
+      "status": "inconclusive",
+      "job_id": "klt-sim-a4ae57318486",
+      "job_ids": [
+        "klt-sim-a4ae57318486"
+      ],
+      "attempts": 1
+    },
+    {
+      "index": 2,
+      "request": "sim/unpowered-pad/request-ramp.json",
+      "dir": "sim/unpowered-pad/results/issue-187/request-ramp",
+      "status": "inconclusive",
+      "job_id": "klt-sim-3fb5d251e14d",
+      "job_ids": [
+        "klt-sim-3fb5d251e14d"
+      ],
+      "attempts": 1
+    }
+  ]
+}

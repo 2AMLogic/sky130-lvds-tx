@@ -44,7 +44,9 @@ for c in ddr_mux/ddr_mux predriver/predriver driver/driver pad_cell/pad_cell lvd
 done
 ```
 
-The committed netlists were generated with klt `0.8.0`. For signoff,
+The committed netlists were generated with klt `0.8.0`; `driver.spice` and
+`lvds_tx_analog.spice` were last regenerated with klt `0.9.1` (the `XMPS`
+bulk fix), and `--check` matches both. For signoff,
 use the repository's attest environment (`.venv`) with klt `0.9.1` and
 klayout `0.28.17.post1` (`docs/environment.md`). Put `.venv/bin` first on
 `PATH` so the inventory's `klt netlist --check` commands use the same pin.
@@ -61,7 +63,7 @@ Freshness of one netlist: the same command with `--check` (exit 0 `match`,
 
 ```console
 klt signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-            -o verification/signoff/evidence/item-1-analog-design-sources-r4.json
+            -o verification/signoff/evidence/item-1-analog-design-sources-r5.json
 ```
 
 Unresolved symbols make xschem emit auto-named nets (`net1`, ...) with no

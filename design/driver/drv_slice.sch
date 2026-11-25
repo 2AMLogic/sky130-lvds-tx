@@ -23,7 +23,7 @@ C {pfet_g5v0d10v5.sym} 200 100 0 0 {name=MPS L=1 W=12.8 nf=2 mult="\{SCALE\}" ad
 C {lab_pin.sym} 220 130 0 0 {name=l1 lab=TOP}
 C {lab_pin.sym} 180 100 2 0 {name=l2 lab=PG}
 C {lab_pin.sym} 220 70 0 0 {name=l3 lab=VDDIO}
-C {lab_pin.sym} 220 100 0 0 {name=l4 lab=VDDIO}
+C {lab_pin.sym} 220 100 0 0 {name=l4 lab=XMPW}
 C {pfet_01v8.sym} 420 100 0 0 {name=MSPA L=0.15 W=3.6 nf=4 mult="\{SCALE\}" ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806 nrs=0.0806 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
 C {lab_pin.sym} 440 130 0 0 {name=l5 lab=OUTP}
 C {lab_pin.sym} 400 100 2 0 {name=l6 lab=GPA}

@@ -1,4 +1,5 @@
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-178/design/driver/driver.sch
+** klt-netlist-inputs: {"pdk_variant": "sky130A", "rcfile": "xschemrc", "xschem_version": "3.4.7"}
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/pr-187/design/driver/driver.sch
 .subckt driver GPA GPB GNA GNB XPA XPB XNA XNB EN EM0 EM1 IREF VCMREF OUTP OUTN VCCD VDDIO VSSIO
 *.ipin GPA
 *.ipin GPB
@@ -48,8 +49,8 @@ xsl_e1b XPA XPB XNA XNB PGE1 NGE1 OUTP OUTN VCCD VDDIO VSSIO drv_slice SCALE=1
 .ends
 
 * expanding   symbol:  drv_sel.sym # of pins=8
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-178/design/driver/drv_sel.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-178/design/driver/drv_sel.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/pr-187/design/driver/drv_sel.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/pr-187/design/driver/drv_sel.sch
 .subckt drv_sel SEL BIASP VCMFB PG NG VCCD VDDIO VSSIO
 *.ipin SEL
 *.iopin BIASP
@@ -83,8 +84,8 @@ XMNP NG ENH VCMFB VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1
 
 
 * expanding   symbol:  drv_slice.sym # of pins=11
-** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-178/design/driver/drv_slice.sym
-** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/issue-178/design/driver/drv_slice.sch
+** sym_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/pr-187/design/driver/drv_slice.sym
+** sch_path: /home/ubuntu/GitHub/sky130-lvds-tx/.loom/worktrees/pr-187/design/driver/drv_slice.sch
 .subckt drv_slice GPA GPB GNA GNB PG NG OUTP OUTN VCCD VDDIO VSSIO  SCALE=1
 *.ipin GPA
 *.ipin GPB
@@ -97,7 +98,7 @@ XMNP NG ENH VCMFB VSSIO sky130_fd_pr__nfet_g5v0d10v5 L=0.5 W=4 nf=2 ad=0.58 as=1
 *.iopin VCCD
 *.iopin VDDIO
 *.iopin VSSIO
-XMPS TOP PG VDDIO VDDIO sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12.8 nf=2 ad=1.856 as=3.712 pd=13.38 ps=26.76 nrd=0.0227 nrs=0.0227 sa=0
+XMPS TOP PG VDDIO XMPW sky130_fd_pr__pfet_g5v0d10v5 L=1 W=12.8 nf=2 ad=1.856 as=3.712 pd=13.38 ps=26.76 nrd=0.0227 nrs=0.0227 sa=0
 + sb=0 sd=0 mult={SCALE} m={SCALE}
 XMSPA OUTP GPA TOP WELL sky130_fd_pr__pfet_01v8 L=0.15 W=3.6 nf=4 ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806 nrs=0.0806 sa=0 sb=0
 + sd=0 mult={SCALE} m={SCALE}
