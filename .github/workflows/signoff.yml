@@ -4,8 +4,8 @@ name: klt signoff
 # report from the committed block manifest (manifests/sky130-lvds-tx.json)
 # and byte-compare it against the committed verdict of record
 # (manifests/sky130-lvds-tx.signoff.json). Whoever changes cited evidence,
-# the manifest or the vendored checklist must regenerate the record in the
-# same PR. See manifests/README.md.
+# the manifest or the klt pin must regenerate the record in the same PR.
+# See manifests/README.md.
 
 on:
   push:
@@ -56,7 +56,7 @@ jobs:
         run: |
           klt signoff --attest 10 \
               --inventory verification/signoff/item-10-inventory.json \
-              --check verification/signoff/evidence/item-10-repo-hygiene-r12.json
+              --check verification/signoff/evidence/item-10-repo-hygiene-r19.json
 
       # The netlist freshness checks are `local_only` (they need xschem and the
       # pinned PDK, which this runner lacks) and are skipped here, visibly; every
@@ -76,29 +76,10 @@ jobs:
         run: |
           klt signoff --attest 9 \
               --inventory verification/signoff/item-9-inventory.json \
-              --check verification/signoff/evidence/item-9-testbenches-r4.json
+              --check verification/signoff/evidence/item-9-testbenches-r9.json
 
       - name: Re-run klt signoff and compare against the committed record
-        run: |
-          set -uo pipefail
-          rc=0
-          klt signoff --manifest manifests/sky130-lvds-tx.json \
-                      --tiers-doc manifests/design-evidence-tiers.md \
-                      --format json > "$RUNNER_TEMP/fresh-signoff.json" || rc=$?
-          # 0 = every T1 item met; 3 = grader ran clean, some item unmet.
-          # Anything else is a hard error.
-          if [ "$rc" -ne 0 ] && [ "$rc" -ne 3 ]; then
-            echo "::error::klt signoff exited $rc (expected 0 or 3)"
-            exit 1
-          fi
-          if ! cmp -s "$RUNNER_TEMP/fresh-signoff.json" manifests/sky130-lvds-tx.signoff.json; then
-            echo "::error::Fresh klt signoff output differs from manifests/sky130-lvds-tx.signoff.json - the committed verdict is stale."
-            echo "Regenerate it in this PR (see manifests/README.md)."
-            diff <(python3 -m json.tool "$RUNNER_TEMP/fresh-signoff.json") \
-                 <(python3 -m json.tool manifests/sky130-lvds-tx.signoff.json) || true
-            exit 1
-          fi
-          echo "Committed signoff record is fresh."
+        run: sh verification/signoff/check-verdict-record.sh
 
       # The committed item-1 digital envelope is the r2 re-closure under the
       # pinned toolchain (#115): paths-shaped provenance produced by a real

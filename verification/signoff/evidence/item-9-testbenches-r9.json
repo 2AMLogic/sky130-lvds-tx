@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 9,
+  "summary": "T1 item 9 (Testbenches shipped): 30/30 attestation checks passed (klt signoff --attest)",
+  "source": "verification/signoff/item-9-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 30,
+    "passed_count": 30,
+    "checks": [
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/serializer/pnr.request.json",
+        "passed": true,
+        "content_hash": "sha256:d9abb44a4171540abbf8cbb872c791949e2dd97ae2b4c396105548f266ee85e3"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/serializer/sdf.request.json",
+        "passed": true,
+        "content_hash": "sha256:65e8caf69ca83b2b0617420aa138fa7ce04fc8b189dde75ec183b6e5d575746e"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/serializer/synth.request.json",
+        "passed": true,
+        "content_hash": "sha256:171e0671f11da3c97a8a26b510c64c3c6d475e6a603a1bd40429a13362ce5189"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/driver_tran_1g.spice",
+        "passed": true,
+        "content_hash": "sha256:b258e87d9e6e64baa14357019f7348f73a30057303741d689ae889e37a68e692"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/driver_tran_400m.spice",
+        "passed": true,
+        "content_hash": "sha256:9717577e518de492dfa825ecd9f36add1fab6394f2439983d86b4a97936aa361"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/eye_plot.py",
+        "passed": true,
+        "content_hash": "sha256:c3f2293b041e1d1c7257697e203ef212049fce078caecf9c751fbedae7da5e88"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/gen_bench.py",
+        "passed": true,
+        "content_hash": "sha256:653b34b079120da9cbbb7d509f56c90a83e706cd71170705052146e28b337b05"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/prbs7_stim_1g.spice",
+        "passed": true,
+        "content_hash": "sha256:4e54adaf44c03a1499162a0cc24a9807aaaeb9a1afe9898b4482367de9fca6ba"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/prbs7_stim_400m.spice",
+        "passed": true,
+        "content_hash": "sha256:16742e61db270ff2d29befadb5ace58f624200ce8a39a70a841ad9b3797963e2"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-1g.json",
+        "passed": true,
+        "content_hash": "sha256:5337127afef14c9bf2a7d38bef712c91c3323f48ae2a9c6e23a84a1c8fe2588b"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-400m.json",
+        "passed": true,
+        "content_hash": "sha256:bac86f7f4790732298fc61b193788cc5610c5116fa45f1092811ee50b6a84b96"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-control.json",
+        "passed": true,
+        "content_hash": "sha256:79a89f46ad4c2c7ec99456bdce2962661a10a38330316aa41123f7b6d5977f6a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-nominal-1g.json",
+        "passed": true,
+        "content_hash": "sha256:5b82288aa5691c65d27bd7df6b09817efca02e8dff7020b3a786315921d2e7d8"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-nominal-400m.json",
+        "passed": true,
+        "content_hash": "sha256:aeacb41d4feb5688692bd7ac59b651f99767ca6daf0fd24a6374e812e6354b1a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-wave-1g.json",
+        "passed": true,
+        "content_hash": "sha256:aa5bcb5b34bdefabced74be7cd5b3aab3dda6c46430f3767a588d75b4c6e227d"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/request-wave-400m.json",
+        "passed": true,
+        "content_hash": "sha256:91ff6e99160fffba5dc69224960f1616590bbe336699b95057c85892ea274ac0"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/stim_meta_1g.json",
+        "passed": true,
+        "content_hash": "sha256:f64370be4de76b8cd9d22c7620085e113cbb7731dc9c73b167819a91dfadbc9e"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/stim_meta_400m.json",
+        "passed": true,
+        "content_hash": "sha256:a21fa1401c0915590200d618823ac106ca5d040e4043de2a81c081697182f431"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/summarize.py",
+        "passed": true,
+        "content_hash": "sha256:f414b4c0cf9ec35d20465cb0c746a965f66c5d2b07d09d0ec6008143d11c3b07"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/driver-tran/test_summarize.py",
+        "passed": true,
+        "content_hash": "sha256:40b53913a8cb0ee4e5adad305680d1382039dc4455b4d084c89dbeb0e9533783"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/pdk-smoke/inverters.spice",
+        "passed": true,
+        "content_hash": "sha256:f60f32b82db5eff3e4e391dc4024d9b3dc2a20fee58f004f3c82bb4b72d9408a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/pdk-smoke/request.json",
+        "passed": true,
+        "content_hash": "sha256:a3b156e3ab87f1be4b8fae9684fdfb29f0f0df47286af5af070a3c5dea9078dd"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/serializer/negative-control.request.json",
+        "passed": true,
+        "content_hash": "sha256:39c273eae0625184a6a7d0ff10bd735cd49f803050d850b28b7cb8b9262f418a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/serializer/negative_control/serializer_broken.v",
+        "passed": true,
+        "content_hash": "sha256:4cc1c238da55b847db70d6c3ccc92e757e374803d2e163e3e67e726901acc7b4"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/serializer/rtl.request.json",
+        "passed": true,
+        "content_hash": "sha256:9d4515d6b60bb1882ef7c779cffbf6a63cbe80e085257d5fb3a40001560db861"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/serializer/runner.py",
+        "passed": true,
+        "content_hash": "sha256:92861d0c8c59aa2ed7867ef6558ad05b6c597c1a8f94e89e3befc30c7559e4c0"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/serializer/test_serializer.py",
+        "passed": true,
+        "content_hash": "sha256:55357619058a48b86b15b858f2c2a8f59e6c2bb6b2300aa4410c426c4eb936a1"
+      },
+      {
+        "check": "command",
+        "role": "cold_start",
+        "argv": [
+          "sh",
+          "verification/signoff/cold-start.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "pin",
+        "role": "pdk",
+        "passed": true,
+        "value": {
+          "name": "sky130A",
+          "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+        }
+      },
+      {
+        "check": "pin",
+        "role": "tools",
+        "passed": true,
+        "value": {
+          "cocotb": "2.0.1",
+          "iverilog": "13.0",
+          "klt": "0.9.1",
+          "ngspice": "46",
+          "openroad": "26Q3-1510-g6cb3f2b704",
+          "yosys": "0.68.0.0.post1208"
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.1",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "verification/signoff/item-9-inventory.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:b4b2c3d0798f37fad149b5a22606b9485307f553ce5c73150257ed0132fcb906"
+    }
+  }
+}

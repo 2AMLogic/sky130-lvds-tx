@@ -1,0 +1,185 @@
+{
+ "bench": "sim/driver-tran",
+ "rate": "400m-control",
+ "what": "Powered driver transient bench: PRBS-7 into 100 ohm with 1.0 pF per side, both DDR muxes + predriver + driver + CMFB + pad cells via one lvds_tx_analog instance. E5 (differential 20-80 % edges), E9 (eye height at the stated sampling phase, isolated-bit crossing-gap width), E4 dynamic (V_OS peak-to-peak), W1 (analog rail-power subtotal).",
+ "simulated": true,
+ "measured_in_silicon": false,
+ "spec_status": "PROPOSED",
+ "closes_no_spec_row": true,
+ "closes_no_spec_row_reason": "The spec is PROPOSED, not ratified; E4 is statistical and this bench supplies only its deterministic G75 transient half (the Monte Carlo remains); W1's serializer share is not measured, so total lane power is not graded here. Baseline, not a pass claim.",
+ "grid": {
+  "expected_conditions": 75,
+  "seen_conditions": 1,
+  "distinct_tuples": 1,
+  "includes_crossed_pairs": false,
+  "rail_pairs": [
+   [
+    1.8,
+    3.3
+   ]
+  ]
+ },
+ "stimulus": {
+  "prbs": "x^7 + x^6 + 1, Fibonacci",
+  "seed": "0x01",
+  "period_bits": 127,
+  "ui_s": 2.5e-09,
+  "window_bits": [
+   127,
+   253
+  ],
+  "window_s": [
+   3.2e-07,
+   6.375e-07
+  ],
+  "sample_phase_s": 3.6e-10,
+  "input_edge_s": 1.25e-10
+ },
+ "rows": {
+  "E5": {
+   "measurements_pass": 64,
+   "measurements_fail": 64,
+   "measurements_error_or_missing": 0
+  },
+  "E9": {
+   "measurements_pass": 66,
+   "measurements_fail": 0,
+   "measurements_error_or_missing": 0
+  },
+  "E4": {
+   "measurements_pass": 0,
+   "measurements_fail": 2,
+   "measurements_error_or_missing": 0
+  },
+  "W1": {
+   "measurements_pass": 2,
+   "measurements_fail": 0,
+   "measurements_error_or_missing": 0
+  }
+ },
+ "e5_edge_classification": {
+  "in_band": 64,
+  "fast": 0,
+  "slow": 64,
+  "anomalous": 0,
+  "missing": 0,
+  "anomalous_corners": []
+ },
+ "binding_corners": {
+  "ref.E9": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_h_v",
+   "value": 0.6050692,
+   "margin": 0.3949308,
+   "limits": {
+    "min": 0.12
+   }
+  },
+  "ref.E5": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5rb220",
+   "value": 2.199e-10,
+   "margin": 1.1990000000000002e-10,
+   "limits": {
+    "min": 1e-10,
+    "max": 1e-09
+   }
+  },
+  "ref.E4": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_vos_pp",
+   "value": 0.6004256,
+   "margin": -0.4504256,
+   "limits": {
+    "max": 0.15
+   }
+  },
+  "ref.W1": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_pw_analog_mv",
+   "value": 12.17861,
+   "margin": 12.17861,
+   "limits": {
+    "max": 30.0
+   }
+  },
+  "ctl.E9": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_eye_h_v",
+   "value": 0.2342371,
+   "margin": 0.11423710000000001,
+   "limits": {
+    "min": 0.12
+   }
+  },
+  "ctl.E5": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_e5fb158",
+   "value": 2.0534e-09,
+   "margin": -1.0534e-09,
+   "limits": {
+    "min": 1e-10,
+    "max": 1e-09
+   }
+  },
+  "ctl.E4": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_vos_pp",
+   "value": 0.2097084,
+   "margin": -0.059708399999999995,
+   "limits": {
+    "max": 0.15
+   }
+  },
+  "ctl.W1": {
+   "condition": "tt/27C/1.80/3.30",
+   "measurement": "m_pw_analog_mv",
+   "value": 12.29653,
+   "margin": 12.29653,
+   "limits": {
+    "max": 30.0
+   }
+  }
+ },
+ "w1_nominal_leg": {
+  "condition": "tt/27C/1.80/3.30",
+  "pw_analog_mv": 12.29653,
+  "limit_mv": 18.0,
+  "verdict": "pass"
+ },
+ "w1_serializer_share": {
+  "included": false,
+  "reason": "flow/serializer/sta.response.json carries engine_default-activity estimates only; the gate-level serializer SPICE contribution at matching rate/activity/core corner is future work. Total lane power acceptance stays OPEN; pw_analog_mv is the analog subtotal."
+ },
+ "bit_order_observers": {
+  "ok": 18,
+  "bad": 0,
+  "detail": []
+ },
+ "latency_observer": {
+  "measurement": "m_xlat",
+  "crossing_global": 65,
+  "bit": 133,
+  "nominal_s": 3.35e-07
+ },
+ "conditions": [
+  {
+   "condition": "tt/27C/1.80/3.30",
+   "status": "fail",
+   "rows": {
+    "E5": "fail",
+    "E9": "pass",
+    "E4": "fail",
+    "W1": "pass"
+   },
+   "eye_h_v": 0.2342371,
+   "vos_pp_v": 0.2097084,
+   "pw_analog_mv": 12.29653,
+   "e5_ps": {
+    "n": 128,
+    "min": 145.1,
+    "max": 2053.4
+   }
+  }
+ ]
+}
