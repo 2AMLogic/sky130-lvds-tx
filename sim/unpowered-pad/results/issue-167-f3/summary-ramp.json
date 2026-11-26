@@ -1,0 +1,353 @@
+{
+ "status": "inconclusive",
+ "corner_count": 10,
+ "passed": 6,
+ "failed": 0,
+ "inconclusive": 4,
+ "corners": [
+  {
+   "corner_id": "tt/novdd/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 4.29085e-09,
+    "ipadp_min": -1.83937e-09,
+    "ipadn_max": 2.24302e-09,
+    "ipadn_min": -6.83755e-11,
+    "ivccd_max": 3.0051e-09,
+    "ivccd_min": -2.03702e-09,
+    "ivddio_max": 2.33315e-09,
+    "ivddio_min": -1.84279e-09,
+    "ivssio_max": 3.95784e-09,
+    "ivssio_min": -4.06051e-10,
+    "well_main_max": 1.56989,
+    "well_main_min": 1.15471,
+    "well_e0_max": 1.73019,
+    "well_e0_min": 1.21064,
+    "well_e1a_max": 1.73019,
+    "well_e1a_min": 1.21064,
+    "well_e1b_max": 1.73019,
+    "well_e1b_min": 1.21064,
+    "ipadp_t0": 5.04201e-11,
+    "ipadn_t0": 5.0365e-11,
+    "well_main_hold": 1.53096,
+    "ipadp_hold": -5.74403e-11
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "tt/novdd/125C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": {
+    "ipadp_max": 2.13903e-05,
+    "ipadp_min": -1.21062e-09,
+    "ipadn_max": 2.17165e-05,
+    "ipadn_min": 3.25923e-09,
+    "ivccd_max": 4.54197e-06,
+    "ivccd_min": -5.01091e-07,
+    "ivddio_max": 4.15853e-05,
+    "ivddio_min": -3.01998e-09,
+    "ivssio_max": 5.08237e-07,
+    "ivssio_min": 3.87974e-09,
+    "well_main_max": 1.79895,
+    "well_main_min": 1.15492,
+    "well_e0_max": 1.79988,
+    "well_e0_min": 1.16517,
+    "well_e1a_max": 1.79988,
+    "well_e1a_min": 1.16517,
+    "well_e1b_max": 1.79988,
+    "well_e1b_min": 1.16517,
+    "ipadp_t0": 4.04698e-07,
+    "ipadn_t0": 4.04698e-07,
+    "well_main_hold": 1.79894,
+    "ipadp_hold": 6.63249e-10
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": {
+    "ipadp_max": 2.21769e-07,
+    "ipadp_min": -1.25374e-09,
+    "ipadn_max": 1.90505e-09,
+    "ipadn_min": -2.46501e-10,
+    "ivccd_max": 2.23533e-09,
+    "ivccd_min": -1.85202e-09,
+    "ivddio_max": 2.21436e-07,
+    "ivddio_min": -1.30578e-09,
+    "ivssio_max": 5.28881e-09,
+    "ivssio_min": -3.97342e-10,
+    "well_main_max": 1.37784,
+    "well_main_min": 1.11716,
+    "well_e0_max": 1.48209,
+    "well_e0_min": 1.06824,
+    "well_e1a_max": 1.4819,
+    "well_e1a_min": 1.06819,
+    "well_e1b_max": 1.4819,
+    "well_e1b_min": 1.06818,
+    "ipadp_t0": 4.8658e-11,
+    "ipadn_t0": 4.87432e-11,
+    "well_main_hold": 1.3765,
+    "ipadp_hold": -1.29603e-11
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 1.03838e-05,
+    "ipadp_min": -5.26616e-08,
+    "ipadn_max": 1.11357e-05,
+    "ipadn_min": 1.99535e-09,
+    "ivccd_max": 3.4443e-06,
+    "ivccd_min": -2.32342e-08,
+    "ivddio_max": 1.93695e-05,
+    "ivddio_min": -6.46605e-08,
+    "ivssio_max": 4.20944e-07,
+    "ivssio_min": 1.19582e-08,
+    "well_main_max": 1.78785,
+    "well_main_min": 1.15688,
+    "well_e0_max": 1.79889,
+    "well_e0_min": 1.16655,
+    "well_e1a_max": 1.79889,
+    "well_e1a_min": 1.16655,
+    "well_e1b_max": 1.79889,
+    "well_e1b_min": 1.16655,
+    "ipadp_t0": 8.37917e-09,
+    "ipadn_t0": 8.37912e-09,
+    "well_main_hold": 1.78785,
+    "ipadp_hold": 1.33734e-09
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": {
+    "ipadp_max": 3.40986e-07,
+    "ipadp_min": -7.45007e-09,
+    "ipadn_max": 3.4383e-07,
+    "ipadn_min": -7.32954e-09,
+    "ivccd_max": 6.35127e-07,
+    "ivccd_min": -5.50955e-09,
+    "ivddio_max": 4.84665e-08,
+    "ivddio_min": -1.09943e-09,
+    "ivssio_max": 2.73177e-08,
+    "ivssio_min": -8.12518e-09,
+    "well_main_max": 1.7908,
+    "well_main_min": 1.2154,
+    "well_e0_max": 1.79845,
+    "well_e0_min": 1.21709,
+    "well_e1a_max": 1.79845,
+    "well_e1a_min": 1.21709,
+    "well_e1b_max": 1.79845,
+    "well_e1b_min": 1.21709,
+    "ipadp_t0": 8.61728e-10,
+    "ipadn_t0": 8.61672e-10,
+    "well_main_hold": 1.77442,
+    "ipadp_hold": -5.11564e-11
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 3.77656e-05,
+    "ipadp_min": -2.79477e-08,
+    "ipadn_max": 3.80125e-05,
+    "ipadn_min": -1.47774e-08,
+    "ivccd_max": 9.37973e-06,
+    "ivccd_min": -3.05569e-06,
+    "ivddio_max": 7.2574e-05,
+    "ivddio_min": -1.30504e-08,
+    "ivssio_max": 3.03876e-06,
+    "ivssio_min": -5.16552e-09,
+    "well_main_max": 1.79968,
+    "well_main_min": 1.13004,
+    "well_e0_max": 1.79991,
+    "well_e0_min": 1.14361,
+    "well_e1a_max": 1.79991,
+    "well_e1a_min": 1.14361,
+    "well_e1b_max": 1.79991,
+    "well_e1b_min": 1.14361,
+    "ipadp_t0": 2.84559e-06,
+    "ipadn_t0": 2.84559e-06,
+    "well_main_hold": 1.79967,
+    "ipadp_hold": 9.17765e-10
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": {
+    "ipadp_max": 3.96673e-08,
+    "ipadp_min": -1.93049e-09,
+    "ipadn_max": 3.10544e-09,
+    "ipadn_min": -5.4294e-10,
+    "ivccd_max": 1.91034e-09,
+    "ivccd_min": -5.24682e-09,
+    "ivddio_max": 3.9266e-08,
+    "ivddio_min": -2.68248e-09,
+    "ivssio_max": 6.68135e-09,
+    "ivssio_min": -4.37968e-10,
+    "well_main_max": 1.38207,
+    "well_main_min": 1.06917,
+    "well_e0_max": 1.50513,
+    "well_e0_min": 1.08111,
+    "well_e1a_max": 1.50513,
+    "well_e1a_min": 1.08117,
+    "well_e1b_max": 1.50513,
+    "well_e1b_min": 1.08117,
+    "ipadp_t0": 4.83737e-11,
+    "ipadn_t0": 4.82885e-11,
+    "well_main_hold": 1.35844,
+    "ipadp_hold": -3.80851e-11
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 1.12983e-05,
+    "ipadp_min": -2.21777e-08,
+    "ipadn_max": 1.20323e-05,
+    "ipadn_min": -1.99972e-08,
+    "ivccd_max": 1.926e-06,
+    "ivccd_min": -5.05683e-08,
+    "ivddio_max": 2.27374e-05,
+    "ivddio_min": -3.28805e-09,
+    "ivssio_max": 1.36068e-07,
+    "ivssio_min": 2.39661e-09,
+    "well_main_max": 1.7945,
+    "well_main_min": 1.17453,
+    "well_e0_max": 1.79949,
+    "well_e0_min": 1.18296,
+    "well_e1a_max": 1.79949,
+    "well_e1a_min": 1.18296,
+    "well_e1b_max": 1.79949,
+    "well_e1b_min": 1.18296,
+    "ipadp_t0": 1.49795e-08,
+    "ipadn_t0": 1.49794e-08,
+    "well_main_hold": 1.79449,
+    "ipadp_hold": 4.27661e-10
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/-40C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 6.75536e-09,
+    "ipadp_min": -9.75039e-10,
+    "ipadn_max": 6.78534e-09,
+    "ipadn_min": -1.9765e-10,
+    "ivccd_max": 7.42277e-09,
+    "ivccd_min": -7.2788e-09,
+    "ivddio_max": 8.01424e-09,
+    "ivddio_min": -7.86982e-10,
+    "ivssio_max": 7.71188e-09,
+    "ivssio_min": -2.86208e-10,
+    "well_main_max": 1.79766,
+    "well_main_min": 1.20089,
+    "well_e0_max": 1.79956,
+    "well_e0_min": 1.21659,
+    "well_e1a_max": 1.79956,
+    "well_e1a_min": 1.21659,
+    "well_e1b_max": 1.79956,
+    "well_e1b_min": 1.21659,
+    "ipadp_t0": 4.0058e-09,
+    "ipadn_t0": 4.00574e-09,
+    "well_main_hold": 1.79766,
+    "ipadp_hold": -3.06075e-11
+   },
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/125C",
+   "status": "pass",
+   "diagnostics": [],
+   "measurements": {
+    "ipadp_max": 5.62928e-06,
+    "ipadp_min": -5.38282e-09,
+    "ipadn_max": 5.62928e-06,
+    "ipadn_min": -6.46594e-10,
+    "ivccd_max": 4.38576e-06,
+    "ivccd_min": -6.64053e-06,
+    "ivddio_max": 1.12517e-05,
+    "ivddio_min": -1.95405e-09,
+    "ivssio_max": 6.64506e-06,
+    "ivssio_min": -6.3683e-09,
+    "well_main_max": 1.79973,
+    "well_main_min": 1.15344,
+    "well_e0_max": 1.79989,
+    "well_e0_min": 1.16894,
+    "well_e1a_max": 1.79989,
+    "well_e1a_min": 1.16894,
+    "well_e1b_max": 1.79989,
+    "well_e1b_min": 1.16894,
+    "ipadp_t0": 5.62928e-06,
+    "ipadn_t0": 5.62928e-06,
+    "well_main_hold": 1.79973,
+    "ipadp_hold": -4.68532e-11
+   },
+   "failed_measurements": []
+  }
+ ]
+}
