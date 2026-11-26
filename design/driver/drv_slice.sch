@@ -23,7 +23,7 @@ C {pfet_g5v0d10v5.sym} 200 100 0 0 {name=MPS L=1 W=12.8 nf=2 mult="\{SCALE\}" ad
 C {lab_pin.sym} 220 130 0 0 {name=l1 lab=TOP}
 C {lab_pin.sym} 180 100 2 0 {name=l2 lab=PG}
 C {lab_pin.sym} 220 70 0 0 {name=l3 lab=VDDIO}
-C {lab_pin.sym} 220 100 0 0 {name=l4 lab=VDDIO}
+C {lab_pin.sym} 220 100 0 0 {name=l4 lab=XMPW}
 C {pfet_01v8.sym} 420 100 0 0 {name=MSPA L=0.15 W=3.6 nf=4 mult="\{SCALE\}" ad=0.522 as=0.783 pd=4.76 ps=7.14 nrd=0.0806 nrs=0.0806 sa=0 sb=0 sd=0 model=pfet_01v8 spiceprefix=X}
 C {lab_pin.sym} 440 130 0 0 {name=l5 lab=OUTP}
 C {lab_pin.sym} 400 100 2 0 {name=l6 lab=GPA}
@@ -69,13 +69,73 @@ C {lab_pin.sym} 880 300 0 0 {name=l37 lab=WELL}
 C {lab_pin.sym} 840 270 2 0 {name=l38 lab=VCCD}
 C {lab_pin.sym} 880 240 0 0 {name=l39 lab=OUTN}
 C {lab_pin.sym} 880 270 0 0 {name=l40 lab=WELL}
-C {pfet_g5v0d10v5.sym} 1080 270 0 0 {name=MGTA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 1080 270 0 0 {name=MGTA L=0.5 W=4 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 1100 300 0 0 {name=l41 lab=GPA}
 C {lab_pin.sym} 1060 270 2 0 {name=l42 lab=VCCD}
 C {lab_pin.sym} 1100 240 0 0 {name=l43 lab=WELL}
 C {lab_pin.sym} 1100 270 0 0 {name=l44 lab=WELL}
-C {pfet_g5v0d10v5.sym} 1300 270 0 0 {name=MGTB L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {pfet_g5v0d10v5.sym} 1300 270 0 0 {name=MGTB L=0.5 W=4 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
 C {lab_pin.sym} 1320 300 0 0 {name=l45 lab=GPB}
 C {lab_pin.sym} 1280 270 2 0 {name=l46 lab=VCCD}
 C {lab_pin.sym} 1320 240 0 0 {name=l47 lab=WELL}
 C {lab_pin.sym} 1320 270 0 0 {name=l48 lab=WELL}
+C {pfet_g5v0d10v5.sym} 200 440 0 0 {name=MBTA L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 220 470 0 0 {name=l49 lab=BOT}
+C {lab_pin.sym} 180 440 2 0 {name=l50 lab=BOT}
+C {lab_pin.sym} 220 410 0 0 {name=l51 lab=OUTP}
+C {lab_pin.sym} 220 440 0 0 {name=l52 lab=WELL}
+C {pfet_g5v0d10v5.sym} 420 440 0 0 {name=MBTB L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 440 470 0 0 {name=l53 lab=BOT}
+C {lab_pin.sym} 400 440 2 0 {name=l54 lab=BOT}
+C {lab_pin.sym} 440 410 0 0 {name=l55 lab=OUTN}
+C {lab_pin.sym} 440 440 0 0 {name=l56 lab=WELL}
+C {nfet_g5v0d10v5.sym} 640 700 0 0 {name=MBN1 L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 660 670 0 0 {name=l57 lab=BOT}
+C {lab_pin.sym} 620 700 2 0 {name=l58 lab=BOT}
+C {lab_pin.sym} 660 730 0 0 {name=l59 lab=NBR}
+C {lab_pin.sym} 660 700 0 0 {name=l60 lab=VSSIO}
+C {nfet_g5v0d10v5.sym} 860 700 0 0 {name=MBN2 L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=nfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 880 670 0 0 {name=l61 lab=NBR}
+C {lab_pin.sym} 840 700 2 0 {name=l62 lab=NBR}
+C {lab_pin.sym} 880 730 0 0 {name=l63 lab=VSSIO}
+C {lab_pin.sym} 880 700 0 0 {name=l64 lab=VSSIO}
+C {pfet_g5v0d10v5.sym} 1080 700 0 0 {name=MGNA L=0.5 W=2 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1100 730 0 0 {name=l65 lab=GNA}
+C {lab_pin.sym} 1060 700 2 0 {name=l66 lab=VCCD}
+C {lab_pin.sym} 1100 670 0 0 {name=l67 lab=BOT}
+C {lab_pin.sym} 1100 700 0 0 {name=l68 lab=WELL}
+C {pfet_g5v0d10v5.sym} 1300 700 0 0 {name=MGNB L=0.5 W=2 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1320 730 0 0 {name=l69 lab=GNB}
+C {lab_pin.sym} 1280 700 2 0 {name=l70 lab=VCCD}
+C {lab_pin.sym} 1320 670 0 0 {name=l71 lab=BOT}
+C {lab_pin.sym} 1320 700 0 0 {name=l72 lab=WELL}
+C {pfet_g5v0d10v5.sym} 200 580 0 0 {name=MGT2A L=0.5 W=4 nf=1 mult=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 220 610 0 0 {name=l73 lab=GPA}
+C {lab_pin.sym} 180 580 2 0 {name=l74 lab=VCCD}
+C {lab_pin.sym} 220 550 0 0 {name=l75 lab=OUTP}
+C {lab_pin.sym} 220 580 0 0 {name=l76 lab=WELL}
+C {pfet_g5v0d10v5.sym} 420 580 0 0 {name=MGT2B L=0.5 W=4 nf=1 mult=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 440 610 0 0 {name=l77 lab=GPB}
+C {lab_pin.sym} 400 580 2 0 {name=l78 lab=VCCD}
+C {lab_pin.sym} 440 550 0 0 {name=l79 lab=OUTN}
+C {lab_pin.sym} 440 580 0 0 {name=l80 lab=WELL}
+C {pfet_g5v0d10v5.sym} 200 840 0 0 {name=MQTA L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 220 870 0 0 {name=l81 lab=TOP}
+C {lab_pin.sym} 180 840 2 0 {name=l82 lab=TOP}
+C {lab_pin.sym} 220 810 0 0 {name=l83 lab=OUTP}
+C {lab_pin.sym} 220 840 0 0 {name=l84 lab=WELL}
+C {pfet_g5v0d10v5.sym} 420 840 0 0 {name=MQTB L=8 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 440 870 0 0 {name=l85 lab=TOP}
+C {lab_pin.sym} 400 840 2 0 {name=l86 lab=TOP}
+C {lab_pin.sym} 440 810 0 0 {name=l87 lab=OUTN}
+C {lab_pin.sym} 440 840 0 0 {name=l88 lab=WELL}
+C {pfet_g5v0d10v5.sym} 1080 840 0 0 {name=MPWA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1100 870 0 0 {name=l89 lab=XMPW}
+C {lab_pin.sym} 1060 840 2 0 {name=l90 lab=VDDIO}
+C {lab_pin.sym} 1100 810 0 0 {name=l91 lab=TOP}
+C {lab_pin.sym} 1100 840 0 0 {name=l92 lab=XMPW}
+C {pfet_g5v0d10v5.sym} 1300 840 0 0 {name=MPVA L=0.5 W=0.5 nf=1 mult=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0 model=pfet_g5v0d10v5 spiceprefix=X}
+C {lab_pin.sym} 1320 870 0 0 {name=l93 lab=XMPW}
+C {lab_pin.sym} 1280 840 2 0 {name=l94 lab=TOP}
+C {lab_pin.sym} 1320 810 0 0 {name=l95 lab=VDDIO}
+C {lab_pin.sym} 1320 840 0 0 {name=l96 lab=XMPW}

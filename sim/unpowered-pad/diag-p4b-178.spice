@@ -1,0 +1,47 @@
+* Issue #178, limiting pairs on the unpowered driver. From this directory:
+*   deck="$PWD/diag-p4b-178.spice"
+*   export PDK_ROOT="${PDK_ROOT:-$HOME/.ciel}"
+*   probe=$(mktemp -d)
+*   (cd "$probe" && printf 'set wnflag=1\n' > .spiceinit && ngspice -b "$deck")
+* tt/125 C is the limiting converged corner across the two graded DC grids.
+* Use Sweep A's DUT, pad drive and step. Save the wrapper MOSFET currents
+* during the sweep so they come from the same solution as the node voltages.
+
+.lib "$PDK_ROOT/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+.include tb_sweep_a.spice
+.temp 125
+
+.control
+save all @m.xtb.xdrv.xsl_main.xmgta.msky130_fd_pr__pfet_g5v0d10v5[id]
++ @m.xtb.xdrv.xsl_main.xmgt2a.msky130_fd_pr__pfet_g5v0d10v5[id]
++ @m.xtb.xdrv.xsl_main.xmqta.msky130_fd_pr__pfet_g5v0d10v5[id]
++ @m.xtb.xdrv.xsl_main.xmbta.msky130_fd_pr__pfet_g5v0d10v5[id]
++ @m.xtb.xdrv.xsl_main.xmbn1.msky130_fd_pr__nfet_g5v0d10v5[id]
++ @m.xtb.xdrv.xsl_main.xmgna.msky130_fd_pr__pfet_g5v0d10v5[id]
+dc VPSRC 0 2.4 0.01
+let well = v(xtb.xdrv.xsl_main.well)
+let top = v(xtb.xdrv.xsl_main.top)
+let bot = v(xtb.xdrv.xsl_main.bot)
+let gpa = v(xtb.gpa)
+let gna = v(xtb.gna)
+let gw = abs(gpa - well)
+let vgs = abs(gpa - top)
+let vds = abs(v(padp) - top)
+meas dc gw_bias max_at gw
+meas dc gs_bias max_at vgs
+meas dc ds_bias max_at vds
+let id_mgta = @m.xtb.xdrv.xsl_main.xmgta.msky130_fd_pr__pfet_g5v0d10v5[id]
+let id_mgt2a = @m.xtb.xdrv.xsl_main.xmgt2a.msky130_fd_pr__pfet_g5v0d10v5[id]
+let id_mqta = @m.xtb.xdrv.xsl_main.xmqta.msky130_fd_pr__pfet_g5v0d10v5[id]
+let id_mbta = @m.xtb.xdrv.xsl_main.xmbta.msky130_fd_pr__pfet_g5v0d10v5[id]
+let id_mbn1 = @m.xtb.xdrv.xsl_main.xmbn1.msky130_fd_pr__nfet_g5v0d10v5[id]
+let id_mgna = @m.xtb.xdrv.xsl_main.xmgna.msky130_fd_pr__pfet_g5v0d10v5[id]
+foreach bias $&gw_bias $&gs_bias $&ds_bias
+  let ix = floor($bias / 0.01 + 0.5)
+  print v(padp)[ix] well[ix] top[ix] bot[ix] gpa[ix] gna[ix]
+  print gw[ix] vgs[ix] vds[ix] i(vamp)[ix]
+  print id_mgta[ix] id_mgt2a[ix] id_mqta[ix] id_mbta[ix] id_mbn1[ix] id_mgna[ix]
+end
+quit
+.endc
+.end

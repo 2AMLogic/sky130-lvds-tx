@@ -44,12 +44,12 @@ for c in ddr_mux/ddr_mux predriver/predriver driver/driver pad_cell/pad_cell lvd
 done
 ```
 
-**Use the pinned `klt` (`0.8.0`, `docs/environment.md`), not whatever is on
-`$PATH`.** A newer `klt` writes a `** klt-netlist-inputs:` provenance header
-these files do not carry, and its `klt signoff --attest` writes an attestation
-envelope whose shape the pinned `0.8.0` used by `.github/workflows/signoff.yml`
-rejects (`provenance.input.paths` vs `provenance.input.path`, exit 3). `uvx`
-runs the pin without touching the host install.
+The committed netlists were generated with klt `0.8.0`; `driver.spice` and
+`lvds_tx_analog.spice` were last regenerated with klt `0.9.1` (the `XMPS`
+bulk fix), and `--check` matches both. For signoff,
+use the repository's attest environment (`.venv`) with klt `0.9.1` and
+klayout `0.28.17.post1` (`docs/environment.md`). Put `.venv/bin` first on
+`PATH` so the inventory's `klt netlist --check` commands use the same pin.
 
 Note that **continuation-line wrapping comes from `xschem`, not `klt`**, so a
 host whose `xschem` differs from the one that last wrote these files reflows
@@ -63,7 +63,7 @@ Freshness of one netlist: the same command with `--check` (exit 0 `match`,
 
 ```console
 klt signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-            -o verification/signoff/evidence/item-1-analog-design-sources-r3.json
+            -o verification/signoff/evidence/item-1-analog-design-sources-r5.json
 ```
 
 Unresolved symbols make xschem emit auto-named nets (`net1`, ...) with no

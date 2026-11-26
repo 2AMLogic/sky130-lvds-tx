@@ -11,7 +11,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
   the PROPOSED spec (`spec/target-spec.md`), used for both partitions; it moves
   at ratification (#2).
   - **Item 1, analog (`1.analog`)** cites
-    [`verification/signoff/evidence/item-1-analog-design-sources-r3.json`](../verification/signoff/evidence/item-1-analog-design-sources-r3.json),
+    [`verification/signoff/evidence/item-1-analog-design-sources-r5.json`](../verification/signoff/evidence/item-1-analog-design-sources-r5.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-analog-inventory.json`](../verification/signoff/item-1-analog-inventory.json)
     (schematics, symbols, derived netlists; see [`design/README.md`](../design/README.md)).
@@ -115,11 +115,16 @@ record**, produced by the regeneration command below. Never hand-edit it.
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r20.json`](../verification/signoff/evidence/item-10-repo-hygiene-r20.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r22.json`](../verification/signoff/evidence/item-10-repo-hygiene-r22.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (append-only; r2-r19 are kept as history, bound to earlier workflow and
-    spec revisions).
+    Revision 22 binds the merged workflow. Earlier envelopes remain available.
+    The original r19 filename holds the version from #195 on main. The other
+    r19 envelopes came from [#175](../verification/signoff/evidence/item-10-repo-hygiene-r19-issue-167.json)
+    and [#187](../verification/signoff/evidence/item-10-repo-hygiene-r19-issue-178.json).
+    The original r20 filename holds the version from #175. The
+    [r20 from #187](../verification/signoff/evidence/item-10-repo-hygiene-r20-issue-178.json)
+    preserves the five-check inventory used before the branches were reconciled.
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites
@@ -179,10 +184,10 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r10.json   # runs the cold start using KLT_SIM_BACKEND
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r20.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r22.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
-             -o verification/signoff/evidence/item-1-analog-design-sources-r3.json
+             -o verification/signoff/evidence/item-1-analog-design-sources-r5.json
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-digital-inventory.json \
              -o verification/signoff/evidence/item-1-design-sources-digital-r2.json
 # item 2 analog (producer from klayout-tools#4188; run it with the repo's pinned

@@ -892,3 +892,275 @@ eye impact is not assessed.
 `layout/` was not updated. The seven new device groups and two floating wells
 are not in the layout, so items 2, 3, 4 and 11 analog evidence predates this
 schematic change and must not be cited as covering it.
+
+## Addendum 2026-11-21 — P4b gate tracking and N-side stress (issue #178)
+
+Items 2 and 3 of #174, on top of the #167 branch (`45ebd2d3`, PR #175 — not
+merged at the time of this run; this addendum's circuit sits on
+`f4aa96894ea`, two commits after `45ebd2d3`). Base-branch baseline: the
+`issue-167-f3` addendum above.
+
+### What changed in the netlist (relative to `45ebd2d3`)
+
+1. **BOT network** (`XMBTA`/`XMBTB` pfet diodes L=8 W=0.5 pad→BOT,
+   `XMBN1`/`XMBN2` nfet diode stack BOT→NBR→VSSIO): BOT is defined, not
+   floating, riding 1.03–1.56 V over both sweeps and all corners.
+2. **N-gate trackers** `XMGNA`/`XMGNB` (pfet_g5v0d10v5 W=2, gate VCCD,
+   source BOT): GNA/GNB/XNA/XNB ride BOT to within millivolts at converged
+   solutions, so the N-switch gate-referenced thin-oxide pairs
+   (|gate−pad| ≈ 0.84–1.38 V) are inside the 1.98 V ceiling. Their bulk is
+   WELL, not BOT: with bulk=BOT the powered state forward-biases the drain
+   (VCCD-level) into the tail well and shifts V_OS by 10 mV (46/75 driver-dc
+   units failed); the slice WELL is above both terminals in every state.
+3. **P-side helpers** `XMGT2A`/`XMGT2B` (pfet W=4, gate VCCD, source pad) in
+   parallel with the widened (`W=4`) well-referenced trackers
+   `XMGTA`/`XMGTB`: the gate nets charge to the pad, cancelling the threshold
+   deadband against the well pull-up `XMWPA` (both are gate-at-VCCD pass
+   devices with matched thresholds).
+4. **TOP definition** `XMQTA`/`XMQTB` (pfet diodes L=8 W=0.5, pad→TOP, bulk
+   WELL): TOP was otherwise floating (0–0.6 V by leakage), which put
+   |GPA−TOP| at 2.088 V (sf/125 °C) against the 1.98 V ceiling. With XMQT,
+   worst |GPA−TOP| = 1.900 V (ss/125 °C), see limiting bias below. Diode —
+   not gate-at-VCCD — on purpose: a pass device here would open a
+   pad-to-pad channel through TOP in Sweep B, the mechanism #177 traces on
+   the well pull-ups.
+5. **Source-switch floating well XMPW** (`XMPWA`/`XMPVA`, the DR-008 §1
+   well-switch pair): defining TOP forward-biased XMPS's p+ drain (TOP)
+   against the grounded VDDIO well by up to 0.72 V — an ungraded P4a
+   junction. XMPS's bulk now rides max(VDDIO, TOP): powered it rests at
+   VDDIO exactly as before (driver-dc failset unchanged, below), unpowered
+   it tracks TOP to ≤ 3 mV at converged solutions.
+6. Predriver N-side output stages behind thick-oxide transmission gates in
+   floating wells PWN/PWX, mirroring #167's P-side isolation (from the
+   earlier commits of this branch).
+
+Bench: `ja_*_mgna_d`/`mgnb_d` corrected to read the drain junction that
+exists since the bulk moved to WELL (gate net vs WELL, not vs BOT);
+`ja_*_mqt_d` (XMQT drain junctions) and `JAMPX_T/V/N` observers +
+`ja_mpx_t/v/n` (XMPW-referenced junctions) added; `top_*_max/min` added;
+per-unit timeout raised to 600 s (Sweep B tt/−40 °C errored on the 240 s
+cap; it now completes as a gmin-inconclusive like its peers).
+
+| Field | Value |
+|---|---|
+| Design netlist sha256 | `d131d45047b239d08f0af2b5dc000e42ca25039aa8cc52965d6c54aab76f4280` |
+| Testbench `tb_unpowered.spice` sha256 | `77a0a0e727569ce05d6fcb3d6b7216e510380d6620897c7fcce70f4253a2f90d` |
+| Requests sha256[:16] | sweep-a `7cace4b8053b8639`, sweep-b `76e7c43076843fc9`, ramp `29376173700c081a` |
+| Client | `klt 0.9.3.dev2575+g6bd18bbc8637`, klayout 0.30.12; runner `klt-sim` fleet, ngspice-47 |
+| Jobs | `klt-sim-c05c05a3e845` (A), `klt-sim-ad693c83a944` (B), `klt-sim-6fb375f7810e` (ramp); batch, 10 units each |
+| Results | `results/issue-178/{request-sweep-a,request-sweep-b,request-ramp}` |
+
+### Verdicts (10 units each, pass/fail/inconclusive)
+
+| Row | Sweep A | Sweep B | Ramp | Notes |
+|---|---|---|---|---|
+| P4 pad current | 0/3/7 | 0/5/5 | — | converged misses: ff/125 °C 21.9 µA, fs/125 °C 44 µA (A, the 125 °C leakage recorded untraced since #167); all converged B units 149–301 µA (sense path + residue, #177) |
+| P4a junctions | fail only at inconclusive −40 °C units | same | — | converged units pass everywhere incl. the new `ja_mpx_*`, `ja_*_mqt_d` |
+| P4b well tracking `wt_*` | pass at converged; partials 0.30–0.37 at inconclusive −40 °C | pass at converged | — | |
+| P4b gate-to-well `gw_*` | pass at converged (worst 0.174 graded, 0.24 local sf/125 °C); partials 0.31 at inconclusive −40 °C | pass at converged | — | the 0.38–0.41 V deadband of the issue is gone |
+| P4b thin-oxide | `tox_nsub` 2.400 V fails **every** unit (structural, below); all other pairs ≤ 1.90 V at converged units | ≤ 1.90 V at converged | — | |
+| P4b ramp | — | — | **7/0/3** | worst converged excursion 21.4 µA ≪ ±1 mA; fs/−40 °C now converges |
+
+Inconclusive units (7 of 10 in A, 5 of 10 in B, 3 of 10 ramp; all −40 °C plus
+sf/ss-125 °C in A) are the dynamic-gmin cold starts of #176/#182 — preserved
+as diagnostics, not dropped. Their partial-sweep maxima (up to 0.65 V,
+`ja_pre_gpa` ss/−40 °C Sweep B) do **not** reproduce at converged solutions
+of the same biases: local converged probes of the same deck at ss/sf-−40 °C
+give gate-to-well ≤ 0.17 V, `wt` ≤ 0.20 V, `ja_pre` ≤ 0.24 V, `ja_mpx_t`
+≤ 0.11 V (worst main-slice spread at 1.6/0.9 V pads). Grading them waits on
+#176.
+
+### Limiting bias (worst converged terminal pairs, `diag-p4b-178.spice`)
+
+- **Gate-to-well** (worst 0.169 V): ss/−40 °C, pads 0.50 V — GPA 0.2012 V,
+  WELL 0.3700 V, TOP 0.3408 V, BOT 0.0389 V, GNA 0.1233 V; `XMGTA` branch
+  current 1.8e-16 A, pad current 5.0e-12 A.
+- **Thin-oxide** (worst 1.900 V, the GPA–TOP gate-source pair of `XMSPA`):
+  ss/125 °C, pads 2.40 V — GPA 2.399998 V, WELL 2.399997 V, TOP 0.500254 V,
+  BOT 1.419795 V, GNA 1.419786 V; `XMQTA` branch current 6.4e-7 A, pad
+  current 2.4 µA. Margin to 1.98 V is 80 mV; the pair is bounded by the
+  XMQT diode's sub-threshold sag, which grows at cold corners (TOP =
+  pad − 1.7 V) where GPA also sags, keeping the difference ≤ 1.69 V.
+
+### Remaining misses and dispositions
+
+- **`tox_nsub_padp`/`tox_nsub_padn` = 2.400 V at every unit**: the pad-to-
+  VSSIO magnitude over the thin-oxide N-switch (`XMSNA`/`XMSNB`) drain-bulk
+  junction. No tracking arrangement changes it: the drain *is* the pad and
+  the bulk *is* the substrate. DR-008's own bench comment classes the
+  drain-bulk pairs as "reverse-biased junctions ... reported as the row P4a
+  junction measurements" for the P-side; `ja_nsub_pad*` (the forward
+  reading) passes at ≈ −2.4 V everywhere. Resolving the reading (junction
+  vs oxide) or changing the N-switch flavour (`nfet_g5v0d10v5`, a powered-
+  path change owned by #166/DR-002) needs an operator ruling; requested.
+- **P4 pad current** misses above: #177 (sense path and residual) and the
+  untraced 125 °C junction leakage recorded since #167.
+- **−40 °C inconclusive units**: #176/#182.
+
+Nothing here claims #174 items 1, 4, 5, 6, 7 (#177, #176, #179, #180).
+
+### Powered-mode regression check
+
+`sim/driver-dc` G75 (75 conditions, batch, `klt-sim-ae89befc54f3`): the
+24 any-miss conditions are the identical set as the `issue-167-regression`
+baseline (E1 60/75, E2 window 62/75, E3 75/75, E4 75/75) — the XMQT/XMPW
+additions are powered-neutral (XMQT reverse-biased, XMPW resting at VDDIO),
+as expected. Results: `sim/driver-dc/results/issue-178-regression/`. Layout
+is untouched (#180); items 2/3/4/11 analog evidence predates this change
+where it cites layout.
+
+## Addendum 2026-11-25 — `XMPS`'s bulk actually wired to `XMPW` (PR #187 review; issue #178)
+
+**Append-only.** The 2026-11-2x #178 addendum above stays as written. This
+section corrects it: its item 5 ("XMPS's bulk now rides max(VDDIO, TOP)") and
+its P4a verdict row did **not** describe the netlist it was measured on. In
+that netlist `XMPS` was `d g s b = TOP PG VDDIO VDDIO` (`design/driver/driver.spice`,
+`design/lvds_tx_analog.spice`); `XMPW` was generated by `XMPWA`/`XMPVA` and used
+by nothing else. The schematic's `MPS` bulk pin (`design/driver/drv_slice.sch`,
+label `l4`) still read `VDDIO`. Review of PR #187 found this.
+
+### What was wrong in the earlier addendum
+
+- **Item 5 was false for that netlist.** `XMPS`'s bulk stayed on `VDDIO`.
+- **`ja_mpx_t/v/n` did not grade `XMPS`.** They read `TOP − XMPW` etc.; the
+  pair forces `XMPW = max(VDDIO, TOP)`, so they were ~0 by construction
+  whatever `XMPS` was doing. The junction that existed was `TOP − VDDIO`, and
+  with `VDDIO` a 0 V source that is `top_main_max`: **0.50–0.73 V (A) and
+  0.41–0.63 V (B) at every unit, forward-biased** — an ungraded P4a miss. The
+  "converged units pass everywhere incl. the new `ja_mpx_*`" verdict is
+  withdrawn for `XMPS`.
+- "tracks TOP to ≤ 3 mV at converged solutions" did not hold even for the net
+  it described (sweep A `ja_mpx_t` 11.0/11.4/11.7 mV at tt/ff/fs 125 °C).
+
+### Change
+
+`design/driver/drv_slice.sch`: `MPS` bulk label `VDDIO` → `XMPW` (`l4`).
+`driver.spice` and `lvds_tx_analog.spice` regenerated with klt 0.9.1 (`klt
+netlist --block --backend local`; no `netN` nets); both now read
+`XMPS TOP PG VDDIO XMPW`. Bench and requests unchanged: with the bulk on
+`XMPW`, `ja_mpx_t` (`TOP − XMPW`, max over the four slices) **is** the
+`XMPS` drain-bulk junction and `ja_mpx_v` its source-bulk junction, so they now
+grade what their names say. A separate `v(top) − v(VDDIO)` gate was *not*
+added: after the fix that difference is no longer a junction (`XMPS`'s bulk is
+`XMPW`, not `VDDIO`), and it is the quantity this change moves to a floating
+well, so grading it against 0.3 V would grade a non-junction.
+
+| Field | Value |
+|---|---|
+| Design netlist sha256 | `68c53c0f80b2a1b48eb59d6526e2b721953068c3be7e668068d61cc5ae292eee` |
+| Testbench `tb_unpowered.spice` sha256 | `77a0a0e727569ce05d6fcb3d6b7216e510380d6620897c7fcce70f4253a2f90d` (unchanged) |
+| Requests sha256[:16] | sweep-a `7cace4b8053b8639`, sweep-b `76e7c43076843fc9`, ramp `29376173700c081a` (unchanged) |
+| Client | `klt 0.9.3.dev5517+g9fff520e45e2`; runner `klt-sim` fleet, ngspice-47 binary sha256 `e12148baf532d879…` (**differs** from the `39ca1adb…`/earlier builds recorded above; same creation date) |
+| Jobs | `klt-sim-482f711d4cb1` (A), `klt-sim-a4ae57318486` (B), `klt-sim-3fb5d251e14d` (ramp); batch, 10 units each; fleet job state `failed` (graded `inconclusive`, the expected exit), reports complete |
+| Results | `results/issue-187/` (gzipped reports + receipts) |
+
+### Result
+
+Verdict counts are unchanged: A 0 pass / 3 fail / 7 inconclusive, B 0/5/5,
+ramp 7/0/3. The converged set is the tt/ff/fs 125 °C units in A and the five
+125 °C units in B (the previous run's B fs/−40 °C no longer converges; ss/125 °C
+now does).
+
+Converged units, **`XMPS` drain-bulk (`ja_mpx_t`, limit 0.3 V)**:
+
+| | tt/125 °C | ff/125 °C | fs/125 °C | sf/125 °C | ss/125 °C |
+|---|---|---|---|---|---|
+| Sweep A | 0.034 | 0.017 | 0.015 | – | – |
+| Sweep B | 0.0001 | 0.0000 | 0.0000 | 0.0065 | 0.0016 |
+
+Against 0.50–0.73 V (A) / 0.41–0.63 V (B) before: the junction is closed at
+every converged unit. `ja_mpx_v`/`ja_mpx_n` are ≤ 0 everywhere. Every
+graded P4a/P4b measurement at converged units passes except the
+`tox_nsub_padp/padn` 2.400 V (A), which the #178 `junction-reading` ruling
+(2026-11-23) takes out of P4b, and the P4 current rows below. Inconclusive
+−40 °C and sf/ss-125 °C units (dynamic-gmin cold starts, #176/#182) remain
+ungradeable; their partial maxima are diagnostics, not verdicts
+(`ja_mpx_t` there reaches 0.25–0.39 V in A and sf/ss −40 °C B, at
+non-converged solutions).
+
+**P4 pad current moved, which supports the review's hypothesis** that the
+forward-biased `XMPS` drain-bulk junction was a pad→`XMQTA`→TOP→VDDIO leakage
+path. Sweep A converged units `ipadp_max`: ff/125 °C 21.9 → **15.7 µA (now
+inside the 20 µA limit)**, fs/125 °C 44 → **31.1 µA (still a miss)**, tt/125 °C
+3.7 µA. Sweep B converged units are still 166–286 µA (sense path + residue,
+#177): a miss, unchanged in kind. The residual fs/125 °C Sweep A miss is
+therefore not entirely this junction; its source is still untraced (#167).
+Ramp: 7 pass / 3 inconclusive, as before; converged `ipadp_max` ≈ 11 µA.
+
+Housekeeping: item 10 evidence revisions r18 (landed on `main` from another
+PR) and r19/r20 (this branch, before the `main` merge) were numbered
+independently. This branch's committed item 10 envelope is **r21**, attested
+after merging `main`; r18-r20 and earlier stay in
+`verification/signoff/evidence/` as history.
+
+## Addendum 2026-11-26 — P4b grading and limiting bias on the wired circuit (#178, PR #187)
+
+The operator assigned gate-referenced and drain–source pairs to P4b and
+signed junction forward bias to P4a. Both DC requests now retain the four
+`tox_*_db` and two `tox_nsub_pad*` magnitudes as diagnostics. The 1.98 V
+gate/channel limits, 0.3 V signed junction limits and ±20 µA pad-current
+limits still apply. [Operator ruling](https://github.com/2AMLogic/sky130-lvds-tx/issues/178#issuecomment-7110164522)
+
+### Sweep evidence
+
+The DUT is the netlist from `272f5ab`, reviewed at `9b498a5` (SHA-256
+`68c53c0f80b2a1b48eb59d6526e2b721953068c3be7e668068d61cc5ae292eee`).
+The sweep request SHA-256 prefixes are `e6234c825af45fc0` (A) and
+`0e925608568e9d42` (B). The shared bench and ramp request retain their
+November 25 hashes. The revised requests were run with klt 0.9.1,
+ngspice 47 and sky130A open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`.
+The local ngspice executable has the same SHA-256 as the November 25 fleet
+binary (`e12148baf532d879…`). The reports hash the host's launcher script
+(`ac0358a190b4e734…`). The batch provisioner was unavailable on this host.
+The following commands reproduce the local runs from this directory.
+
+```sh
+for sweep in a b; do
+  klt sim "request-sweep-$sweep.json" --backend local-parallel --max-workers 5 \
+    --pdk-root "${PDK_ROOT:-$HOME/.ciel}" --report-out "report-sweep-$sweep.json.gz"
+done
+```
+
+Each local corner verdict matches the result of applying the ruling to the
+archived November 25 measurements. All ten units in each report retain their
+readings and convergence diagnostics. [Sweep A report](results/issue-187-junction-reading/report-sweep-a.json.gz) · [Sweep B report](results/issue-187-junction-reading/report-sweep-b.json.gz)
+
+| Sweep | Pass | Fail | Inconclusive |
+|---|---|---|---|
+| A, pads together | 2 (tt, ff at 125 °C) | 1 (fs at 125 °C) | 7 (all five at −40 °C, plus sf and ss at 125 °C) |
+| B, differential | 0 | 5 (all five at 125 °C) | 5 (all five at −40 °C) |
+
+All eight converged units meet P4a and P4b. Sweep A still measures
+31.09 µA into each pad at fs/125 °C against the P4 limit of 20 µA. Sweep B
+still exceeds ±20 µA on both pads at each converged unit (positive peaks
+166.2–286.1 µA). The inconclusive units all reported nonconvergence. The
+November 25 ramp report on this circuit remains the evidence for the ramp,
+with 7 passes and 3 inconclusive units (tt, sf and ss at −40 °C).
+[Ramp report](results/issue-187/report-ramp.json.gz)
+
+### Limiting bias across the converged DC units
+
+The largest gate-to-well error and the largest graded thin-oxide voltage
+both occur in Sweep A at tt/125 °C on the main slice. The probe uses the
+graded 0.01 V sweep step and saves device drain currents at each DC point.
+The two pads are driven together. The A and B switches on the main slice
+give equal maxima to report precision. Voltages below are in V.
+
+| Main-slice pair | PADP = PADN | GPA | WELL | TOP | BOT | GNA | Pair magnitude | Tracking branch current | Pad current |
+|---|---:|---:|---:|---:|---:|---:|---:|---|---:|
+| XMSPA gate–well (GPA–WELL) | 0.22 | 0.037839 | 0.212062 | 0.219980 | 0.005546 | 0.000048 | 0.174223 | XMGTA 91.5 pA, XMGT2A 111.9 pA | 2.756 nA |
+| XMSPA drain–source (PADP–TOP) | 2.40 | 2.399996 | 2.399996 | 0.751175 | 1.336929 | 1.336910 | 1.64883 | XMQTA 0.5332 µA | 3.722 µA |
+
+At 2.40 V the gate–source pair GPA–TOP reaches 1.64882 V. The channel
+pair is larger by about 4 µV, leaving 0.331 V to the 1.98 V limit.
+The gate-to-well margin at 0.22 V is 0.126 V. The probe invocation uses
+`PDK_ROOT` and sets `wnflag=1` before ngspice reads the models.
+[Diagnostic deck](diag-p4b-178.spice)
+
+For comparison with the November 21 entry, selecting the `ss` model
+section at 125 °C with both pads at 2.40 V gives GPA 2.399998 V,
+WELL 2.399997 V, TOP 0.723687 V, BOT 1.419795 V and GNA 1.419785 V.
+GPA–TOP is 1.676311 V and XMQTA carries 0.4177 µA. The ss/125 °C
+Sweep A grid unit emitted a nonconvergence diagnostic, so this point
+provides a comparison with the old revision and is excluded from the
+converged-unit maxima above.

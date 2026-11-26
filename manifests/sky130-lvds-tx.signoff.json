@@ -34,17 +34,17 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-1-analog-design-sources-r3.json",
+        "file": "verification/signoff/evidence/item-1-analog-design-sources-r5.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:f0c5312ff3caef87654f42e029883ad52186d932775ed064e7103b24d651e721",
+        "content_hash": "sha256:715b9c7c68a4b3471cba336169662eef6325c821be2f89cfb6dfabfeea5c45b0",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
           "path": null,
-          "content_hash": "sha256:f0c5312ff3caef87654f42e029883ad52186d932775ed064e7103b24d651e721",
+          "content_hash": "sha256:715b9c7c68a4b3471cba336169662eef6325c821be2f89cfb6dfabfeea5c45b0",
           "input_verified": true,
           "members": [
             {
@@ -84,7 +84,7 @@
                 "path": "design/driver/driver.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:5f008c909faf1fe3d3cc5dd43a9146fa5db9a7cf605634fbf37f912075959137",
+              "content_hash": "sha256:a8972a3e2c18c48919db8b1ac439aff795b9e2cf088dc8d81de34613b90bddb5",
               "status": "verified"
             },
             {
@@ -116,7 +116,7 @@
                 "path": "design/driver/drv_slice.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:8832efcfe02c14ae48a53c3c103b871c70207e6fa82a30a71951bb06a99ec07d",
+              "content_hash": "sha256:e81ba16da1958a0cb4fa4f4b093842a2cb40328d6cf3e8c6f7f724b07183a6f1",
               "status": "verified"
             },
             {
@@ -140,7 +140,7 @@
                 "path": "design/lvds_tx_analog.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:1885eec576235f7be805b403ae0d6ff5b3bd8d0aa50ba89a4c579e122c601032",
+              "content_hash": "sha256:68c53c0f80b2a1b48eb59d6526e2b721953068c3be7e668068d61cc5ae292eee",
               "status": "verified"
             },
             {
@@ -172,7 +172,7 @@
                 "path": "design/predriver/predriver.sch",
                 "scope": "repo"
               },
-              "content_hash": "sha256:b1ff7a174db1152239bd7a7b05cd8756dbffabd8a5a7217c1e2cb11052e08bc2",
+              "content_hash": "sha256:19dc27fc219da37fcdd9040355655e35d9f777abc49002f43c41a54c2898b74b",
               "status": "verified"
             },
             {
@@ -180,7 +180,7 @@
                 "path": "design/predriver/predriver.spice",
                 "scope": "repo"
               },
-              "content_hash": "sha256:7b295174d37dec9ab5868d58567562ca5177831713e75270ace0c9f89d065986",
+              "content_hash": "sha256:2f6e4f0c4e9cdcef1d030f94da94fd213b546a4624b8c7c9948e4daed8fa047c",
               "status": "verified"
             },
             {
@@ -865,7 +865,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r20.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r22.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
@@ -903,7 +903,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/signoff/evidence/item-10-repo-hygiene-r20.json",
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r22.json",
         "command": null,
         "kind": "generic",
         "check_status": "pass",
