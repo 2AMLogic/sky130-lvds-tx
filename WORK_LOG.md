@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role.
 
+### 2026-11-19
+
+- **PR #117**: docs(spec): state the decision-record placement rule semantically
+- **Issue #103** (closed): spec/ has two decision-record directories under a rule its README states wrongly
+
 ### 2026-11-18
 
 - **PR #160**: ci: add merge_group trigger to ci.yml and signoff.yml
