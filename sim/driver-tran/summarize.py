@@ -15,6 +15,7 @@ import sys
 
 NOMINAL = ("tt", 27, 1.8, 3.3)
 EDGE = re.compile(r"m_e5_([pn])([rf])(\d+)")
+EYE_METRICS = {"m_eye_h_v": "E9.height", "m_eye_w_s": "E9.width"}
 
 
 def read_json(path):
@@ -114,7 +115,7 @@ def grade_step(corner, step, key, meta, binding):
         for side, limit in m["limits"].items():
             result = compare(value, limit, side)
             statuses.append(result["status"])
-            metric = {"m_eye_w_s": "E9.width", "m_eye_h_v": "E9.height"}.get(name, row)
+            metric = EYE_METRICS.get(name, row)
             record_binding(binding, f"{prefix}{metric}.{side}", result,
                            condition, name, m["unit"])
             if row != "E5":

@@ -5,10 +5,13 @@ Joins the two legs on the full 75-tuple G75 key and recomputes, from the
 per-condition values in the two reports, the E5/E9 counts, per-edge
 categories, signed after-minus-before deltas, limiting corners and the
 pre-existing-vs-new miss split that the issue's acceptance criteria ask
-for. By default both legs share request-1g.json and stim_meta_1g.json so
-only design/lvds_tx_analog.spice differs; a re-phased after leg passes its
-own --request and --meta while --before-request/--before-meta stay on the
-before leg's inputs.
+for. The E9 eye height and width are the step grader's validated metrics
+(summarize.grade_step) for each leg's corner, so a missing supporting
+measurement grades that metric inconclusive instead of passing on the
+derived card. By default both legs share request-1g.json and
+stim_meta_1g.json so only design/lvds_tx_analog.spice differs; a re-phased
+after leg passes its own --request and --meta while --before-request and
+--before-meta stay on the before leg's inputs.
 
 Usage:
   compare_isolation.py BEFORE_REPORT AFTER_REPORT OUTPUT_JSON [OUTPUT_MD]
@@ -25,12 +28,16 @@ import hashlib
 import json
 from pathlib import Path
 
-from summarize import corner_key, fmt_c, measure_value, pad_duration, read_json
+from summarize import (EYE_METRICS, corner_key, fmt_c, grade_step,
+                       measure_value, pad_duration, read_json)
 
 E5_CATS = ("pass", "fast", "slow", "missing")
 CAT_LABEL = {"pass": "in band", "fast": "below 100 ps", "slow": "above 400 ps",
              "missing": "unmeasurable"}
 PS = 1e-12
+# The step grader calls absent evidence "missing"; the pairing keeps its
+# existing "inconclusive" label for it.
+E9_ROW = {"pass": "pass", "fail": "fail", "missing": "inconclusive"}
 
 
 def load_report(path):
@@ -92,14 +99,17 @@ def metric(corner, step_name, name):
     return None
 
 
-def row_status(value, lo, hi):
-    if value is None:
-        return "inconclusive"
-    if value < lo:
-        return "fail"
-    if value > hi:
-        return "fail"
-    return "pass"
+def leg_eye(corner, request, key, meta):
+    """The step grader's E9 eye metrics for one leg corner: the derived value
+    counts only when its supporting measurements are present, and the grade
+    is the grader's rather than a second threshold check."""
+    graded, _ = grade_step(corner, request["analysis_steps"][0], key, meta, {})
+    eye = {}
+    for measurement, metric in EYE_METRICS.items():
+        result = graded["metrics"].get(metric, {})
+        eye[measurement] = (result.get("value"),
+                            E9_ROW.get(result.get("status"), "inconclusive"))
+    return eye
 
 
 def eye_centre_ps(values):
@@ -149,9 +159,6 @@ def main(argv=None):
     if before_meta["ui_s"] != meta["ui_s"] or before_meta["limits"] != meta["limits"]:
         raise ValueError("before and after stimulus metadata UI/limits do not match")
     meta_ui = meta["ui_s"]
-    limits = meta["limits"]
-    h_lo = limits["e9_h_min"]
-    w_lo = limits["e9_w_ui"] * meta_ui
 
     grid = request_grid(request)
     if request_grid(before_request) != grid:
@@ -198,16 +205,15 @@ def main(argv=None):
             if not step_ok:
                 per_leg[label]["failed_steps"] += 1
             edges, values = leg_edges(corner, leg_req, leg_meta)
-            h = metric(corner, step_name, "m_eye_h_v") if step_ok else None
-            w = metric(corner, step_name, "m_eye_w_s") if step_ok else None
+            eye = leg_eye(corner, leg_req, key, leg_meta)
+            h, h_row = eye["m_eye_h_v"]
+            w, w_row = eye["m_eye_w_s"]
             cats = Counter(cat for cat, _ in edges.values())
             for cat in E5_CATS:
                 per_leg[label]["E5_edges"][cat] += cats[cat]
             e5_row = ("fail" if (cats["fast"] or cats["slow"])
                       else "inconclusive" if (cats["missing"] or not step_ok)
                       else "pass")
-            h_row = row_status(h, h_lo, float("inf"))
-            w_row = row_status(w, w_lo, float("inf"))
             e9_row = ("fail" if "fail" in (h_row, w_row)
                       else "inconclusive" if "inconclusive" in (h_row, w_row)
                       else "pass")
