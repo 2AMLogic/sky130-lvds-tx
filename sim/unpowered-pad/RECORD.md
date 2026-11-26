@@ -892,3 +892,196 @@ eye impact is not assessed.
 `layout/` was not updated. The seven new device groups and two floating wells
 are not in the layout, so items 2, 3, 4 and 11 analog evidence predates this
 schematic change and must not be cited as covering it.
+
+## Addendum 2026-11-21 — dynamic-gmin diagnosis across the unpowered bench (issue #176, item 4 of #174)
+
+**Diagnosis only.** No design change, no bench change: `request-*.json` and
+`tb_*.spice` are byte-identical to the 2026-11-20 addendum's pins
+(`tb_unpowered` `5a5923ef…`, `tb_sweep_a` `f6c6e439…`, `tb_sweep_b`
+`3dd141d7…`, `tb_ramp` `8f45d4ac…`; design `1885eec5…`), taken at base
+`45ebd2d3` (PR #175's branch). `options.fail_on_diagnostic` still lists
+`nonconvergence`; no electrical limit moved. New artifacts:
+`results/issue-176/` (the batch re-run below) and `repro-gmin/` (minimal
+reproducer decks + logs + README).
+
+### Verdict in one paragraph
+
+The `nonconvergence: "Warning: Dynamic gmin stepping failed"` diagnostic on
+this bench is a **cold-start operating-point condition on nodes that have no
+DC path in the unpowered state except zero-/reverse-biased junctions and
+off-state channels**. The isolation change added four such nodes
+(`PWM`, `PWE` and their gate ties `GIM`, `GIE` in `predriver`), which widened
+the failing units from 3/30 to 12/30; the three Sweep A `-40 C` units that
+already failed before isolation do so through the same mechanism on the
+pre-existing floating driver wells (`WELL` in `drv_slice`) — F7's cause,
+now identified. ngspice-47 never actually failed to solve: in every graded
+unit a later rung of its homotopy ladder (true gmin stepping, source
+stepping, or the pseudo-transient op) recovered, all sweep rows and all 96 /
+96 / 22 measurements were produced, and `fail_on_diagnostic` grades them
+`inconclusive` as configured. The fix direction is a DC path on the floating
+wells, which is a design change owned by #167 — nothing was landed here.
+
+### Reproduce (same model + request; one corner at a time, local)
+
+| Run | Corner | Isolation `45ebd2d3` | Pre-isolation `e27999f` (= `de214b2` pins) |
+|---|---|---|---|
+| Sweep A failing | `tt`/-40 C | **inconclusive** (gmin) — reproduced | **inconclusive** (gmin) — reproduced |
+| Sweep A failing | `sf`/125 C | **inconclusive** (gmin) — reproduced | converged (fail on limits) |
+| Sweep A failing | `ff`/-40 C | **inconclusive** (gmin) — reproduced | converged |
+| Sweep A control | `tt`/125 C | converged (fail on limits) | converged |
+| Sweep B failing | `tt`/-40 C | **inconclusive** (gmin) — reproduced | converged |
+| Sweep B control | `ff`/-40 C | converged | converged |
+| Ramp failing | `tt`/125 C | **inconclusive** (gmin) — reproduced | converged |
+| Ramp controls | `tt`/-40 C, `sf`/125 C | pass, pass | pass, pass |
+
+Command form (throwaway single-corner request outside the repo, corners
+restricted to one entry, everything else identical to the committed file):
+
+```sh
+PDK_ROOT=~/.ciel klt sim <one-corner-request.json> --backend local -o <outdir>
+```
+
+Every local unit matches its fleet baseline exactly, so the diagnosis below
+was made against the same behavior the graded runs see.
+
+### Provenance
+
+| Field | Value |
+|---|---|
+| Repo base commit | `45ebd2d3db8579d3f9ca1d825d7224bc2f4891d7` (open PR #175 branch) |
+| Client | `klt 0.9.3.dev2575+g6bd18bbc8637`; runner `klt 0.9.0` (compatibility `match`) |
+| Engine | ngspice-47 both sides; runner banner creation date `2026-11-13 23:19:32 UTC` — the same build as every recorded run of this bench; `engine_build_comparison: match` |
+| PDK | sky130A; runner stamp `open_pdks f6eeac7…`, sources-sha256 `4ca10280…`; client pinned `PDK_ROOT=~/.ciel` |
+| Batch jobs (re-run) | `klt-sim-3314e0641ede` (A), `klt-sim-279c031eccc7` (B), `klt-sim-ef4cba0e0bd5` (ramp); 10 units each, spot `m7i.4xlarge` |
+| Netlist closure | repo pins match the header table (per-report `environment.netlist_closure`) |
+| Reproduce (grid) | `PDK_ROOT=~/.ciel klt sim --batch-set sim/unpowered-pad/request-sweep-a.json sim/unpowered-pad/request-sweep-b.json sim/unpowered-pad/request-ramp.json --wait-for-capacity 600 --capacity-retries 2 -o <outdir> --report-out <path>` — exit 4 on each request (aggregate `inconclusive`), envelope exit 4, as at baseline |
+
+### What the diagnostic is, mechanically
+
+Reading the raw engine log of a failing unit (kept in `repro-gmin/`):
+
+```
+Note: Starting dynamic gmin stepping
+Warning: Dynamic gmin stepping failed
+Note: Starting true gmin stepping
+Note: True gmin stepping completed      <-- sweep B tt/-40C, ramp tt/125C stop here
+Note: Starting source stepping          \
+Warning: source stepping failed          |  sweep A cold starts fall this far
+Note: Transient op started               |  and recover on the pseudo-transient op
+Note: Transient op finished successfully /
+```
+
+Every failing unit's warning is emitted at a **cold start**: the first point
+of the DC sweep (`VPSRC` = 0 V on A, 0.9 V on B) or `t = 0` of the ramp —
+plus, on Sweep A only, a few mid-sweep points where the solver restarts the
+operating point from scratch. ngspice's dynamic-gmin homotopy is the first
+rung of its DC convergence ladder; the warning says that rung gave up, not
+that the solve failed. `fail_on_diagnostic: ["nonconvergence"]` then grades
+the unit `inconclusive` — correct evidence policy for a bench that must not
+trust an operating point the first-line algorithm could not find.
+
+### The node cause (floating wells), tested not assumed
+
+In the unpowered state (VCCD = VDDIO = 0 V), `PWM`/`PWE` connect to the
+circuit only through the TG PMOS bulks and the well-switch devices
+(`XMWV_*`, `XMWP_*`, `XMGI_P_*`, design lines 197–235): every path is an
+off-state channel or a zero-/reverse-biased junction, so at a cold start the
+nodes' only anchor is the solver's own gmin. Two observations tie the
+diagnostic to exactly these nodes:
+
+**Branch jumping.** With the wells printed through the sweep
+(`repro-gmin/` form), adjacent points at `VPSRC` 0.30 → 0.31 V (tt/-40 C)
+land on different DC solutions: `v(pwm)` 4.57e-2 → 2.27e-3 V,
+`v(pwe)` 5.88e-2 → 1.34e-3 V, `v(gim)` 2.20e-2 → 4.47e-4 V — a 20x collapse
+in one 10 mV step. The floating-well subcircuit has multiple DC solutions,
+and that fold is what the homotopy ladder trips over.
+
+**Shunt probes** (diagnostic only; one probe per run label; inserted in a
+throwaway design copy, never the bench):
+
+| Probe (Sweep A `tt`/-40 C unless noted) | dynamic-gmin failures |
+|---|---|
+| base, full `.meas` set | 4 |
+| `R PWM VSSIO 1e9` | 3 |
+| `R PWE VSSIO 1e9` | 3 |
+| `R PWM… + R PWE… 1e9` | 3 |
+| `R GIM… + R GIE… 1e9` | 1 |
+| all five (`PWM`,`PWE`,`GIM`,`GIE` + `drv_slice`'s `WELL`) @1e9 | 1 |
+| the same five @1e12 | 5 (gmin-scale anchors do not hold) |
+| `.options rshunt=1e12` (every node) | 1 |
+| **`.options rshunt=1e9` (every node)** | **0** |
+| Sweep B `tt`/-40 C with `PWM`+`PWE` @1e9 | **0** (was 1) |
+| Ramp `tt`/125 C with `PWM`+`PWE` @1e9 | **0** (was 1) |
+
+A 1 GOhm anchor on the two new floating wells removes the diagnostic
+outright on Sweep B and the ramp; on Sweep A it reduces but does not remove
+it, because Sweep A's cold start stresses the whole junction-only network
+(including the four pre-existing `WELL` nodes and the pad-side inner nodes) —
+only anchoring *every* node at 1e9 clears it. `.nodeset v(pwm)=0 …` did
+**not** clear it (wrong-branch initial guess; the fold is still there).
+Temperature confirms the anchor is junction leakage: on Sweep A `tt` the
+diagnostic is present at every temperature from -40 C to +27 C and vanishes
+at 125 C, where zero-bias junction conductance rises enough to hold the
+nodes — the graded grid only samples -40/125 C, so this reads as a
+"-40 C failure". Why `sf`/125 C fails on Sweep A while `tt`/125 C passes is
+the same anchor-strength question at a weaker corner; not separately
+derived here.
+
+**Isolation changed convergence** — locally, on the same corners: Sweep A
+went from 3 failing units (`tt`,`sf`,`ss`/-40 C) to 6 (+ `ff`,`fs`/-40 C, +
+`sf`/125 C), Sweep B from 0 to 2, the ramp from 0 to 4. The pre-isolation
+failures run through the same mechanism on the pre-existing floating wells;
+the *new* failures are the new floating nodes. (Methodological note: the
+pre-isolation A/B must use `e27999f`'s own `tb_unpowered.spice` and request
+files. Running the isolation *request* against the pre-isolation *design*
+aborts with `singular matrix: check node xtb.xpre.pwe` — the measurement
+references a node that circuit does not have — which is a mismatch artifact,
+not evidence.)
+
+### The deck condition (what tips a marginal cold start)
+
+The graded decks carry ~90 `.meas` lines each, among them
+`.meas dc idiff_max MAX par('(i(vamp) - i(vamn)) / 2')`. On Sweep B `tt`/-40 C
+this is measurable: with **no** `.meas` lines the cold start converges
+directly; with the single `par('…i(…)…')` line above it falls to dynamic
+gmin (recovered by true gmin). `par('v(PADP)')` and plain `v(PADP)`/`i(vamp)`
+forms do **not** tip it. The three committed decks in `repro-gmin/`
+(full / single-`par('i()')` / none) reproduce this triple exactly. The
+measurement set is identical across corners, so this condition explains *how*
+a marginal circuit manifests, not *which* corners fail — those are set by the
+node anchors above. No claim is made about ngspice's internal reason for the
+sensitivity; the observable is recorded because it is the difference between
+the graded deck and a hand-rolled `.dc`/`.print` probe.
+
+### Why no upstream tool issue
+
+ngspice-47 behaved as designed throughout: the ladder recovered on every
+unit, results are plausible and in family with converged neighbours, and the
+warning is honest. `klt sim`'s parsing and `fail_on_diagnostic` grading are
+likewise correct. The reproducer establishes a circuit condition, not a tool
+limitation, so per the friction protocol no `2AMLogic/klayout-tools` issue is
+filed for this.
+
+### Before/after status — all 30 units (batch re-run, job ids above)
+
+Aggregates identical to the `issue-167-f3` baseline: Sweep A `inconclusive`
+(0 pass / 4 fail / 6 inconclusive), Sweep B `inconclusive` (0/8/2), ramp
+`inconclusive` (6 pass / 0 fail / 4 inconclusive). Per-unit:
+
+| Unit | Baseline `issue-167-f3` | This re-run `issue-176` |
+|---|---|---|
+| Sweep A `tt`,`sf`,`ff`,`ss`,`fs` / -40 C | inconclusive (gmin) | inconclusive (gmin) — unchanged |
+| Sweep A `sf`/125 C | inconclusive (gmin) | inconclusive (gmin) — unchanged |
+| Sweep A `tt`,`ff`,`ss`,`fs` / 125 C | fail (limits) | fail (limits) — unchanged |
+| Sweep B `tt`,`sf` / -40 C | inconclusive (gmin) | inconclusive (gmin) — unchanged |
+| Sweep B other 8 units | fail (limits) | fail (limits) — unchanged |
+| Ramp `tt`/125 C, `sf`,`ff`,`ss`/-40 C | inconclusive (gmin) | inconclusive (gmin) — unchanged |
+| Ramp `tt`,`fs`/-40 C, `sf`,`ff`,`fs`/125 C | pass | pass — unchanged |
+
+**All 12 gmin units remain unresolved**: nothing in this addendum changes
+the graded bench, by design. The disposition — a DC path (bleeder or
+otherwise) on `PWM`/`PWE`/`GIM`/`GIE` and/or the driver `WELL` nodes, or a
+ruling that unpowered cold starts need not solve on the first rung — belongs
+to #167 (design) with #174 (P4/P4a/P4b assessment) consuming this evidence.
+Per the curated guidance, no bleeder was added and the fail-on-diagnostic
+setting was not loosened to turn these units green.

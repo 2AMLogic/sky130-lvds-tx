@@ -1,0 +1,6875 @@
+{
+ "status": "inconclusive",
+ "corner_count": 10,
+ "passed": 0,
+ "failed": 4,
+ "inconclusive": 6,
+ "corners": [
+  {
+   "corner_id": "tt/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 5.37462e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9462538000000003e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.45347e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9998546530000002e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 5.37462e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9462538000000003e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.45347e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9998546530000002e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 3.64632e-11,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -3.48433e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 4.15284e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -7.1428e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.09065e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -2.57325e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 5.86198e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -8.83738e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.170994,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12900599999999998
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.170994,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12900599999999998
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.170924,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.129076
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": -1.72102e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3000000000000017
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -1.16957e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000115
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -1.16956e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000115
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": -1.72102e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3000000000000017
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.285684,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014315999999999995
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.285684,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014315999999999995
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.28565,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014349999999999974
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": 1.6077e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -3.32905e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -3.32906e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": 1.6077e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.285683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014316999999999969
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.285683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014316999999999969
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.285649,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014351000000000003
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": 4.76414e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": -1.72614e-25,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -1.72623e-25,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": 4.76414e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.285685,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014314999999999967
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.285685,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014314999999999967
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.285652,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014347999999999972
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 1.39552e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 9.0184e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 9.01839e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 1.39552e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.156939,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.143061
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.156925,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.14307499999999998
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 0.104778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.195222
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 0.104778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.195222
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.166657,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.133343
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.16665,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.13335
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 0.122592,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17740799999999998
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 0.122592,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17740799999999998
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.287517,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.012482999999999966
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": -8.75524e-17,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3000000000000001
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.217617,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08238299999999998
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 4.93676e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.16665,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.170994,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12900599999999998
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.72102e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.285684,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014315999999999995
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": -1.6077e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.285683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014316999999999969
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": -4.76414e-24,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.285685,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.014314999999999967
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -1.39552e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.383435,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08343500000000004
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.383435,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08343500000000004
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.307058,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007058000000000009
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.307058,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007058000000000009
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.307054,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007054000000000005
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.307054,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007054000000000005
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.307056,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007056000000000007
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.307056,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.007056000000000007
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.39911,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41910999999999987
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.39911,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41910999999999987
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.39911,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41910999999999987
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.39911,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41910999999999987
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.16665,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.81335
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.16665,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.81335
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.91154,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06845999999999997
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.91154,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06845999999999997
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.91154,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06845999999999997
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.91154,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06845999999999997
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 0.0652366,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "tt/novdd/125C",
+   "status": "fail",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 2.29161e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.770839e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -5.01206e-29,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 2.29161e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.770839e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -5.01206e-29,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 3.69688e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -7.52552e-27,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 4.57336e-06,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": 9.13849e-28,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 6.16188e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 6.5115e-27,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 7.54952e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -1.03029e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.0194005,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2805995
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.0194005,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2805995
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.0180183,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2819817
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": 1.69925e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": 3.16108e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -1.82105e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": 1.69925e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.0237373,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626269999999997
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.0237373,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626269999999997
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.023371,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.276629
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -1.35498e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -1.6435e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -3.71621e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -1.35498e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.0233711,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2766289
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": 3.43386e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 5.4864e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -2.01784e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": 3.43386e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.023371,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.276629
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 7.9038e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 5.01858e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": -1.57084e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 7.9038e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.00481359,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29518641
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.00481359,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29518641
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 7.92125e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": -4.12932e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.0150788,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2849212
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.0150788,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2849212
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 3.25906e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 9.68815e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.0214139,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2785861
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 1.88136e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.39993,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.0213983,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2786017
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 2.36122e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.39998,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.0150788,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.0194005,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2805995
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.39996,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": -1.69925e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.0237373,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626269999999997
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.35498e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": -3.43386e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.0237374,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27626259999999997
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -7.9038e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.205483,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09451699999999999
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.205483,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09451699999999999
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.131977,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.16802299999999998
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.36616,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.38615999999999984
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.36616,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.38615999999999984
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.36616,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.38615999999999984
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.36616,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.38615999999999984
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.0150788,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9649212
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.0150788,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9649212
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.8762,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.10379999999999989
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.87626,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.10373999999999994
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.87626,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.10373999999999994
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.87626,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.10373999999999994
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 6.75032e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.40647e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9859353000000003e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.05044e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9894956e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.40647e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9859353000000003e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.05044e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9894956e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 1.48549e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -9.22771e-12,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 5.71918e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -4.36974e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 2.05304e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -1.51939e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 1.52767e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -1.2701e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.240363,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.059636999999999996
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.240363,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.059636999999999996
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.212436,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08756399999999998
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": 9.49122e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -1.58365e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -1.58365e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": 9.49122e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.385051,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505099999999999
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.385051,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505099999999999
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.382883,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08288299999999998
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -1.43248e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": 1.02439e-17,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -6.95768e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -1.43248e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.385046,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08504600000000001
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.385046,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08504600000000001
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.382877,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08287700000000003
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": -1.43247e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 1.02439e-17,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -6.95757e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": -1.43247e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.385054,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505400000000002
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.385054,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505400000000002
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.382885,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08288499999999999
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": -1.43209e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 1.02443e-17,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": -6.95374e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": -1.43209e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.304187,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.004186999999999996
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.304194,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.004194000000000031
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 0.0403521,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2596479
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 0.0403521,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2596479
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.36092,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.06092000000000003
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.360956,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.06095600000000001
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 0.0471508,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2528492
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 0.0471508,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2528492
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.385433,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08543300000000004
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 1.67856e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.383836,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08383600000000002
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 2.60167e-17,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.360956,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.240363,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.059636999999999996
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": -9.49122e-23,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.385051,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505099999999999
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.43248e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.385046,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08504600000000001
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.43247e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.385054,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.08505400000000002
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 1.43209e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.548424,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.24842400000000003
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.548424,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.24842400000000003
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.451609,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151609
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.451609,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151609
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.451613,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151613
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.451613,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151613
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.451617,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151617
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.451617,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.151617
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.37844,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.3984399999999999
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.37848,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.39848000000000017
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.37848,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.39848000000000017
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.37848,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.39848000000000017
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.360956,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.619044
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.360956,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.619044
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.90313,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.07687
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.90313,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.07687
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.90312,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.07688000000000006
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.90313,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.07687
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 0.0145276,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "sf/novdd/125C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 2.01848e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9798152e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -6.42181e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 2.01848e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9798152e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -6.42181e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 7.64684e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": 2.15807e-25,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 3.95474e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.23237e-22,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.76105e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 1.22855e-22,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 1.78968e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -8.70415e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.0344683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2655317
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.0344683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2655317
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.00809632,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29190368
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": -9.37885e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000937
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -9.36395e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000937
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -9.36989e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000937
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": -9.37885e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000937
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.0136416,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2863584
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": 6.07307e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": 8.24077e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": 1.47587e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": 6.07307e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.0136417,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2863583
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": 1.05311e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 1.81646e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": 2.46825e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": 1.05311e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.0297336,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702664
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.0297336,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702664
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.0136415,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.28635849999999996
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 1.77866e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 2.542e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 3.19379e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 1.77866e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.125524,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.174476
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.125524,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.174476
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 2.21622e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2999778378
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 2.21618e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2999778382
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.198176,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.101824
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.198176,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.101824
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 1.04509e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2999895491
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 1.04509e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2999895491
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.0274059,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2725941
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": -4.88243e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.39974,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.0258926,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741074
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": -1.41514e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.39988,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.198176,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.0344683,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2655317
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.3999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 9.37885e-15,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.39997,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": -6.07307e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.0297337,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702663
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.39997,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": -1.05311e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.0297336,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2702664
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.39997,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -1.77866e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.377453,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.077453
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.377453,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.077453
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.286225,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.013774999999999982
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.29293,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.31293000000000015
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.29293,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.31293000000000015
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.29293,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.31293000000000015
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.29293,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.31293000000000015
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.198176,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.781824
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.198176,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.781824
+    },
+    {
+     "name": "tox_main_db",
+     "value": 2.08777,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10776999999999992
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 2.08799,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10799000000000003
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 2.08799,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10799000000000003
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 2.08799,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10799000000000003
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 5.98435e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 2.13808e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.99786192e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -1.24977e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9875023e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 2.13809e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9978619100000002e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -1.24977e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9875023e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 3.26522e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -2.48234e-12,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 4.20397e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -2.33672e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.07087e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -2.18312e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 1.88294e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -2.62901e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.125624,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17437599999999998
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.125624,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17437599999999998
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.125619,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17438099999999998
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": -1.47765e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -1.00098e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -1.08817e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": -1.47765e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.210956,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904399999999998
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.210956,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904399999999998
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.210944,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.089056
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -1.97399e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -1.1225e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -1.0613e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -1.97399e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.210955,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904499999999999
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.210955,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904499999999999
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.210943,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.089057
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": -2.26926e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": -1.41777e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -1.35657e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": -2.26926e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.210958,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904199999999998
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.210958,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904199999999998
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.210946,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.089054
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 3.13104e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 1.16459e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 1.22579e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 3.13104e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.0664624,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23353759999999998
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.0664542,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23354579999999997
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 0.0373985,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2626015
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 0.0373985,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2626015
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.047951,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.25204899999999997
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.0479495,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2520505
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 0.0414739,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2585261
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 0.0414739,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2585261
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.20681,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09319
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 1.9466e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.213543,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08645699999999998
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": -6.09462e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.0664542,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.125624,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.17437599999999998
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.47765e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.210956,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904399999999998
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 1.97399e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.210955,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904499999999999
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 2.26926e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.210958,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08904199999999998
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -3.13104e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.271547,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.028453000000000006
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.271547,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.028453000000000006
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.209128,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087199999999998
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.209128,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087199999999998
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.209126,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087399999999998
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.209126,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087399999999998
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.209125,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087499999999998
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.209125,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.09087499999999998
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.38729,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.40729000000000015
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.39248,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41247999999999996
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.39248,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41247999999999996
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.39248,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41247999999999996
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.0664542,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9135458
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.0664542,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9135458
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.82785,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.15215
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.82787,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.15212999999999988
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.82787,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.15212999999999988
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.82787,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.15212999999999988
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 0.021455,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ff/novdd/125C",
+   "status": "fail",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.80305e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.969500000000002e-06
+    },
+    {
+     "name": "ipadp_min",
+     "value": 7.8158e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.80305e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.969500000000002e-06
+    },
+    {
+     "name": "ipadn_min",
+     "value": 7.8158e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 9.49729e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -1.02407e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 3.60397e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -1.61562e-28,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.17807e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 1.66718e-25,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 9.05942e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -1.24345e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.0240408,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27595919999999996
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.0240408,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27595919999999996
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.0238047,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2761953
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": 1.84805e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -7.63507e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": 3.38025e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": 1.84805e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.025876,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.274124
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.025876,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.274124
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.0258525,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741475
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -2.5963e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -2.54963e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -3.38653e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -2.5963e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.0258525,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741475
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": 2.66893e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 2.7156e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": 1.8787e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": 2.66893e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.0258525,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741475
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 3.79707e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 3.84374e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 3.00684e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 3.79707e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.00205899,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29794101
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.00205899,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29794101
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 1.74148e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 1.66493e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.00644773,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29355227
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.00644773,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29355227
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": -1.36188e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 2.02093e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.0208556,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2791444
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 2.61156e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.39985,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.0208544,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2791456
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 1.93766e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.39994,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.00644773,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.0240408,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27595919999999996
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.39993,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": -1.84805e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.025876,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.274124
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.39998,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 2.5963e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.39998,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": -2.66893e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.0258761,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2741239
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.39998,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -3.79707e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.131266,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.168734
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.131266,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.168734
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.0629306,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23706939999999999
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.30527,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.32527000000000017
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.30527,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.32527000000000017
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.30527,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.32527000000000017
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.30527,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.32527000000000017
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.00644773,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9735522699999999
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.00644773,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9735522699999999
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.78744,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19256000000000006
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.78755,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19245
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.78755,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19245
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.78755,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19245
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 3.39997e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.58561e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9984143900000003e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -3.54858e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9645142e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.58561e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9984143900000003e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -3.54858e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9645142e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 2.86616e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -7.50493e-12,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 3.15845e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -3.37658e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.07822e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -6.75897e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 5.86198e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -5.68434e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.216048,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.083952
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.216048,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.083952
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.212867,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.08713299999999999
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": -8.5204e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": 2.41368e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": 4.28026e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": -8.5204e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.356401,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.056401000000000034
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.356401,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.056401000000000034
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.356176,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.056176000000000004
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -2.04935e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": 1.15181e-26,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": 2.14115e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -2.04935e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.356399,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05639900000000003
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.356399,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05639900000000003
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.356175,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05617500000000003
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": -2.04933e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 1.15181e-26,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": 2.14117e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": -2.04933e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.356402,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05640200000000001
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.356402,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05640200000000001
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.356178,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.056178000000000006
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": -2.04895e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 1.15185e-26,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 2.14156e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": -2.04895e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.257682,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.04231799999999997
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.257704,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.042296
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 0.0779526,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2220474
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 0.0779526,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2220474
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.296399,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.0036009999999999653
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.296367,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.0036329999999999973
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 0.0923767,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.20762329999999998
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 0.0923767,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.20762329999999998
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.325621,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.025621000000000005
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 2.49329e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.274892,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.025107999999999964
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 1.75574e-26,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.296399,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.216048,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.083952
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 8.5204e-21,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.356401,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.056401000000000034
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 2.04935e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.356399,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05639900000000003
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 2.04933e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.356402,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.05640200000000001
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 2.04895e-27,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.494002,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.194002
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.494002,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.194002
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.402915,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291500000000003
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.402915,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291500000000003
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.402919,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291900000000004
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.402919,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291900000000004
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.402918,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291800000000001
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.402918,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.10291800000000001
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.39995,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41995000000000005
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.39995,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41995000000000005
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.39995,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41995000000000005
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.39995,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41995000000000005
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.296399,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.683601
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.296399,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.683601
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.91061,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06939000000000006
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.91061,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06939000000000006
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.91061,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06939000000000006
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.91061,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.06939000000000006
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 0.0480334,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "ss/novdd/125C",
+   "status": "fail",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.21639e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9878361000000003e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": 3.93132e-24,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.21639e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9878361000000003e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": 3.93132e-24,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 1.01441e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": 5.46831e-24,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 2.38201e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -3.7993e-23,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 4.06391e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 4.03883e-23,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 7.63833e-14,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -3.13971e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.0333799,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.26662009999999997
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.0333799,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.26662009999999997
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.0096983,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2903017
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": -1.37961e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": -2.94708e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -3.17422e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": -1.37961e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.0168206,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.28317939999999997
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": -5.06896e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000005067
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -4.99625e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004995
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": -4.99651e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004995
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": -5.06896e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000005067
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.0168208,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.28317919999999996
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": -4.79756e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004795
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": -4.72485e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004723
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -4.72511e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004723
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": -4.79756e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004795
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.0244601,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2755399
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.0244601,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2755399
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.0168204,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2831796
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": -4.79711e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004795
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": -4.7244e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004723
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": -4.72467e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004723
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": -4.79711e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000004795
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.0218229,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2781771
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.0218229,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2781771
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 2.26164e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 1.31643e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.0556612,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2443388
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.0556612,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2443388
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 3.951e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 1.02727e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.0254845,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27451549999999997
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 2.3735e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.39996,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.024423,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27557699999999996
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": -4.19916e-16,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.30000000000000043
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.0556612,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.0333799,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.26662009999999997
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.39997,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": 1.37961e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": 5.06896e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.02446,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.27554
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 4.79756e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.0244601,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2755399
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": 4.79711e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.29433,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.005670000000000008
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.29433,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.005670000000000008
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.207778,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.092222
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.39111,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41110999999999986
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.39111,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41110999999999986
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.39111,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41110999999999986
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.39111,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41110999999999986
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.0556612,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9243388
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.0556612,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9243388
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.99539,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.015390000000000015
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.99544,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.01544000000000012
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.99544,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.01544000000000012
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.99544,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.01544000000000012
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 9.41217e-14,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/-40C",
+   "status": "inconclusive",
+   "diagnostics": [
+    {
+     "severity": "warning",
+     "code": "nonconvergence",
+     "message": "Warning: Dynamic gmin stepping failed"
+    },
+    {
+     "severity": "warning",
+     "code": "inconclusive",
+     "message": "graded inconclusive: options.fail_on_diagnostic lists nonconvergence"
+    }
+   ],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 1.02529e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9897471e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": -4.43956e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9955604400000003e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 1.02529e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.9897471e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": -4.43955e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": 1.99556045e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 1.10332e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -4.52389e-10,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 2.00498e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": -8.25193e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 1.85946e-07,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": -7.72087e-08,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 2.13163e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -2.13163e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.104744,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19525599999999999
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.104744,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19525599999999999
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.104742,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.195258
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": 3.58065e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": 2.91551e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": 2.9175e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": 3.58065e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.17566,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12433999999999998
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": 9.32858e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": 1.68508e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": 1.74993e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": 9.32858e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.175669,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124331
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.175669,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124331
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.175661,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12433899999999998
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": -1.14376e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": -8.78726e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": -8.72241e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": -1.14376e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.17566,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12433999999999998
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 1.37888e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": 6.14533e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 6.21018e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 1.37888e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.035674,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.264326
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.0356712,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2643288
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 0.0176144,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2823856
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": 0.0176144,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2823856
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.0216647,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2783353
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.0216647,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2783353
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 0.0186209,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2813791
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": 0.0186209,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2813791
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.178323,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12167699999999998
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": 6.65133e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.178486,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.12151399999999998
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 7.04704e-05,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29992952959999997
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.0356712,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.104744,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.19525599999999999
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": -3.58065e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": -9.32858e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.175669,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124331
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": 1.14376e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.175668,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.124332
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -1.37888e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.219043,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.080957
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.219043,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.080957
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.163708,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.136292
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.163708,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.136292
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.16371,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.13629
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.16371,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.13629
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.163715,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.136285
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.163715,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.136285
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41998999999999986
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.0356712,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9443288
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.0356712,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.9443288
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.79556,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.18443999999999994
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.79557,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.18442999999999987
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.79557,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.18442999999999987
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.79557,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.18442999999999987
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 0.0113271,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  },
+  {
+   "corner_id": "fs/novdd/125C",
+   "status": "fail",
+   "diagnostics": [],
+   "measurements": [
+    {
+     "name": "ipadp_max",
+     "value": 4.09272e-05,
+     "unit": "A",
+     "status": "fail",
+     "margin": -2.0927199999999995e-05
+    },
+    {
+     "name": "ipadp_min",
+     "value": 2.56556e-28,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ipadn_max",
+     "value": 4.09272e-05,
+     "unit": "A",
+     "status": "fail",
+     "margin": -2.0927199999999995e-05
+    },
+    {
+     "name": "ipadn_min",
+     "value": 3.49867e-28,
+     "unit": "A",
+     "status": "pass",
+     "margin": 2e-05
+    },
+    {
+     "name": "ivccd_max",
+     "value": 5.69251e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivccd_min",
+     "value": -1.7865e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_max",
+     "value": 8.18453e-05,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivddio_min",
+     "value": 7.18424e-29,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_max",
+     "value": 3.35704e-09,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ivssio_min",
+     "value": 1.83997e-26,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_max",
+     "value": 1.49214e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "idiff_min",
+     "value": -1.26121e-13,
+     "unit": "A",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_max",
+     "value": 2.4,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "vcms_min",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_main_mspa_d",
+     "value": 0.018789,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.281211
+    },
+    {
+     "name": "ja_main_mspb_d",
+     "value": 0.018789,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.281211
+    },
+    {
+     "name": "ja_main_msp_s",
+     "value": 0.0187672,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2812328
+    },
+    {
+     "name": "ja_main_mwv_s",
+     "value": 4.75882e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgta_d",
+     "value": 6.14995e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_mgtb_d",
+     "value": -2.71833e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_main_nwsub",
+     "value": 4.75882e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mspa_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e0_mspb_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e0_msp_s",
+     "value": 0.0205167,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794833
+    },
+    {
+     "name": "ja_e0_mwv_s",
+     "value": 2.29319e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgta_d",
+     "value": -5.15357e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_mgtb_d",
+     "value": 2.19831e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e0_nwsub",
+     "value": 2.29319e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mspa_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e1a_mspb_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e1a_msp_s",
+     "value": 0.0205167,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794833
+    },
+    {
+     "name": "ja_e1a_mwv_s",
+     "value": 3.16943e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgta_d",
+     "value": 3.60886e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_mgtb_d",
+     "value": 3.07455e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1a_nwsub",
+     "value": 3.16943e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mspa_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e1b_mspb_d",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "ja_e1b_msp_s",
+     "value": 0.0205167,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794833
+    },
+    {
+     "name": "ja_e1b_mwv_s",
+     "value": 1.44244e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgta_d",
+     "value": -1.36611e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_mgtb_d",
+     "value": 1.34756e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_e1b_nwsub",
+     "value": 1.44244e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padp",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_nsub_padn",
+     "value": 0.0,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gpa",
+     "value": 0.000504599,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.299495401
+    },
+    {
+     "name": "ja_pre_gpb",
+     "value": 0.000504599,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.299495401
+    },
+    {
+     "name": "ja_pre_gna",
+     "value": 8.86099e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_gnb",
+     "value": -1.23322e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xpa",
+     "value": 0.00156279,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29843721
+    },
+    {
+     "name": "ja_pre_xpb",
+     "value": 0.00156279,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.29843721
+    },
+    {
+     "name": "ja_pre_xna",
+     "value": 1.17367e-20,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_pre_xnb",
+     "value": -1.10327e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "ja_tg_m",
+     "value": 0.0126974,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.28730259999999996
+    },
+    {
+     "name": "ja_tgn_m",
+     "value": -5.67406e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_m_max",
+     "value": 2.39994,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "ja_tg_e",
+     "value": 0.0126087,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2873913
+    },
+    {
+     "name": "ja_tgn_e",
+     "value": 3.04517e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.3
+    },
+    {
+     "name": "pw_e_max",
+     "value": 2.39998,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "in_pre_max",
+     "value": 0.00156279,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_main",
+     "value": 0.018789,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.281211
+    },
+    {
+     "name": "well_main_max",
+     "value": 2.39996,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_main_min",
+     "value": -4.75882e-19,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e0",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "well_e0_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e0_min",
+     "value": -2.29319e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1a",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "well_e1a_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1a_min",
+     "value": -3.16943e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "wt_e1b",
+     "value": 0.0205255,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2794745
+    },
+    {
+     "name": "well_e1b_max",
+     "value": 2.39999,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "well_e1b_min",
+     "value": -1.44244e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    },
+    {
+     "name": "gw_main_a",
+     "value": 0.0579218,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2420782
+    },
+    {
+     "name": "gw_main_b",
+     "value": 0.0579218,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2420782
+    },
+    {
+     "name": "gw_e0_a",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "gw_e0_b",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "gw_e1a_a",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "gw_e1a_b",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "gw_e1b_a",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "gw_e1b_b",
+     "value": 0.0215763,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.2784237
+    },
+    {
+     "name": "tox_main_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_main_ds",
+     "value": 2.39591,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.4159100000000002
+    },
+    {
+     "name": "tox_e0_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e0_ds",
+     "value": 2.39591,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.4159100000000002
+    },
+    {
+     "name": "tox_e1a_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1a_ds",
+     "value": 2.39591,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.4159100000000002
+    },
+    {
+     "name": "tox_e1b_ox",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_e1b_ds",
+     "value": 2.39591,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.4159100000000002
+    },
+    {
+     "name": "tox_pre_ox",
+     "value": 0.00156279,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.97843721
+    },
+    {
+     "name": "tox_pre_ds",
+     "value": 0.00156279,
+     "unit": "V",
+     "status": "pass",
+     "margin": 1.97843721
+    },
+    {
+     "name": "tox_main_db",
+     "value": 1.74083,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23916999999999988
+    },
+    {
+     "name": "tox_e0_db",
+     "value": 1.74088,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23912
+    },
+    {
+     "name": "tox_e1a_db",
+     "value": 1.74088,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23912
+    },
+    {
+     "name": "tox_e1b_db",
+     "value": 1.74088,
+     "unit": "V",
+     "status": "pass",
+     "margin": 0.23912
+    },
+    {
+     "name": "tox_nsub_padp",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "tox_nsub_padn",
+     "value": 2.4,
+     "unit": "V",
+     "status": "fail",
+     "margin": -0.41999999999999993
+    },
+    {
+     "name": "core_max",
+     "value": 3.80074e-18,
+     "unit": "V",
+     "status": "pass",
+     "margin": null
+    }
+   ],
+   "failed_measurements": []
+  }
+ ]
+}
