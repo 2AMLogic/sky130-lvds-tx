@@ -11,7 +11,7 @@ record**, produced by the regeneration command below. Never hand-edit it.
   the PROPOSED spec (`spec/target-spec.md`), used for both partitions; it moves
   at ratification (#2).
   - **Item 1, analog (`1.analog`)** cites
-    [`verification/signoff/evidence/item-1-analog-design-sources-r5.json`](../verification/signoff/evidence/item-1-analog-design-sources-r4.json),
+    [`verification/signoff/evidence/item-1-analog-design-sources-r5.json`](../verification/signoff/evidence/item-1-analog-design-sources-r5.json),
     produced by `klt signoff --attest 1` from
     [`verification/signoff/item-1-analog-inventory.json`](../verification/signoff/item-1-analog-inventory.json)
     (schematics, symbols, derived netlists; see [`design/README.md`](../design/README.md)).
@@ -118,7 +118,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     [`verification/signoff/evidence/item-10-repo-hygiene-r21.json`](../verification/signoff/evidence/item-10-repo-hygiene-r21.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (earlier revisions are kept as history).
+    (earlier revisions are kept as history). Two branches independently issued r19.
+    The original filename holds the six-check envelope from #175. The five-check
+    envelope from #187 is archived as
+    [item-10-repo-hygiene-r19-issue-178.json](../verification/signoff/evidence/item-10-repo-hygiene-r19-issue-178.json).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
   - **Item 9 (testbenches shipped)** is the second cited item. It cites

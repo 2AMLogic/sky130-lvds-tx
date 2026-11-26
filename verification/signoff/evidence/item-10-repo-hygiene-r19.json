@@ -3,21 +3,21 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 10,
-  "summary": "T1 item 10 (Repo hygiene): 5/5 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 10 (Repo hygiene): 6/6 attestation checks passed (klt signoff --attest)",
   "source": "verification/signoff/item-10-inventory.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 5,
-    "passed_count": 5,
+    "check_count": 6,
+    "passed_count": 6,
     "checks": [
       {
         "check": "present",
         "role": "hygiene",
         "path": ".github/workflows/signoff.yml",
         "passed": true,
-        "content_hash": "sha256:bd68f323fe51ae42130f38924a48322c68ac3ac53dc6ce6d44daee4cbd41c5c3"
+        "content_hash": "sha256:cf33d6d3a8d1f169ddc5c912fd74cc71b6dedd25028fd91a37f69eda7690fbb8"
       },
       {
         "check": "present",
@@ -39,6 +39,13 @@
         "path": "spec/README.md",
         "passed": true,
         "content_hash": "sha256:e36dcb5a37de89e02bee821d9dc6f6677393039656993f443b191613932d9f62"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "verification/signoff/check-verdict-record.sh",
+        "passed": true,
+        "content_hash": "sha256:2dd32b764a06c39e278b37afdbd2bf1be5b716913aa6191b9e8d9f8504139b56"
       },
       {
         "check": "command",
@@ -64,7 +71,7 @@
         "path": "verification/signoff/item-10-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46"
+      "content_hash": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd"
     }
   }
 }

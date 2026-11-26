@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 12,
+  "t1_met_count": 14,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:08dcbfd2c3f2df152868d86c0ad2aa6a43d393b1d266f0b1e914cd8f0a329c58",
   "build": {
@@ -861,17 +861,33 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "stale_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null,
-      "detail": {
-        "content_hash_pin": "stale",
-        "hash_check": {
-          "field": "provenance.input.content_hash",
-          "expected": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46",
-          "actual": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
-          "match": false
+      "citation": {
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r21.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "verification/signoff/item-10-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
+          "input_verified": true,
+          "summary": "T1 item 10 (Repo hygiene): 6/6 attestation checks passed (klt signoff --attest)",
+          "source": "verification/signoff/item-10-inventory.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 6,
+            "passed_count": 6
+          }
         }
       }
     },
@@ -883,17 +899,33 @@
       "partition_boundary": "Everything from the 8-bit parallel-word capture register through the 8:1\u21922:1 shift/load reduction stage and the \u00f74 word counter is synthesized `sky130_fd_sc_hd` standard-cell logic on the 1.8 V core rail, and the 2:1 DDR retiming multiplexer, the predriver, the current-steering driver with its common-mode feedback and pre-emphasis, and the pad cell with its ESD network are custom analog.",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "stale_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null,
-      "detail": {
-        "content_hash_pin": "stale",
-        "hash_check": {
-          "field": "provenance.input.content_hash",
-          "expected": "sha256:2f259dfbeb01efa41648b0924817584eb5f93ebbe23cb003194fa98d75dc8c46",
-          "actual": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
-          "match": false
+      "citation": {
+        "file": "verification/signoff/evidence/item-10-repo-hygiene-r21.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "verification/signoff/item-10-inventory.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:b17a43aee8c8ebbe52d5ed1e076f1cf31a90bddf37189dcfed8b8b824a3788fd",
+          "input_verified": true,
+          "summary": "T1 item 10 (Repo hygiene): 6/6 attestation checks passed (klt signoff --attest)",
+          "source": "verification/signoff/item-10-inventory.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 6,
+            "passed_count": 6
+          }
         }
       }
     },
