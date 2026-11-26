@@ -1092,3 +1092,75 @@ PR) and r19/r20 (this branch, before the `main` merge) were numbered
 independently. This branch's committed item 10 envelope is **r21**, attested
 after merging `main`; r18-r20 and earlier stay in
 `verification/signoff/evidence/` as history.
+
+## Addendum 2026-11-26 — P4b grading and limiting bias on the wired circuit (#178, PR #187)
+
+The operator assigned gate-referenced and drain–source pairs to P4b and
+signed junction forward bias to P4a. Both DC requests now retain the four
+`tox_*_db` and two `tox_nsub_pad*` magnitudes as diagnostics. The 1.98 V
+gate/channel limits, 0.3 V signed junction limits and ±20 µA pad-current
+limits still apply. [Operator ruling](https://github.com/2AMLogic/sky130-lvds-tx/issues/178#issuecomment-7110164522)
+
+### Sweep evidence
+
+The DUT is the netlist from `272f5ab`, reviewed at `9b498a5` (SHA-256
+`68c53c0f80b2a1b48eb59d6526e2b721953068c3be7e668068d61cc5ae292eee`).
+The sweep request SHA-256 prefixes are `e6234c825af45fc0` (A) and
+`0e925608568e9d42` (B). The shared bench and ramp request retain their
+November 25 hashes. The revised requests were run with klt 0.9.1,
+ngspice 47 and sky130A open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7`.
+The local ngspice executable has the same SHA-256 as the November 25 fleet
+binary (`e12148baf532d879…`). The reports hash the host's launcher script
+(`ac0358a190b4e734…`). The batch provisioner was unavailable on this host.
+The following commands reproduce the local runs from this directory.
+
+```sh
+for sweep in a b; do
+  klt sim "request-sweep-$sweep.json" --backend local-parallel --max-workers 5 \
+    --pdk-root "${PDK_ROOT:-$HOME/.ciel}" --report-out "report-sweep-$sweep.json.gz"
+done
+```
+
+Each local corner verdict matches the result of applying the ruling to the
+archived November 25 measurements. All ten units in each report retain their
+readings and convergence diagnostics. [Sweep A report](results/issue-187-junction-reading/report-sweep-a.json.gz) · [Sweep B report](results/issue-187-junction-reading/report-sweep-b.json.gz)
+
+| Sweep | Pass | Fail | Inconclusive |
+|---|---|---|---|
+| A, pads together | 2 (tt, ff at 125 °C) | 1 (fs at 125 °C) | 7 (all five at −40 °C, plus sf and ss at 125 °C) |
+| B, differential | 0 | 5 (all five at 125 °C) | 5 (all five at −40 °C) |
+
+All eight converged units meet P4a and P4b. Sweep A still measures
+31.09 µA into each pad at fs/125 °C against the P4 limit of 20 µA. Sweep B
+still exceeds ±20 µA on both pads at each converged unit (positive peaks
+166.2–286.1 µA). The inconclusive units all reported nonconvergence. The
+November 25 ramp report on this circuit remains the evidence for the ramp,
+with 7 passes and 3 inconclusive units (tt, sf and ss at −40 °C).
+[Ramp report](results/issue-187/report-ramp.json.gz)
+
+### Limiting bias across the converged DC units
+
+The largest gate-to-well error and the largest graded thin-oxide voltage
+both occur in Sweep A at tt/125 °C on the main slice. The probe uses the
+graded 0.01 V sweep step and saves device drain currents at each DC point.
+The two pads are driven together. The A and B switches on the main slice
+give equal maxima to report precision. Voltages below are in V.
+
+| Main-slice pair | PADP = PADN | GPA | WELL | TOP | BOT | GNA | Pair magnitude | Tracking branch current | Pad current |
+|---|---:|---:|---:|---:|---:|---:|---:|---|---:|
+| XMSPA gate–well (GPA–WELL) | 0.22 | 0.037839 | 0.212062 | 0.219980 | 0.005546 | 0.000048 | 0.174223 | XMGTA 91.5 pA, XMGT2A 111.9 pA | 2.756 nA |
+| XMSPA drain–source (PADP–TOP) | 2.40 | 2.399996 | 2.399996 | 0.751175 | 1.336929 | 1.336910 | 1.64883 | XMQTA 0.5332 µA | 3.722 µA |
+
+At 2.40 V the gate–source pair GPA–TOP reaches 1.64882 V. The channel
+pair is larger by about 4 µV, leaving 0.331 V to the 1.98 V limit.
+The gate-to-well margin at 0.22 V is 0.126 V. The probe invocation uses
+`PDK_ROOT` and sets `wnflag=1` before ngspice reads the models.
+[Diagnostic deck](diag-p4b-178.spice)
+
+For comparison with the November 21 entry, selecting the `ss` model
+section at 125 °C with both pads at 2.40 V gives GPA 2.399998 V,
+WELL 2.399997 V, TOP 0.723687 V, BOT 1.419795 V and GNA 1.419785 V.
+GPA–TOP is 1.676311 V and XMQTA carries 0.4177 µA. The ss/125 °C
+Sweep A grid unit emitted a nonconvergence diagnostic, so this point
+provides a comparison with the old revision and is excluded from the
+converged-unit maxima above.

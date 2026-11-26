@@ -743,56 +743,32 @@
     {
       "name": "tox_main_db",
       "spice": ".meas dc tox_main_db MAX v(TOX_MAIN_DB)",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "tox_e0_db",
       "spice": ".meas dc tox_e0_db MAX v(TOX_E0_DB)",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "tox_e1a_db",
       "spice": ".meas dc tox_e1a_db MAX v(TOX_E1A_DB)",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "tox_e1b_db",
       "spice": ".meas dc tox_e1b_db MAX v(TOX_E1B_DB)",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "tox_nsub_padp",
       "spice": ".meas dc tox_nsub_padp MAX par('abs(v(PADP) - v(VSSIO))')",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "tox_nsub_padn",
       "spice": ".meas dc tox_nsub_padn MAX par('abs(v(PADN) - v(VSSIO))')",
-      "unit": "V",
-      "limits": {
-        "max": 1.98
-      },
-      "spec_row": "P4b"
+      "unit": "V"
     },
     {
       "name": "core_max",
