@@ -95,6 +95,61 @@ class PairingTests(unittest.TestCase):
         self.assertEqual(result["e9_deltas"]["height_v"]["count"], 75)
         self.assertEqual(result["e9_deltas"]["width_s"]["count"], 74)
 
+    def drop_card(self, name):
+        # BEFORE with one card dropped at the nominal corner, derived cards kept.
+        report = read_json(BEFORE)
+        corner = next(c for c in report["corners"] if c["temperature_c"] == 27
+                      and c["process"] == "tt"
+                      and c["supply_v"] == {"VVCCD": 1.8, "VVDDIO": 3.3})
+        cards = [m for m in corner["measurements"] if m["name"] == name]
+        self.assertEqual(len(cards), 1)
+        corner["measurements"].remove(cards[0])
+        return report, corner
+
+    def test_missing_height_sample_leaves_height_inconclusive_and_width_kept(self):
+        report, corner = self.drop_card("seq.m_eh")
+        # The derived eye card is present; only its supporting sample is gone.
+        self.assertTrue(any(m["name"] == "seq.m_eye_h_v"
+                            for m in corner["measurements"]))
+        with tempfile.TemporaryDirectory() as tmp:
+            mutated = Path(tmp) / "mutated.json"
+            mutated.write_text(json.dumps(report))
+            result = self.run_compare(mutated)
+        cond = next(c for c in result["conditions"] if c["condition"] == NOMINAL)
+        self.assertIsNone(cond["after"]["eye_height_v"])
+        self.assertEqual(cond["after"]["eye_height_row"], "inconclusive")
+        self.assertIsNone(cond["height_delta_v"])
+        self.assertEqual(cond["after"]["e9_row"], "inconclusive")
+        # Width keeps its grade and delta.
+        self.assertEqual(cond["after"]["eye_width_row"], "pass")
+        self.assertEqual(cond["width_delta_s"], 0.0)
+        self.assertEqual(result["per_leg"]["after"]["E9_height"],
+                         {"pass": 72, "fail": 2, "inconclusive": 1})
+        self.assertEqual(result["e9_deltas"]["height_v"]["count"], 74)
+        self.assertEqual(result["e9_deltas"]["width_s"]["count"], 75)
+
+    def test_missing_crossing_phase_leaves_width_inconclusive_and_height_kept(self):
+        report, corner = self.drop_card("seq.m_phase_first")
+        # The derived eye card is present; only its supporting phase is gone.
+        self.assertTrue(any(m["name"] == "seq.m_eye_w_s"
+                            for m in corner["measurements"]))
+        with tempfile.TemporaryDirectory() as tmp:
+            mutated = Path(tmp) / "mutated.json"
+            mutated.write_text(json.dumps(report))
+            result = self.run_compare(mutated)
+        cond = next(c for c in result["conditions"] if c["condition"] == NOMINAL)
+        self.assertIsNone(cond["after"]["eye_width_s"])
+        self.assertEqual(cond["after"]["eye_width_row"], "inconclusive")
+        self.assertIsNone(cond["width_delta_s"])
+        self.assertEqual(cond["after"]["e9_row"], "inconclusive")
+        # Height keeps its grade and delta.
+        self.assertEqual(cond["after"]["eye_height_row"], "pass")
+        self.assertEqual(cond["height_delta_v"], 0.0)
+        self.assertEqual(result["per_leg"]["after"]["E9_width"],
+                         {"pass": 74, "inconclusive": 1})
+        self.assertEqual(result["e9_deltas"]["height_v"]["count"], 75)
+        self.assertEqual(result["e9_deltas"]["width_s"]["count"], 74)
+
     def test_renamed_step_grades_when_matched_and_fails_on_mismatch(self):
         req = read_json(HERE / "request-1g.json")
         req["analysis_steps"][0]["name"] = "tran_seq"
