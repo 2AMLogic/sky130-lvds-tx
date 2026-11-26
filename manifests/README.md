@@ -115,10 +115,10 @@ record**, produced by the regeneration command below. Never hand-edit it.
     declared (the DR-008 floating well and the pad-pair substrate are not
     claimed); see [`verification/README.md`](../verification/README.md#t1-item-11-power-delivery-klt-erc-supply-spec).
   - **Item 10 (repo hygiene)** is cited for both partitions. It cites
-    [`verification/signoff/evidence/item-10-repo-hygiene-r17.json`](../verification/signoff/evidence/item-10-repo-hygiene-r17.json),
+    [`verification/signoff/evidence/item-10-repo-hygiene-r19.json`](../verification/signoff/evidence/item-10-repo-hygiene-r19.json),
     produced by `klt signoff --attest 10` from
     [`verification/signoff/item-10-inventory.json`](../verification/signoff/item-10-inventory.json)
-    (append-only; r2-r16 are kept as history, bound to earlier workflow and
+    (append-only; r2-r18 are kept as history, bound to earlier workflow and
     spec revisions).
     The manifest's `content_hash` for item 10 is the sha256 of the inventory
     file (`item-10-inventory.json`), not of the envelope.
@@ -150,18 +150,13 @@ record**, produced by the regeneration command below. Never hand-edit it.
     pinned klt (portability gaps, `flow/serializer/SDF.md`).
   - Every other item is uncited and renders `unmet` / `no_evidence`; the
     evidence lands under #2, #3, #4 and the design issues, tracked in #6.
-- **`design-evidence-tiers.md`** — the T1-T4 checklist the grader parses.
-  Vendored from
-  [`2AMLogic/klayout-tools@267ea83a`](https://github.com/2AMLogic/klayout-tools/blob/267ea83a0510bcb61d2956058095201c0f481ff7/docs/design-evidence-tiers.md)
-  `docs/design-evidence-tiers.md` (MIT-licensed upstream; this repo's
-  Apache-2.0 `LICENSE` does not relicense the vendored copy), with two
-  repo-local disclosure notes appended (items 2 and 11: the digital
-  partition's netlist-binding state behind `2.digital`/`11.digital` above,
-  including the P&R backend's net-name sensitivity, recorded when #119
-  re-closed it) -- the
-  copy is otherwise byte-identical to that upstream commit. Re-vendor and
-  regenerate the record in the same PR when upstream moves, and re-apply
-  the two local notes.
+- **T1–T4 checklist (bundled in pinned `klayout-tools`)** — `klt signoff` reads
+  the T1–T4 checklist directly from the pinned `klayout-tools==0.9.1` wheel's
+  own package data (`docs/design-evidence-tiers.md`; upstream reference at tag
+  [`2AMLogic/klayout-tools@v0.9.1`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.1/docs/design-evidence-tiers.md)).
+  The checklist is not vendored in-tree and `--tiers-doc` is not passed; the
+  pinned `klt` release alone selects the checklist
+  ([`spec/decisions/0006-unvendor-design-evidence-tiers.md`](../spec/decisions/0006-unvendor-design-evidence-tiers.md)).
 - **`sky130-lvds-tx.signoff.json`** — the verdict of record.
 
 ## klt pin
@@ -183,7 +178,7 @@ KLT="uvx --from klayout-tools==0.9.1 klt"
 $KLT signoff --attest 9 --inventory verification/signoff/item-9-inventory.json \
              -o verification/signoff/evidence/item-9-testbenches-r9.json   # runs the cold start using KLT_SIM_BACKEND
 $KLT signoff --attest 10 --inventory verification/signoff/item-10-inventory.json \
-             -o verification/signoff/evidence/item-10-repo-hygiene-r17.json
+             -o verification/signoff/evidence/item-10-repo-hygiene-r19.json
 # if the inventory changed, copy its sha256 (provenance.input.content_hash) into the manifest
 $KLT signoff --attest 1 --inventory verification/signoff/item-1-analog-inventory.json \
              -o verification/signoff/evidence/item-1-analog-design-sources-r3.json
@@ -218,7 +213,6 @@ deactivate
     print(cell_geometry_digest("layout/sky130_lvds_tx_driver_pad.gds", \
                                "sky130_ef_io__simple_pad_and_busses"))'
 $KLT signoff --manifest manifests/sky130-lvds-tx.json \
-             --tiers-doc manifests/design-evidence-tiers.md \
              --format json > manifests/sky130-lvds-tx.signoff.json
 ```
 
@@ -238,6 +232,45 @@ analog regeneration claim is backed by the `local_only` PDK gate, and the
 digital one by the `local_only` PnP check; the producer itself exists since
 0.9.1 (klayout-tools#4188) and produced the analog r5 record. Both item 2
 envelopes are hash-bound by that full-record comparison.
+
+That comparison is `verification/signoff/check-verdict-record.sh`, shared by the CI
+step and the local `pnpm check:signoff`: it renders `klt signoff` and requires the
+bytes to equal the committed record (render exit 0 or 3 only). The local check is
+therefore as strict as CI; klt's semantic `--check` is no longer used, so even a
+whitespace or checklist-wording change needs a regenerated record.
+
+## Repo-local disclosure notes (items 2 and 11)
+
+Moved here when `manifests/design-evidence-tiers.md` was unvendored
+([`spec/decisions/0006-unvendor-design-evidence-tiers.md`](../spec/decisions/0006-unvendor-design-evidence-tiers.md)):
+
+- **Item 2 — Regeneration-freshness note (repo-local)**: a `regeneration`
+  claim on this item is only as fresh as the netlist its generator runs on.
+  The serializer digital partition was re-closed against the current
+  `serializer_synth.v` — the pinned-`yowasp-yosys` regeneration of
+  2AMLogic/sky130-lvds-tx#115 — by 2AMLogic/sky130-lvds-tx#119:
+  `item-2-layout-digital-r3.json` records `regenerated_hash: sha256:f5de0988…`,
+  reproduced byte-identically by `verification/signoff/check-serializer-pnr.sh`
+  at seed 1 (the r2 envelope, bound to the pre-regeneration netlist's
+  `sha256:1cecbc44…`, stays as history). The P&R backend is
+  net-name-sensitive: a future regeneration of the netlist changes the routed
+  GDS bytes even at identical connectivity, because OpenROAD's resizer and CTS
+  follow net and instance names. A byte-compare failure after a netlist
+  regeneration therefore means the digital evidence must be re-closed — as #119
+  did — not that the flow broke; the analog partition's driver-pad GDS is
+  unaffected.
+- **Item 11 — Citation-freshness note (repo-local)**: a `klt place-and-route`
+  response cited for this item pins its input netlist by content hash. The
+  serializer digital partition's response is current: it was re-run from the
+  regenerated netlist by 2AMLogic/sky130-lvds-tx#119, and its
+  `provenance.input.content_hash` names the committed `serializer_synth.v`
+  (`sha256:c9760e74…`, the pinned-`yowasp-yosys` regeneration of
+  2AMLogic/sky130-lvds-tx#115), so `klt place-and-route --check` reports
+  `match` and the `power.pdn`/tapcell facts it records describe the routed GDS
+  the digital envelopes bind. The backend is net-name-sensitive, so a future
+  netlist regeneration is expected to drift the response again; re-run P&R and
+  the digital envelopes that cite it — as #119 did — rather than suppressing
+  the check.
 
 ## Current verdict
 
