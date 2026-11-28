@@ -150,6 +150,31 @@ class PairingTests(unittest.TestCase):
         self.assertEqual(result["e9_deltas"]["height_v"]["count"], 75)
         self.assertEqual(result["e9_deltas"]["width_s"]["count"], 74)
 
+    def test_failed_step_grades_from_absent_evidence_despite_stale_cards(self):
+        report = read_json(BEFORE)
+        corner = next(c for c in report["corners"] if c["temperature_c"] == 27
+                      and c["process"] == "tt"
+                      and c["supply_v"] == {"VVCCD": 1.8, "VVDDIO": 3.3})
+        corner["steps"] = [{"name": "seq", "kind": "tran", "status": "failed"}]
+        self.assertTrue(any(m["name"] == "seq.m_pw_analog_mw" and isinstance(m["value"], float)
+                            for m in corner["measurements"]))
+        with tempfile.TemporaryDirectory() as tmp:
+            mutated = Path(tmp) / "mutated.json"
+            mutated.write_text(json.dumps(report))
+            result = self.run_compare(mutated)
+        after = next(c for c in result["conditions"] if c["condition"] == NOMINAL)["after"]
+        self.assertFalse(after["step_ok"])
+        self.assertEqual(after["e5_edges"], {"pass": 0, "fast": 0, "slow": 0, "missing": 128})
+        self.assertEqual(after["e5_row"], "inconclusive")
+        self.assertIsNone(after["eye_height_v"])
+        self.assertEqual(after["eye_height_row"], "inconclusive")
+        self.assertIsNone(after["eye_width_s"])
+        self.assertEqual(after["eye_width_row"], "inconclusive")
+        self.assertEqual(after["e9_row"], "inconclusive")
+        self.assertIsNone(after["eye_centre_ps"])
+        self.assertIsNone(after["power_mw"])
+        self.assertEqual(result["per_leg"]["after"]["failed_steps"], 1)
+
     def test_renamed_step_grades_when_matched_and_fails_on_mismatch(self):
         req = read_json(HERE / "request-1g.json")
         req["analysis_steps"][0]["name"] = "tran_seq"

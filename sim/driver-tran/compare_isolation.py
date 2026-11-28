@@ -5,13 +5,17 @@ Joins the two legs on the full 75-tuple G75 key and recomputes, from the
 per-condition values in the two reports, the E5/E9 counts, per-edge
 categories, signed after-minus-before deltas, limiting corners and the
 pre-existing-vs-new miss split that the issue's acceptance criteria ask
-for. The E9 eye height and width are the step grader's validated metrics
-(summarize.grade_step) for each leg's corner, so a missing supporting
-measurement grades that metric inconclusive instead of passing on the
-derived card. By default both legs share request-1g.json and
-stim_meta_1g.json so only design/lvds_tx_analog.spice differs; a re-phased
-after leg passes its own --request and --meta while --before-request and
---before-meta stay on the before leg's inputs.
+for. Every leg corner is graded once by the step grader
+(summarize.grade_step), which supplies the E5/E9 row verdicts, the edge
+categories, the E9 eye height and width, the crossing phase and the analog
+power, so a missing supporting measurement grades that metric inconclusive
+instead of passing on the derived card and a step that did not run cleanly
+grades everything from absent evidence. The per-edge durations paired for
+the deltas are each E5 card's own value, which the grader leaves unmodified
+for every edge it does not call missing. By default both legs share
+request-1g.json and stim_meta_1g.json so only design/lvds_tx_analog.spice
+differs; a re-phased after leg passes its own --request and --meta while
+--before-request and --before-meta stay on the before leg's inputs.
 
 Usage:
   compare_isolation.py BEFORE_REPORT AFTER_REPORT OUTPUT_JSON [OUTPUT_MD]
@@ -28,8 +32,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from summarize import (EYE_METRICS, corner_key, fmt_c, grade_step,
-                       measure_value, pad_duration, read_json)
+from summarize import corner_key, fmt_c, grade_step, measure_value, read_json
 
 E5_CATS = ("pass", "fast", "slow", "missing")
 CAT_LABEL = {"pass": "in band", "fast": "below 100 ps", "slow": "above 400 ps",
@@ -37,7 +40,7 @@ CAT_LABEL = {"pass": "in band", "fast": "below 100 ps", "slow": "above 400 ps",
 PS = 1e-12
 # The step grader calls absent evidence "missing"; the pairing keeps its
 # existing "inconclusive" label for it.
-E9_ROW = {"pass": "pass", "fail": "fail", "missing": "inconclusive"}
+ROW_STATUS = {"pass": "pass", "fail": "fail", "missing": "inconclusive"}
 
 
 def load_report(path):
@@ -49,28 +52,6 @@ def load_report(path):
             raise ValueError(f"duplicate condition {fmt_c(k)} in {path}")
         by_key[k] = c
     return report, by_key
-
-
-def leg_edges(corner, request, meta):
-    """Per-edge {name: (category, duration_s)} exactly as summarize grades."""
-    step = request["analysis_steps"][0]
-    prefix = step["name"] + "."
-    expected = [m for m in step["measurements"] if not m.get("intermediate")]
-    ran = any(s["name"] == step["name"] and s["status"] == "ok"
-              for s in corner.get("steps", []))
-    returned = {m["name"]: m for m in corner.get("measurements", [])} if ran else {}
-    values = {m["name"]: measure_value(returned.get(prefix + m["name"], {}))
-              for m in expected}
-    out = {}
-    for m in expected:
-        if m.get("spec_row") != "E5":
-            continue
-        value = pad_duration(m["name"], values, meta["ui_s"])
-        limits = m["limits"]
-        cat = ("missing" if value is None else "fast" if value < limits["min"]
-               else "slow" if value > limits["max"] else "pass")
-        out[m["name"]] = (cat, value)
-    return out, values
 
 
 def request_sha256(path):
@@ -91,41 +72,16 @@ def request_grid(req):
     return grid
 
 
-def metric(corner, step_name, name):
-    target = f"{step_name}.{name}"
-    for m in corner.get("measurements", []):
-        if m["name"] == target:
-            return measure_value(m)
-    return None
-
-
-def leg_eye(corner, request, key, meta):
-    """The step grader's E9 eye metrics for one leg corner: the derived value
-    counts only when its supporting measurements are present, and the grade
-    is the grader's rather than a second threshold check."""
-    graded, _ = grade_step(corner, request["analysis_steps"][0], key, meta, {})
-    eye = {}
-    for measurement, metric in EYE_METRICS.items():
-        result = graded["metrics"].get(metric, {})
-        eye[measurement] = (result.get("value"),
-                            E9_ROW.get(result.get("status"), "inconclusive"))
-    return eye
-
-
-def eye_centre_ps(values):
-    """Centre of the folded opening, in ps past the bit-launch edge."""
-    first, last = values.get("m_phase_first"), values.get("m_phase_last")
+def eye_centre_ps(phase_ui, ui_s):
+    """Centre of the folded opening, in ps past the bit-launch edge, from the
+    step grader's [m_phase_first, m_phase_last]."""
+    first, last = phase_ui
     if first is None or last is None:
         return None
-    ui_ps = meta_ui * 1e12
-    return ((last + 1.0 + first) / 2.0 % 1.0) * ui_ps
-
-
-meta_ui = None
+    return ((last + 1.0 + first) / 2.0 % 1.0) * (ui_s * 1e12)
 
 
 def main(argv=None):
-    global meta_ui
     ap = argparse.ArgumentParser()
     ap.add_argument("before_report")
     ap.add_argument("after_report")
@@ -158,7 +114,6 @@ def main(argv=None):
     labels = ("before", args.after_label)
     if before_meta["ui_s"] != meta["ui_s"] or before_meta["limits"] != meta["limits"]:
         raise ValueError("before and after stimulus metadata UI/limits do not match")
-    meta_ui = meta["ui_s"]
 
     grid = request_grid(request)
     if request_grid(before_request) != grid:
@@ -193,7 +148,8 @@ def main(argv=None):
             corner = legs[label]["by_key"][key]
             leg_req = leg_requests[label]
             leg_meta = leg_metas[label]
-            step_name = leg_req["analysis_steps"][0]["name"]
+            step = leg_req["analysis_steps"][0]
+            step_name = step["name"]
             steps = corner.get("steps", [])
             if steps and not any(s["name"] == step_name for s in steps):
                 raise ValueError(
@@ -204,19 +160,16 @@ def main(argv=None):
                           for s in steps)
             if not step_ok:
                 per_leg[label]["failed_steps"] += 1
-            edges, values = leg_edges(corner, leg_req, leg_meta)
-            eye = leg_eye(corner, leg_req, key, leg_meta)
-            h, h_row = eye["m_eye_h_v"]
-            w, w_row = eye["m_eye_w_s"]
-            cats = Counter(cat for cat, _ in edges.values())
+            graded, edges = grade_step(corner, step, key, leg_meta, {})
+            height = graded["metrics"].get("E9.height", {})
+            width = graded["metrics"].get("E9.width", {})
+            h, h_row = height.get("value"), ROW_STATUS.get(height.get("status"), "inconclusive")
+            w, w_row = width.get("value"), ROW_STATUS.get(width.get("status"), "inconclusive")
+            cats = Counter(graded["e5_edges"])
             for cat in E5_CATS:
                 per_leg[label]["E5_edges"][cat] += cats[cat]
-            e5_row = ("fail" if (cats["fast"] or cats["slow"])
-                      else "inconclusive" if (cats["missing"] or not step_ok)
-                      else "pass")
-            e9_row = ("fail" if "fail" in (h_row, w_row)
-                      else "inconclusive" if "inconclusive" in (h_row, w_row)
-                      else "pass")
+            e5_row = ROW_STATUS[graded["rows"]["E5"]]
+            e9_row = ROW_STATUS[graded["rows"]["E9"]]
             per_leg[label]["E5_row"][e5_row] += 1
             per_leg[label]["E9_height"][h_row] += 1
             per_leg[label]["E9_width"][w_row] += 1
@@ -232,10 +185,15 @@ def main(argv=None):
                 "eye_height_v": h, "eye_height_row": h_row,
                 "eye_width_s": w, "eye_width_row": w_row,
                 "e9_row": e9_row,
-                "eye_centre_ps": eye_centre_ps(values),
-                "power_mw": metric(corner, step_name, "m_pw_analog_mw") if step_ok else None,
+                "eye_centre_ps": eye_centre_ps(graded["crossing_phase_ui"],
+                                               leg_meta["ui_s"]),
+                "power_mw": graded["analog_subtotal_mw"],
             }
-            entry[label + "_edges"] = edges
+            cards = {m["name"]: m for m in corner.get("measurements", [])}
+            entry[label + "_edges"] = {
+                name: (cat, None if cat == "missing"
+                       else measure_value(cards.get(f"{step_name}.{name}", {})))
+                for name, cat in edges.items()}
         b, a = entry["before"], entry[labels[1]]
         if set(entry["before_edges"]) != set(entry[labels[1] + "_edges"]):
             raise ValueError("before and after requests do not define the same E5 edges")
